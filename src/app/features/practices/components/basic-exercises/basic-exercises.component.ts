@@ -1,22 +1,25 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basic-exercises',
-  imports: [],
   templateUrl: './basic-exercises.component.html',
-  styleUrl: './basic-exercises.component.scss'
+  styleUrls: ['./basic-exercises.component.scss']
 })
 export class BasicExercisesComponent {
 
-  constructor(private location: Location) {}
+  constructor(private location: Location, private router: Router) {}
 
   goBack() {
     this.location.back();
   }
 
-  startPractice() {
-    console.log('Starting basic exercises...');
-    alert('Базовые упражнения будут реализованы в следующих версиях');
+  startPractice(practice: string) {
+    if (practice === 'keter-tuning') {
+      this.router.navigate(['/practices/basic/keter-tuning']);
+    } else if (practice === 'four-stages') {
+      this.router.navigate(['/practices/basic/four-stages']);
+    }
   }
 }

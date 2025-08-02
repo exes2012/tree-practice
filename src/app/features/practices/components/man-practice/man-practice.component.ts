@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-man-practice',
-  imports: [],
   templateUrl: './man-practice.component.html',
-  styleUrl: './man-practice.component.scss'
 })
 export class ManPracticeComponent {
-  constructor(private location: Location) {}
-  goBack() { this.location.back(); }
-  startPractice() { alert('Проработка МАН будет реализована в следующих версиях'); }
+
+  constructor(private location: Location, private router: Router) {}
+
+  goBack() {
+    this.location.back();
+  }
+
+  startPractice(practiceType: string) {
+    this.router.navigate(['/practices/man', practiceType]);
+  }
 }

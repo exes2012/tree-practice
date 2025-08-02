@@ -1,13 +1,26 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { CreatorSpacePracticeComponent } from './creator-space-practice.component';
+import { ZeirAnpinSpacePracticeComponent } from './zeir-anpin-space-practice.component';
+import { NetzHodLinePracticeComponent } from './netz-hod-line-practice.component';
+import { HesedGevurahLinePracticeComponent } from './hesed-gevurah-line-practice.component';
 
 @Component({
   selector: 'app-small-state-practice',
-  imports: [],
   templateUrl: './small-state-practice.component.html',
-  styleUrl: './small-state-practice.component.scss'
+  styleUrls: ['./small-state-practice.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    CreatorSpacePracticeComponent,
+    ZeirAnpinSpacePracticeComponent,
+    NetzHodLinePracticeComponent,
+    HesedGevurahLinePracticeComponent
+  ]
 })
 export class SmallStatePracticeComponent {
+  selectedPractice: string | undefined;
 
   constructor(private location: Location) {}
 
@@ -15,8 +28,7 @@ export class SmallStatePracticeComponent {
     this.location.back();
   }
 
-  startPractice() {
-    console.log('Starting small state practice...');
-    alert('Наработка малого состояния будет реализована в следующих версиях');
+  startPractice(practiceType: string) {
+    this.selectedPractice = practiceType;
   }
 }

@@ -1,33 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Practice, PracticeService, PracticeStats } from '../../../../core/services/practice.service';
+
+interface IntentionPractice {
+  title: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent {
-  // Test data
-  streak = 7;
-  totalPractices = 42;
-  dailyGoal = 'Сегодня сосредоточься на удержании намерения в течение 10 минут';
-  lastPractice = 'Наработка намерения - вчера в 19:30';
-  dailyAdvice = 'Нет ничего кроме Него. Помни об этом в каждый момент практики. Когда возникают сомнения или отвлечения, возвращайся к этой истине. Творец присутствует во всем, что происходит с тобой сейчас.';
-  isAdviceExpanded = false;
+export class HomePageComponent implements OnInit {
+  stats: PracticeStats = { totalPractices: 0, streak: 0, lastPracticeDate: '' };
+  dailyChallenge: IntentionPractice | null = null;
+  lastPractice: Practice | null = null;
 
-  constructor(private router: Router) {}
+  isChallengeExpanded = false;
+
+  constructor(private router: Router, private practiceService: PracticeService) {}
+
+  ngOnInit() {
+    const challenge = localStorage.getItem('dailyChallenge');
+    if (challenge) {
+      this.dailyChallenge = JSON.parse(challenge);
+    }
+    this.lastPractice = this.practiceService.getLastPractice();
+    this.stats = this.practiceService.getPracticeStats();
+  }
 
   navigateToPractice(practiceType: string) {
-    this.router.navigate(['/practices', practiceType]);
+    if (practiceType === 'yichudim') {
+      this.router.navigate(['/yichudim']);
+    } else {
+      this.router.navigate(['/practices', practiceType]);
+    }
   }
 
   repeatLastPractice() {
-    // Navigate to the last practice (for now, default to intention)
-    this.navigateToPractice('intention');
+    if (this.lastPractice) {
+      this.router.navigate([this.lastPractice.route]);
+    }
   }
 
-  toggleAdvice() {
-    this.isAdviceExpanded = !this.isAdviceExpanded;
+  toggleChallenge() {
+    this.isChallengeExpanded = !this.isChallengeExpanded;
+  }
+
+  clearChallenge() {
+    localStorage.removeItem('dailyChallenge');
+    this.dailyChallenge = null;
   }
 }

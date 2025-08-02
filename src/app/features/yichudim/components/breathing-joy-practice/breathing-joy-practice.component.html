@@ -1,0 +1,183 @@
+<div class="container mx-auto p-4 pb-24">
+  <!-- Initial Screen -->
+  <div *ngIf="!isPracticeStarted">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <button (click)="goBack()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mr-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Дышать радостью</h1>
+      </div>
+      <button (click)="toggleVoice()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow">
+        <i class="material-icons text-gray-600 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
+      </button>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div class="flex items-center mb-4">
+        <i class="material-icons text-4xl text-purple-500 dark:text-purple-400 mr-4">auto_awesome</i>
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Дышать радостью</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">Дыхание как хвала Творцу</p>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Описание</h3>
+        <p class="text-gray-700 dark:text-gray-300">«Каждое дыхание, воздай хвалу Богу». Мы будем дышать радостью, используя ивритское слово חדוה (хедва) для ритма дыхания. Четыре буквы слова "радость" соответствуют четырем этапам дыхательного цикла: вдох (8), удерживание (4), выдох (6), отдых (5).</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-6 text-center">
+        <div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Время</p>
+          <p class="font-semibold text-lg text-gray-900 dark:text-gray-100">20 мин</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Этапов</p>
+          <p class="font-semibold text-lg text-gray-900 dark:text-gray-100">7</p>
+        </div>
+      </div>
+
+      <button (click)="startPractice()" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-lg flex items-center justify-center">
+        <i class="material-icons mr-3">play_arrow</i>
+        <span>Начать</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Practice Steps -->
+  <div *ngIf="isPracticeStarted">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <span class="inline-block text-sm font-medium px-3 py-1 rounded-full" [ngClass]="practiceSteps[currentStepIndex].stageColor">
+          {{ practiceSteps[currentStepIndex].stage }}
+        </span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+          {{ currentStepIndex + 1 }} из {{ practiceSteps.length }}
+        </span>
+      </div>
+
+      <!-- Regular step content -->
+      <div *ngIf="!isBreathingStep()">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          {{ practiceSteps[currentStepIndex].title }}
+        </h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+          {{ practiceSteps[currentStepIndex].instruction }}
+        </p>
+      </div>
+
+      <!-- Interactive breathing component -->
+      <div *ngIf="isBreathingStep()" class="text-center">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+          {{ practiceSteps[currentStepIndex].title }}
+        </h2>
+
+        <!-- Timer -->
+        <div class="mb-6">
+          <div class="text-3xl font-mono font-bold text-purple-600 dark:text-purple-400">
+            {{ getFormattedTimer() }}
+          </div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Циклов: {{ breathingCycles }}
+          </div>
+        </div>
+
+        <!-- Breathing visualization circle -->
+        <div class="mb-8 flex justify-center">
+          <div class="relative">
+            <div
+              class="w-48 h-48 rounded-full border-4 transition-all duration-1000 ease-in-out flex items-center justify-center"
+              [ngClass]="{
+                'border-blue-400 bg-blue-50 dark:bg-blue-900 scale-110': breathingState === 'inhale',
+                'border-yellow-400 bg-yellow-50 dark:bg-yellow-900 scale-110': breathingState === 'hold',
+                'border-green-400 bg-green-50 dark:bg-green-900 scale-90': breathingState === 'exhale',
+                'border-gray-400 bg-gray-50 dark:bg-gray-800 scale-100': breathingState === 'pause' || breathingState === 'stopped'
+              }">
+              <div class="text-center">
+                <div class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                  {{ getBreathingStateText() }}
+                </div>
+                <div *ngIf="breathingState !== 'stopped'" class="text-lg text-gray-600 dark:text-gray-400 mt-2">
+                  {{ breathingPhaseTimer }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-6 text-gray-700 dark:text-gray-300">
+          <p class="mb-4">Вдох на счет 8 (хет), удерживание на счет 4 (далет), выдох на счет 6 (вав), отдых на счет 5 (хей).</p>
+          <p>Дышите естественно, поддерживая соотношение 8:4:6:5.</p>
+        </div>
+
+        <!-- Control buttons -->
+        <div class="mb-6">
+          <button
+            *ngIf="!isBreathingActive"
+            (click)="startBreathing()"
+            class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors duration-200 text-lg mr-4">
+            <i class="material-icons mr-2">play_arrow</i>
+            Начать дыхание
+          </button>
+
+          <button
+            *ngIf="isBreathingActive"
+            (click)="stopBreathing()"
+            class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors duration-200 text-lg mr-4">
+            <i class="material-icons mr-2">stop</i>
+            Остановить
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center pt-4">
+        <button (click)="previousStep()" [disabled]="currentStepIndex === 0" class="px-6 py-2 bg-purple-200 hover:bg-purple-300 text-purple-800 font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+          Назад
+        </button>
+
+        <button *ngIf="currentStepIndex < practiceSteps.length - 1" (click)="nextStep()" class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg">
+          Далее
+        </button>
+
+        <button *ngIf="currentStepIndex === practiceSteps.length - 1" (click)="finishPractice()" class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg">
+          Завершить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rating Screen -->
+  <div *ngIf="isPracticeStarted && currentStepIndex >= practiceSteps.length">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center">
+      <div class="text-6xl mb-4">{{ getRatingFace() }}</div>
+      
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        Как прошла практика?
+      </h2>
+      
+      <div class="space-y-4">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          Оцените от 1 до 10:
+        </label>
+        <input 
+          type="range" 
+          min="1" 
+          max="10" 
+          [(ngModel)]="userRating"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+        >
+        <div class="text-lg font-semibold text-purple-600 dark:text-purple-400">
+          {{ userRating }}/10
+        </div>
+      </div>
+
+      <button (click)="exitPractice()" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+        Завершить
+      </button>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/practices/practices.module').then(m => m.PracticesModule)
   },
   {
+    path: 'yichudim',
+    loadChildren: () => import('./features/yichudim/yichudim.module').then(m => m.YichudimModule)
+  },
+  {
     path: 'journal',
     loadChildren: () => import('./features/journal/journal.module').then(m => m.JournalModule)
   },

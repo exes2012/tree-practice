@@ -8,42 +8,41 @@ import { SideMenuComponent } from './shared/components/side-menu/side-menu.compo
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, BottomNavigationComponent, SideMenuComponent],
   template: `
-    <!-- Kabbalah Practice PWA App -->
-    <div class="app-container h-screen bg-gray-50 flex flex-col overflow-hidden">
-      <!-- Side Menu Overlay -->
-      <div
-        *ngIf="isSideMenuOpen"
-        class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40 transition-all duration-300"
-        (click)="closeSideMenu()">
+    <div class="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <div class="flex flex-1 overflow-hidden">
+        <!-- Side Menu -->
+        <aside
+          class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out z-50"
+          [class.translate-x-0]="isSideMenuOpen"
+          [class.-translate-x-full]="!isSideMenuOpen">
+          <app-side-menu (closeMenu)="closeSideMenu()"></app-side-menu>
+        </aside>
+
+        <!-- Overlay -->
+        <div
+          *ngIf="isSideMenuOpen"
+          (click)="closeSideMenu()"
+          class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden">
+        </div>
+
+        <div class="relative flex flex-col flex-1 w-full">
+          <header class="absolute top-0 left-0 p-0 z-10 lg:hidden">
+            <button (click)="toggleSideMenu()" class="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+          </header>
+
+          <!-- Main Content -->
+          <main class="flex-1 p-4 overflow-y-auto">
+            <router-outlet></router-outlet>
+          </main>
+
+          <!-- Bottom Navigation -->
+          <app-bottom-navigation></app-bottom-navigation>
+        </div>
       </div>
-
-      <!-- Side Menu -->
-      <div
-        class="fixed top-0 left-0 h-full w-80 glass-effect shadow-2xl transition-all duration-300 z-50"
-        [class.side-menu-open]="isSideMenuOpen"
-        [class.side-menu-closed]="!isSideMenuOpen">
-        <app-side-menu (closeMenu)="closeSideMenu()"></app-side-menu>
-      </div>
-
-      <!-- Floating Menu Button -->
-      <button
-        (click)="toggleSideMenu()"
-        class="fixed top-4 left-4 z-30 p-3 bg-gradient-purple rounded-xl shadow-purple hover:shadow-glow transition-all duration-200 group">
-        <svg class="icon-md text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-
-      <!-- Main Content -->
-      <main class="flex-1 overflow-hidden">
-        <router-outlet></router-outlet>
-      </main>
-
-      <!-- Bottom Navigation -->
-      <app-bottom-navigation></app-bottom-navigation>
     </div>
   `,
-  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'kabbalah-practice';

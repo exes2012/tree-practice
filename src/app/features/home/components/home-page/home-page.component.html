@@ -1,165 +1,109 @@
-<div class="h-full flex flex-col p-4 overflow-hidden">
-  <!-- Stats Section -->
-  <div class="mb-3 space-y-2 px-1">
+<div class="container mx-auto p-2 pb-24">
+  <!-- Stats, Goal, Last Practice Container -->
+  <div class="space-y-4 mb-6">
     <!-- Statistics -->
-    <div class="stats-card">
-      <div class="flex items-center justify-center space-x-6">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3">
+      <div class="flex items-center justify-around">
         <!-- Streak -->
-        <div class="flex items-center space-x-3">
-          <div class="w-7 h-7 bg-gradient-purple rounded-lg flex items-center justify-center">
-            <span class="text-white text-base">🔥</span>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-gray-900">Непрерывная практика</h3>
-            <div class="flex items-baseline space-x-1">
-              <div class="text-lg font-bold text-primary-600">{{ streak }}</div>
-              <div class="text-xs text-gray-500">дней</div>
-            </div>
+        <div class="flex items-center space-x-2">
+          <i class="material-icons text-3xl text-orange-500">local_fire_department</i>
+          <div class="flex items-baseline space-x-1.5">
+            <div class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ stats.streak }}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">дней</div>
           </div>
         </div>
-
         <!-- Total Practices -->
-        <div class="flex items-center space-x-3">
-          <div class="w-7 h-7 bg-gradient-pink rounded-lg flex items-center justify-center">
-            <span class="text-white text-base">📊</span>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-gray-900">Практик использовано</h3>
-            <div class="flex items-baseline space-x-1">
-              <div class="text-lg font-bold text-secondary-600">{{ totalPractices }}</div>
-              <div class="text-xs text-gray-500">практик</div>
-            </div>
+        <div class="flex items-center space-x-2">
+          <i class="material-icons text-3xl text-blue-500">bar_chart</i>
+          <div class="flex items-baseline space-x-1.5">
+            <div class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ stats.totalPractices }}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">практики</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Daily Goal -->
-    <div class="stats-card">
-      <div class="flex items-center space-x-3 mb-1">
-        <div class="w-7 h-7 bg-gradient-blue rounded-lg flex items-center justify-center flex-shrink-0">
-          <span class="text-white text-base">🎯</span>
+    <!-- Daily Challenge -->
+    <div *ngIf="dailyChallenge" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3">
+      <div (click)="toggleChallenge()" class="flex items-center justify-between cursor-pointer">
+        <div class="flex items-center">
+          <i class="material-icons text-yellow-500 dark:text-yellow-400 mr-3">flag</i>
+          <h3 class="font-semibold text-sm text-gray-800 dark:text-gray-200">Намерение дня: {{ dailyChallenge.title }}</h3>
         </div>
-        <h3 class="text-sm font-semibold text-gray-900">Цель дня</h3>
-      </div>
-      <p class="text-gray-700 text-xs leading-relaxed">{{ dailyGoal }}</p>
-    </div>
-
-    <!-- Daily Advice (Expandable) -->
-    <div class="stats-card cursor-pointer" (click)="toggleAdvice()">
-      <div class="flex items-center justify-between mb-1">
-        <div class="flex items-center space-x-3">
-          <div class="w-7 h-7 bg-gradient-green rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">💡</span>
-          </div>
-          <h3 class="text-sm font-semibold text-gray-900">Совет дня</h3>
-        </div>
-        <svg
-          class="w-4 h-4 text-gray-500 transition-transform duration-200 flex-shrink-0"
-          [class.rotate-180]="isAdviceExpanded"
-          fill="none" stroke="currentColor" viewBox="0 0 24 24"
-          style="min-width: 16px; max-width: 16px; min-height: 16px; max-height: 16px;">
+        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform duration-300" [class.rotate-180]="!isChallengeExpanded" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
       </div>
-      <p class="text-gray-700 text-xs leading-relaxed" [class.line-clamp-1]="!isAdviceExpanded">{{ dailyAdvice }}</p>
+      <div *ngIf="isChallengeExpanded" class="mt-2 pl-9">
+        <p class="text-xs text-gray-500 dark:text-gray-400 whitespace-pre-line">{{ dailyChallenge.description }}</p>
+        <button (click)="clearChallenge()" class="text-xs text-red-500 hover:underline mt-2">Удалить намерение</button>
+      </div>
+    </div>
+
+    <!-- Repeat Last Practice -->
+    <div *ngIf="lastPractice" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <i class="material-icons text-teal-500 dark:text-teal-400 mr-3">history</i>
+        <div>
+          <h3 class="font-semibold text-sm text-gray-800 dark:text-gray-200">Последняя практика</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400">{{ lastPractice.name }}</p>
+        </div>
+      </div>
+      <button (click)="repeatLastPractice()" [disabled]="!lastPractice" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-1.5 px-3 rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+        Повторить
+      </button>
     </div>
   </div>
 
-  <!-- Practice Cards Grid -->
-  <div class="flex-1 overflow-y-auto">
-    <!-- Main Practices Grid -->
-    <div class="grid grid-cols-2 gap-2 mb-3">
-      <!-- 1. Basic Exercises -->
-      <div
-        (click)="navigateToPractice('basic-exercises')"
-        class="practice-card-uniform bg-gradient-blue group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">⚡</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Базовые упражнения</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Фундаментальные упражнения для настройки на высшие силы</p>
-      </div>
-
-      <!-- 2. Work with Intention -->
-      <div
-        (click)="navigateToPractice('intention')"
-        class="practice-card-uniform bg-gradient-purple group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">🎯</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Работа с намерением</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Развитие способности удерживать намерение</p>
-      </div>
-
-      <!-- 3. Work with Small State -->
-      <div
-        (click)="navigateToPractice('small-state')"
-        class="practice-card-uniform bg-gradient-green group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">🌟</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Работа с малым состоянием</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Удержание пространства с Творцом</p>
-      </div>
-
-      <!-- 4. MAN Processing/Raising -->
-      <div
-        (click)="navigateToPractice('man')"
-        class="practice-card-uniform bg-gradient-orange group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">🔄</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Проработка/Подъем МАН</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Проработка готовой темы, прояснение пространства</p>
-      </div>
-
-      <!-- 5. My Goals -->
-      <div
-        (click)="navigateToPractice('goals')"
-        class="practice-card-uniform bg-gradient-pink group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">🎯</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Мои цели</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Добавление цели, проработка цели через МАН</p>
-      </div>
-
-      <!-- 6. Fall Recovery -->
-      <div
-        (click)="navigateToPractice('fall-recovery')"
-        class="practice-card-uniform bg-gradient-cosmic group min-h-[120px]">
-        <div class="flex items-center space-x-3 mb-1">
-          <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span class="text-white text-base">🔄</span>
-          </div>
-          <h3 class="font-semibold text-white text-sm leading-tight">Выход из падения</h3>
-        </div>
-        <p class="text-white/80 text-xs leading-relaxed">Упражнения на возвращение, аннулирование</p>
+  <!-- Practices Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div (click)="navigateToPractice('basic')" class="h-20 md:h-24 bg-yellow-100 dark:bg-yellow-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors relative">
+      <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200">Уровень 1</span>
+      <i class="material-icons text-3xl text-yellow-600 dark:text-yellow-400 mr-2">wb_sunny</i>
+      <div class="flex-1">
+        <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Базовые упражнения</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Настройка на свет, 4 стадии прямого света</p>
       </div>
     </div>
-
-    <!-- Repeat Practice Button -->
-    <div class="px-1 mb-3">
-      <button
-        (click)="repeatLastPractice()"
-        class="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-        <div class="flex items-center justify-center space-x-2">
-          <span class="text-lg">🔄</span>
-          <span class="text-sm">Повторить последнюю практику</span>
-        </div>
-        <div class="text-xs text-white/70 mt-1">{{ lastPractice }}</div>
-      </button>
+    <div (click)="navigateToPractice('small-state')" class="h-20 md:h-24 bg-green-100 dark:bg-green-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-green-200 dark:hover:bg-green-800 transition-colors relative">
+      <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200">Уровень 2</span>
+      <i class="material-icons text-3xl text-green-500 dark:text-green-400 mr-2">self_improvement</i>
+      <div class="flex-1">
+        <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Малое состояние</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Умаление своего Эго перед Творцом</p>
+      </div>
+    </div>
+    <div (click)="navigateToPractice('man')" class="h-20 md:h-24 bg-red-100 dark:bg-red-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-red-200 dark:hover:bg-red-800 transition-colors relative">
+      <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-200">Уровень 2</span>
+      <i class="material-icons text-3xl text-red-500 dark:text-red-400 mr-2">man</i>
+      <div class="flex-1">
+        <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Большое состояние</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Работа с получающими сосудами, подъем МАН</p>
+      </div>
+    </div>
+    <div (click)="navigateToPractice('yichudim')" class="h-20 md:h-24 bg-purple-100 dark:bg-purple-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors relative">
+      <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200">Уровень 3</span>
+      <i class="material-icons text-3xl text-purple-500 dark:text-purple-400 mr-2">auto_awesome</i>
+      <div class="flex-1">
+        <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Ихудим</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Практики слияния с Творцом</p>
+      </div>
+    </div>
+    <div (click)="navigateToPractice('intention')" class="h-20 md:h-24 bg-indigo-100 dark:bg-indigo-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors relative">
+      <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200">Уровень 4</span>
+      <i class="material-icons text-3xl text-indigo-500 dark:text-indigo-400 mr-2">track_changes</i>
+      <div class="flex-1">
+        <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Каванот</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Работа в намерении по Бааль Суламу</p>
+      </div>
+    </div>
+    <div class="h-20 md:h-24 bg-pink-100 dark:bg-pink-900 rounded-lg shadow-md p-3 flex items-center opacity-50 cursor-not-allowed">
+      <i class="material-icons text-3xl text-pink-500 dark:text-pink-400 mr-2">my_location</i>
+      <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Цели с Творцом</h3>
+    </div>
+    <div class="h-20 md:h-24 bg-indigo-100 dark:bg-indigo-900 rounded-lg shadow-md p-3 flex items-center opacity-50 cursor-not-allowed">
+      <i class="material-icons text-3xl text-indigo-500 dark:text-indigo-400 mr-2">healing</i>
+      <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Выход из падения</h3>
     </div>
   </div>
 </div>
