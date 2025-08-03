@@ -1,18 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PracticeLayoutComponent } from '@app/shared/components/practice-layout/practice-layout.component';
+import { PracticeService } from '@app/core/services/practice.service';
 
 @Component({
   selector: 'app-divine-space-practice',
   templateUrl: './divine-space-practice.component.html',
+  styleUrls: ['./divine-space-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, PracticeLayoutComponent]
 })
-export class DivineSpacePracticeComponent implements OnDestroy {
-  isPracticeStarted = false;
-  currentStepIndex = 0;
-  isVoiceEnabled = false;
-  userRating = 5;
+export class DivineSpacePracticeComponent implements OnInit {
+  practiceTitle = 'Божественное пространство';
+  practiceSubtitle = 'Построение духовного святилища';
+  description = 'Мы построим вокруг нас духовное святилище, осознавая шесть направлений пространства и соответствующие им виды сознания. Каждое направление соответствует определенному виду непрерывного сознания, как предписано соответствующей постоянной заповедью Торы.';
+  time = '25 мин';
+  level = 'Продвинутый';
+  showTimer = false;
 
   practiceSteps = [
     { 
@@ -62,76 +66,26 @@ export class DivineSpacePracticeComponent implements OnDestroy {
       instruction: 'В нашем индивидуальном Б-жественном пространстве раскроется собственная, глубоко запрятанная в нас искра Машиаха. Да удостоимся мы освободиться из нашего состояния духовного и физического изгнания.',
       stage: 'Освобождение',
       stageColor: 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200'
-    }
+    },
+    { title: 'Оценка', instruction: 'Как прошла практика?' }
   ];
 
-  constructor(private location: Location) {}
-
-  ngOnDestroy() {
-    window.speechSynthesis.cancel();
+  constructor(private practiceService: PracticeService) {
+    console.log('DivineSpacePracticeComponent: Constructor');
   }
 
-  goBack() {
-    window.speechSynthesis.cancel();
-    this.location.back();
+  ngOnInit() {
+    console.log('DivineSpacePracticeComponent: ngOnInit');
+    console.log('DivineSpacePracticeComponent: practiceTitle:', this.practiceTitle);
+    console.log('DivineSpacePracticeComponent: description:', this.description);
+    console.log('DivineSpacePracticeComponent: practiceSteps:', this.practiceSteps);
+    console.log('DivineSpacePracticeComponent: practiceSteps length:', this.practiceSteps?.length);
+    console.log('DivineSpacePracticeComponent: showTimer:', this.showTimer);
   }
 
-  toggleVoice() {
-    this.isVoiceEnabled = !this.isVoiceEnabled;
-    if (!this.isVoiceEnabled) {
-      window.speechSynthesis.cancel();
-    }
-  }
-
-  speak(text: string) {
-    if (this.isVoiceEnabled && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ru-RU';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  }
-
-  startPractice() {
-    this.isPracticeStarted = true;
-    this.currentStepIndex = 0;
-    this.speak(this.practiceSteps[0].instruction);
-  }
-
-  nextStep() {
-    if (this.currentStepIndex < this.practiceSteps.length - 1) {
-      this.currentStepIndex++;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  previousStep() {
-    if (this.currentStepIndex > 0) {
-      this.currentStepIndex--;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  finishPractice() {
-    this.currentStepIndex = this.practiceSteps.length; // Move to rating step
-    window.speechSynthesis.cancel();
-  }
-
-  exitPractice() {
-    this.location.back();
-  }
-
-  getRatingFace(): string {
-    if (this.userRating == 10) return '🤩';
-    if (this.userRating >= 9) return '😁';
-    if (this.userRating >= 8) return '😄';
-    if (this.userRating >= 7) return '😊';
-    if (this.userRating >= 6) return '🙂';
-    if (this.userRating >= 5) return '😐';
-    if (this.userRating >= 4) return '😕';
-    if (this.userRating >= 3) return '😟';
-    if (this.userRating >= 2) return '😢';
-    return '😭';
+  onPracticeFinished(event: { rating: number }) {
+    console.log('DivineSpacePracticeComponent: onPracticeFinished called with event:', event);
+    this.practiceService.saveLastPractice({ name: this.practiceTitle, route: '/yichudim/divine-space' });
+    this.practiceService.recordPracticeCompletion();
   }
 }

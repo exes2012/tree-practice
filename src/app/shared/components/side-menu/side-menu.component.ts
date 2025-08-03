@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SideMenuService } from '../../../core/services/side-menu.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -7,9 +8,9 @@ import { RouterModule } from '@angular/router';
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent {
-  @Output() closeMenu = new EventEmitter<void>();
+  constructor(private sideMenuService: SideMenuService) {}
 
   onCloseMenu() {
-    this.closeMenu.emit();
+    this.sideMenuService.close();
   }
 }

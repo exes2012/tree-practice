@@ -1,20 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PracticeLayoutComponent } from '@app/shared/components/practice-layout/practice-layout.component';
 import { PracticeService } from '@app/core/services/practice.service';
 
 @Component({
   selector: 'app-four-stages-practice',
   templateUrl: './four-stages-practice.component.html',
+  styleUrls: ['./four-stages-practice.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule]
+  imports: [CommonModule, PracticeLayoutComponent]
 })
-export class FourStagesPracticeComponent implements OnDestroy {
-  isPracticeStarted = false;
-  currentStepIndex = 0;
-  userRating = 5;
-  isVoiceEnabled = true;
+export class FourStagesPracticeComponent {
+  practiceTitle = '4 стадии прямого света';
+  practiceSubtitle = 'Ощутить Творца';
+  description = 'Эта практика - основа каббалистической медитации. Она позволяет пройти четыре стадии взаимодействия с высшим светом, от получения до полной отдачи.';
+  time = '30 мин';
+  level = 'Средний';
+  showTimer = false;
 
   practiceSteps = [
     { title: 'Подготовка', instruction: 'Прежде всего, чтобы изучать Каббалу, человек должен ощущать высший свет. Свет — это не просто слово, это наслаждение от свойства отдачи. Чтобы его ощущать, нужна особая настройка.', stage: 'Подготовка: Настройка на Свет', stageColor: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200' },
@@ -24,7 +26,7 @@ export class FourStagesPracticeComponent implements OnDestroy {
     { title: 'Шаг 1. Направьте стремление вовне', instruction: 'Удерживая в мыслях образ дорогого вам человека и желание его насладить, начните прикладывать внутреннее усилие, направленное вовне, к нему. Делайте это потихонечку, но постоянно.', stage: 'Стадия 0: Кетер (כתר)', stageColor: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600' },
     { title: 'Шаг 2. Ощутите ответ света', instruction: 'Продолжая так стремиться, вы почувствуете, как к вам приходит свет — наслаждение от свойства отдачи.', stage: 'Стадия 0: Кетер (כתר)', stageColor: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600' },
     { title: 'Шаг 3. Усильте стремление', instruction: 'Чтобы ощутить свет ярче, сделайте небольшой рывок стремления вовне, чуть сильнее по отношению к тому, о ком думаете. Вы сразу почувствуете, как свет отвечает и приходит более ярко. Свет конкретно реагирует на ваше стремление.', stage: 'Стадия 0: Кетер (כתר)', stageColor: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600' },
-    { title: 'Итог стадии Кетер', instruction: 'Это стадия Кетер: вы бесконечно стремитесь вне себя, в отдачу, и свет бесконечности вам отвечает.', stage: 'Стадия 0: Кетер (כתר)', stageColor: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600' },
+    { title: 'Итог стадии Кэтер', instruction: 'Это стадия Кэтер: вы бесконечно стремитесь вне себя, в отдачу, и свет бесконечности вам отвечает.', stage: 'Стадия 0: Кетер (כתר)', stageColor: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600' },
     { title: 'Шаг 1. Измените вектор стремления', instruction: 'Теперь, когда вы настроились на свет и ощущаете его, нужно поменять вектор работы. Силу, которую вы прикладывали для стремления вовне (в отдачу), начните использовать для притяжения к себе. Цепляясь за свет, который вы вызвали, начните приглашать его внутрь.', stage: 'Стадия 1: Хохма (חכמה)', stageColor: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
     { title: 'Шаг 2. Получайте без требований', instruction: 'Притягивайте ровно столько света, сколько приходит. Не требуйте большего. «Вот что приходит, то и хорошо». Важно, чтобы стремление было бесконечным, но аккуратным. Вы ощутите, как свет теперь наполняет вас изнутри.', stage: 'Стадия 1: Хохма (חכמה)', stageColor: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
     { title: 'Шаг 3. Раскройте отношение творца', instruction: 'Когда свет наполняет вас, смотрите не просто на кайф, а на отношение, с которым этот свет приходит. Сделайте небольшой рывок в получении, притяните чуть сильнее. Вы увидите, что свет сразу же реагирует, приходит больше. Он живой. Вы раскрываете, что за этим светом есть добрый источник, который хочет вас насладить и ничего не требует взамен, кроме вашего стремления получать.', stage: 'Стадия 1: Хохма (חכמה)', stageColor: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
@@ -44,70 +46,10 @@ export class FourStagesPracticeComponent implements OnDestroy {
     { title: 'Оценка', instruction: 'Насколько хорошо вы ощущали свет?', stage: 'Оценка', stageColor: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200' }
   ];
 
-  constructor(private location: Location, private practiceService: PracticeService) {}
+  constructor(private practiceService: PracticeService) {}
 
-  ngOnDestroy() {
-    window.speechSynthesis.cancel();
-  }
-
-  goBack() {
-    window.speechSynthesis.cancel();
-    this.location.back();
-  }
-
-  toggleVoice() {
-    this.isVoiceEnabled = !this.isVoiceEnabled;
-    if (!this.isVoiceEnabled) {
-      window.speechSynthesis.cancel();
-    }
-  }
-
-  speak(text: string) {
-    if (!this.isVoiceEnabled) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
-    utterance.lang = 'ru-RU';
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
-  }
-
-  startPractice() {
-    this.isPracticeStarted = true;
-    this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-  }
-
-  nextStep() {
-    if (this.currentStepIndex < this.practiceSteps.length - 1) {
-      this.currentStepIndex++;
-      if (this.currentStepIndex < this.practiceSteps.length - 1) {
-        this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-      }
-    }
-  }
-
-  previousStep() {
-    if (this.currentStepIndex > 0) {
-      this.currentStepIndex--;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  finishPractice() {
-    this.practiceService.saveLastPractice({ name: '4 стадии прямого света', route: '/practices/basic/four-stages' });
+  onPracticeFinished(event: { rating: number }) {
+    this.practiceService.saveLastPractice({ name: this.practiceTitle, route: '/practices/basic/four-stages' });
     this.practiceService.recordPracticeCompletion();
-    this.goBack();
-  }
-
-  getRatingFace(): string {
-    if (this.userRating == 10) return '🤩';
-    if (this.userRating >= 9) return '😁';
-    if (this.userRating >= 8) return '😄';
-    if (this.userRating >= 7) return '😊';
-    if (this.userRating >= 6) return '🙂';
-    if (this.userRating >= 5) return '😐';
-    if (this.userRating >= 4) return '😕';
-    if (this.userRating >= 3) return '😟';
-    if (this.userRating >= 2) return '😢';
-    return '😭';
   }
 }

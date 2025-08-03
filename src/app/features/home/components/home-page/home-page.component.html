@@ -1,6 +1,9 @@
-<div class="container mx-auto p-2 pb-24">
-  <!-- Stats, Goal, Last Practice Container -->
-  <div class="space-y-4 mb-6">
+<!-- Home Header -->
+<app-home-header></app-home-header>
+
+<!-- Fixed Top Section -->
+<div #fixedSection class="fixed-section fixed top-0 left-0 right-0 z-40 bg-gray-100 dark:bg-gray-900">
+  <div class="container mx-auto px-4 pt-12 pb-4 space-y-4">
     <!-- Statistics -->
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3">
       <div class="flex items-center justify-around">
@@ -54,10 +57,13 @@
       </button>
     </div>
   </div>
+</div>
 
-  <!-- Practices Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div (click)="navigateToPractice('basic')" class="h-20 md:h-24 bg-yellow-100 dark:bg-yellow-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors relative">
+<!-- Scrollable Practices Section -->
+<div class="scrollable-section pb-24" [style.padding-top.px]="practicesTopPadding">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div (click)="navigateToPractice('basic')" class="practice-card h-20 md:h-24 bg-yellow-100 dark:bg-yellow-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors relative">
       <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200">Уровень 1</span>
       <i class="material-icons text-3xl text-yellow-600 dark:text-yellow-400 mr-2">wb_sunny</i>
       <div class="flex-1">
@@ -65,7 +71,7 @@
         <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Настройка на свет, 4 стадии прямого света</p>
       </div>
     </div>
-    <div (click)="navigateToPractice('small-state')" class="h-20 md:h-24 bg-green-100 dark:bg-green-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-green-200 dark:hover:bg-green-800 transition-colors relative">
+    <div (click)="navigateToPractice('small-state')" class="practice-card h-20 md:h-24 bg-green-100 dark:bg-green-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-green-200 dark:hover:bg-green-800 transition-colors relative">
       <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200">Уровень 2</span>
       <i class="material-icons text-3xl text-green-500 dark:text-green-400 mr-2">self_improvement</i>
       <div class="flex-1">
@@ -73,7 +79,7 @@
         <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Умаление своего Эго перед Творцом</p>
       </div>
     </div>
-    <div (click)="navigateToPractice('man')" class="h-20 md:h-24 bg-red-100 dark:bg-red-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-red-200 dark:hover:bg-red-800 transition-colors relative">
+    <div (click)="navigateToPractice('man')" class="practice-card h-20 md:h-24 bg-red-100 dark:bg-red-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-red-200 dark:hover:bg-red-800 transition-colors relative">
       <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-200">Уровень 2</span>
       <i class="material-icons text-3xl text-red-500 dark:text-red-400 mr-2">man</i>
       <div class="flex-1">
@@ -81,7 +87,7 @@
         <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Работа с получающими сосудами, подъем МАН</p>
       </div>
     </div>
-    <div (click)="navigateToPractice('yichudim')" class="h-20 md:h-24 bg-purple-100 dark:bg-purple-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors relative">
+    <div (click)="navigateToPractice('yichudim')" class="practice-card h-20 md:h-24 bg-purple-100 dark:bg-purple-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors relative">
       <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200">Уровень 3</span>
       <i class="material-icons text-3xl text-purple-500 dark:text-purple-400 mr-2">auto_awesome</i>
       <div class="flex-1">
@@ -89,7 +95,7 @@
         <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Практики слияния с Творцом</p>
       </div>
     </div>
-    <div (click)="navigateToPractice('intention')" class="h-20 md:h-24 bg-indigo-100 dark:bg-indigo-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors relative">
+    <div (click)="navigateToPractice('intention')" class="practice-card h-20 md:h-24 bg-indigo-100 dark:bg-indigo-900 rounded-lg shadow-md p-3 flex items-center cursor-pointer hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors relative">
       <span class="absolute top-2 right-2 inline-block text-xs font-medium px-2 py-1 rounded-md bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200">Уровень 4</span>
       <i class="material-icons text-3xl text-indigo-500 dark:text-indigo-400 mr-2">track_changes</i>
       <div class="flex-1">

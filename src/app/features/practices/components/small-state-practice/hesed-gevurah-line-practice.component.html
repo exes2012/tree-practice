@@ -1,110 +1,41 @@
-<div class="container mx-auto p-4 pb-24">
-  <!-- Stream Selection -->
-  <div *ngIf="!streamSelected">
-    <div class="flex items-center mb-6">
-      <button (click)="goBack()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mr-4">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-      </button>
-      <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Средняя линия Хесед/Гвура</h1>
-    </div>
+
+<div *ngIf="!streamSelected">
+  <app-page-header [title]="practiceTitle"></app-page-header>
+  <div class="container mx-auto px-4 pt-16 pb-24">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Какой поток вы хотите наработать?</h2>
       <div class="grid grid-cols-1 gap-4">
-        <button (click)="selectStream('creator')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors">
+        <button (click)="selectStream('creator')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center">
+          <i class="material-icons mr-3">auto_awesome</i>
           В отношении Творца
         </button>
-        <button (click)="selectStream('self')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors">
+        <button (click)="selectStream('self')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center">
+          <i class="material-icons mr-3">person</i>
           В отношении себя
         </button>
-        <button (click)="selectStream('others')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors">
+        <button (click)="selectStream('others')" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center">
+          <i class="material-icons mr-3">groups</i>
           В отношении других
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Timer Configuration -->
-  <div *ngIf="streamSelected && !practiceStarted">
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center">
-        <button (click)="goBack()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mr-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
-        </button>
-        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Настройка времени</h1>
-      </div>
-      <button (click)="toggleVoice()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow">
-        <i class="material-icons text-gray-600 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
-      </button>
-    </div>
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8 mb-6">
-        <div>
-          <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Подготовительные шаги</h3>
-          <div class="grid grid-cols-4 gap-2">
-            <button *ngFor="let duration of stepDurationOptions" (click)="setStepDuration(duration)" [class.bg-green-700]="selectedStepDuration === duration" [class.bg-green-500]="selectedStepDuration !== duration" class="text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm">
-              {{ duration }} сек
-            </button>
-          </div>
-        </div>
-        <div class="mt-4 md:mt-0">
-          <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Основное упражнение</h3>
-          <div class="grid grid-cols-4 gap-2">
-            <button *ngFor="let duration of practiceDurationOptions" (click)="setPracticeDuration(duration)" [class.bg-green-700]="selectedPracticeDuration === duration" [class.bg-green-500]="selectedPracticeDuration !== duration" class="text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm">
-              {{ duration }} мин
-            </button>
-          </div>
-        </div>
-      </div>
-      <button (click)="startPractice()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-5 rounded-lg transition-colors text-lg">
-        Начать упражнение
-      </button>
-    </div>
-  </div>
-
-  <!-- Practice Steps -->
-  <div *ngIf="practiceStarted">
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div *ngIf="currentStep < steps.length - 1">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ steps[currentStep].title }}</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="steps[currentStep].instruction"></p>
-
-        <div class="text-center my-4 text-4xl font-bold text-green-500 dark:text-green-400">
-          <span *ngIf="currentStep < mainPracticeStepIndex">{{ stepTimer * 1000 | date:'mm:ss' }}</span>
-          <span *ngIf="currentStep === mainPracticeStepIndex">{{ practiceTimer * 1000 | date:'mm:ss' }}</span>
-        </div>
-      </div>
-
-      <!-- Rating Step -->
-      <div *ngIf="currentStep === steps.length - 1">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ steps[currentStep].title }}</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-6">{{ steps[currentStep].instruction }}</p>
-        <p class="text-center text-6xl mb-4">{{ getRatingFace() }}</p>
-        <input type="range" min="1" max="10" [(ngModel)]="userRating" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-        <p class="text-center text-lg font-semibold text-gray-900 dark:text-gray-100 mt-2">{{ userRating }}</p>
-        <button (click)="exitPractice()" class="w-full mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-5 rounded-lg transition-colors">
-          Завершить и выйти
-        </button>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="flex justify-between mt-8" *ngIf="currentStep < steps.length - 1">
-        <button (click)="previousStep()" [disabled]="currentStep === 0" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          Назад
-        </button>
-
-        <button *ngIf="currentStep < mainPracticeStepIndex" (click)="nextStep()" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg">
-          Далее
-        </button>
-
-        <button *ngIf="currentStep === mainPracticeStepIndex" (click)="finishPractice()" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg">
-          Завершить
         </button>
       </div>
     </div>
   </div>
 </div>
 
+<app-practice-layout
+  *ngIf="streamSelected"
+  [practiceTitle]="practiceTitle"
+  [practiceDescription]="description"
+  [steps]="steps"
+  (practiceFinished)="onPracticeFinished($event)"
+  [showTimer]="showTimer"
+  [mainPracticeStepIndex]="mainPracticeStepIndex">
+
+
+
+  <ng-template #stepContent let-step>
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ step.title }}</h2>
+    <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="step.instruction"></p>
+  </ng-template>
+
+</app-practice-layout>

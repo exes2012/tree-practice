@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Navigation } from '@angular/router';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 
 interface IntentionPractice {
   title: string;
@@ -11,17 +11,15 @@ interface IntentionPractice {
 @Component({
   selector: 'app-intention-exercise-page',
   templateUrl: './intention-exercise-page.component.html',
+  styleUrls: ['./intention-exercise-page.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, PageHeaderComponent]
 })
 export class IntentionExercisePageComponent implements OnInit {
   practice: IntentionPractice | undefined;
 
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {
-    const navigation: Navigation | null = this.router.getCurrentNavigation();
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.practice = navigation.extras.state['practice'];
     }
@@ -29,14 +27,8 @@ export class IntentionExercisePageComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.practice) {
-      // If the page is reloaded or accessed directly, the state will be lost.
-      // We can redirect back or to a safe page.
       this.router.navigate(['/practices/intention']);
     }
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   setAsChallenge(): void {
@@ -44,5 +36,9 @@ export class IntentionExercisePageComponent implements OnInit {
       localStorage.setItem('dailyChallenge', JSON.stringify(this.practice));
       this.router.navigate(['/home']);
     }
+  }
+
+  finishPractice(): void {
+    this.router.navigate(['/practices/intention']);
   }
 }

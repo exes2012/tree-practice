@@ -1,94 +1,17 @@
-<div class="container mx-auto p-4 pb-24">
-  <!-- Initial Screen -->
-  <div *ngIf="!isPracticeStarted">
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center">
-        <button (click)="goBack()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mr-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
-        </button>
-        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Пространство Зеир Анпина</h1>
-      </div>
-      <button (click)="toggleVoice()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow">
-        <i class="material-icons text-gray-600 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
-      </button>
-    </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div class="flex items-center mb-4">
-        <i class="material-icons text-4xl text-purple-500 dark:text-purple-400 mr-4">all_inclusive</i>
-        <div>
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Пространство Зеир Анпина</h2>
-          <p class="text-gray-500 dark:text-gray-400 text-sm">Построение малого лика</p>
-        </div>
-      </div>
+<app-practice-layout
+  [practiceTitle]="practiceTitle"
+  [practiceDescription]="description"
+  [steps]="practiceSteps"
+  (practiceFinished)="onPracticeFinished($event)"
+  [showTimer]="showTimer"
+  [mainPracticeStepIndex]="mainPracticeStepIndex">
 
-      <div class="mb-6">
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Описание</h3>
-        <p class="text-gray-700 dark:text-gray-300">Это упражнение помогает построить "малый лик" (Зеир Анпин) через соотнесение шести направлений с соответствующими сфирот и их принципами.</p>
-      </div>
 
-      <div class="mb-6">
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Длительность шага</h3>
-        <div class="grid grid-cols-4 gap-2">
-          <button *ngFor="let duration of stepDurationOptions" (click)="setStepDuration(duration)" [ngClass]="{'bg-purple-600 text-white': selectedStepDuration === duration, 'bg-gray-200 dark:bg-gray-700': selectedStepDuration !== duration}" class="py-2 px-4 rounded-lg transition-colors">
-            {{ duration }} сек
-          </button>
-        </div>
-      </div>
 
-      <div class="mb-6">
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Длительность практики</h3>
-        <div class="grid grid-cols-4 gap-2">
-          <button *ngFor="let duration of practiceDurationOptions" (click)="setPracticeDuration(duration)" [ngClass]="{'bg-purple-600 text-white': selectedPracticeDuration === duration, 'bg-gray-200 dark:bg-gray-700': selectedPracticeDuration !== duration}" class="py-2 px-4 rounded-lg transition-colors">
-            {{ duration }} мин
-          </button>
-        </div>
-      </div>
+  <ng-template #stepContent let-step>
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ step.title }}</h2>
+    <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="step.instruction"></p>
+  </ng-template>
 
-      <button (click)="startPractice()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-lg flex items-center justify-center">
-        <i class="material-icons mr-3">play_arrow</i>
-        <span>Начать</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Practice Steps -->
-  <div *ngIf="isPracticeStarted">
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ practiceSteps[currentStepIndex].title }}</h2>
-      <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="getInstruction()"></p>
-
-      <div *ngIf="currentStepIndex < mainPracticeStepIndex" class="text-center my-4 text-2xl font-bold text-purple-500">
-        {{ stepTimer * 1000 | date:'mm:ss' }}
-      </div>
-
-      <div *ngIf="currentStepIndex >= mainPracticeStepIndex && currentStepIndex < practiceSteps.length - 1" class="text-center my-4 text-2xl font-bold text-purple-500">
-        {{ practiceTimer * 1000 | date:'mm:ss' }}
-      </div>
-
-      <!-- Rating -->
-      <div *ngIf="currentStepIndex === practiceSteps.length - 1">
-        <p class="text-center text-6xl mb-4">{{ getRatingFace() }}</p>
-        <input type="range" min="1" max="10" [(ngModel)]="userRating" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-        <p class="text-center text-lg font-semibold text-gray-900 dark:text-gray-100 mt-2">{{ userRating }}</p>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="flex justify-between mt-8">
-        <button (click)="previousStep()" [disabled]="currentStepIndex === 0" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          Назад
-        </button>
-
-        <button *ngIf="currentStepIndex < practiceSteps.length - 1" (click)="nextStep()" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg">
-          Далее
-        </button>
-
-        <button *ngIf="currentStepIndex === practiceSteps.length - 1" (click)="exitPractice()" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg">
-          Завершить
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+</app-practice-layout>

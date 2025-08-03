@@ -1,18 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PracticeLayoutComponent } from '@app/shared/components/practice-layout/practice-layout.component';
+import { PracticeService } from '@app/core/services/practice.service';
 
 @Component({
   selector: 'app-love-practice',
   templateUrl: './love-practice.component.html',
+  styleUrls: ['./love-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, PracticeLayoutComponent]
 })
-export class LovePracticeComponent implements OnDestroy {
-  isPracticeStarted = false;
-  currentStepIndex = 0;
-  isVoiceEnabled = false;
-  userRating = 5;
+export class LovePracticeComponent {
+  practiceTitle = 'Любовь (א ה ב ה)';
+  practiceSubtitle = 'Медитация на слово "любовь"';
+  description = 'Любовь есть Божественная способность к творению. Медитация над четырьмя буквами слова "любовь" на иврите - אהבה (ахава). Каждая буква открывает особый аспект Божественной любви и помогает пробудить в душе способность к творению.';
+  time = '15 мин';
+  level = 'Начальный';
+  showTimer = false;
 
   practiceSteps = [
     { 
@@ -56,76 +60,14 @@ export class LovePracticeComponent implements OnDestroy {
       instruction: 'Своим Бесконечным светом, Своей любовью ко всем Бог непрерывно заново творит мир. Да будем и мы идти Его путями и излучать из наших душ животворящую силу любви.',
       stage: 'Творение',
       stageColor: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200'
-    }
+    },
+    { title: 'Оценка', instruction: 'Как прошла практика?' }
   ];
 
-  constructor(private location: Location) {}
+  constructor(private practiceService: PracticeService) {}
 
-  ngOnDestroy() {
-    window.speechSynthesis.cancel();
-  }
-
-  goBack() {
-    window.speechSynthesis.cancel();
-    this.location.back();
-  }
-
-  toggleVoice() {
-    this.isVoiceEnabled = !this.isVoiceEnabled;
-    if (!this.isVoiceEnabled) {
-      window.speechSynthesis.cancel();
-    }
-  }
-
-  speak(text: string) {
-    if (this.isVoiceEnabled && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ru-RU';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  }
-
-  startPractice() {
-    this.isPracticeStarted = true;
-    this.currentStepIndex = 0;
-    this.speak(this.practiceSteps[0].instruction);
-  }
-
-  nextStep() {
-    if (this.currentStepIndex < this.practiceSteps.length - 1) {
-      this.currentStepIndex++;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  previousStep() {
-    if (this.currentStepIndex > 0) {
-      this.currentStepIndex--;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  finishPractice() {
-    this.currentStepIndex = this.practiceSteps.length; // Move to rating step
-    window.speechSynthesis.cancel();
-  }
-
-  exitPractice() {
-    this.location.back();
-  }
-
-  getRatingFace(): string {
-    if (this.userRating == 10) return '🤩';
-    if (this.userRating >= 9) return '😁';
-    if (this.userRating >= 8) return '😄';
-    if (this.userRating >= 7) return '😊';
-    if (this.userRating >= 6) return '🙂';
-    if (this.userRating >= 5) return '😐';
-    if (this.userRating >= 4) return '😕';
-    if (this.userRating >= 3) return '😟';
-    if (this.userRating >= 2) return '😢';
-    return '😭';
+  onPracticeFinished(event: { rating: number }) {
+    this.practiceService.saveLastPractice({ name: this.practiceTitle, route: '/yichudim/love' });
+    this.practiceService.recordPracticeCompletion();
   }
 }

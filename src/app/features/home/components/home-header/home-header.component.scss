@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.menu-button {
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(8px);
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}

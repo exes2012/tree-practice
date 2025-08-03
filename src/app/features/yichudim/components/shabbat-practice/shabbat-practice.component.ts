@@ -1,18 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PracticeLayoutComponent } from '@app/shared/components/practice-layout/practice-layout.component';
+import { PracticeService } from '@app/core/services/practice.service';
 
 @Component({
   selector: 'app-shabbat-practice',
   templateUrl: './shabbat-practice.component.html',
+  styleUrls: ['./shabbat-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, PracticeLayoutComponent]
 })
-export class ShabbatPracticeComponent implements OnDestroy {
-  isPracticeStarted = false;
-  currentStepIndex = 0;
-  isVoiceEnabled = false;
-  userRating = 5;
+export class ShabbatPracticeComponent {
+  practiceTitle = 'Шаббат';
+  practiceSubtitle = 'Мир, благословение и наслаждение';
+  description = 'Медитация на слово Шаббат ש-ב-ת и его три составляющие: мир (שלום), благословение (ברכה) и наслаждение (תענוג). Практика ведет через три уровня шаббатнего сознания.';
+  time = '22 мин';
+  level = 'Средний';
+  showTimer = false;
 
   practiceSteps = [
     { 
@@ -62,76 +66,14 @@ export class ShabbatPracticeComponent implements OnDestroy {
       instruction: 'Да достигнем мы все в Шабат в полной мере ощущения мира, благословения и Божественного наслаждения.',
       stage: 'Полнота',
       stageColor: 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200'
-    }
+    },
+    { title: 'Оценка', instruction: 'Как прошла практика?' }
   ];
 
-  constructor(private location: Location) {}
+  constructor(private practiceService: PracticeService) {}
 
-  ngOnDestroy() {
-    window.speechSynthesis.cancel();
-  }
-
-  goBack() {
-    window.speechSynthesis.cancel();
-    this.location.back();
-  }
-
-  toggleVoice() {
-    this.isVoiceEnabled = !this.isVoiceEnabled;
-    if (!this.isVoiceEnabled) {
-      window.speechSynthesis.cancel();
-    }
-  }
-
-  speak(text: string) {
-    if (this.isVoiceEnabled && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ru-RU';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
-    }
-  }
-
-  startPractice() {
-    this.isPracticeStarted = true;
-    this.currentStepIndex = 0;
-    this.speak(this.practiceSteps[0].instruction);
-  }
-
-  nextStep() {
-    if (this.currentStepIndex < this.practiceSteps.length - 1) {
-      this.currentStepIndex++;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  previousStep() {
-    if (this.currentStepIndex > 0) {
-      this.currentStepIndex--;
-      this.speak(this.practiceSteps[this.currentStepIndex].instruction);
-    }
-  }
-
-  finishPractice() {
-    this.currentStepIndex = this.practiceSteps.length; // Move to rating step
-    window.speechSynthesis.cancel();
-  }
-
-  exitPractice() {
-    this.location.back();
-  }
-
-  getRatingFace(): string {
-    if (this.userRating == 10) return '🤩';
-    if (this.userRating >= 9) return '😁';
-    if (this.userRating >= 8) return '😄';
-    if (this.userRating >= 7) return '😊';
-    if (this.userRating >= 6) return '🙂';
-    if (this.userRating >= 5) return '😐';
-    if (this.userRating >= 4) return '😕';
-    if (this.userRating >= 3) return '😟';
-    if (this.userRating >= 2) return '😢';
-    return '😭';
+  onPracticeFinished(event: { rating: number }) {
+    this.practiceService.saveLastPractice({ name: this.practiceTitle, route: '/yichudim/shabbat' });
+    this.practiceService.recordPracticeCompletion();
   }
 }

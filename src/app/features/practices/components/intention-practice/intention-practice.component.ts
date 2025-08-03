@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Location } from '@angular/common';
+import { PracticeListComponent, PracticeCard } from '@app/shared/components/practice-list/practice-list.component';
+import { SharedModule } from '@app/shared/shared.module';
+import { PracticePageLayoutComponent } from '@app/shared/components/practice-page-layout/practice-page-layout.component';
 
 interface IntentionPractice {
   title: string;
@@ -13,7 +15,7 @@ interface IntentionPractice {
   templateUrl: './intention-practice.component.html',
   styleUrls: ['./intention-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, PracticeListComponent, SharedModule, PracticePageLayoutComponent]
 })
 export class IntentionPracticeComponent {
   practices: IntentionPractice[] = [
@@ -32,16 +34,22 @@ export class IntentionPracticeComponent {
     { title: 'Управление мыслью', description: 'В течени дня научи себя удерживать чистую мысль о Всевышнем (начни с часа в день). Наказывай себя за отвлечения, приучи тело бояться ненужных мыслей.' }
   ];
 
-  constructor(private router: Router, private location: Location) {}
+  practiceCards: PracticeCard[] = this.practices.map(p => ({
+    title: p.title,
+    route: '/practices/intention/exercise',
+    icon: 'track_changes',
+    colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800',
+    author: 'Бааль Сулам',
+    tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200',
+    data: p
+  }));
 
-  goBack() {
-    this.location.back();
-  }
+  constructor(private router: Router) {}
 
-  openPractice(practice: IntentionPractice) {
+  onPracticeSelected(practiceCard: PracticeCard) {
     const navigationExtras: NavigationExtras = {
-      state: { practice }
+      state: { practice: practiceCard.data }
     };
-    this.router.navigate(['/practices/intention/exercise'], navigationExtras);
+    this.router.navigate([practiceCard.route], navigationExtras);
   }
 }

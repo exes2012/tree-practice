@@ -1,0 +1,15 @@
+<div class="header-container fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+  <div class="flex items-center justify-between px-4 py-3 h-14">
+    <div class="flex items-center">
+      <button
+        (click)="goBack()"
+        class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-3">
+        <i class="material-icons text-gray-700 dark:text-gray-300">arrow_back</i>
+      </button>
+      <h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ title }}</h1>
+    </div>
+    <div class="flex items-center">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
