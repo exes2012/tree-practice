@@ -41,5 +41,9 @@ export const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./features/settings/settings.module').then(m => m.SettingsModule)
+  },
+  {
+    path: 'goals',
+    loadChildren: () => import('./features/goals/goals.module').then(m => m.GoalsModule)
   }
 ];

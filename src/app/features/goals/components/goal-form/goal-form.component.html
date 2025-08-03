@@ -1,0 +1,61 @@
+<app-practice-page-layout [title]="isEditMode ? 'Ваша цель' : 'Новая цель'">
+<div class="goal-form-container">
+  <form (ngSubmit)="saveGoal()">
+    <div class="form-group">
+      <label>Установка фото цели:</label>
+      <div class="image-upload-container" (click)="triggerFileInput()">
+        <div *ngIf="!goal.imageUrl" class="upload-placeholder">
+          <i class="material-icons">add_a_photo</i>
+          <span>Выберите фото</span>
+        </div>
+        <div *ngIf="goal.imageUrl" class="image-preview">
+          <img [src]="goal.imageUrl" alt="Goal Image Preview">
+          <div class="change-photo-overlay">
+            <i class="material-icons">edit</i>
+          </div>
+        </div>
+      </div>
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+    </div>
+
+    <div class="form-group">
+      <label for="title">Напишите вашу цель здесь:</label>
+      <textarea id="title" [(ngModel)]="goal.title" name="title" required rows="2" placeholder="Опишите вашу цель..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="complexity">Сложность: {{ goal.complexity }}%</label>
+      <input type="range" id="complexity" [(ngModel)]="goal.complexity" name="complexity" min="0" max="100">
+      <p class="help-text">Укажите предполагаемую сложность достижения цели</p>
+    </div>
+
+    <div class="form-group">
+      <label>Направление:</label>
+      <div class="direction-tiles">
+        <div class="tile" [class.selected]="goal.direction === 'relationships'" (click)="selectDirection('relationships')">
+          Отношения
+        </div>
+        <div class="tile" [class.selected]="goal.direction === 'health'" (click)="selectDirection('health')">
+          Здоровье
+        </div>
+        <div class="tile" [class.selected]="goal.direction === 'money'" (click)="selectDirection('money')">
+          Деньги
+        </div>
+        <div class="tile" [class.selected]="goal.direction === 'destiny'" (click)="selectDirection('destiny')">
+          Предназначение
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox-row">
+        <input type="checkbox" id="isMainGoal" [(ngModel)]="goal.isMainGoal" name="isMainGoal">
+        <label for="isMainGoal">Главная цель</label>
+      </div>
+      <p class="help-text">Главная цель будет отображаться вверху списка целей. Главная цель может быть только одна.</p>
+    </div>
+
+    <button type="submit" class="save-button" [disabled]="!isFormValid()">{{ isEditMode ? 'Сохранить' : 'Добавить' }}</button>
+  </form>
+</div>
+</app-practice-page-layout>

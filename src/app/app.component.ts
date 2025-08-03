@@ -41,7 +41,7 @@ import { SideMenuService } from './core/services/side-menu.service';
           </main>
 
           <!-- Bottom Navigation -->
-          <app-bottom-navigation></app-bottom-navigation>
+          <app-bottom-navigation *ngIf="!isGoalsRoute && !isPracticeRoute"></app-bottom-navigation>
         </div>
       </div>
     </div>
@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isSideMenuOpen = false;
   isHomePage = false;
   isPracticeRoute = false;
+  isGoalsRoute = false;
   private subscription = new Subscription();
 
   constructor(private sideMenuService: SideMenuService, private router: Router) {}
@@ -70,7 +71,20 @@ export class AppComponent implements OnInit, OnDestroy {
       ).subscribe((event: NavigationEnd) => {
         this.isHomePage = event.url === '/home' || event.url === '/';
         this.isPracticeRoute = event.url.includes('/practices/') ||
-                               event.url.includes('/yichudim/');
+                               event.url.includes('/yichudim/') ||
+                               event.url.includes('/goals/') && (
+                                 event.url.includes('/practice/') ||
+                                 event.url.includes('/new') ||
+                                 event.url.includes('/edit') ||
+                                 event.url.includes('/add-practice')
+                               );
+        this.isGoalsRoute = event.url === '/goals' ||
+                           (event.url.includes('/goals/') &&
+                            !event.url.includes('/practice/') &&
+                            !event.url.includes('/new') &&
+                            !event.url.includes('/edit') &&
+                            !event.url.includes('/add-practice') &&
+                            event.url.split('/').length === 3); // /goals/:id
       })
     );
   }

@@ -1,0 +1,17 @@
+<div class="goal-card" (click)="onCardClick()">
+  <div class="goal-image-container">
+    <img *ngIf="goal.imageUrl; else noImage" [src]="goal.imageUrl" alt="Goal Image" class="goal-image">
+    <ng-template #noImage>
+      <div class="no-image-placeholder">
+        <img src="/assets/icons/no-image.svg" alt="No Image" class="no-image-icon">
+      </div>
+    </ng-template>
+  </div>
+  <div class="goal-details">
+    <h3 class="goal-title">{{ goal.title }}</h3>
+    <p class="goal-practices-count">Проработок: {{ goal.practices.length }}</p>
+  </div>
+  <div *ngIf="goal.isMainGoal" class="main-goal-star">
+    <i class="material-icons">star</i>
+  </div>
+</div>

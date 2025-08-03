@@ -1,0 +1,42 @@
+<app-practice-layout
+  [practiceTitle]="'Сонастройка цели с Творцом'"
+  [steps]="steps"
+  [currentStepIndex]="currentStepIndex"
+  [currentStepData]="steps[currentStepIndex]"
+  (nextStepClicked)="onNextStepClicked()"
+  (previousStepClicked)="onPreviousStepClicked()"
+  (toggleRepetitionClicked)="onToggleRepetitionClicked($event)"
+  (practiceFinished)="onPracticeFinishedFromLayout($event)"
+>
+  <ng-template #stepContent let-step="step" let-currentStepIndex="currentStepIndex">
+    <div class="step-content" *ngIf="step.title && !step.title.startsWith('Dummy')">
+      <h3 *ngIf="step.title" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ step.title }}</h3>
+      <p class="instruction" [innerHTML]="getInstruction(step)"></p>
+
+      <div *ngIf="step.inputField === 'practiceFormulation'">
+        <textarea [(ngModel)]="practiceFormulation" placeholder="Введите вашу цель" class="practice-formulation-textarea"></textarea>
+      </div>
+
+      <div *ngIf="step.inputField === 'visionAfterAchievingGoal'">
+        <textarea [(ngModel)]="visionAfterAchievingGoal" placeholder="Опишите, что вы видите"></textarea>
+      </div>
+
+      <div *ngIf="step.inputField === 'alignmentRating'">
+        <div class="alignment-rating-container">
+          <p class="rating-question mb-4">Насколько Творец притягивает от вас, когда цель достигнута именно так?</p>
+          <div class="rating-slider-container">
+            <input type="range" [(ngModel)]="alignmentRating" min="0" max="10" class="alignment-slider">
+            <div class="rating-display">{{ alignmentRating }} / 10</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="step.inputField === 'rephrasedGoal'">
+        <textarea [(ngModel)]="rephrasedGoal" placeholder="Переформулируйте цель"></textarea>
+      </div>
+
+
+
+    </div>
+  </ng-template>
+</app-practice-layout>

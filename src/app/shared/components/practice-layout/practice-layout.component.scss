@@ -5,6 +5,20 @@
   --primary-color-text: #ffffff;
 }
 
+/* Practice Header Styles */
+.practice-header {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.practice-header h1 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
 .bg-primary-500 {
   background-color: var(--primary-color);
 }

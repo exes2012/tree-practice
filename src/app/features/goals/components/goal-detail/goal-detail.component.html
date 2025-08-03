@@ -1,0 +1,38 @@
+<app-page-header title="Цель" [showEditButton]="true" (editClicked)="editGoal()" (backClicked)="goBackToGoals()">
+  <button class="delete-button" (click)="deleteGoal()">
+    <i class="material-icons">delete</i>
+  </button>
+</app-page-header>
+
+<div class="goal-detail-container pt-16" *ngIf="goal">
+  <!-- Goal Title -->
+  <h1 class="goal-title-header">{{ goal.title }}</h1>
+
+  <div class="goal-summary">
+    <div class="summary-item">
+      <span class="summary-label">Проработок:</span>
+      <span class="summary-value">{{ goal.practices.length }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Направление:</span>
+      <span class="summary-value">{{ getDirectionInRussian(goal.direction) }}</span>
+    </div>
+  </div>
+
+  <div class="practices-list">
+    <h3 class="practices-title">Проработки</h3>
+    <div *ngIf="goal.practices.length === 0" class="no-practices">
+      Пока нет проработок для этой цели.
+    </div>
+    <div *ngFor="let practice of goal.practices" class="practice-item">
+      <p class="practice-title">{{ practice.formulation }}</p>
+      <p class="practice-details">{{ practice.type }} - {{ practice.date }}</p>
+    </div>
+  </div>
+
+  <div class="add-practice-button-container">
+    <button class="add-practice-button" (click)="addPractice()">
+      Добавить проработку
+    </button>
+  </div>
+</div>

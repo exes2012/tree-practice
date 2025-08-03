@@ -1,16 +1,16 @@
 
 import { Component, Input, Output, EventEmitter, OnDestroy, ContentChild, TemplateRef, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, AfterContentInit, AfterViewChecked, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PageHeaderComponent } from '../page-header/page-header.component';
 
 @Component({
   selector: 'app-practice-layout',
   templateUrl: './practice-layout.component.html',
   styleUrls: ['./practice-layout.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, PageHeaderComponent]
+  imports: [CommonModule, FormsModule]
 })
 export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewChecked {
 
@@ -19,10 +19,13 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   @Input() practiceTitle: string = '';
   @Input() practiceDescription: string = '';
   @Input() steps: any[] = [];
+  @Input() currentStepIndex: number = 0; // Now an input
+  @Input() currentStepData: any; // New input for current step data
 
   // --- Inputs for Configuration ---
   @Input() showTimer: boolean = false;
   @Input() mainPracticeStepIndex: number = -1;
+  @Input() disableAutoRating: boolean = false;
 
   // --- Inputs for Timer Options ---
   @Input() stepDurationOptions: number[] = [10, 15, 30, 60];
@@ -32,16 +35,18 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
 
   // --- Outputs ---
   @Output() practiceFinished = new EventEmitter<any>();
+  @Output() nextStepClicked = new EventEmitter<void>(); // New output
+  @Output() previousStepClicked = new EventEmitter<void>(); // New output
+  @Output() toggleRepetitionClicked = new EventEmitter<boolean>(); // New output
 
   // --- Template References ---
   @ContentChild('stepContent') stepContent!: TemplateRef<any>;
 
   // --- State Management ---
+  isVoiceEnabled = true; // Keep voice control here
+  isRepetitionActive = false; // Keep repetition state here
   isPracticeStarted = false;
-  currentStepIndex = 0;
-  isVoiceEnabled = true;
   userRating = 5;
-  isRepetitionActive = false;
 
   // --- Timer & Repetition Properties ---
   stepTimer: number = 0;
@@ -51,21 +56,19 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   private repetitionInterval: any;
   private audio: HTMLAudioElement;
 
-  constructor(private location: Location, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(private location: Location, private router: Router, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
     this.audio = new Audio('/assets/sound/bell.mp3');
-    console.log('PracticeLayoutComponent: Constructor called!');
-    console.log('PracticeLayoutComponent: Initial inputs - practiceTitle:', this.practiceTitle, 'steps:', this.steps);
   }
 
   ngOnInit() {
-    console.log('PracticeLayoutComponent: ngOnInit');
-    console.log('PracticeLayoutComponent: practiceTitle:', this.practiceTitle);
-    console.log('PracticeLayoutComponent: practiceDescription:', this.practiceDescription);
-    console.log('PracticeLayoutComponent: steps:', this.steps);
-    console.log('PracticeLayoutComponent: steps length:', this.steps?.length);
-    console.log('PracticeLayoutComponent: showTimer:', this.showTimer);
     this.stepTimer = this.selectedStepDuration;
     this.practiceTimer = this.selectedPracticeDuration * 60;
+
+    // Auto-start practice for old-style components (without external step management)
+    if (!this.currentStepData && this.steps.length > 0) {
+      this.isPracticeStarted = true;
+      this.runStepLogic();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -96,11 +99,27 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
     window.speechSynthesis.cancel();
   }
 
+  // --- Helper Methods ---
+  get currentStep() {
+    // If currentStepData is provided as input, use it
+    if (this.currentStepData) {
+      return this.currentStepData;
+    }
+    // Otherwise, get from steps array using currentStepIndex
+    return this.steps[this.currentStepIndex];
+  }
+
   // --- Control Methods ---
   goBack() {
     this.clearAllTimers();
     window.speechSynthesis.cancel();
     this.location.back();
+  }
+
+  goHome() {
+    this.clearAllTimers();
+    window.speechSynthesis.cancel();
+    this.router.navigate(['/']);
   }
 
   toggleVoice() {
@@ -118,21 +137,29 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   }
 
   nextStep() {
-    console.log('PracticeLayoutComponent: nextStep called. Before currentStepIndex:', this.currentStepIndex);
-    if (this.currentStepIndex < this.steps.length - 1) {
-      this.currentStepIndex++;
-      this.runStepLogic();
+    // If external handler is connected, use it
+    if (this.nextStepClicked.observed) {
+      this.nextStepClicked.emit();
+    } else {
+      // Internal navigation for old-style components
+      if (this.currentStepIndex < this.steps.length - 1) {
+        this.currentStepIndex++;
+        this.runStepLogic();
+      }
     }
-    console.log('PracticeLayoutComponent: nextStep called. After currentStepIndex:', this.currentStepIndex);
   }
 
   previousStep() {
-    console.log('PracticeLayoutComponent: previousStep called. Before currentStepIndex:', this.currentStepIndex);
-    if (this.currentStepIndex > 0) {
-      this.currentStepIndex--;
-      this.runStepLogic();
+    // If external handler is connected, use it
+    if (this.previousStepClicked.observed) {
+      this.previousStepClicked.emit();
+    } else {
+      // Internal navigation for old-style components
+      if (this.currentStepIndex > 0) {
+        this.currentStepIndex--;
+        this.runStepLogic();
+      }
     }
-    console.log('PracticeLayoutComponent: previousStep called. After currentStepIndex:', this.currentStepIndex);
   }
 
   finishPractice() {
@@ -149,6 +176,16 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
     this.goBack();
   }
 
+  handleToggleRepetition() {
+    // If external handler is connected, use it
+    if (this.toggleRepetitionClicked.observed) {
+      this.toggleRepetitionClicked.emit(!this.isRepetitionActive);
+    } else {
+      // Internal toggle for old-style components
+      this.toggleRepetition();
+    }
+  }
+
   toggleRepetition() {
     console.log('PracticeLayoutComponent: toggleRepetition called. Before isRepetitionActive:', this.isRepetitionActive);
     this.isRepetitionActive = !this.isRepetitionActive;
@@ -160,6 +197,58 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
       window.speechSynthesis.cancel();
     }
     console.log('PracticeLayoutComponent: toggleRepetition called. After isRepetitionActive:', this.isRepetitionActive);
+  }
+
+  // --- Rating Methods ---
+  isLastStep(): boolean {
+    return this.currentStepIndex === this.steps.length - 1;
+  }
+
+  isRatingStep(): boolean {
+    const currentStep = this.currentStep;
+    return currentStep && (
+      (currentStep as any)?.showRating === true ||
+      currentStep.title?.toLowerCase().includes('оценка') ||
+      currentStep.instruction?.toLowerCase().includes('оцени') ||
+      currentStep.instruction?.toLowerCase().includes('как прошла практика')
+    );
+  }
+
+  getRatingIcon(): string {
+    const icons = [
+      'sentiment_very_dissatisfied', // 1
+      'sentiment_dissatisfied',      // 2
+      'sentiment_dissatisfied',      // 3
+      'sentiment_neutral',           // 4
+      'sentiment_neutral',           // 5
+      'sentiment_satisfied',         // 6
+      'sentiment_satisfied',         // 7
+      'sentiment_very_satisfied',    // 8
+      'sentiment_very_satisfied',    // 9
+      'mood'                         // 10
+    ];
+    return icons[this.userRating - 1] || 'sentiment_neutral';
+  }
+
+  onRatingChange(event: any): void {
+    this.userRating = parseInt(event.target.value);
+  }
+
+  finishPracticeWithRating(): void {
+    console.log('PracticeLayoutComponent: finishPracticeWithRating called with rating:', this.userRating);
+    this.clearAllTimers();
+    this.practiceFinished.emit({ rating: this.userRating });
+
+    // Check if this is a goals practice (has custom navigation)
+    const currentUrl = window.location.pathname;
+    const isGoalsPractice = currentUrl.includes('/goals/') && currentUrl.includes('/practice/');
+
+    // Only navigate back automatically for non-goals practices
+    if (!isGoalsPractice) {
+      setTimeout(() => {
+        this.goBack();
+      }, 100);
+    }
   }
 
   // --- Internal Logic ---

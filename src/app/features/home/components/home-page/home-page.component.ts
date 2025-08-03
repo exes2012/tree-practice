@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   private resizeObserver?: ResizeObserver;
 
   isChallengeExpanded = false;
+  activeTab: 'right' | 'left' = 'right';
 
   constructor(private router: Router, private practiceService: PracticeService) {}
 
@@ -36,6 +37,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.lastPractice = this.practiceService.getLastPractice();
     this.stats = this.practiceService.getPracticeStats();
+    this.loadActiveTab();
   }
 
   ngAfterViewInit() {
@@ -72,6 +74,26 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.router.navigate(['/practices', practiceType]);
     }
+  }
+
+  navigateToGoals() {
+    this.router.navigate(['/goals']);
+  }
+
+  switchTab(tab: 'right' | 'left') {
+    this.activeTab = tab;
+    this.saveActiveTab();
+  }
+
+  private loadActiveTab() {
+    const savedTab = localStorage.getItem('activeTab');
+    if (savedTab === 'left' || savedTab === 'right') {
+      this.activeTab = savedTab;
+    }
+  }
+
+  private saveActiveTab() {
+    localStorage.setItem('activeTab', this.activeTab);
   }
 
   repeatLastPractice() {

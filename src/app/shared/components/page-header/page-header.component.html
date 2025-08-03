@@ -9,6 +9,9 @@
       <h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ title }}</h1>
     </div>
     <div class="flex items-center">
+      <button *ngIf="showEditButton" (click)="onEditClick()" class="edit-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ml-3">
+        <i class="material-icons text-gray-700 dark:text-gray-300">edit</i>
+      </button>
       <ng-content></ng-content>
     </div>
   </div>

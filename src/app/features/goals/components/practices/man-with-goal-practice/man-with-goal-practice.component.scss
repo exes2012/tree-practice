@@ -1,0 +1,42 @@
+.step-content {
+  padding: 0;
+
+  .instruction {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 1em;
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  /* Specific styling for practice formulation textarea (step 2) */
+  .practice-formulation-textarea {
+    min-height: 120px; /* Increased height for step 2 */
+  }
+
+  input[type="range"] {
+    width: calc(100% - 40px); /* Adjust for rating display */
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  span {
+    font-size: 1.1em;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+}

@@ -1,88 +1,82 @@
+<!-- Practice Header -->
+<div class="practice-header bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between">
+      <!-- Back Button -->
+      <button (click)="goHome()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+        <i class="material-icons text-gray-700 dark:text-gray-300">home</i>
+      </button>
 
+      <!-- Practice Title -->
+      <h1 *ngIf="practiceTitle" class="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center flex-1 mx-4">{{ practiceTitle }}</h1>
 
-<!-- Initial Screen -->
-<div *ngIf="!isPracticeStarted">
-  <app-page-header [title]="practiceTitle">
-    <button (click)="toggleVoice()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-      <i class="material-icons text-gray-700 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
-    </button>
-  </app-page-header>
-  <div class="container mx-auto px-4 pt-16 pb-24">
-
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <!-- Practice Description -->
-      <div *ngIf="practiceDescription" class="mb-6">
-        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Описание</h3>
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ practiceDescription }}</p>
-      </div>
-
-      <!-- Timer Configuration -->
-      <div *ngIf="showTimer" class="mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-          <div>
-            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Длительность шага</h3>
-            <div class="flex flex-wrap gap-2">
-              <button *ngFor="let duration of stepDurationOptions" (click)="setStepDuration(duration)" 
-                      [ngClass]="{'bg-primary-600 text-white': selectedStepDuration === duration, 'bg-gray-200 dark:bg-gray-700': selectedStepDuration !== duration}" 
-                      class="py-2 px-3 rounded-lg transition-colors text-sm flex-grow">
-                {{ duration }} сек
-              </button>
-            </div>
-          </div>
-          <div class="mt-4 md:mt-0">
-            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Длительность практики</h3>
-            <div class="flex flex-wrap gap-2">
-              <button *ngFor="let duration of practiceDurationOptions" (click)="setPracticeDuration(duration)" 
-                      [ngClass]="{'bg-primary-600 text-white': selectedPracticeDuration === duration, 'bg-gray-200 dark:bg-gray-700': selectedPracticeDuration !== duration}" 
-                      class="py-2 px-3 rounded-lg transition-colors text-sm flex-grow">
-                {{ duration }} мин
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button (click)="startPractice()" class="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
-        <i class="material-icons mr-3">play_arrow</i>
-        <span>Начать</span>
+      <!-- Voice Toggle Button -->
+      <button (click)="toggleVoice()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+        <i class="material-icons text-gray-700 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
       </button>
     </div>
   </div>
 </div>
-<!-- END of *ngIf="!isPracticeStarted" block -->
-
-
-
-
 
 <!-- Practice Steps -->
-<div *ngIf="isPracticeStarted" class="container mx-auto px-4 pt-4 pb-24">
+<div class="container mx-auto px-4 pt-4 pb-24">
   <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
 
     <!-- Step Content -->
-    <div *ngIf="steps && steps[currentStepIndex]">
+    <div *ngIf="currentStep">
       <ng-container *ngIf="stepContent">
-        <ng-container *ngTemplateOutlet="stepContent; context: { $implicit: steps[currentStepIndex], index: currentStepIndex }"></ng-container>
+        <ng-container *ngTemplateOutlet="stepContent; context: {
+          $implicit: currentStep,
+          step: currentStep,
+          currentStepIndex: currentStepIndex,
+          index: currentStepIndex
+        }"></ng-container>
       </ng-container>
 
       <!-- Fallback if no stepContent template -->
       <div *ngIf="!stepContent">
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ steps[currentStepIndex].title }}</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="steps[currentStepIndex].instruction"></p>
+        <h2 *ngIf="currentStep.title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ currentStep.title }}</h2>
+        <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="currentStep.instruction"></p>
+      </div>
+
+      <!-- Rating section for last step -->
+      <div *ngIf="isLastStep() && isRatingStep()" class="mt-6">
+        <div class="text-center mb-6">
+          <!-- Rating icon display -->
+          <div class="mb-4">
+            <i class="material-icons text-primary-500" style="font-size: 5rem;">{{ getRatingIcon() }}</i>
+          </div>
+
+          <!-- Rating slider -->
+          <div class="mb-4">
+            <input
+              type="range"
+              min="1"
+              max="10"
+              [(ngModel)]="userRating"
+              class="range-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              (input)="onRatingChange($event)">
+          </div>
+
+          <!-- Rating value display -->
+          <div class="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            {{ userRating }} / 10
+          </div>
+        </div>
       </div>
     </div>
 
 
 
       <!-- Stage indicator -->
-      <div *ngIf="steps && steps[currentStepIndex] && steps[currentStepIndex].stage" class="mb-3">
-        <span class="inline-block text-base font-medium px-3 py-1 rounded-md" [ngClass]="steps[currentStepIndex].stageColor">
-          {{ steps[currentStepIndex].stage }}
+      <div *ngIf="currentStep && currentStep.stage" class="mb-3">
+        <span class="inline-block text-base font-medium px-3 py-1 rounded-md" [ngClass]="currentStep.stageColor">
+          {{ currentStep.stage }}
         </span>
       </div>
 
       <!-- Repetition Toggle -->
-      <div *ngIf="steps && steps[currentStepIndex]?.repeatablePhrase" class="mt-4 text-center">
+      <div *ngIf="currentStep?.repeatablePhrase" class="mt-4 text-center">
         <button (click)="toggleRepetition()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mx-auto">
           <i class="material-icons text-gray-700 dark:text-gray-300">{{ isRepetitionActive ? 'volume_off' : 'volume_up' }}</i>
         </button>
@@ -90,39 +84,22 @@
       </div>
 
       <!-- Timer Display -->
-      <div *ngIf="showTimer && steps && currentStepIndex < steps.length - 1" class="text-center my-4 text-4xl font-bold text-primary-500">
+      <div *ngIf="showTimer && currentStepIndex < steps.length - 1" class="text-center my-4 text-4xl font-bold text-primary-500">
         <span *ngIf="currentStepIndex < mainPracticeStepIndex">{{ stepTimer * 1000 | date:'mm:ss' }}</span>
         <span *ngIf="currentStepIndex === mainPracticeStepIndex">{{ practiceTimer * 1000 | date:'mm:ss' }}</span>
       </div>
 
-      <!-- Rating -->
-      <div *ngIf="currentStepIndex === steps.length - 1">
-        <div class="w-24 h-24 mx-auto mb-4 text-primary-500 flex items-center justify-center">
-          <i class="material-icons text-8xl">
-            <ng-container [ngSwitch]="true">
-              <ng-container *ngSwitchCase="userRating <= 2">sentiment_very_dissatisfied</ng-container>
-              <ng-container *ngSwitchCase="userRating > 2 && userRating <= 4">sentiment_dissatisfied</ng-container>
-              <ng-container *ngSwitchCase="userRating > 4 && userRating <= 6">sentiment_neutral</ng-container>
-              <ng-container *ngSwitchCase="userRating > 6 && userRating <= 8">sentiment_satisfied</ng-container>
-              <ng-container *ngSwitchCase="userRating > 8">sentiment_very_satisfied</ng-container>
-            </ng-container>
-          </i>
-        </div>
-        <input type="range" min="1" max="10" [(ngModel)]="userRating" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 range-slider">
-        <p class="text-center text-lg font-semibold text-gray-900 dark:text-gray-100 mt-2">{{ userRating }}</p>
-      </div>
-
       <!-- Navigation Buttons -->
       <div class="flex justify-between mt-8">
-        <button (click)="previousStep()" [disabled]="currentStepIndex === 0" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          Назад
+        <button (click)="currentStepIndex === 0 ? goBack() : previousStep()" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg">
+          {{ currentStepIndex === 0 ? 'Выход' : 'Назад' }}
         </button>
 
         <button *ngIf="currentStepIndex < steps.length - 1" (click)="nextStep()" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg">
           Далее
         </button>
 
-        <button *ngIf="currentStepIndex === steps.length - 1" (click)="exitPractice()" class="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg">
+        <button *ngIf="currentStepIndex === steps.length - 1" (click)="finishPracticeWithRating()" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg">
           Завершить
         </button>
       </div>

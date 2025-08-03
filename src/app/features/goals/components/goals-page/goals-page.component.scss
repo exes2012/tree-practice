@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.goals-list-container {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 80px; /* Space for fixed button */
+  margin: 0;
+}
+
+.add-goal-button-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-top: 1px solid #e0e0e0;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.add-goal-button {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+
+  &:hover {
+    background-color: #2563eb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
