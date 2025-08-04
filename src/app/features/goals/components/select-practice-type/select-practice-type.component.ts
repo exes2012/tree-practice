@@ -16,29 +16,30 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
 export class SelectPracticeTypeComponent implements OnInit {
   goalId: string | null = null;
   practiceTypes: PracticeCard[] = [
-    {
-      title: 'Выявление установки',
-      route: 'identification',
-      icon: 'lightbulb',
-      colorClass: 'bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800',
-      author: 'Гмар Тиккун',
-      tagColorClass: 'bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200'
-    },
+
     {
       title: 'Подъем МАН с целью',
       route: 'man-with-goal',
-      icon: 'trending_up',
-      colorClass: 'bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800',
+      icon: 'rocket_launch',
+      colorClass: 'bg-orange-100 dark:bg-orange-900 hover:bg-orange-200 dark:hover:bg-orange-800',
       author: 'Гмар Тиккун',
-      tagColorClass: 'bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200'
+      tagColorClass: 'bg-orange-200 dark:bg-orange-800 text-orange-800 dark:text-orange-200'
     },
     {
       title: 'Сонастройка цели с Творцом',
       route: 'alignment',
-      icon: 'sync',
-      colorClass: 'bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800',
+      icon: 'tune',
+      colorClass: 'bg-teal-100 dark:bg-teal-900 hover:bg-teal-200 dark:hover:bg-teal-800',
       author: 'Гмар Тиккун',
-      tagColorClass: 'bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200'
+      tagColorClass: 'bg-teal-200 dark:bg-teal-800 text-teal-800 dark:text-teal-200'
+    },
+    {
+      title: 'Выявление установки',
+      route: 'identification',
+      icon: 'psychology',
+      colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800',
+      author: 'Гмар Тиккун',
+      tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200'
     },
   ];
 

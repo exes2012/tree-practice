@@ -1,21 +1,39 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { PracticeLayoutComponent } from '@app/shared/components/practice-layout/practice-layout.component';
+import { PracticeService } from '@app/core/services/practice.service';
 
 @Component({
   selector: 'app-shekhinah-field-practice',
   templateUrl: './shekhinah-field-practice.component.html',
+  styleUrls: ['./shekhinah-field-practice.component.scss'],
   standalone: true,
+  imports: [CommonModule, FormsModule, PracticeLayoutComponent]
 })
 export class ShekhinahFieldPracticeComponent {
+  practiceTitle = 'Подъем МАН через общее поле Шхины';
+  practiceSubtitle = 'Работа через единую систему';
+  description = 'Это упражнение направлено на подъем МАН через ощущение себя частью единой системы душ и работу с общими нехватками всей системы.';
+  time = '20 мин';
+  level = 'Продвинутый';
+  showTimer = false;
 
-  constructor(private location: Location) {}
+  practiceSteps = [
+    { title: 'Шаг 1: Ощущение', instruction: 'Почувствуй пространство, себя, свое тело.' },
+    { title: 'Шаг 2: Включение в систему', instruction: 'Почувствуй, что все, что ты сейчас ощущаешь в своих органах восприятия, ощущает вся система душ. Нет отдельного Я. Скажи: <br><br><strong>"Все, что я сейчас ощущаю, все, что сейчас проходит через мои органы восприятия, ощущает вся система. Весь поток ощущений в здесь и сейчас переживает единое целое."</strong> <br><br>', repeatablePhrase: 'Все, что я сейчас ощущаю, все, что сейчас проходит через мои органы восприятия, ощущает вся система. Весь поток ощущений в здесь и сейчас переживает единое целое.' },
+    { title: 'Шаг 3: Поиск нехватки', instruction: 'Почувствуй, какая общая нехватка есть сейчас у всей системы. Найди, где она ощущается. Ее размер, форму. Найди, она ощущается внутри или снаружи тебя. Покажи рукой туда.' },
+    { title: 'Шаг 4: Самоотмена', instruction: 'Чувствуя себя всей системой целиком, поставь руку на грудную точку и проговаривай до состояния уменьшения важности и самоотмены. <br><br><strong>"Системе не важно, что она переживает в своих органах восприятия, боль или удовольствие, страдание или радость. Ей важна только связь с Творцом. И она здесь только для того, чтобы соединиться с ним через эту нехватку."</strong> <br><br>', repeatablePhrase: 'Системе не важно, что она переживает в своих органах восприятия, боль или удовольствие, страдание или радость. Ей важна только связь с Творцом. И она здесь только для того, чтобы соединиться с ним через эту нехватку.' },
+    { title: 'Шаг 6: Проводник света', instruction: 'Работай как проводник. Проси об исправлении намерения внутри желания в общей системе и притягивай в исправленные сосуды всей системы благо и наслаждение.<br><br><strong>"Творец, исправь намерение внутри нашего общего желания из получения в отдачу, приблизь нас к себе и наполни наши нехватки благом и наслаждением."</strong>', repeatablePhrase: 'Творец, исправь намерение внутри нашего общего желания из получения в отдачу, приблизь нас к себе и наполни наши нехватки благом и наслаждением.' },
+    { title: 'Шаг 7: Соединение', instruction: 'Почувствуй ещё раз всю систему целиком, все ее сосуды. Собери все их сосуды воедино, как собрание всех душ. Подними их в точку, где ощущается Творец, и удерживай его там. Скажи: <br><br><strong>"Всё, что существует внутри этой системы, включая саму эту систему — и есть Творец. Система включена в Него.".</strong> И побудь в этом состоянии.', repeatablePhrase: 'Всё, что существует внутри этой системы, включая саму эту систему — и есть Творец. Система включена в Него.' },
+    { title: 'Шаг 8: Благодарность', instruction: 'Вырази благодарность Творцу в меру получения облегчения и изменения. <br><br><strong>"Благодарю за это общение".</strong>' },
+    { title: 'Шаг 9: Оценка', instruction: 'Во сколько баллов оценишь эту проработку?' },
+  ];
 
-  goBack() {
-    this.location.back();
-  }
+  constructor(private practiceService: PracticeService) { }
 
-  startPractice() {
-    console.log('Starting shekhinah field practice...');
-    alert('Практика будет реализована в следующих версиях');
+  onPracticeFinished(event: { rating: number }) {
+    this.practiceService.saveLastPractice({ name: this.practiceTitle, route: '/practices/man/shekhinah-field' });
+    this.practiceService.recordPracticeCompletion();
   }
 }

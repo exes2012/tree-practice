@@ -26,6 +26,8 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   @Input() showTimer: boolean = false;
   @Input() mainPracticeStepIndex: number = -1;
   @Input() disableAutoRating: boolean = false;
+  @Input() disableAutoRepetition: boolean = false;
+  @Input() disableAutoSpeech: boolean = false;
 
   // --- Inputs for Timer Options ---
   @Input() stepDurationOptions: number[] = [10, 15, 30, 60];
@@ -133,7 +135,11 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   startPractice() {
     this.isPracticeStarted = true;
     this.currentStepIndex = 0;
-    this.runStepLogic();
+
+    // Only run step logic if not using external handlers
+    if (!this.nextStepClicked.observed && !this.disableAutoSpeech) {
+      this.runStepLogic();
+    }
   }
 
   nextStep() {
@@ -256,9 +262,13 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
     console.log('PracticeLayoutComponent: runStepLogic called. currentStepIndex:', this.currentStepIndex);
     this.clearAllTimers();
     const currentStep = this.steps[this.currentStepIndex];
-    this.speak(currentStep?.instruction || '');
 
-    if (currentStep?.repeatablePhrase) {
+    // Only auto-speak if not disabled
+    if (!this.disableAutoSpeech) {
+      this.speak(currentStep?.instruction || '');
+    }
+
+    if (currentStep?.repeatablePhrase && !this.disableAutoRepetition) {
       this.isRepetitionActive = true;
       this.startRepetition();
     } else {

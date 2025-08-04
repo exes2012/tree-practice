@@ -12,6 +12,7 @@ import { ZeirAnpinSpacePracticeComponent } from './components/small-state-practi
 import { NetzHodLinePracticeComponent } from './components/small-state-practice/netz-hod-line-practice.component';
 import { HesedGevurahLinePracticeComponent } from './components/small-state-practice/hesed-gevurah-line-practice.component';
 import { SpecificRequestPracticeComponent } from './components/man-practice/specific-request-practice.component';
+import { SpecificRequestPracticeV2Component } from './components/man-practice/specific-request-practice-v2.component';
 import { SpaceClarificationPracticeComponent } from './components/man-practice/space-clarification-practice.component';
 import { ShekhinahFieldPracticeComponent } from './components/man-practice/shekhinah-field-practice.component';
 import { CreatorJustificationPracticeComponent } from './components/man-practice/creator-justification-practice.component';
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: 'man/specific-request',
     component: SpecificRequestPracticeComponent
+  },
+  {
+    path: 'man/specific-request-v2',
+    component: SpecificRequestPracticeV2Component
   },
   {
     path: 'man/space-clarification',

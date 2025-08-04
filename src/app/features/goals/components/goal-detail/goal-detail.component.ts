@@ -67,4 +67,11 @@ export class GoalDetailComponent implements OnInit {
     };
     return translations[direction.toLowerCase()] || direction;
   }
+
+  getReversedPractices() {
+    if (!this.goal || !this.goal.practices) {
+      return [];
+    }
+    return [...this.goal.practices].reverse();
+  }
 }

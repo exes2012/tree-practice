@@ -76,7 +76,7 @@
       </div>
 
       <!-- Repetition Toggle -->
-      <div *ngIf="currentStep?.repeatablePhrase" class="mt-4 text-center">
+      <div *ngIf="currentStep?.repeatablePhrase && currentStep?.showToggleRepetition !== false" class="mt-4 text-center">
         <button (click)="toggleRepetition()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mx-auto">
           <i class="material-icons text-gray-700 dark:text-gray-300">{{ isRepetitionActive ? 'volume_off' : 'volume_up' }}</i>
         </button>

@@ -24,7 +24,7 @@
     <div *ngIf="goal.practices.length === 0" class="no-practices">
       Пока нет проработок для этой цели.
     </div>
-    <div *ngFor="let practice of goal.practices" class="practice-item">
+    <div *ngFor="let practice of getReversedPractices()" class="practice-item">
       <p class="practice-title">{{ practice.formulation }}</p>
       <p class="practice-details">{{ practice.type }} - {{ practice.date }}</p>
     </div>

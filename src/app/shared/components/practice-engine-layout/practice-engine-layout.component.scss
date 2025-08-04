@@ -1,0 +1,27 @@
+
+/* Стили для контейнера практики */
+.practice-container {
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+/* Стили для стартового экрана */
+.start-screen {
+    text-align: center;
+}
+
+/* Стили для хедера шага */
+.step-header {
+    margin-bottom: 20px;
+}
+
+/* Стили для контента шага */
+.step-content {
+    margin-bottom: 20px;
+}
+
+/* Стили для кнопок навигации */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+}

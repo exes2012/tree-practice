@@ -1,41 +1,13 @@
-<div class="container mx-auto p-4">
-  <div class="flex items-center mb-6">
-    <button (click)="goBack()" class="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mr-4">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-      </svg>
-    </button>
-    <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Работа через общее поле Шхины</h1>
-  </div>
+<app-practice-layout
+  [practiceTitle]="practiceTitle"
+  [practiceDescription]="description"
+  [steps]="practiceSteps"
+  (practiceFinished)="onPracticeFinished($event)"
+  [showTimer]="showTimer">
 
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-    <div class="flex items-center mb-4">
-      <i class="material-icons text-4xl text-orange-500 dark:text-orange-400 mr-4">groups</i>
-      <div>
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Работа через общее поле Шхины</h2>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">Коллективное намерение</p>
-      </div>
-    </div>
+  <ng-template #stepContent let-step let-i="index">
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ step.title }}</h2>
+    <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="step.instruction"></p>
+  </ng-template>
 
-    <div class="mb-6">
-      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Описание</h3>
-      <p class="text-gray-700 dark:text-gray-300">Это упражнение направлено на работу с общим полем группы (Шхиной). Цель - научиться воспринимать и направлять коллективное намерение для достижения общих целей.</p>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4 mb-6 text-center">
-      <div>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Время</p>
-        <p class="font-semibold text-lg text-gray-900 dark:text-gray-100">40 мин</p>
-      </div>
-      <div>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Уровень</p>
-        <p class="font-semibold text-lg text-gray-900 dark:text-gray-100">Эксперт</p>
-      </div>
-    </div>
-
-    <button (click)="startPractice()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-lg flex items-center justify-center">
-      <i class="material-icons mr-3">play_arrow</i>
-      <span>Начать</span>
-    </button>
-  </div>
-</div>
+</app-practice-layout>
