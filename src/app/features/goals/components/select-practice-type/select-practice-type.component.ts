@@ -16,10 +16,9 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
 export class SelectPracticeTypeComponent implements OnInit {
   goalId: string | null = null;
   practiceTypes: PracticeCard[] = [
-
     {
       title: 'Подъем МАН с целью',
-      route: 'man-with-goal',
+      route: 'goal-man',
       icon: 'rocket_launch',
       colorClass: 'bg-orange-100 dark:bg-orange-900 hover:bg-orange-200 dark:hover:bg-orange-800',
       author: 'Гмар Тиккун',
@@ -27,7 +26,7 @@ export class SelectPracticeTypeComponent implements OnInit {
     },
     {
       title: 'Сонастройка цели с Творцом',
-      route: 'alignment',
+      route: 'goal-alignment',
       icon: 'tune',
       colorClass: 'bg-teal-100 dark:bg-teal-900 hover:bg-teal-200 dark:hover:bg-teal-800',
       author: 'Гмар Тиккун',
@@ -35,7 +34,7 @@ export class SelectPracticeTypeComponent implements OnInit {
     },
     {
       title: 'Выявление установки',
-      route: 'identification',
+      route: 'goal-identification',
       icon: 'psychology',
       colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800',
       author: 'Гмар Тиккун',
@@ -55,7 +54,8 @@ export class SelectPracticeTypeComponent implements OnInit {
 
   onPracticeSelected(practice: PracticeCard): void {
     if (this.goalId) {
-      this.router.navigate(['/goals', this.goalId, 'practice', practice.route]);
+      // Все практики теперь используют новую архитектуру с раннером
+      this.router.navigate(['/practices/runner', practice.route, this.goalId]);
     }
   }
 }

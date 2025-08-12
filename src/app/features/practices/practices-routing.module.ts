@@ -11,13 +11,13 @@ import { CreatorSpacePracticeComponent } from './components/small-state-practice
 import { ZeirAnpinSpacePracticeComponent } from './components/small-state-practice/zeir-anpin-space-practice.component';
 import { NetzHodLinePracticeComponent } from './components/small-state-practice/netz-hod-line-practice.component';
 import { HesedGevurahLinePracticeComponent } from './components/small-state-practice/hesed-gevurah-line-practice.component';
-import { SpecificRequestPracticeComponent } from './components/man-practice/specific-request-practice.component';
-import { SpecificRequestPracticeV2Component } from './components/man-practice/specific-request-practice-v2.component';
+
 import { SpaceClarificationPracticeComponent } from './components/man-practice/space-clarification-practice.component';
-import { ShekhinahFieldPracticeComponent } from './components/man-practice/shekhinah-field-practice.component';
+
 import { CreatorJustificationPracticeComponent } from './components/man-practice/creator-justification-practice.component';
 import { FourStagesPracticeComponent } from './components/basic-exercises/four-stages-practice/four-stages-practice.component';
 import { KeterTuningPracticeComponent } from './components/basic-exercises/keter-tuning-practice/keter-tuning-practice.component';
+import { PracticeRunnerDemoComponent } from './components/practice-runner-demo/practice-runner-demo.component';
 
 const routes: Routes = [
   {
@@ -64,22 +64,12 @@ const routes: Routes = [
     path: 'man',
     component: ManPracticeComponent
   },
-  {
-    path: 'man/specific-request',
-    component: SpecificRequestPracticeComponent
-  },
-  {
-    path: 'man/specific-request-v2',
-    component: SpecificRequestPracticeV2Component
-  },
+
   {
     path: 'man/space-clarification',
     component: SpaceClarificationPracticeComponent
   },
-  {
-    path: 'man/shekhinah-field',
-    component: ShekhinahFieldPracticeComponent
-  },
+
   {
     path: 'man/creator-justification',
     component: CreatorJustificationPracticeComponent
@@ -91,6 +81,15 @@ const routes: Routes = [
   {
     path: 'fall-recovery',
     component: FallRecoveryComponent
+  },
+  // Новая архитектура - тестовые роуты
+  {
+    path: 'runner/:practiceId',
+    component: PracticeRunnerDemoComponent
+  },
+  {
+    path: 'runner/:practiceId/:goalId',
+    component: PracticeRunnerDemoComponent
   }
 ];
 
