@@ -12,11 +12,11 @@ import { ReminderService } from './core/services/reminder.service';
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, BottomNavigationComponent, SideMenuComponent],
   template: `
-    <div class="flex flex-col h-screen" [ngClass]="!isLoginRoute ? 'bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200' : 'bg-gray-50'">
+    <div class="flex flex-col h-screen" [ngClass]="!isLoginRoute ? 'bg-surface text-primary' : 'bg-gray-50'">
       <div class="flex flex-1 overflow-hidden">
         <!-- Side Menu -->
         <aside *ngIf="!isLoginRoute"
-          class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out z-50"
+          class="fixed top-0 left-0 h-full w-64 bg-surface-elevated shadow-lg transform transition-transform duration-300 ease-in-out z-50"
           [class.translate-x-0]="isSideMenuOpen"
           [class.-translate-x-full]="!isSideMenuOpen">
           <app-side-menu></app-side-menu>

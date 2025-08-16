@@ -1,21 +1,21 @@
-<div class="notes-page flex flex-col h-full bg-gray-50 dark:bg-gray-900">
+<div class="notes-page flex flex-col h-full bg-surface">
   <!-- Header with Search and Controls -->
-  <div class="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+  <div class="sticky top-0 z-10 bg-surface-elevated border-b border-subtle shadow-sm">
     <div class="px-4 py-3 space-y-3">
       <!-- Title -->
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <button
             (click)="goToHome()"
-            class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-3">
-            <i class="material-icons text-gray-700 dark:text-gray-300">arrow_back</i>
+            class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors mr-3">
+            <i class="material-icons text-secondary">arrow_back</i>
           </button>
-          <h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Заметки</h1>
+          <h1 class="text-lg font-semibold text-primary">Заметки</h1>
         </div>
         <!-- Desktop Create Button -->
         <button
           (click)="createNote()"
-          class="hidden md:flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
+          class="hidden md:flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md">
           <i class="material-icons mr-2 text-lg">add</i>
           <span class="font-medium">Создать</span>
         </button>
