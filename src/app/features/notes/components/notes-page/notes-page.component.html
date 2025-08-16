@@ -1,0 +1,158 @@
+<div class="notes-page flex flex-col h-full bg-gray-50 dark:bg-gray-900">
+  <!-- Header with Search and Controls -->
+  <div class="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="px-4 py-3 space-y-3">
+      <!-- Title -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <button
+            (click)="goToHome()"
+            class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-3">
+            <i class="material-icons text-gray-700 dark:text-gray-300">arrow_back</i>
+          </button>
+          <h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Заметки</h1>
+        </div>
+        <!-- Desktop Create Button -->
+        <button
+          (click)="createNote()"
+          class="hidden md:flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
+          <i class="material-icons mr-2 text-lg">add</i>
+          <span class="font-medium">Создать</span>
+        </button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i class="material-icons text-gray-400 text-xl">search</i>
+        </div>
+        <input
+          type="text"
+          [value]="searchQuery"
+          (input)="onSearchInput($event)"
+          placeholder="Поиск заметок..."
+          class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
+      </div>
+
+      <!-- Filters and Sorting -->
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Favorites Filter -->
+        <button
+          (click)="toggleFavoritesFilter()"
+          [class.bg-yellow-100]="showFavoritesOnly"
+          [class.dark:bg-yellow-900]="showFavoritesOnly"
+          [class.text-yellow-800]="showFavoritesOnly"
+          [class.dark:text-yellow-200]="showFavoritesOnly"
+          class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+          <i class="material-icons mr-1 text-sm">{{showFavoritesOnly ? 'star' : 'star_border'}}</i>
+          <span class="hidden sm:inline">Избранное</span>
+        </button>
+
+        <!-- Sort Options -->
+        <div class="flex items-center space-x-1">
+          <button
+            (click)="changeSorting('updatedAt')"
+            [class.bg-blue-100]="sortBy === 'updatedAt'"
+            [class.dark:bg-blue-900]="sortBy === 'updatedAt'"
+            [class.text-blue-800]="sortBy === 'updatedAt'"
+            [class.dark:text-blue-200]="sortBy === 'updatedAt'"
+            class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            title="Сортировка по времени изменения">
+            <i class="material-icons text-sm">access_time</i>
+            <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
+            <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
+          </button>
+
+          <button
+            (click)="changeSorting('title')"
+            [class.bg-blue-100]="sortBy === 'title'"
+            [class.dark:bg-blue-900]="sortBy === 'title'"
+            [class.text-blue-800]="sortBy === 'title'"
+            [class.dark:text-blue-200]="sortBy === 'title'"
+            class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            title="Сортировка по алфавиту">
+            <i class="material-icons text-sm">sort_by_alpha</i>
+            <span *ngIf="sortBy === 'title' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
+            <span *ngIf="sortBy === 'title' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
+          </button>
+        </div>
+
+        <!-- Clear Filters -->
+        <button
+          *ngIf="getActiveFiltersCount() > 0"
+          (click)="clearFilters()"
+          class="flex items-center px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+          <i class="material-icons mr-1 text-sm">clear</i>
+          <span class="hidden sm:inline">Сбросить</span>
+          <span class="sm:hidden">({{getActiveFiltersCount()}})</span>
+          <span class="hidden sm:inline">({{getActiveFiltersCount()}})</span>
+        </button>
+      </div>
+
+      <!-- Tags Filter -->
+      <div *ngIf="allTags.length > 0" class="flex flex-wrap gap-2">
+        <button
+          *ngFor="let tag of allTags"
+          (click)="filterByTag(tag)"
+          [class.bg-green-100]="selectedTag === tag"
+          [class.dark:bg-green-900]="selectedTag === tag"
+          [class.text-green-800]="selectedTag === tag"
+          [class.dark:text-green-200]="selectedTag === tag"
+          class="px-2 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+          #{{tag}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes List -->
+  <div class="flex-1 overflow-y-auto">
+    <div class="p-4 pb-24">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex items-center justify-center h-32">
+        <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+          <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <span>Загрузка заметок...</span>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!isLoading && filteredNotes.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
+        <i class="material-icons text-6xl text-gray-300 dark:text-gray-600 mb-4">note_add</i>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+          {{searchQuery || selectedTag || showFavoritesOnly ? 'Заметки не найдены' : 'Нет заметок'}}
+        </h3>
+        <p class="text-gray-500 dark:text-gray-400 mb-4 max-w-sm">
+          {{searchQuery || selectedTag || showFavoritesOnly 
+            ? 'Попробуйте изменить фильтры поиска' 
+            : 'Создайте свою первую заметку для каббалистических осознаний'}}
+        </p>
+        <button
+          *ngIf="!searchQuery && !selectedTag && !showFavoritesOnly"
+          (click)="createNote()"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium">
+          Создать заметку
+        </button>
+      </div>
+
+      <!-- Notes Grid -->
+      <div *ngIf="!isLoading && filteredNotes.length > 0" class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <app-note-card
+          *ngFor="let note of filteredNotes; trackBy: trackByNoteId"
+          [note]="note"
+          (click)="openNote(note.id)"
+          (delete)="deleteNote(note.id)"
+          (toggleFavorite)="toggleFavorite(note)"
+          class="cursor-pointer">
+        </app-note-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Button for Mobile -->
+  <button
+    (click)="createNote()"
+    class="md:hidden fixed bottom-20 right-4 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
+    <i class="material-icons text-2xl">add</i>
+  </button>
+</div>

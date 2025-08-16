@@ -1,0 +1,214 @@
+<div class="note-editor flex flex-col h-full bg-white dark:bg-gray-900">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex items-center justify-center h-full">
+    <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <span>Загрузка заметки...</span>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <div *ngIf="!isLoading" class="flex flex-col h-full">
+    <!-- Header -->
+    <div class="editor-header sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <div class="flex items-center justify-between px-4 py-3">
+        <!-- Back Button and Title -->
+        <div class="flex items-center space-x-3 flex-1 min-w-0">
+          <button
+            (click)="goBack()"
+            class="flex-shrink-0 p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <i class="material-icons text-xl">arrow_back</i>
+          </button>
+          
+          <div class="flex-1 min-w-0">
+            <input
+              type="text"
+              [(ngModel)]="title"
+              (ngModelChange)="onTitleChange()"
+              placeholder="Заголовок заметки..."
+              class="w-full text-lg font-semibold bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 truncate">
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center space-x-1 flex-shrink-0">
+          <!-- Mobile Actions -->
+          <div class="flex items-center space-x-1">
+
+            <!-- Formatting Toggle -->
+            <button
+              (click)="toggleFormattingToolbar()"
+              [class.bg-blue-100]="showFormatting"
+              [class.dark:bg-blue-900]="showFormatting"
+              [class.text-blue-600]="showFormatting"
+              [class.dark:text-blue-400]="showFormatting"
+              class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              title="Форматирование">
+              <i class="material-icons text-lg">format_bold</i>
+            </button>
+
+            <!-- Favorite Toggle -->
+            <button
+              *ngIf="!isNewNote"
+              (click)="toggleFavorite()"
+              [class.text-yellow-500]="note?.isFavorite"
+              [class.text-gray-400]="!note?.isFavorite"
+              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              [title]="note?.isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'">
+              <i class="material-icons text-lg">{{note?.isFavorite ? 'star' : 'star_border'}}</i>
+            </button>
+
+            <!-- More Actions Button for Mobile -->
+            <div class="relative md:hidden" *ngIf="!isNewNote">
+              <button
+                (click)="showMobileMenu = !showMobileMenu"
+                class="p-2 rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <i class="material-icons text-lg">more_vert</i>
+              </button>
+              
+              <!-- Mobile Dropdown Menu -->
+              <div *ngIf="showMobileMenu" class="absolute right-0 top-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-20 min-w-[120px]">
+                <button
+                  (click)="deleteNote(); showMobileMenu = false"
+                  class="w-full text-left px-4 py-3 text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center">
+                  <i class="material-icons text-sm mr-2">delete</i>
+                  Удалить
+                </button>
+              </div>
+            </div>
+
+            <!-- Desktop Delete Button -->
+            <button
+              *ngIf="!isNewNote"
+              (click)="deleteNote()"
+              class="hidden md:flex p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+              title="Удалить заметку">
+              <i class="material-icons text-lg">delete</i>
+            </button>
+          </div>
+
+          <!-- Save Status -->
+          <div class="hidden sm:flex items-center text-xs ml-2">
+            <span *ngIf="isSaving" class="text-blue-600 dark:text-blue-400 flex items-center">
+              <div class="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-1"></div>
+              Сохранение...
+            </span>
+            <span *ngIf="hasUnsavedChanges && !isSaving" class="text-orange-600 dark:text-orange-400">
+              Не сохранено
+            </span>
+            <span *ngIf="!hasUnsavedChanges && !isSaving && !isNewNote" class="text-green-600 dark:text-green-400">
+              Сохранено
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formatting Toolbar -->
+      <div *ngIf="showFormatting" class="formatting-toolbar border-t border-gray-200 dark:border-gray-700 p-3 bg-gray-50 dark:bg-gray-800">
+        <div class="flex items-center space-x-2 flex-wrap gap-2">
+
+          <!-- Lists -->
+          <div class="flex items-center space-x-1 border-r border-gray-300 dark:border-gray-600 pr-2">
+            <button
+              (click)="insertList()"
+              class="px-3 py-1 text-sm rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              title="Маркированный список">
+              <i class="material-icons text-sm">format_list_bulleted</i>
+            </button>
+            
+            <button
+              (click)="insertNumberedList()"
+              class="px-3 py-1 text-sm rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              title="Нумерованный список">
+              <i class="material-icons text-sm">format_list_numbered</i>
+            </button>
+          </div>
+
+          <!-- Other -->
+          <div class="flex items-center space-x-1">
+            <button
+              (click)="insertHashtag()"
+              class="px-3 py-1 text-sm rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              title="Хештег">
+              <span class="font-mono">#</span>
+            </button>
+
+            <button
+              (click)="insertHeading()"
+              class="px-3 py-1 text-sm rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              title="Заголовок">
+              <i class="material-icons text-sm">title</i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Help -->
+        <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          <span class="hidden sm:inline">Горячие клавиши: </span>
+          <span class="font-mono">Ctrl+L</span> - список,
+          <span class="font-mono">Enter</span> - продолжить список,
+          <span class="font-mono">#хештег</span> - теги
+        </div>
+      </div>
+    </div>
+
+    <!-- Editor Content -->
+    <div class="editor-content flex-1 flex flex-col">
+      <textarea
+        [(ngModel)]="content"
+        (ngModelChange)="onContentChange()"
+        (keydown)="onTextareaKeydown($event)"
+        placeholder="Начните писать свою заметку...
+
+Используйте #хештеги для организации заметок по темам, например:
+#сфирот #древожизни #осознания
+
+- Создавайте списки
+- Для структурирования мыслей
+- Нажмите Enter для продолжения списка"
+        class="flex-1 w-full px-4 py-4 border-none outline-none resize-none bg-transparent text-gray-900 dark:text-gray-100 leading-relaxed text-base"
+        style="font-family: 'Inter', system-ui, -apple-system, sans-serif;"
+        spellcheck="false">
+      </textarea>
+    </div>
+
+    <!-- Footer -->
+    <div class="editor-footer border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-800">
+      <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <!-- Stats -->
+        <div class="flex items-center space-x-4">
+          <span>{{getWordCount()}} слов</span>
+          <span>{{getCharCount()}} символов</span>
+          <span *ngIf="getTags().length > 0">{{getTags().length}} тегов</span>
+        </div>
+
+        <!-- Tags Preview -->
+        <div *ngIf="getTags().length > 0" class="flex items-center space-x-2">
+          <span class="text-xs">Теги:</span>
+          <div class="flex flex-wrap gap-1">
+            <span
+              *ngFor="let tag of getTags() | slice:0:5"
+              class="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
+              #{{tag}}
+            </span>
+            <span
+              *ngIf="getTags().length > 5"
+              class="px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-full">
+              +{{getTags().length - 5}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Modified -->
+      <div *ngIf="note && !isNewNote" class="mt-2 text-xs text-gray-400 dark:text-gray-500">
+        <span *ngIf="note.createdAt === note.updatedAt">
+          Создано {{note.createdAt | date:'dd.MM.yyyy, HH:mm'}}
+        </span>
+        <span *ngIf="note.createdAt !== note.updatedAt">
+          Изменено {{note.updatedAt | date:'dd.MM.yyyy, HH:mm'}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

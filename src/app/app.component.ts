@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
 import { SideMenuComponent } from './shared/components/side-menu/side-menu.component';
 import { SideMenuService } from './core/services/side-menu.service';
+import { ReminderService } from './core/services/reminder.service';
 
 @Component({
   selector: 'app-root',
@@ -55,29 +56,33 @@ export class AppComponent implements OnInit, OnDestroy {
   isGoalsRoute = false;
   private subscription = new Subscription();
 
-  constructor(private sideMenuService: SideMenuService, private router: Router) {}
+  constructor(private sideMenuService: SideMenuService, private router: Router, private reminders: ReminderService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.subscription.add(
       this.sideMenuService.isOpen$.subscribe(isOpen => {
         this.isSideMenuOpen = isOpen;
       })
     );
 
-    // Track current route to hide burger button on home page and practice pages
+    // Track current route to hide burger button on home page and specific pages (notes, diary, practices)
     this.subscription.add(
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
       ).subscribe((event: NavigationEnd) => {
         this.isHomePage = event.url === '/home' || event.url === '/';
+        const isNotesRoute = event.url.includes('/notes');
+        const isDiaryRoute = event.url.includes('/diary');
         this.isPracticeRoute = event.url.includes('/practices/') ||
                                event.url.includes('/yichudim/') ||
-                               event.url.includes('/goals/') && (
+                               (event.url.includes('/goals/') && (
                                  event.url.includes('/practice/') ||
                                  event.url.includes('/new') ||
                                  event.url.includes('/edit') ||
                                  event.url.includes('/add-practice')
-                               );
+                               )) ||
+                               isNotesRoute ||
+                               isDiaryRoute;
         this.isGoalsRoute = event.url === '/goals' ||
                            (event.url.includes('/goals/') &&
                             !event.url.includes('/practice/') &&
@@ -87,6 +92,9 @@ export class AppComponent implements OnInit, OnDestroy {
                             event.url.split('/').length === 3); // /goals/:id
       })
     );
+
+    // Init in-app reminder schedule
+    await this.reminders.init();
   }
 
   ngOnDestroy() {

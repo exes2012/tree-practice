@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/journal/journal.module').then(m => m.JournalModule)
   },
   {
+    path: 'notes',
+    loadChildren: () => import('./features/notes/notes.module').then(m => m.NotesModule)
+  },
+  {
     path: 'diary',
     loadChildren: () => import('./features/diary/diary.module').then(m => m.DiaryModule)
   },

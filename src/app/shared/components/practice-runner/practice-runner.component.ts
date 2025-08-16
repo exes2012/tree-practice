@@ -420,7 +420,10 @@ export class PracticeRunnerComponent implements OnInit, OnDestroy {
   }
   
   get showFinishButton(): boolean {
-    return this.currentStep?.isFinalStep === true || this.currentStep?.type === 'rating';
+    if (!this.currentStep) return false;
+    if (this.currentStep.isFinalStep === true) return true;
+    if (this.currentStep.type === 'rating') return this.currentStep.ratingConfig?.isFinal === true;
+    return false;
   }
   
   /**

@@ -1,7 +1,7 @@
 // Пример портирования specific-request практики на новую архитектуру
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { manBlocks } from './practice-blocks';
+import { manBlocks, rating, input } from './practice-blocks';
 import { GoalService } from '../services/goal.service';
 import { PracticeService } from '../services/practice.service';
 import { Router } from '@angular/router';
@@ -42,9 +42,25 @@ export async function* specificRequestPracticeV2(context: PracticeContext) {
   
   // Благодарность
   yield* manBlocks.gratitude();
-  
-  // Финальная оценка
-  yield* manBlocks.finalRating();
+
+  // Оценка (не финальный шаг)
+  yield rating(
+    'final-rating',
+    'Шаг 12: Оценка',
+    'Во сколько баллов оценишь эту проработку?',
+    false
+  );
+
+  // Осознания — финальный шаг с текстовым полем и кнопкой Завершить
+  yield input(
+    'insight',
+    'Шаг 13: Осознания',
+    'Если ли осознания, полученные в ходе практики, которые стоит записать?',
+    'insightText',
+    'textarea',
+    'Опишите ваше осознание...',
+    true
+  );
   
   // Возвращаем результат
   return {
@@ -68,19 +84,30 @@ export const specificRequestPracticeV2Config: PracticeConfig = {
   },
   
   practiceFunction: specificRequestPracticeV2,
-  
+
   onFinish: async (context, result) => {
-    // Можно инжектить сервисы через DI или передавать в контексте
-    // Пока упрощенная версия - сохраняем в localStorage
-    const practiceRecord = {
-      name: 'Подъем МАН с конкретным запросом',
+    // Save practice run and optional insight to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    const practiceRunId = await journal.savePracticeRun({
+      practiceId: 'specific-request',
+      title: 'Подъем МАН с конкретным запросом',
       route: '/practices/runner/specific-request',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    
+      completedAt,
+      dateKey,
+      rating: context.get('rating') as number | undefined
+    });
+
+    const insight = (context.get('insightText') as string | undefined)?.trim();
+    if (insight) {
+      await journal.saveInsight(insight, practiceRunId, 'insight');
+    }
+
     console.log('Practice completed with result:', result);
   }
 };

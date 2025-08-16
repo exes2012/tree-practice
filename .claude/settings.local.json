@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(mkdir:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm start)",
+      "Bash(ng serve:*)",
+      "Bash(npm start:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  }
+}

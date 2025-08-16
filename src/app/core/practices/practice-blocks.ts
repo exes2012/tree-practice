@@ -18,13 +18,14 @@ export function step(id: string, title: string, instruction: string): PracticeSt
 
 // Шаг с вводом данных
 export function input(
-  id: string, 
-  title: string, 
-  instruction: string, 
+  id: string,
+  title: string,
+  instruction: string,
   field: string,
   type: 'text' | 'textarea' | 'number' = 'textarea',
   placeholder?: string,
-  initialValue?: any
+  initialValue?: any,
+  isFinalStep: boolean = false
 ): PracticeStep {
   return {
     id,
@@ -36,7 +37,8 @@ export function input(
       type,
       placeholder,
       initialValue
-    }
+    },
+    ...(isFinalStep ? { isFinalStep: true } : {})
   };
 }
 

@@ -1,0 +1,291 @@
+.note-editor {
+  height: 100vh;
+  
+  .editor-header {
+    flex-shrink: 0;
+  }
+  
+  .editor-content {
+    flex: 1;
+    overflow: hidden;
+    
+    textarea {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      font-size: 16px;
+      
+      &::placeholder {
+        line-height: 1.5;
+      }
+      
+      &:focus {
+        outline: none;
+      }
+      
+      // Improve text rendering
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    // Markdown content styles for preview
+    .markdown-content {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      font-size: 16px;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      
+      // Markdown formatting styles
+      .markdown-bold {
+        font-weight: 700;
+        color: #1f2937;
+        
+        .dark & {
+          color: #f9fafb;
+        }
+      }
+      
+      .markdown-italic {
+        font-style: italic;
+        color: #374151;
+        
+        .dark & {
+          color: #e5e7eb;
+        }
+      }
+      
+      .markdown-heading {
+        font-weight: 600;
+        color: #111827;
+        margin: 0.5em 0;
+        
+        .dark & {
+          color: #f3f4f6;
+        }
+        
+        &.h1 { font-size: 1.5em; }
+        &.h2 { font-size: 1.3em; }
+        &.h3 { font-size: 1.2em; }
+        &.h4 { font-size: 1.1em; }
+        &.h5 { font-size: 1.05em; }
+        &.h6 { font-size: 1em; }
+      }
+      
+      .markdown-list {
+        margin: 0.25em 0;
+        
+        .list-marker {
+          color: #6b7280;
+          font-weight: 500;
+          
+          .dark & {
+            color: #9ca3af;
+          }
+        }
+      }
+      
+      .markdown-hashtag {
+        color: #3b82f6;
+        font-weight: 500;
+        
+        .dark & {
+          color: #60a5fa;
+        }
+      }
+      
+      .markdown-syntax {
+        color: #9ca3af;
+        font-weight: 400;
+        opacity: 0.6;
+        
+        .dark & {
+          color: #6b7280;
+        }
+      }
+      
+      // Improve text rendering
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    // Normal textarea styling
+    textarea {
+      &::selection {
+        background: rgba(59, 130, 246, 0.2);
+      }
+      
+      &::-moz-selection {
+        background: rgba(59, 130, 246, 0.2);
+      }
+    }
+  }
+  
+  .editor-footer {
+    flex-shrink: 0;
+  }
+  
+  .formatting-toolbar {
+    animation: slideDown 0.2s ease-out;
+    
+    button {
+      transition: all 0.2s ease-in-out;
+      
+      &:hover {
+        transform: translateY(-1px);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Auto-save indicator animation
+  .save-status {
+    transition: all 0.3s ease-in-out;
+    
+    &.saving {
+      color: #3b82f6;
+    }
+    
+    &.saved {
+      color: #10b981;
+    }
+    
+    &.unsaved {
+      color: #f59e0b;
+    }
+  }
+  
+  // Title input styling
+  .title-input {
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+      border-radius: 4px;
+    }
+  }
+  
+  // Responsive design
+  @media (max-width: 768px) {
+    .editor-header {
+      .header-actions {
+        .action-text {
+          display: none;
+        }
+      }
+    }
+    
+    .formatting-toolbar {
+      padding: 0.75rem;
+      
+      .toolbar-buttons {
+        gap: 0.5rem;
+      }
+    }
+    
+    .editor-content textarea {
+      padding: 1rem;
+      font-size: 16px; // Prevent zoom on iOS
+    }
+    
+    .editor-footer {
+      padding: 0.75rem;
+      
+      .footer-stats {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  }
+  
+  // Dark mode improvements
+  .dark & {
+    .editor-header {
+      border-color: #374151;
+    }
+    
+    .formatting-toolbar {
+      background-color: #1f2937;
+      border-color: #374151;
+      
+      button {
+        background-color: #374151;
+        border-color: #4b5563;
+        color: #d1d5db;
+        
+        &:hover {
+          background-color: #4b5563;
+        }
+      }
+    }
+    
+    .editor-footer {
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+  }
+  
+  // Print styles
+  @media print {
+    .editor-header,
+    .formatting-toolbar,
+    .editor-footer {
+      display: none;
+    }
+    
+    .editor-content {
+      height: auto;
+      
+      textarea {
+        height: auto;
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+  
+  // Focus management
+  .editor-focus-trap {
+    &:focus-within {
+      .editor-header {
+        .header-actions {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  
+  // Smooth transitions for all interactive elements
+  button, input, textarea {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  // Loading state
+  .loading-spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

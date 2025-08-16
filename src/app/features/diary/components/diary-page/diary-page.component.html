@@ -1,18 +1,100 @@
-<div class="p-4 pb-24 space-y-6">
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-    <h1 class="text-2xl font-bold text-gray-900 mb-4">📔 Дневник</h1>
-    <p class="text-gray-600 mb-6">Личный журнал размышлений и саморефлексии</p>
+<div class="diary-page flex flex-col h-full bg-gray-50 dark:bg-gray-900">
+  <!-- Sticky Header like Notes -->
+  <div class="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <button (click)="goToHome()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-3">
+          <i class="material-icons text-gray-700 dark:text-gray-300">arrow_back</i>
+        </button>
+        <h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Дневник</h1>
+      </div>
+      <!-- Date Navigation -->
+      <div class="flex items-center space-x-2">
+        <button (click)="prevDay()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+          <i class="material-icons text-gray-600 dark:text-gray-300">chevron_left</i>
+        </button>
+        <div class="text-center px-2">
+          <div class="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-5">{{ formatDate(dateKey) }}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 leading-4">{{ formatDay(dateKey) }}</div>
+        </div>
+        <button (click)="nextDay()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+          <i class="material-icons text-gray-600 dark:text-gray-300">chevron_right</i>
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <div class="bg-gray-50 rounded-lg p-4 mb-6">
-      <h3 class="font-semibold text-gray-900 mb-2">Возможности дневника:</h3>
-      <ul class="space-y-1 text-gray-700 text-sm">
-        <li>• Личный журнал размышлений</li>
-        <li>• Привязка записей к практике</li>
-        <li>• Теги, фильтры, избранное</li>
-        <li>• Экспорт / импорт</li>
-      </ul>
+  <!-- Content -->
+  <div class="flex-1 overflow-y-auto">
+    <div class="p-4 pb-24 space-y-6">
+      <!-- Timeline: mood + events -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-0">
+        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+          <!-- Mood selector row (only today) -->
+          <div class="px-6 py-4" *ngIf="isToday">
+            <h2 class="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Как настроение?</h2>
+            <div class="flex justify-center gap-2">
+              <button *ngFor="let v of moodIconOptions" (click)="setMood(v)"
+                [class.ring-2]="mood === v" [class.ring-blue-300]="mood === v"
+                class="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 bg-white dark:bg-gray-800">
+                <i class="material-icons text-5xl leading-none"
+                   [ngClass]="getMoodColorClass(v) + (mood === v ? '' : ' opacity-70')">
+                  {{ getRatingIconFromValue(v) }}
+                </i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Grouped Events list -->
+          <ng-container *ngIf="groupedEvents?.length; else emptyDay">
+            <div *ngFor="let group of groupedEvents" class="">
+              <div class="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-gray-50 dark:bg-gray-700/30">
+                {{ group.label }}
+              </div>
+              <div *ngFor="let ev of group.items" class="px-6 py-3 flex items-start gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                <i class="material-icons text-2xl text-gray-600 dark:text-gray-400">{{ ev.icon }}</i>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <div class="font-medium text-gray-900 dark:text-gray-100 truncate">{{ ev.title }}</div>
+                    <div class="text-xs text-gray-500">{{ ev.time | date:'HH:mm' }}</div>
+                  </div>
+                  <div *ngIf="ev.type === 'note'" class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+                    {{ getPreviewText(ev.data?.content) || 'Нет содержимого' }}
+                  </div>
+                  <div *ngIf="ev.type === 'run' && ev.data?.rating" class="text-xs text-gray-500 mt-0.5">
+                    Оценка: {{ ev.data.rating }}
+                  </div>
+                  <div *ngIf="ev.type === 'note' && ev.data?.tags?.length" class="flex flex-wrap gap-1 mt-1">
+                    <span *ngFor="let tag of (ev.data.tags | slice:0:3)" class="inline-block px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-full">#{{tag}}</span>
+                  </div>
+                </div>
+                <!-- Actions -->
+                <div class="flex items-center gap-1 ml-2">
+                  <button *ngIf="ev.type==='note'" (click)="$event.stopPropagation(); toggleFavoriteNote(ev.data.id)"
+                          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500" [title]="ev.data.isFavorite ? 'Убрать из избранного' : 'В избранное'">
+                    <i class="material-icons text-base">{{ ev.data.isFavorite ? 'star' : 'star_border' }}</i>
+                  </button>
+                  <button *ngIf="ev.type==='note'" (click)="$event.stopPropagation(); openNote(ev.data.id)"
+                          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500" title="Редактировать">
+                    <i class="material-icons text-base">edit</i>
+                  </button>
+                  <button *ngIf="ev.type==='note'" (click)="$event.stopPropagation(); deleteNoteById(ev.data.id)"
+                          class="p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-500" title="Удалить">
+                    <i class="material-icons text-base">delete</i>
+                  </button>
+                  <button *ngIf="ev.type==='run'" (click)="$event.stopPropagation(); openPracticeRun(ev.data)"
+                          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500" title="Открыть практику">
+                    <i class="material-icons text-base">play_arrow</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #emptyDay>
+            <div class="px-6 py-10 text-center text-gray-500">Нет событий за этот день</div>
+          </ng-template>
+        </div>
+      </div>
     </div>
 
-    <p class="text-gray-500 text-center">Функциональность дневника будет добавлена в следующих версиях</p>
-  </div>
 </div>
