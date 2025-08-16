@@ -33,7 +33,6 @@
           placeholder="Поиск заметок..."
           class="w-full pl-10 pr-4 py-3 border border-subtle rounded-lg input-focus bg-surface-elevated text-primary placeholder-muted">
       </div>
-      </div>
 
       <!-- Filters and Sorting -->
       <div class="flex flex-wrap items-center gap-2">
@@ -60,11 +59,8 @@
 
           <button
             (click)="changeSorting('title')"
-            [class.bg-blue-100]="sortBy === 'title'"
-            [class.dark:bg-blue-900]="sortBy === 'title'"
-            [class.text-blue-800]="sortBy === 'title'"
-            [class.dark:text-blue-200]="sortBy === 'title'"
-            class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            [class]="sortBy === 'title' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary' : ''"
+            class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors"
             title="Сортировка по алфавиту">
             <i class="material-icons text-sm">sort_by_alpha</i>
             <span *ngIf="sortBy === 'title' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
@@ -89,11 +85,8 @@
         <button
           *ngFor="let tag of allTags"
           (click)="filterByTag(tag)"
-          [class.bg-green-100]="selectedTag === tag"
-          [class.dark:bg-green-900]="selectedTag === tag"
-          [class.text-green-800]="selectedTag === tag"
-          [class.dark:text-green-200]="selectedTag === tag"
-          class="px-2 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+          [class]="selectedTag === tag ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200' : ''"
+          class="px-2 py-1 text-xs rounded-full border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors">
           #{{tag}}
         </button>
       </div>
@@ -102,30 +95,30 @@
 
   <!-- Notes List -->
   <div class="flex-1 overflow-y-auto">
-    <div class="p-4 pb-24">
+    <div class="px-4 pt-2 pb-24">
       <!-- Loading State -->
       <div *ngIf="isLoading" class="flex items-center justify-center h-32">
-        <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
-          <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+        <div class="flex items-center space-x-2 text-muted">
+          <div class="animate-spin rounded-full h-6 w-6 border-b-2" style="border-color: var(--color-primary-500);"></div>
           <span>Загрузка заметок...</span>
         </div>
       </div>
 
       <!-- Empty State -->
       <div *ngIf="!isLoading && filteredNotes.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
-        <i class="material-icons text-6xl text-gray-300 dark:text-gray-600 mb-4">note_add</i>
-        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+        <i class="material-icons text-6xl text-muted mb-4">note_add</i>
+        <h3 class="text-lg font-medium text-primary mb-2">
           {{searchQuery || selectedTag || showFavoritesOnly ? 'Заметки не найдены' : 'Нет заметок'}}
         </h3>
-        <p class="text-gray-500 dark:text-gray-400 mb-4 max-w-sm">
-          {{searchQuery || selectedTag || showFavoritesOnly 
-            ? 'Попробуйте изменить фильтры поиска' 
+        <p class="text-secondary mb-4 max-w-sm">
+          {{searchQuery || selectedTag || showFavoritesOnly
+            ? 'Попробуйте изменить фильтры поиска'
             : 'Создайте свою первую заметку для каббалистических осознаний'}}
         </p>
         <button
           *ngIf="!searchQuery && !selectedTag && !showFavoritesOnly"
           (click)="createNote()"
-          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium">
+          class="px-6 py-3 btn-primary rounded-lg font-medium">
           Создать заметку
         </button>
       </div>
