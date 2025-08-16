@@ -49,5 +49,9 @@ export const routes: Routes = [
   {
     path: 'goals',
     loadChildren: () => import('./features/goals/goals.module').then(m => m.GoalsModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule)
   }
 ];
