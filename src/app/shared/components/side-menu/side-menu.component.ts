@@ -6,6 +6,7 @@ import { SideMenuService } from '../../../core/services/side-menu.service';
   selector: 'app-side-menu',
   imports: [RouterModule],
   templateUrl: './side-menu.component.html',
+  styleUrl: './side-menu.component.scss'
 })
 export class SideMenuComponent {
   constructor(private sideMenuService: SideMenuService) {}

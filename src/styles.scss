@@ -147,7 +147,7 @@ html, body, :host {
   border-color: var(--color-neutral-200);
 }
 
-/* Navigation Active State */
+/* Legacy navigation class - can be removed later */
 .active-nav-item {
   color: var(--color-primary-500) !important;
 }

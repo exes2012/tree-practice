@@ -24,7 +24,7 @@ import { ReminderService } from './core/services/reminder.service';
 
         <!-- Overlay -->
         <div *ngIf="!isLoginRoute && isSideMenuOpen"
-          (click)="toggleSideMenu()"
+          (click)="closeSideMenu()"
           class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden">
         </div>
 
@@ -104,5 +104,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleSideMenu() {
     this.sideMenuService.toggle();
+  }
+
+  closeSideMenu() {
+    this.sideMenuService.close();
   }
 }

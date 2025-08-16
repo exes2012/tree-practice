@@ -1,0 +1,92 @@
+/* Bottom Navigation Styles - Login Page Inspired */
+
+.nav-item {
+  color: #94a3b8; /* Muted gray like login page */
+  position: relative;
+  
+  &:hover:not(.opacity-40) {
+    color: #3B4A5C; /* Login button color */
+    background-color: rgba(59, 74, 92, 0.05);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(.opacity-40) {
+    transform: translateY(0);
+  }
+}
+
+.nav-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-active {
+  color: #3B4A5C !important; /* Login button color */
+  
+  .nav-icon-container {
+    background-color: rgba(59, 74, 92, 0.1);
+    box-shadow: 0 2px 8px rgba(59, 74, 92, 0.15);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background-color: #3B4A5C;
+    border-radius: 0 0 2px 2px;
+  }
+}
+
+/* Dark mode adjustments */
+.dark .nav-item {
+  color: #64748b;
+  
+  &:hover:not(.opacity-40) {
+    color: #cbd5e1;
+    background-color: rgba(203, 213, 225, 0.1);
+  }
+}
+
+.dark .nav-active {
+  color: #cbd5e1 !important;
+  
+  .nav-icon-container {
+    background-color: rgba(203, 213, 225, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  &::after {
+    background-color: #cbd5e1;
+  }
+}
+
+/* Smooth transitions */
+.nav-item * {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .nav-item {
+    padding: 0.375rem 0.5rem;
+  }
+  
+  .nav-icon-container {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .nav-item span {
+    font-size: 0.625rem;
+  }
+}

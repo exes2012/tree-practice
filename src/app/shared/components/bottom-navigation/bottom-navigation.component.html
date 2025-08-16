@@ -1,24 +1,34 @@
-<nav class="fixed bottom-0 left-0 right-0 bg-surface-elevated border-t border-subtle shadow-lg z-50">
-  <div class="flex justify-around max-w-md mx-auto px-3 py-1">
-    <a routerLink="/home" routerLinkActive="active-nav-item" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
-      <i class="material-icons text-xl">home</i>
-      <span class="text-xs font-medium mt-0.5">Главная</span>
+<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t shadow-lg z-50" style="border-color: rgba(59, 74, 92, 0.1);">
+  <div class="flex justify-around max-w-md mx-auto px-2 py-2">
+    <a routerLink="/home" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-item flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+      <div class="nav-icon-container">
+        <i class="material-icons text-2xl">home</i>
+      </div>
+      <span class="text-xs font-medium mt-1">Главная</span>
     </a>
-    <a routerLink="/notes" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
-      <i class="material-icons text-xl">edit_note</i>
-      <span class="text-xs font-medium mt-0.5">Заметки</span>
+    <a routerLink="/notes" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+      <div class="nav-icon-container">
+        <i class="material-icons text-2xl">edit_note</i>
+      </div>
+      <span class="text-xs font-medium mt-1">Заметки</span>
     </a>
-    <div class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-muted transition-colors flex-1 text-center opacity-50 cursor-not-allowed">
-      <i class="material-icons text-xl">groups</i>
-      <span class="text-xs font-medium mt-0.5">Круг</span>
+    <div class="nav-item flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 flex-1 text-center opacity-40 cursor-not-allowed">
+      <div class="nav-icon-container">
+        <i class="material-icons text-2xl">groups</i>
+      </div>
+      <span class="text-xs font-medium mt-1">Круг</span>
     </div>
-    <a routerLink="/reminders" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
-      <i class="material-icons text-xl">notifications</i>
-      <span class="text-xs font-medium mt-0.5">Напоминания</span>
+    <a routerLink="/reminders" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+      <div class="nav-icon-container">
+        <i class="material-icons text-2xl">notifications</i>
+      </div>
+      <span class="text-xs font-medium mt-1">Напоминания</span>
     </a>
-    <a routerLink="/diary" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
-      <i class="material-icons text-xl">event_note</i>
-      <span class="text-xs font-medium mt-0.5">Дневник</span>
+    <a routerLink="/diary" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+      <div class="nav-icon-container">
+        <i class="material-icons text-2xl">event_note</i>
+      </div>
+      <span class="text-xs font-medium mt-1">Дневник</span>
     </a>
   </div>
 </nav>
