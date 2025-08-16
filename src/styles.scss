@@ -11,27 +11,27 @@ html, body, :host {
 
 /* Design System Colors - Based on Login Page */
 :root {
-  /* Primary - Dark Blue (from login button) */
+  /* Primary - Login Button Color as Main Brand */
   --color-primary-50: #f8fafc;
   --color-primary-100: #f1f5f9;
   --color-primary-200: #e2e8f0;
   --color-primary-300: #cbd5e1;
   --color-primary-400: #94a3b8;
-  --color-primary-500: #64748b;
-  --color-primary-600: #475569;
-  --color-primary-700: #334155;
+  --color-primary-500: #3B4A5C;
+  --color-primary-600: #2F3A47;
+  --color-primary-700: #243343;
   --color-primary-800: #1e293b;
   --color-primary-900: #0f172a;
 
-  /* Accent - Login Button Color */
+  /* Accent - Lighter version for interactive elements */
   --color-accent-50: #f8fafc;
   --color-accent-100: #f1f5f9;
   --color-accent-200: #e2e8f0;
   --color-accent-300: #cbd5e1;
   --color-accent-400: #94a3b8;
   --color-accent-500: #64748b;
-  --color-accent-600: #3B4A5C;
-  --color-accent-700: #2F3A47;
+  --color-accent-600: #475569;
+  --color-accent-700: #334155;
   --color-accent-800: #1e293b;
   --color-accent-900: #0f172a;
 
@@ -145,6 +145,29 @@ html, body, :host {
 
 .dark .border-subtle {
   border-color: var(--color-neutral-200);
+}
+
+/* Navigation Active State */
+.active-nav-item {
+  color: var(--color-primary-500) !important;
+}
+
+/* Primary Button Styles */
+.btn-primary {
+  background-color: var(--color-primary-500);
+  color: white;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+}
+
+/* Focus styles for inputs */
+.input-focus:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
 }
 
 /* Practice Color System */

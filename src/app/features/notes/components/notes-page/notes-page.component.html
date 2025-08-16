@@ -15,7 +15,7 @@
         <!-- Desktop Create Button -->
         <button
           (click)="createNote()"
-          class="hidden md:flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md">
+          class="hidden md:flex items-center px-4 py-2 btn-primary rounded-lg shadow-sm hover:shadow-md">
           <i class="material-icons mr-2 text-lg">add</i>
           <span class="font-medium">Создать</span>
         </button>
@@ -24,14 +24,15 @@
       <!-- Search Bar -->
       <div class="relative">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <i class="material-icons text-gray-400 text-xl">search</i>
+          <i class="material-icons text-muted text-xl">search</i>
         </div>
         <input
           type="text"
           [value]="searchQuery"
           (input)="onSearchInput($event)"
           placeholder="Поиск заметок..."
-          class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
+          class="w-full pl-10 pr-4 py-3 border border-subtle rounded-lg input-focus bg-surface-elevated text-primary placeholder-muted">
+      </div>
       </div>
 
       <!-- Filters and Sorting -->
@@ -39,11 +40,8 @@
         <!-- Favorites Filter -->
         <button
           (click)="toggleFavoritesFilter()"
-          [class.bg-yellow-100]="showFavoritesOnly"
-          [class.dark:bg-yellow-900]="showFavoritesOnly"
-          [class.text-yellow-800]="showFavoritesOnly"
-          [class.dark:text-yellow-200]="showFavoritesOnly"
-          class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+          [class]="showFavoritesOnly ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200' : ''"
+          class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors">
           <i class="material-icons mr-1 text-sm">{{showFavoritesOnly ? 'star' : 'star_border'}}</i>
           <span class="hidden sm:inline">Избранное</span>
         </button>
@@ -52,11 +50,8 @@
         <div class="flex items-center space-x-1">
           <button
             (click)="changeSorting('updatedAt')"
-            [class.bg-blue-100]="sortBy === 'updatedAt'"
-            [class.dark:bg-blue-900]="sortBy === 'updatedAt'"
-            [class.text-blue-800]="sortBy === 'updatedAt'"
-            [class.dark:text-blue-200]="sortBy === 'updatedAt'"
-            class="flex items-center px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            [class]="sortBy === 'updatedAt' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary' : ''"
+            class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors"
             title="Сортировка по времени изменения">
             <i class="material-icons text-sm">access_time</i>
             <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
@@ -152,7 +147,6 @@
   <!-- Floating Action Button for Mobile -->
   <button
     (click)="createNote()"
-    class="md:hidden fixed bottom-20 right-4 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
+    class="md:hidden fixed bottom-20 right-4 w-14 h-14 btn-primary rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
     <i class="material-icons text-2xl">add</i>
   </button>
-</div>

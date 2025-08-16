@@ -1,10 +1,10 @@
 <nav class="fixed bottom-0 left-0 right-0 bg-surface-elevated border-t border-subtle shadow-lg z-50">
   <div class="flex justify-around max-w-md mx-auto px-3 py-1">
-    <a routerLink="/home" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
+    <a routerLink="/home" routerLinkActive="active-nav-item" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
       <i class="material-icons text-xl">home</i>
       <span class="text-xs font-medium mt-0.5">Главная</span>
     </a>
-    <a routerLink="/notes" routerLinkActive="text-primary" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
+    <a routerLink="/notes" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
       <i class="material-icons text-xl">edit_note</i>
       <span class="text-xs font-medium mt-0.5">Заметки</span>
     </a>
@@ -12,11 +12,11 @@
       <i class="material-icons text-xl">groups</i>
       <span class="text-xs font-medium mt-0.5">Круг</span>
     </div>
-    <a routerLink="/reminders" routerLinkActive="text-primary" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
+    <a routerLink="/reminders" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
       <i class="material-icons text-xl">notifications</i>
       <span class="text-xs font-medium mt-0.5">Напоминания</span>
     </a>
-    <a routerLink="/diary" routerLinkActive="text-primary" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
+    <a routerLink="/diary" routerLinkActive="active-nav-item" class="flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-secondary hover:text-primary transition-colors flex-1 text-center">
       <i class="material-icons text-xl">event_note</i>
       <span class="text-xs font-medium mt-0.5">Дневник</span>
     </a>
