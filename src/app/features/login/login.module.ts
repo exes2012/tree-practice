@@ -5,7 +5,6 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, LoginRoutingModule, LoginPageComponent]
+  imports: [CommonModule, LoginRoutingModule, LoginPageComponent],
 })
 export class LoginModule {}
-

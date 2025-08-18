@@ -9,37 +9,37 @@ import { manBlocks } from './practice-blocks';
 export async function* specificRequestPracticeCopy(context: PracticeContext) {
   // Начинаем с базовых блоков
   yield* manBlocks.feeling();
-  
+
   // Определяем проблему
   yield* manBlocks.defineProblem();
-  
+
   // Локализуем проблему
   yield* manBlocks.localizeProblem();
-  
+
   // Самоотмена
   yield* manBlocks.selfCancellation('userProblem');
-  
+
   // Находим других с такой же проблемой
   yield* manBlocks.findOthers();
-  
+
   // Проводник света
   yield* manBlocks.conductLight();
-  
+
   // Видение участников
   yield* manBlocks.seeParticipants();
-  
+
   // Свет вместо тьмы
   yield* manBlocks.lightInsteadOfDarkness();
-  
+
   // Соединение с собой
   yield* manBlocks.connectWithSelf();
-  
+
   // Соединение всех участников
   yield* manBlocks.uniteAll();
-  
+
   // Благодарность
   yield* manBlocks.gratitude();
-  
+
   // Финальная оценка
   yield* manBlocks.finalRating();
 }
@@ -48,7 +48,7 @@ export async function* specificRequestPracticeCopy(context: PracticeContext) {
 async function saveSpecificRequestCopyResult(context: PracticeContext, result: any) {
   return {
     userProblem: context.get('userProblem'),
-    rating: context.get('rating')
+    rating: context.get('rating'),
   };
 }
 
@@ -56,18 +56,20 @@ async function saveSpecificRequestCopyResult(context: PracticeContext, result: a
 export const specificRequestPracticeCopyConfig: PracticeConfig = {
   id: 'specific-request-copy',
   title: 'Подъем МАН с конкретным запросом V2',
-  description: 'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний.',
+  description:
+    'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний.',
 
   hasStartScreen: true,
   startScreenContent: {
     title: 'Подъем МАН с конкретным запросом V2',
-    description: 'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний. Цель - получить ясное видение ситуации и найти пути ее разрешения.',
+    description:
+      'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний. Цель - получить ясное видение ситуации и найти пути ее разрешения.',
     duration: '25 мин',
-    level: 'Продвинутый'
+    level: 'Продвинутый',
   },
-  
+
   practiceFunction: specificRequestPracticeCopy,
-  
+
   onFinish: async (context, result) => {
     // Save practice run to IndexedDB
     const { JournalService } = await import('../services/journal.service');
@@ -84,9 +86,9 @@ export const specificRequestPracticeCopyConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('repeating-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

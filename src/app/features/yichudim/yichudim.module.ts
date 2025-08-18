@@ -5,9 +5,6 @@ import { YichudimRoutingModule } from './yichudim-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    YichudimRoutingModule
-  ]
+  imports: [CommonModule, YichudimRoutingModule],
 })
-export class YichudimModule { }
+export class YichudimModule {}

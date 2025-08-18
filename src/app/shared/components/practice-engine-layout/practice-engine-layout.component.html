@@ -1,4 +1,3 @@
-
 <div class="practice-container" *ngIf="practice">
   <!-- Стартовый экран -->
   <div *ngIf="!isPracticeStarted && practice.hasStartScreen" class="start-screen">
@@ -10,40 +9,45 @@
   <!-- Экран практики -->
   <div *ngIf="isPracticeStarted && currentStep">
     <div class="step-header">
-        <h3>{{ currentStep.title }}</h3>
-        <p>Шаг {{ currentStepIndex + 1 }} из {{ practice.steps.length }}</p>
+      <h3>{{ currentStep.title }}</h3>
+      <p>Шаг {{ currentStepIndex + 1 }} из {{ practice.steps.length }}</p>
     </div>
 
     <div class="step-content">
-        <p [innerHTML]="currentStep.instruction"></p>
+      <p [innerHTML]="currentStep.instruction"></p>
 
-        <!-- Отображение повторяемой фразы -->
-        <p *ngIf="currentStep.repeatablePhrase" class="repeatable-phrase">
-            <b>{{ currentStep.repeatablePhrase }}</b>
-        </p>
+      <!-- Отображение повторяемой фразы -->
+      <p *ngIf="currentStep.repeatablePhrase" class="repeatable-phrase">
+        <b>{{ currentStep.repeatablePhrase }}</b>
+      </p>
 
-        <!-- Поле для ввода -->
-        <div *ngIf="currentStep.type === 'input'">
-            <textarea rows="4"></textarea>
-        </div>
+      <!-- Поле для ввода -->
+      <div *ngIf="currentStep.type === 'input'">
+        <textarea rows="4"></textarea>
+      </div>
 
-        <!-- Рейтинг -->
-        <div *ngIf="currentStep.type === 'rating'">
-            <input type="range" min="1" max="10" [(ngModel)]="userRating">
-            <span>{{ userRating }}</span>
-        </div>
+      <!-- Рейтинг -->
+      <div *ngIf="currentStep.type === 'rating'">
+        <input type="range" min="1" max="10" [(ngModel)]="userRating" />
+        <span>{{ userRating }}</span>
+      </div>
 
-        <!-- Кнопка повторения -->
-        <button *ngIf="currentStep.repeatablePhrase" (click)="toggleRepetition()">
-            {{ isRepetitionActive ? 'Остановить повторение' : 'Начать повторение' }}
-        </button>
+      <!-- Кнопка повторения -->
+      <button *ngIf="currentStep.repeatablePhrase" (click)="toggleRepetition()">
+        {{ isRepetitionActive ? 'Остановить повторение' : 'Начать повторение' }}
+      </button>
     </div>
 
     <div class="navigation-buttons">
-        <button (click)="previousStep.emit()" [disabled]="currentStepIndex === 0 && !practice.hasStartScreen">Назад</button>
-        <button (click)="onNextStep()">
-            {{ isLastStep() ? 'Завершить' : 'Далее' }}
-        </button>
+      <button
+        (click)="previousStep.emit()"
+        [disabled]="currentStepIndex === 0 && !practice.hasStartScreen"
+      >
+        Назад
+      </button>
+      <button (click)="onNextStep()">
+        {{ isLastStep() ? 'Завершить' : 'Далее' }}
+      </button>
     </div>
   </div>
 </div>

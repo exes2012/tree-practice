@@ -35,7 +35,7 @@ import { v4 as uuidv4 } from 'uuid';
   `,
   styleUrls: ['./goal-identification-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, PracticeShellComponent]
+  imports: [CommonModule, FormsModule, PracticeShellComponent],
 })
 export class GoalIdentificationPracticeComponent extends PracticeBaseComponent implements OnInit {
   goal: Goal | undefined;
@@ -52,13 +52,13 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
       imageAnalysis: this.imageAnalysis,
       reasonForConcern: this.reasonForConcern,
       questionsToHelp: this.questionsToHelp,
-      installationFormulation: this.installationFormulation
+      installationFormulation: this.installationFormulation,
     };
   }
 
   config: PracticeConfig = {
     title: 'Выявление установки',
-    description: 'Практика выявления и проработки установок относительно цели'
+    description: 'Практика выявления и проработки установок относительно цели',
   };
 
   steps: PracticeStep[] = [
@@ -67,52 +67,57 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
       instruction: 'Чего вы хотите достичь',
       inputField: 'practiceFormulation',
       initialValue: '',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 2: Убираем сопротивление',
       instruction: 'Проговаривай: <br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Можно мне было не хотеть "{{goal.title}}". Мне так было можно и мне это было для чего-то нужно. Я сам не хотел(а) "{{goal.title}}". Можно мне было не хотеть. У меня была на то причина. У меня была причина не хотеть "{{goal.title}}". Мне так было можно.',
+      repeatablePhrase:
+        'Можно мне было не хотеть "{{goal.title}}". Мне так было можно и мне это было для чего-то нужно. Я сам не хотел(а) "{{goal.title}}". Можно мне было не хотеть. У меня была на то причина. У меня была причина не хотеть "{{goal.title}}". Мне так было можно.',
       buttonText: 'Далее',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 3: Смотрим образ',
-      instruction: 'У меня уже есть "{{goal.title}}". Что вы при этом видите? Не анализируйте образ, просто почувствуйте его, а затем опишите.',
+      instruction:
+        'У меня уже есть "{{goal.title}}". Что вы при этом видите? Не анализируйте образ, просто почувствуйте его, а затем опишите.',
       inputField: 'imageAnalysis',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 4: Находим причину',
       instruction: 'Что смущает в образе?',
       inputField: 'reasonForConcern',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 5: Вопросы чтобы вам помочь',
-      instruction: 'Вопросы чтобы вам помочь: Какие эмоции у меня вызывает то, что я вижу? Как то, что я вижу, связано с моим сознательным запросом?',
+      instruction:
+        'Вопросы чтобы вам помочь: Какие эмоции у меня вызывает то, что я вижу? Как то, что я вижу, связано с моим сознательным запросом?',
       inputField: 'questionsToHelp',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 6: Формируем установку',
-      instruction: 'Дополните формулу "Если у меня будет "{{goal.title}}", то..." - тем неприятным, что нашли в образе или ощущениях.',
+      instruction:
+        'Дополните формулу "Если у меня будет "{{goal.title}}", то..." - тем неприятным, что нашли в образе или ощущениях.',
       inputField: 'installationFormulation',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 7: Проработка установки',
       instruction: 'Проговаривай: <br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Можно мне было думать, что {{installationFormulation}}. Но только я так думал(а). Это была только моя установка, только моя. Мне можно было пользоваться этой установкой, но она была только моя.',
+      repeatablePhrase:
+        'Можно мне было думать, что {{installationFormulation}}. Но только я так думал(а). Это была только моя установка, только моя. Мне можно было пользоваться этой установкой, но она была только моя.',
       buttonText: 'Закончить',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 8: Оценка',
       instruction: 'Оцените проработку от 1 до 10.',
       buttonText: 'Завершить',
-      showRating: true
-    }
+      showRating: true,
+    },
   ];
 
   constructor(
@@ -142,7 +147,7 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
         id: uuidv4(),
         type: 'Выявление установки',
         formulation: this.practiceFormulation,
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
       };
       this.goalService.addPracticeToGoal(this.goalId, newPractice);
       this.router.navigate(['/goals', this.goalId]);
@@ -159,7 +164,10 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
 
     // Replace installationFormulation placeholder
     if (this.installationFormulation) {
-      instruction = instruction.replace(/\{\{installationFormulation\}\}/g, this.installationFormulation);
+      instruction = instruction.replace(
+        /\{\{installationFormulation\}\}/g,
+        this.installationFormulation
+      );
     }
 
     // Replace repeatablePhrase placeholder
@@ -173,12 +181,12 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
 
   getProcessedRepeatablePhrase(step: PracticeStep): string {
     let phrase = step.repeatablePhrase || '';
-    
+
     // Replace goal.title placeholder
     if (this.goal) {
       phrase = phrase.replace(/\{\{goal\.title\}\}/g, this.goal.title);
     }
-    
+
     // Replace installationFormulation placeholder
     if (this.installationFormulation) {
       phrase = phrase.replace(/\{\{installationFormulation\}\}/g, this.installationFormulation);
@@ -191,8 +199,8 @@ export class GoalIdentificationPracticeComponent extends PracticeBaseComponent i
     return phrase;
   }
 
-  onInputChanged(event: {field: string, value: any}): void {
-    switch(event.field) {
+  onInputChanged(event: { field: string; value: any }): void {
+    switch (event.field) {
       case 'practiceFormulation':
         this.practiceFormulation = event.value;
         break;

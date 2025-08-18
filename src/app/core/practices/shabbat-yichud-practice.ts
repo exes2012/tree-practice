@@ -28,7 +28,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Шабат'
+      transliteration: 'Шабат',
     }
   );
 
@@ -41,7 +41,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-blue-600 dark:text-blue-400',
       size: 'large',
-      transliteration: 'шин - бейт - тав'
+      transliteration: 'шин - бейт - тав',
     }
   );
 
@@ -54,7 +54,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-green-600 dark:text-green-400',
       size: 'large',
-      transliteration: 'Шалом - мир'
+      transliteration: 'Шалом - мир',
     }
   );
 
@@ -67,7 +67,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-yellow-600 dark:text-yellow-400',
       size: 'large',
-      transliteration: 'Браха - благословение'
+      transliteration: 'Браха - благословение',
     }
   );
 
@@ -80,7 +80,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-red-600 dark:text-red-400',
       size: 'large',
-      transliteration: 'Таануг - наслаждение'
+      transliteration: 'Таануг - наслаждение',
     }
   );
 
@@ -93,7 +93,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
     {
       color: 'text-indigo-600 dark:text-indigo-400',
       size: 'large',
-      transliteration: 'Шабат шалом'
+      transliteration: 'Шабат шалом',
     }
   );
 
@@ -109,7 +109,7 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -117,16 +117,18 @@ export async function* shabbatYichudPractice(context: PracticeContext) {
 export const shabbatYichudPracticeConfig: PracticeConfig = {
   id: 'shabbat-yichud',
   title: 'Шаббат',
-  description: 'Медитация на слово Шаббат ש-ב-ת и его три составляющие: мир (שלום), благословение (ברכה) и наслаждение (תענוג). Практика ведет через три уровня шаббатнего сознания.',
-  
+  description:
+    'Медитация на слово Шаббат ש-ב-ת и его три составляющие: мир (שלום), благословение (ברכה) и наслаждение (תענוג). Практика ведет через три уровня шаббатнего сознания.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Шаббат',
-    description: 'Медитация на слово Шаббат ש-ב-ת и его три составляющие: мир (שלום), благословение (ברכה) и наслаждение (תענוג). Практика ведет через три уровня шаббатнего сознания.',
+    description:
+      'Медитация на слово Шаббат ש-ב-ת и его три составляющие: мир (שלום), благословение (ברכה) и наслаждение (תענוג). Практика ведет через три уровня шаббатнего сознания.',
     duration: '22 мин',
-    level: 'Средний'
+    level: 'Средний',
   },
-  
+
   practiceFunction: shabbatYichudPractice,
 
   onFinish: async (context, result) => {
@@ -145,9 +147,9 @@ export const shabbatYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

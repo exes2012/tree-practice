@@ -66,7 +66,7 @@ export async function* candleFlameYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -74,16 +74,18 @@ export async function* candleFlameYichudPractice(context: PracticeContext) {
 export const candleFlameYichudPracticeConfig: PracticeConfig = {
   id: 'candle-flame-yichud',
   title: 'Пламя свечи',
-  description: '«Душа человека – свеча Бога». Мы будем медитировать на движения пламени свечи как отражение движений нашей души. Практика включает физические движения - раскачивание вперед-назад (мужской аспект) и вправо-влево (женский аспект).',
-  
+  description:
+    '«Душа человека – свеча Бога». Мы будем медитировать на движения пламени свечи как отражение движений нашей души. Практика включает физические движения - раскачивание вперед-назад (мужской аспект) и вправо-влево (женский аспект).',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Пламя свечи',
-    description: '«Душа человека – свеча Бога». Мы будем медитировать на движения пламени свечи как отражение движений нашей души. Практика включает физические движения - раскачивание вперед-назад (мужской аспект) и вправо-влево (женский аспект).',
+    description:
+      '«Душа человека – свеча Бога». Мы будем медитировать на движения пламени свечи как отражение движений нашей души. Практика включает физические движения - раскачивание вперед-назад (мужской аспект) и вправо-влево (женский аспект).',
     duration: '20 мин',
-    level: 'Начальный'
+    level: 'Начальный',
   },
-  
+
   practiceFunction: candleFlameYichudPractice,
 
   onFinish: async (context, result) => {
@@ -102,9 +104,9 @@ export const candleFlameYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

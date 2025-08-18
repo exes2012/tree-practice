@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CustomTimePickerComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   template: `
     <div class="custom-time-picker">
@@ -25,12 +25,13 @@ import { CommonModule } from '@angular/common';
             (input)="onHoursChange($event)"
             (blur)="onBlur()"
             class="time-input"
-            placeholder="00">
+            placeholder="00"
+          />
           <span class="time-label">ч</span>
         </div>
-        
+
         <span class="time-separator">:</span>
-        
+
         <div class="time-field">
           <input
             type="number"
@@ -40,11 +41,12 @@ import { CommonModule } from '@angular/common';
             (input)="onMinutesChange($event)"
             (blur)="onBlur()"
             class="time-input"
-            placeholder="00">
+            placeholder="00"
+          />
           <span class="time-label">м</span>
         </div>
       </div>
-      
+
       <div class="time-controls">
         <button type="button" (click)="incrementHours()" class="time-btn">
           <i class="material-icons">keyboard_arrow_up</i>
@@ -61,131 +63,133 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `,
-  styles: [`
-    .custom-time-picker {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      background: white;
-      transition: all 0.2s ease;
-    }
-    
-    .custom-time-picker:focus-within {
-      border-color: #9ca3af;
-      box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-    }
-    
-    .dark .custom-time-picker {
-      background: #374151;
-      border-color: #4b5563;
-      color: #e5e7eb;
-    }
-    
-    .time-input-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-    }
-    
-    .time-field {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    
-    .time-input {
-      width: 40px;
-      padding: 4px 8px;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 500;
-      background: #f9fafb;
-      color: #374151;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-    
-    .time-input:focus {
-      border-color: #9ca3af;
-      background: white;
-      box-shadow: 0 0 0 1px rgba(107, 114, 128, 0.2);
-    }
-    
-    .dark .time-input {
-      background: #1f2937;
-      border-color: #374151;
-      color: #e5e7eb;
-    }
-    
-    .dark .time-input:focus {
-      background: #111827;
-      border-color: #6b7280;
-    }
-    
-    .time-separator {
-      font-size: 18px;
-      font-weight: bold;
-      color: #6b7280;
-      margin: 0 4px;
-    }
-    
-    .time-label {
-      font-size: 12px;
-      color: #6b7280;
-      font-weight: 500;
-    }
-    
-    .time-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 2px;
-    }
-    
-    .time-btn {
-      width: 24px;
-      height: 24px;
-      border: none;
-      background: #f3f4f6;
-      color: #6b7280;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .time-btn:hover {
-      background: #e5e7eb;
-      color: #374151;
-    }
-    
-    .time-btn .material-icons {
-      font-size: 16px;
-    }
-    
-    .dark .time-btn {
-      background: #4b5563;
-      color: #9ca3af;
-    }
-    
-    .dark .time-btn:hover {
-      background: #6b7280;
-      color: #f3f4f6;
-    }
-  `]
+  styles: [
+    `
+      .custom-time-picker {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        background: white;
+        transition: all 0.2s ease;
+      }
+
+      .custom-time-picker:focus-within {
+        border-color: #9ca3af;
+        box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
+      }
+
+      .dark .custom-time-picker {
+        background: #374151;
+        border-color: #4b5563;
+        color: #e5e7eb;
+      }
+
+      .time-input-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .time-field {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .time-input {
+        width: 40px;
+        padding: 4px 8px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+        background: #f9fafb;
+        color: #374151;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+
+      .time-input:focus {
+        border-color: #9ca3af;
+        background: white;
+        box-shadow: 0 0 0 1px rgba(107, 114, 128, 0.2);
+      }
+
+      .dark .time-input {
+        background: #1f2937;
+        border-color: #374151;
+        color: #e5e7eb;
+      }
+
+      .dark .time-input:focus {
+        background: #111827;
+        border-color: #6b7280;
+      }
+
+      .time-separator {
+        font-size: 18px;
+        font-weight: bold;
+        color: #6b7280;
+        margin: 0 4px;
+      }
+
+      .time-label {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      .time-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 2px;
+      }
+
+      .time-btn {
+        width: 24px;
+        height: 24px;
+        border: none;
+        background: #f3f4f6;
+        color: #6b7280;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .time-btn:hover {
+        background: #e5e7eb;
+        color: #374151;
+      }
+
+      .time-btn .material-icons {
+        font-size: 16px;
+      }
+
+      .dark .time-btn {
+        background: #4b5563;
+        color: #9ca3af;
+      }
+
+      .dark .time-btn:hover {
+        background: #6b7280;
+        color: #f3f4f6;
+      }
+    `,
+  ],
 })
 export class CustomTimePickerComponent implements ControlValueAccessor {
   hours: string = '00';
   minutes: string = '00';
-  
+
   private onChange = (value: string) => {};
   private onTouched = () => {};
 

@@ -18,7 +18,6 @@ import { SpaceClarificationPracticeComponent } from './components/man-practice/s
 import { CreatorJustificationPracticeComponent } from './components/man-practice/creator-justification-practice.component';
 import { FourStagesPracticeComponent } from './components/basic-exercises/four-stages-practice/four-stages-practice.component';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -38,7 +37,7 @@ import { FourStagesPracticeComponent } from './components/basic-exercises/four-s
     SpaceClarificationPracticeComponent,
 
     CreatorJustificationPracticeComponent,
-    FourStagesPracticeComponent
-  ]
+    FourStagesPracticeComponent,
+  ],
 })
-export class PracticesModule { }
+export class PracticesModule {}

@@ -1,18 +1,19 @@
-<div class="p-4 pb-24 space-y-4">
+<div class="space-y-4 p-4 pb-24">
   <!-- Loading State -->
   <div *ngIf="isLoading" class="flex justify-center py-8">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
+    <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-gray-600"></div>
   </div>
 
   <!-- Main Content -->
   <div *ngIf="!isLoading" class="space-y-4">
-
     <!-- Reminders Settings -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4">
-      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Напоминания о намерении</h3>
+    <div
+      class="rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+    >
+      <h3 class="mb-4 font-semibold text-gray-900 dark:text-gray-100">Напоминания о намерении</h3>
 
       <!-- Toggle Section -->
-      <div class="flex items-center justify-between mb-4">
+      <div class="mb-4 flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Напоминания</p>
           <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -20,13 +21,16 @@
           </p>
         </div>
 
-        <label class="relative inline-flex items-center cursor-pointer">
+        <label class="relative inline-flex cursor-pointer items-center">
           <input
             type="checkbox"
             [checked]="intention?.isEnabled || false"
             (change)="toggleIntention()"
-            class="sr-only peer">
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-600 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-600"></div>
+            class="peer sr-only"
+          />
+          <div
+            class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-gray-600"
+          ></div>
         </label>
       </div>
 
@@ -34,35 +38,32 @@
       <div *ngIf="intention?.isEnabled">
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+            <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
               Интервал напоминаний
             </label>
             <app-custom-select
               [(ngModel)]="intervalHours"
               (ngModelChange)="updateInterval()"
               [options]="intervalSelectOptions"
-              placeholder="Выберите интервал">
+              placeholder="Выберите интервал"
+            >
             </app-custom-select>
           </div>
 
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+              <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
                 Время начала
               </label>
-              <app-custom-time-picker
-                [(ngModel)]="startTime"
-                (ngModelChange)="updateInterval()">
+              <app-custom-time-picker [(ngModel)]="startTime" (ngModelChange)="updateInterval()">
               </app-custom-time-picker>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+              <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
                 Время окончания
               </label>
-              <app-custom-time-picker
-                [(ngModel)]="endTime"
-                (ngModelChange)="updateInterval()">
+              <app-custom-time-picker [(ngModel)]="endTime" (ngModelChange)="updateInterval()">
               </app-custom-time-picker>
             </div>
           </div>
@@ -71,5 +72,3 @@
     </div>
   </div>
 </div>
-
-

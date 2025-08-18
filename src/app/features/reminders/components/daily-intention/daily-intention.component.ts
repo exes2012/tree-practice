@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { ReminderService } from '@app/core/services/reminder.service';
 import { DailyIntention, INTENTION_MESSAGES } from '@app/core/models/reminder.models';
-import { CustomSelectComponent, SelectOption } from '../../../../shared/components/custom-select/custom-select.component';
+import {
+  CustomSelectComponent,
+  SelectOption,
+} from '../../../../shared/components/custom-select/custom-select.component';
 import { CustomTimePickerComponent } from '../../../../shared/components/custom-time-picker/custom-time-picker.component';
 
 interface IntentionPractice {
@@ -16,9 +19,8 @@ interface IntentionPractice {
   selector: 'app-daily-intention',
   imports: [CommonModule, FormsModule, CustomSelectComponent, CustomTimePickerComponent],
   templateUrl: './daily-intention.component.html',
-  styleUrls: ['./daily-intention.component.scss']
+  styleUrls: ['./daily-intention.component.scss'],
 })
-
 export class DailyIntentionComponent implements OnInit, OnDestroy {
   intention: DailyIntention | null = null;
   currentIntention: IntentionPractice | null = null;
@@ -37,7 +39,7 @@ export class DailyIntentionComponent implements OnInit, OnDestroy {
     { value: 5, label: '5 часов' },
     { value: 6, label: '6 часов' },
     { value: 7, label: '7 часов' },
-    { value: 8, label: '8 часов' }
+    { value: 8, label: '8 часов' },
   ];
 
   // Options for custom select
@@ -59,15 +61,13 @@ export class DailyIntentionComponent implements OnInit, OnDestroy {
   }
 
   private loadDailyIntention(): void {
-    this.reminderService.dailyIntention$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(intention => {
-        this.intention = intention;
-        if (intention) {
-          this.intervalHours = intention.intervalHours;
-        }
-        this.isLoading = false;
-      });
+    this.reminderService.dailyIntention$.pipe(takeUntil(this.destroy$)).subscribe((intention) => {
+      this.intention = intention;
+      if (intention) {
+        this.intervalHours = intention.intervalHours;
+      }
+      this.isLoading = false;
+    });
   }
 
   private loadCurrentIntention(): void {
@@ -101,7 +101,7 @@ export class DailyIntentionComponent implements OnInit, OnDestroy {
       intervalHours: this.intervalHours,
       startTime: this.startTime,
       endTime: this.endTime,
-      useRandomMessages: true
+      useRandomMessages: true,
     });
   }
 
@@ -111,12 +111,12 @@ export class DailyIntentionComponent implements OnInit, OnDestroy {
     await this.reminderService.createOrUpdateDailyIntention({
       intervalHours: this.intervalHours,
       startTime: this.startTime,
-      endTime: this.endTime
+      endTime: this.endTime,
     });
   }
 
   getIntervalLabel(hours: number): string {
-    const option = this.intervalOptions.find(opt => opt.value === hours);
+    const option = this.intervalOptions.find((opt) => opt.value === hours);
     return option ? option.label : `${hours} часов`;
   }
 }

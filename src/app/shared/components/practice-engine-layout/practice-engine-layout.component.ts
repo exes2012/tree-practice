@@ -1,4 +1,3 @@
-
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Practice, PracticeStep } from '@app/core/models/practice.model';
 import { CommonModule } from '@angular/common';
@@ -9,10 +8,9 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './practice-engine-layout.component.html',
   styleUrls: ['./practice-engine-layout.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
 })
 export class PracticeEngineLayoutComponent implements OnChanges {
-
   @Input() practice: Practice | null = null;
   @Input() currentStep: PracticeStep | null = null;
   @Input() currentStepIndex: number = -1;
@@ -27,7 +25,7 @@ export class PracticeEngineLayoutComponent implements OnChanges {
   isRepetitionActive = false;
   private repetitionInterval: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentStep'] && changes['currentStep'].currentValue) {
@@ -67,7 +65,7 @@ export class PracticeEngineLayoutComponent implements OnChanges {
         if (this.isRepetitionActive) {
           this.speak(phrase, true);
         }
-      }, 15000); 
+      }, 15000);
     }
   }
 
@@ -82,7 +80,7 @@ export class PracticeEngineLayoutComponent implements OnChanges {
   private speak(text: string, isRepetition: boolean = false): void {
     if (!text) return;
     if (!isRepetition) {
-        window.speechSynthesis.cancel();
+      window.speechSynthesis.cancel();
     }
     const cleanText = text.replace(/<[^>]*>/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(cleanText);

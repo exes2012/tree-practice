@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpeechService {
   private repetitionInterval: any;
@@ -12,7 +12,7 @@ export class SpeechService {
 
   private speechSettings = {
     main: { rate: 0.8, pause: 1000 },
-    repetition: { rate: 0.9, pause: 200 }
+    repetition: { rate: 0.9, pause: 200 },
   };
 
   speak(text: string, isRepetition: boolean = false): Promise<void> {
@@ -40,20 +40,25 @@ export class SpeechService {
     });
   }
 
-  private executeSpeech(text: string, isRepetition: boolean, resolve: Function, reject: Function): void {
+  private executeSpeech(
+    text: string,
+    isRepetition: boolean,
+    resolve: Function,
+    reject: Function
+  ): void {
     // Если это не повтор, ЖЕСТКО останавливаем всё предыдущее
     if (!isRepetition) {
       console.log('HARD STOPPING all speech for new main speech');
-      
+
       // Очищаем состояния
       this.clearRepetitionOnly();
       this.currentMainSpeech = null;
       this.isSpeaking = false;
       this.speechQueue = [];
-      
+
       // МГНОВЕННАЯ остановка
       this.forceStopAllSpeech();
-      
+
       // Запускаем новую речь с небольшой задержкой
       setTimeout(() => {
         this.startMainSpeech(text, resolve, reject);
@@ -65,14 +70,24 @@ export class SpeechService {
 
   private startMainSpeech(text: string, resolve: Function, reject: Function): void {
     this.isSpeaking = true;
-    this.startSpeech(text, false, () => {
-      this.isSpeaking = false;
-      resolve();
-      this.processQueue();
-    }, reject);
+    this.startSpeech(
+      text,
+      false,
+      () => {
+        this.isSpeaking = false;
+        resolve();
+        this.processQueue();
+      },
+      reject
+    );
   }
 
-  private startSpeech(text: string, isRepetition: boolean, resolve: Function, reject: Function): void {
+  private startSpeech(
+    text: string,
+    isRepetition: boolean,
+    resolve: Function,
+    reject: Function
+  ): void {
     const cleanText = this.processTextForSpeech(text);
     const utterance = new SpeechSynthesisUtterance(cleanText);
 
@@ -115,7 +130,11 @@ export class SpeechService {
       complete();
     };
 
-    console.log('Starting speech:', isRepetition ? 'repetition' : 'main', cleanText.substring(0, 50));
+    console.log(
+      'Starting speech:',
+      isRepetition ? 'repetition' : 'main',
+      cleanText.substring(0, 50)
+    );
     window.speechSynthesis.speak(utterance);
   }
 
@@ -152,7 +171,7 @@ export class SpeechService {
   stopRepetitionAndWait(): Promise<void> {
     return new Promise((resolve) => {
       this.clearRepetitionOnly();
-      
+
       // Ждем немного, чтобы завершить текущий повтор если он активен
       setTimeout(() => {
         resolve();
@@ -204,7 +223,7 @@ export class SpeechService {
 
       // Еще несколько проверок с микро-задержками
       const stopAttempts = [0, 5, 10, 20, 50];
-      stopAttempts.forEach(delay => {
+      stopAttempts.forEach((delay) => {
         setTimeout(() => {
           if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
             console.log(`Force stop attempt at ${delay}ms`);
@@ -212,7 +231,6 @@ export class SpeechService {
           }
         }, delay);
       });
-
     } catch (error) {
       console.error('Error in force stop:', error);
     }

@@ -9,7 +9,7 @@ import {
   CreateDailyIntentionRequest,
   UpdateDailyIntentionRequest,
   WeekDay,
-  getRandomIntentionMessage
+  getRandomIntentionMessage,
 } from '../models/reminder.models';
 
 @Injectable({ providedIn: 'root' })
@@ -46,7 +46,7 @@ export class ReminderService {
       isEnabled: true,
       category: request.category,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     const reminders = this.remindersSubject.value;
@@ -64,14 +64,14 @@ export class ReminderService {
 
   async updateReminder(id: string, request: UpdateReminderRequest): Promise<Reminder | null> {
     const reminders = this.remindersSubject.value;
-    const index = reminders.findIndex(r => r.id === id);
+    const index = reminders.findIndex((r) => r.id === id);
 
     if (index === -1) return null;
 
     const updatedReminder: Reminder = {
       ...reminders[index],
       ...request,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     const updatedReminders = [...reminders];
@@ -91,7 +91,7 @@ export class ReminderService {
 
   async deleteReminder(id: string): Promise<boolean> {
     const reminders = this.remindersSubject.value;
-    const updatedReminders = reminders.filter(r => r.id !== id);
+    const updatedReminders = reminders.filter((r) => r.id !== id);
 
     await setData('reminders', updatedReminders);
     this.remindersSubject.next(updatedReminders);
@@ -101,7 +101,7 @@ export class ReminderService {
   }
 
   async toggleReminder(id: string): Promise<boolean> {
-    const reminder = this.remindersSubject.value.find(r => r.id === id);
+    const reminder = this.remindersSubject.value.find((r) => r.id === id);
     if (!reminder) return false;
 
     await this.updateReminder(id, { isEnabled: !reminder.isEnabled });
@@ -109,24 +109,28 @@ export class ReminderService {
   }
 
   // Daily Intention CRUD operations
-  async createOrUpdateDailyIntention(request: CreateDailyIntentionRequest | UpdateDailyIntentionRequest): Promise<DailyIntention> {
+  async createOrUpdateDailyIntention(
+    request: CreateDailyIntentionRequest | UpdateDailyIntentionRequest
+  ): Promise<DailyIntention> {
     const existing = this.dailyIntentionSubject.value;
 
-    const intention: DailyIntention = existing ? {
-      ...existing,
-      ...request,
-      updatedAt: new Date()
-    } : {
-      id: this.generateId(),
-      isEnabled: true,
-      intervalHours: 4,
-      startTime: '08:00',
-      endTime: '22:00',
-      useRandomMessages: true,
-      ...request,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
+    const intention: DailyIntention = existing
+      ? {
+          ...existing,
+          ...request,
+          updatedAt: new Date(),
+        }
+      : {
+          id: this.generateId(),
+          isEnabled: true,
+          intervalHours: 4,
+          startTime: '08:00',
+          endTime: '22:00',
+          useRandomMessages: true,
+          ...request,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
 
     await setData('dailyIntention', intention);
     this.dailyIntentionSubject.next(intention);
@@ -150,7 +154,7 @@ export class ReminderService {
 
   // Private helper methods
   private async loadReminders(): Promise<void> {
-    const reminders = await getData<Reminder[]>('reminders') || [];
+    const reminders = (await getData<Reminder[]>('reminders')) || [];
     this.remindersSubject.next(reminders);
   }
 
@@ -160,8 +164,8 @@ export class ReminderService {
   }
 
   private async scheduleAllReminders(): Promise<void> {
-    const reminders = this.remindersSubject.value.filter(r => r.isEnabled);
-    reminders.forEach(reminder => this.scheduleReminder(reminder));
+    const reminders = this.remindersSubject.value.filter((r) => r.isEnabled);
+    reminders.forEach((reminder) => this.scheduleReminder(reminder));
 
     const intention = this.dailyIntentionSubject.value;
     if (intention?.isEnabled) {
@@ -293,7 +297,7 @@ export class ReminderService {
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification(title, {
         body: message,
-        icon: '/assets/icons/icon-192x192.png'
+        icon: '/assets/icons/icon-192x192.png',
       });
     } else {
       // Fallback to alert
@@ -309,12 +313,28 @@ export class ReminderService {
   }
 
   private getWeekDayIndex(day: WeekDay): number {
-    const days: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const days: WeekDay[] = [
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
+    ];
     return days.indexOf(day);
   }
 
   private getWeekDayByIndex(index: number): WeekDay {
-    const days: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const days: WeekDay[] = [
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
+    ];
     return days[index];
   }
 
@@ -334,7 +354,7 @@ export class ReminderService {
       clearTimeout(timerId);
     }
 
-    const [hh, mm] = timeHHmm.split(':').map(n => parseInt(n, 10));
+    const [hh, mm] = timeHHmm.split(':').map((n) => parseInt(n, 10));
     const now = new Date();
     const next = new Date();
     next.setHours(hh, mm, 0, 0);
@@ -380,4 +400,3 @@ export class ReminderService {
     return Notification.permission;
   }
 }
-

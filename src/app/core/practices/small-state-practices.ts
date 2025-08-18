@@ -15,8 +15,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -30,8 +30,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -45,8 +45,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -60,8 +60,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -75,8 +75,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -90,8 +90,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -105,8 +105,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -120,8 +120,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -135,8 +135,8 @@ export async function* creatorSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 300, // 5 минут
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -158,18 +158,20 @@ export async function* creatorSpacePractice(context: PracticeContext) {
 export const creatorSpacePracticeConfig: PracticeConfig = {
   id: 'small-state-creator-space',
   title: 'Пространство с Творцом',
-  description: 'Это упражнение направлено на формирование ощущения пространства и единства с Творцом через удержание внимания на шести направлениях.',
-  
+  description:
+    'Это упражнение направлено на формирование ощущения пространства и единства с Творцом через удержание внимания на шести направлениях.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Пространство с Творцом',
-    description: 'Это упражнение направлено на формирование ощущения пространства и единства с Творцом через удержание внимания на шести направлениях.',
+    description:
+      'Это упражнение направлено на формирование ощущения пространства и единства с Творцом через удержание внимания на шести направлениях.',
     duration: '~10 минут',
-    level: 'Средний'
+    level: 'Средний',
   },
-  
+
   practiceFunction: creatorSpacePractice,
-  
+
   onFinish: async (context, result) => {
     // Save practice run to IndexedDB
     const { JournalService } = await import('../services/journal.service');
@@ -186,11 +188,11 @@ export const creatorSpacePracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };
 
 /**
@@ -207,8 +209,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -222,8 +224,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -237,8 +239,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -252,8 +254,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -267,8 +269,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -282,8 +284,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -297,8 +299,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -312,8 +314,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -327,8 +329,8 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
       autoTimer: {
         duration: 300, // 5 минут
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -350,14 +352,16 @@ export async function* zeirAnpinSpacePractice(context: PracticeContext) {
 export const zeirAnpinSpacePracticeConfig: PracticeConfig = {
   id: 'small-state-zeir-anpin-space',
   title: 'Пространство Зеир Анпина',
-  description: 'Это упражнение помогает построить "малый лик" (Зеир Анпин) через соотнесение шести направлений с соответствующими сфирот и их принципами.',
+  description:
+    'Это упражнение помогает построить "малый лик" (Зеир Анпин) через соотнесение шести направлений с соответствующими сфирот и их принципами.',
 
   hasStartScreen: true,
   startScreenContent: {
     title: 'Пространство Зеир Анпина',
-    description: 'Это упражнение помогает построить "малый лик" (Зеир Анпин) через соотнесение шести направлений с соответствующими сфирот и их принципами.',
+    description:
+      'Это упражнение помогает построить "малый лик" (Зеир Анпин) через соотнесение шести направлений с соответствующими сфирот и их принципами.',
     duration: '~10 минут',
-    level: 'Средний'
+    level: 'Средний',
   },
 
   practiceFunction: zeirAnpinSpacePractice,
@@ -378,11 +382,11 @@ export const zeirAnpinSpacePracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };
 
 /**
@@ -390,31 +394,26 @@ export const zeirAnpinSpacePracticeConfig: PracticeConfig = {
  */
 export async function* netzHodLinePractice(context: PracticeContext) {
   // Шаг выбора потока
-  yield stepWithButtons(
-    'stream-selection',
-    'Выбор потока',
-    'Какой поток вы хотите наработать?',
-    [
-      {
-        text: 'В отношении Творца',
-        value: 'creator',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      },
-      {
-        text: 'В отношении себя',
-        value: 'self',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      },
-      {
-        text: 'В отношении других',
-        value: 'others',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      }
-    ]
-  );
+  yield stepWithButtons('stream-selection', 'Выбор потока', 'Какой поток вы хотите наработать?', [
+    {
+      text: 'В отношении Творца',
+      value: 'creator',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+    {
+      text: 'В отношении себя',
+      value: 'self',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+    {
+      text: 'В отношении других',
+      value: 'others',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+  ]);
 
   // Получаем выбранный поток из контекста
   const selectedStream = context.get('stream-selection') || 'creator';
@@ -429,8 +428,8 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -444,16 +443,18 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 3. Сфира Нецах - работа (зависит от потока)
   const netzachInstructions = {
-    creator: 'Сконцентрируйся на вере в единого Бога (отдача). Выстрой намерение навечно прилепиться к нему. И прикладывай стремление к своему намерению.',
+    creator:
+      'Сконцентрируйся на вере в единого Бога (отдача). Выстрой намерение навечно прилепиться к нему. И прикладывай стремление к своему намерению.',
     self: 'Почувствуй свои внутренние недостатки. Проявляй упорство и внутреннюю выносливость, стремясь к Творцу снизу вверх и прося Творца исправить твои сосуды.',
-    others: 'Проси творца дать тебе сосуды, позволяющие вдохновлять других своей настойчивостью и верой на преодоление трудностей.'
+    others:
+      'Проси творца дать тебе сосуды, позволяющие вдохновлять других своей настойчивостью и верой на преодоление трудностей.',
   };
 
   yield step(
@@ -465,8 +466,8 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -480,16 +481,18 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 5. Сфира Ход - работа (зависит от потока)
   const hodInstructions = {
-    creator: 'Отталкивай от себя все мысли, говорящие об отсутствии единства. И о том, что есть что-то в этом мире, не являющееся Творцом.',
+    creator:
+      'Отталкивай от себя все мысли, говорящие об отсутствии единства. И о том, что есть что-то в этом мире, не являющееся Творцом.',
     self: 'Сконцентрируйся на принятии своего текущего места в системе мироздания. Согласись с управлением Творца. Что есть, то и хорошо.',
-    others: 'Сконцентрируйся на том, чтобы стать для других примером смирения и благодарности. Проси Творца дать тебе такие келим.'
+    others:
+      'Сконцентрируйся на том, чтобы стать для других примером смирения и благодарности. Проси Творца дать тебе такие келим.',
   };
 
   yield step(
@@ -501,16 +504,18 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 6. Нецах/Ход - основная медитация (зависит от потока)
   const combinedInstructions = {
-    creator: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Веру в единого Бога и стремление к нему (пространство над тобой).<br><br>2. Отталкивание мыслей об отсутствии единства (пространство под тобой).<br><br>Удерживай себя, свое тело и эти два состояния.',
+    creator:
+      '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Веру в единого Бога и стремление к нему (пространство над тобой).<br><br>2. Отталкивание мыслей об отсутствии единства (пространство под тобой).<br><br>Удерживай себя, свое тело и эти два состояния.',
     self: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Упорство в просьбе исправить твои сосуды (пространство над тобой).<br><br>2. Принятие своего места и управления Творца (пространство под тобой).<br><br>Удерживай себя, свое тело и эти два состояния.',
-    others: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Просьба о сосудах для вдохновения других (пространство над тобой).<br><br>2. Просьба стать примером смирения и благодарности (пространство под тобой).<br><br>Прикладывай стремление.'
+    others:
+      '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Просьба о сосудах для вдохновения других (пространство над тобой).<br><br>2. Просьба стать примером смирения и благодарности (пространство под тобой).<br><br>Прикладывай стремление.',
   };
 
   yield step(
@@ -522,8 +527,8 @@ export async function* netzHodLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 300, // 5 минут - ОСНОВНОЙ ТАЙМЕР НА ШАГЕ 6
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -536,31 +541,26 @@ export async function* netzHodLinePractice(context: PracticeContext) {
  */
 export async function* hesedGevurahLinePractice(context: PracticeContext) {
   // Шаг выбора потока
-  yield stepWithButtons(
-    'stream-selection',
-    'Выбор потока',
-    'Какой поток вы хотите наработать?',
-    [
-      {
-        text: 'В отношении Творца',
-        value: 'creator',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      },
-      {
-        text: 'В отношении себя',
-        value: 'self',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      },
-      {
-        text: 'В отношении других',
-        value: 'others',
-        targetStepId: 'space-awareness',
-        saveValue: true
-      }
-    ]
-  );
+  yield stepWithButtons('stream-selection', 'Выбор потока', 'Какой поток вы хотите наработать?', [
+    {
+      text: 'В отношении Творца',
+      value: 'creator',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+    {
+      text: 'В отношении себя',
+      value: 'self',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+    {
+      text: 'В отношении других',
+      value: 'others',
+      targetStepId: 'space-awareness',
+      saveValue: true,
+    },
+  ]);
 
   // Получаем выбранный поток из контекста
   const selectedStream = context.get('stream-selection') || 'creator';
@@ -575,8 +575,8 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -590,16 +590,17 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 3. Сфира Хесед - работа (зависит от потока)
   const hesedInstructions = {
-    creator: 'Сконцентрируйся на состоянии безграничной любви к Творцу и стремлении к слиянию с Ним по свойствам.',
+    creator:
+      'Сконцентрируйся на состоянии безграничной любви к Творцу и стремлении к слиянию с Ним по свойствам.',
     self: 'Сконцентрируйся на проявлении безусловного милосердия и принятия в отношении себя и своих недостатков.',
-    others: 'Сконцентрируйся на проявлении безусловного милосердия в отношении окружающих.'
+    others: 'Сконцентрируйся на проявлении безусловного милосердия в отношении окружающих.',
   };
 
   yield step(
@@ -611,31 +612,26 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 4. Сфира Гвура (общий)
-  yield step(
-    'gevurah-space',
-    'Шаг 4. Сфира Гвура',
-    'Почувствуй пространство слева.',
-    'simple',
-    {
-      autoTimer: {
-        duration: 30,
-        autoAdvance: true,
-        showCountdown: true
-      }
-    }
-  );
+  yield step('gevurah-space', 'Шаг 4. Сфира Гвура', 'Почувствуй пространство слева.', 'simple', {
+    autoTimer: {
+      duration: 30,
+      autoAdvance: true,
+      showCountdown: true,
+    },
+  });
 
   // Шаг 5. Сфира Гвура - работа (зависит от потока)
   const gevurahInstructions = {
     creator: 'Сконцентрируйся на Трепете перед Творцом. И страхе потерять с Ним связь.',
     self: 'Сконцентрируйся на сознательном ограничении и преодолении своих эгоистических устремлений.',
-    others: 'Сконцентрируйся на проявлении справедливости и установке необходимых границ для истинного блага других.'
+    others:
+      'Сконцентрируйся на проявлении справедливости и установке необходимых границ для истинного блага других.',
   };
 
   yield step(
@@ -647,16 +643,18 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 30,
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
   // Шаг 6. Хесед/Гвура - основная медитация (зависит от потока)
   const combinedInstructions = {
-    creator: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Безграничную любовь к Творцу (пространство справа).<br><br>2. Трепет перед Ним и страх потерять связь (пространство слева).<br><br>Удерживай себя, свое тело и эти два состояния.',
+    creator:
+      '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Безграничную любовь к Творцу (пространство справа).<br><br>2. Трепет перед Ним и страх потерять связь (пространство слева).<br><br>Удерживай себя, свое тело и эти два состояния.',
     self: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Безусловное милосердие к себе (пространство справа).<br><br>2. Сознательное ограничение эгоизма (пространство слева).<br><br>Удерживай себя, свое тело и эти два состояния.',
-    others: '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Безусловное милосердие к другим (пространство справа).<br><br>2. Справедливость и установка границ (пространство слева).<br><br>Удерживай себя, свое тело и эти два состояния.'
+    others:
+      '<strong>Удерживай одновременно два состояния:</strong><br><br>1. Безусловное милосердие к другим (пространство справа).<br><br>2. Справедливость и установка границ (пространство слева).<br><br>Удерживай себя, свое тело и эти два состояния.',
   };
 
   yield step(
@@ -668,8 +666,8 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
       autoTimer: {
         duration: 300, // 5 минут - ОСНОВНОЙ ТАЙМЕР НА ШАГЕ 6
         autoAdvance: true,
-        showCountdown: true
-      }
+        showCountdown: true,
+      },
     }
   );
 
@@ -683,14 +681,16 @@ export async function* hesedGevurahLinePractice(context: PracticeContext) {
 export const hesedGevurahLinePracticeConfig: PracticeConfig = {
   id: 'small-state-hesed-gevurah-line',
   title: 'Средняя линия Хесед/Гвура',
-  description: 'Эта практика помогает сбалансировать любовь (Хесед) и строгость (Гвура) в различных аспектах жизни.',
+  description:
+    'Эта практика помогает сбалансировать любовь (Хесед) и строгость (Гвура) в различных аспектах жизни.',
 
   hasStartScreen: true,
   startScreenContent: {
     title: 'Средняя линия Хесед/Гвура',
-    description: 'Эта практика помогает сбалансировать любовь (Хесед) и строгость (Гвура) в различных аспектах жизни.',
+    description:
+      'Эта практика помогает сбалансировать любовь (Хесед) и строгость (Гвура) в различных аспектах жизни.',
     duration: '~10 минут',
-    level: 'Средний'
+    level: 'Средний',
   },
 
   practiceFunction: hesedGevurahLinePractice,
@@ -711,11 +711,11 @@ export const hesedGevurahLinePracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };
 
 /**
@@ -724,14 +724,16 @@ export const hesedGevurahLinePracticeConfig: PracticeConfig = {
 export const netzHodLinePracticeConfig: PracticeConfig = {
   id: 'small-state-netz-hod-line',
   title: 'Средняя линия Нецах/Ход',
-  description: 'Эта практика помогает сбалансировать веру (Нецах) и смирение (Ход) в различных аспектах жизни.',
+  description:
+    'Эта практика помогает сбалансировать веру (Нецах) и смирение (Ход) в различных аспектах жизни.',
 
   hasStartScreen: true,
   startScreenContent: {
     title: 'Средняя линия Нецах/Ход',
-    description: 'Эта практика помогает сбалансировать веру (Нецах) и смирение (Ход) в различных аспектах жизни.',
+    description:
+      'Эта практика помогает сбалансировать веру (Нецах) и смирение (Ход) в различных аспектах жизни.',
     duration: '~10 минут',
-    level: 'Средний'
+    level: 'Средний',
   },
 
   practiceFunction: netzHodLinePractice,
@@ -752,9 +754,9 @@ export const netzHodLinePracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

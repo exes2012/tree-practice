@@ -28,7 +28,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
     {
       color: 'text-pink-600 dark:text-pink-400',
       size: 'extra-large',
-      transliteration: 'ахава - любовь'
+      transliteration: 'ахава - любовь',
     }
   );
 
@@ -41,7 +41,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
     {
       color: 'text-red-600 dark:text-red-400',
       size: 'large',
-      transliteration: 'алеф - хей - бейт - хей'
+      transliteration: 'алеф - хей - бейт - хей',
     }
   );
 
@@ -54,7 +54,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
     {
       color: 'text-blue-600 dark:text-blue-400',
       size: 'large',
-      transliteration: 'эхад - один (13)'
+      transliteration: 'эхад - один (13)',
     }
   );
 
@@ -74,7 +74,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
     {
       color: 'text-yellow-600 dark:text-yellow-400',
       size: 'medium',
-      transliteration: 'Ор а-Кадош Барух ху'
+      transliteration: 'Ор а-Кадош Барух ху',
     }
   );
 
@@ -87,7 +87,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'ахава - любовь творящая'
+      transliteration: 'ахава - любовь творящая',
     }
   );
 
@@ -96,7 +96,7 @@ export async function* loveYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -104,16 +104,18 @@ export async function* loveYichudPractice(context: PracticeContext) {
 export const loveYichudPracticeConfig: PracticeConfig = {
   id: 'love-yichud',
   title: 'Любовь (א ה ב ה)',
-  description: 'Любовь есть Божественная способность к творению. Медитация над четырьмя буквами слова "любовь" на иврите - אהבה (ахава). Каждая буква открывает особый аспект Божественной любви и помогает пробудить в душе способность к творению.',
-  
+  description:
+    'Любовь есть Божественная способность к творению. Медитация над четырьмя буквами слова "любовь" на иврите - אהבה (ахава). Каждая буква открывает особый аспект Божественной любви и помогает пробудить в душе способность к творению.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Любовь (א ה ב ה)',
-    description: 'Любовь есть Божественная способность к творению. Медитация над четырьмя буквами слова "любовь" на иврите - אהבה (ахава). Каждая буква открывает особый аспект Божественной любви и помогает пробудить в душе способность к творению.',
+    description:
+      'Любовь есть Божественная способность к творению. Медитация над четырьмя буквами слова "любовь" на иврите - אהבה (ахава). Каждая буква открывает особый аспект Божественной любви и помогает пробудить в душе способность к творению.',
     duration: '15 мин',
-    level: 'Начальный'
+    level: 'Начальный',
   },
-  
+
   practiceFunction: loveYichudPractice,
 
   onFinish: async (context, result) => {
@@ -132,9 +134,9 @@ export const loveYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

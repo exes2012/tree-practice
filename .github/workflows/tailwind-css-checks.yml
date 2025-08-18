@@ -1,0 +1,55 @@
+name: Tailwind CSS Checks
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  tailwind-css-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint with Tailwind CSS plugin
+        run: npm run lint
+
+      - name: Check for arbitrary values
+        run: |
+          # Check for remaining arbitrary values in HTML files
+          ARBITRARY_VALUES=$(grep -r "\[[^]]*\]" src/ --include="*.html" || true)
+          if [ -n "$ARBITRARY_VALUES" ]; then
+            echo "Found arbitrary values in HTML files:"
+            echo "$ARBITRARY_VALUES"
+            echo "Please replace arbitrary values with design tokens."
+            exit 1
+          fi
+
+      - name: Check for inline styles
+        run: |
+          # Check for remaining inline styles in HTML files
+          INLINE_STYLES=$(grep -r "style=" src/ --include="*.html" || true)
+          if [ -n "$INLINE_STYLES" ]; then
+            echo "Found inline styles in HTML files:"
+            echo "$INLINE_STYLES"
+            echo "Please replace inline styles with Tailwind CSS classes."
+            exit 1
+          fi
+
+      - name: Run Prettier format check
+        run: npm run format -- --check
+
+      - name: Build project
+        run: npm run build

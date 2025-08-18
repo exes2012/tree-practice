@@ -6,11 +6,11 @@ import { ReminderCreatePageComponent } from './components/reminder-create-page/r
 const routes: Routes = [
   { path: '', component: RemindersPageComponent },
   { path: 'new', component: ReminderCreatePageComponent },
-  { path: 'edit/:id', component: ReminderCreatePageComponent }
+  { path: 'edit/:id', component: ReminderCreatePageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class RemindersRoutingModule { }
+export class RemindersRoutingModule {}

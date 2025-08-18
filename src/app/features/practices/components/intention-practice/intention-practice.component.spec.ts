@@ -8,9 +8,8 @@ describe('IntentionPracticeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IntentionPracticeComponent]
-    })
-    .compileComponents();
+      imports: [IntentionPracticeComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IntentionPracticeComponent);
     component = fixture.componentInstance;

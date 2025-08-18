@@ -12,7 +12,7 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
   templateUrl: './goal-form.component.html',
   styleUrls: ['./goal-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, PracticePageLayoutComponent]
+  imports: [CommonModule, FormsModule, PracticePageLayoutComponent],
 })
 export class GoalFormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -23,7 +23,7 @@ export class GoalFormComponent implements OnInit {
     complexity: 0,
     direction: 'relationships',
     isMainGoal: false,
-    practices: []
+    practices: [],
   };
   isEditMode: boolean = false;
 
@@ -31,7 +31,7 @@ export class GoalFormComponent implements OnInit {
     private goalService: GoalService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const goalId = this.route.snapshot.paramMap.get('id');

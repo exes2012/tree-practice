@@ -12,7 +12,7 @@ export interface PracticeStats {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PracticeService {
   private readonly LAST_PRACTICE_KEY = 'lastPractice';

@@ -12,7 +12,13 @@
       "Bash(grep:*)",
       "Bash(cat:*)",
       "Bash(git add:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(npm install:*)",
+      "Bash(npm pkg set scripts.lint=\"eslint . --ext .ts,.html\")",
+      "Bash(npm pkg set scripts.format=:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run format:*)",
+      "Bash(.github/workflows/tailwind-css-checks.yml)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": [

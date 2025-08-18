@@ -1,13 +1,13 @@
 .note-card {
   position: relative;
   transition: all 0.2s ease-in-out;
-  
+
   &:hover {
     .note-actions {
       opacity: 1;
     }
   }
-  
+
   .note-title {
     // Line clamp for title
     display: -webkit-box;
@@ -17,7 +17,7 @@
     word-break: break-word;
     line-height: 1.4;
   }
-  
+
   .note-content {
     p {
       // Line clamp for content preview
@@ -29,74 +29,74 @@
       line-height: 1.5;
     }
   }
-  
+
   .note-actions {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
-    
+
     @media (max-width: 768px) {
       opacity: 1; // Always show on mobile
     }
-    
+
     button {
       transition: all 0.2s ease-in-out;
-      
+
       &:hover {
         transform: scale(1.1);
       }
-      
+
       &:active {
         transform: scale(0.95);
       }
     }
   }
-  
+
   .note-tags {
     .tag {
       transition: all 0.2s ease-in-out;
-      
+
       &:hover {
         transform: scale(1.05);
       }
     }
   }
-  
+
   .note-footer {
     font-size: 0.75rem;
-    
+
     .time-indicator {
       display: flex;
       align-items: center;
       gap: 0.25rem;
     }
   }
-  
+
   // Hover effects
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    
+
     .dark & {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
   }
-  
+
   // Active state
   &:active {
     transform: translateY(0);
   }
-  
+
   // Focus state for accessibility
   &:focus-within {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
   }
-  
+
   // Animation for new notes
   &.note-enter {
     animation: noteEnter 0.3s ease-out;
   }
-  
+
   @keyframes noteEnter {
     from {
       opacity: 0;
@@ -107,27 +107,27 @@
       transform: translateY(0) scale(1);
     }
   }
-  
+
   // Responsive adjustments
   @media (max-width: 640px) {
     .note-header {
       padding: 0.75rem;
       padding-bottom: 0.5rem;
     }
-    
+
     .note-content {
       padding: 0 0.75rem 0.5rem;
     }
-    
+
     .note-tags {
       padding: 0 0.75rem 0.5rem;
     }
-    
+
     .note-footer {
       padding: 0.75rem;
     }
   }
-  
+
   // Dark mode specific adjustments
   .dark & {
     .note-actions button {

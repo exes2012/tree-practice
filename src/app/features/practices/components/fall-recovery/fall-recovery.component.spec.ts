@@ -8,9 +8,8 @@ describe('FallRecoveryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FallRecoveryComponent]
-    })
-    .compileComponents();
+      imports: [FallRecoveryComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FallRecoveryComponent);
     component = fixture.componentInstance;

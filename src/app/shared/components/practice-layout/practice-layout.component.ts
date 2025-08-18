@@ -1,5 +1,19 @@
-
-import { Component, Input, Output, EventEmitter, OnDestroy, ContentChild, TemplateRef, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, AfterContentInit, AfterViewChecked, NgZone } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ContentChild,
+  TemplateRef,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectorRef,
+  AfterContentInit,
+  AfterViewChecked,
+  NgZone,
+} from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,11 +24,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './practice-layout.component.html',
   styleUrls: ['./practice-layout.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
 })
-export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewChecked {
-
-
+export class PracticeLayoutComponent
+  implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewChecked
+{
   // --- Inputs for Content ---
   @Input() practiceTitle: string = '';
   @Input() practiceDescription: string = '';
@@ -58,7 +72,12 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   private repetitionInterval: any;
   private audio: HTMLAudioElement;
 
-  constructor(private location: Location, private router: Router, private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(
+    private location: Location,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {
     this.audio = new Audio('/assets/sound/bell.mp3');
   }
 
@@ -77,13 +96,25 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
     console.log('PracticeLayoutComponent: ngOnChanges called with changes:', changes);
     for (const propName in changes) {
       const change = changes[propName];
-      console.log(`PracticeLayoutComponent: ${propName} changed from ${change.previousValue} to ${change.currentValue}`);
+      console.log(
+        `PracticeLayoutComponent: ${propName} changed from ${change.previousValue} to ${change.currentValue}`
+      );
     }
     if (changes['steps']) {
-      console.log('PracticeLayoutComponent: steps changed from', changes['steps'].previousValue, 'to', changes['steps'].currentValue);
+      console.log(
+        'PracticeLayoutComponent: steps changed from',
+        changes['steps'].previousValue,
+        'to',
+        changes['steps'].currentValue
+      );
     }
     if (changes['isPracticeStarted']) {
-      console.log('PracticeLayoutComponent: isPracticeStarted changed from', changes['isPracticeStarted'].previousValue, 'to', changes['isPracticeStarted'].currentValue);
+      console.log(
+        'PracticeLayoutComponent: isPracticeStarted changed from',
+        changes['isPracticeStarted'].previousValue,
+        'to',
+        changes['isPracticeStarted'].currentValue
+      );
     }
   }
 
@@ -92,7 +123,10 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   }
 
   ngAfterViewChecked() {
-    console.log('PracticeLayoutComponent: ngAfterViewChecked - isPracticeStarted:', this.isPracticeStarted);
+    console.log(
+      'PracticeLayoutComponent: ngAfterViewChecked - isPracticeStarted:',
+      this.isPracticeStarted
+    );
   }
 
   ngOnDestroy() {
@@ -193,7 +227,10 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   }
 
   toggleRepetition() {
-    console.log('PracticeLayoutComponent: toggleRepetition called. Before isRepetitionActive:', this.isRepetitionActive);
+    console.log(
+      'PracticeLayoutComponent: toggleRepetition called. Before isRepetitionActive:',
+      this.isRepetitionActive
+    );
     this.isRepetitionActive = !this.isRepetitionActive;
     if (this.isRepetitionActive) {
       this.startRepetition();
@@ -202,7 +239,10 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
       // Stop any ongoing speech when stopping repetition
       window.speechSynthesis.cancel();
     }
-    console.log('PracticeLayoutComponent: toggleRepetition called. After isRepetitionActive:', this.isRepetitionActive);
+    console.log(
+      'PracticeLayoutComponent: toggleRepetition called. After isRepetitionActive:',
+      this.isRepetitionActive
+    );
   }
 
   // --- Rating Methods ---
@@ -212,26 +252,27 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
 
   isRatingStep(): boolean {
     const currentStep = this.currentStep;
-    return currentStep && (
-      (currentStep as any)?.showRating === true ||
-      currentStep.title?.toLowerCase().includes('оценка') ||
-      currentStep.instruction?.toLowerCase().includes('оцени') ||
-      currentStep.instruction?.toLowerCase().includes('как прошла практика')
+    return (
+      currentStep &&
+      ((currentStep as any)?.showRating === true ||
+        currentStep.title?.toLowerCase().includes('оценка') ||
+        currentStep.instruction?.toLowerCase().includes('оцени') ||
+        currentStep.instruction?.toLowerCase().includes('как прошла практика'))
     );
   }
 
   getRatingIcon(): string {
     const icons = [
       'sentiment_very_dissatisfied', // 1 - очень плохо
-      'sentiment_dissatisfied',      // 2 - плохо
-      'sentiment_dissatisfied',      // 3 - плохо
-      'sentiment_neutral',           // 4 - нейтрально
-      'sentiment_neutral',           // 5 - нейтрально
-      'sentiment_satisfied',         // 6 - хорошо
-      'sentiment_satisfied',         // 7 - хорошо
-      'sentiment_very_satisfied',    // 8 - очень хорошо
-      'sentiment_very_satisfied',    // 9 - очень хорошо
-      'sentiment_very_satisfied'     // 10 - отлично
+      'sentiment_dissatisfied', // 2 - плохо
+      'sentiment_dissatisfied', // 3 - плохо
+      'sentiment_neutral', // 4 - нейтрально
+      'sentiment_neutral', // 5 - нейтрально
+      'sentiment_satisfied', // 6 - хорошо
+      'sentiment_satisfied', // 7 - хорошо
+      'sentiment_very_satisfied', // 8 - очень хорошо
+      'sentiment_very_satisfied', // 9 - очень хорошо
+      'sentiment_very_satisfied', // 10 - отлично
     ];
     return icons[this.userRating - 1] || 'sentiment_neutral';
   }
@@ -241,7 +282,10 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   }
 
   finishPracticeWithRating(): void {
-    console.log('PracticeLayoutComponent: finishPracticeWithRating called with rating:', this.userRating);
+    console.log(
+      'PracticeLayoutComponent: finishPracticeWithRating called with rating:',
+      this.userRating
+    );
     this.clearAllTimers();
     this.practiceFinished.emit({ rating: this.userRating });
 
@@ -259,7 +303,10 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
 
   // --- Internal Logic ---
   private runStepLogic() {
-    console.log('PracticeLayoutComponent: runStepLogic called. currentStepIndex:', this.currentStepIndex);
+    console.log(
+      'PracticeLayoutComponent: runStepLogic called. currentStepIndex:',
+      this.currentStepIndex
+    );
     this.clearAllTimers();
     const currentStep = this.steps[this.currentStepIndex];
 
@@ -289,7 +336,7 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
   private speak(text: string, isRepetition: boolean = false) {
     if (!this.isVoiceEnabled || !text) return;
     if (!isRepetition) {
-        window.speechSynthesis.cancel();
+      window.speechSynthesis.cancel();
     }
     // Clean HTML tags and get full text
     const cleanText = text.replace(/<[^>]*>/g, '').trim();
@@ -362,6 +409,4 @@ export class PracticeLayoutComponent implements OnInit, OnChanges, OnDestroy, Af
     clearInterval(this.practiceInterval);
     this.clearRepetition();
   }
-
-  
 }

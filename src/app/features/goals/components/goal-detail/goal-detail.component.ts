@@ -9,7 +9,7 @@ import { PageHeaderComponent } from '@app/shared/components/page-header/page-hea
   templateUrl: './goal-detail.component.html',
   styleUrls: ['./goal-detail.component.scss'],
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent]
+  imports: [CommonModule, PageHeaderComponent],
 })
 export class GoalDetailComponent implements OnInit {
   goal: Goal | undefined;
@@ -18,10 +18,10 @@ export class GoalDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private goalService: GoalService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const goalId = params.get('id');
       if (goalId) {
         this.goal = this.goalService.getGoalById(goalId);
@@ -42,7 +42,10 @@ export class GoalDetailComponent implements OnInit {
   }
 
   deleteGoal(): void {
-    if (this.goal && confirm('Вы уверены, что хотите удалить эту цель? Это действие нельзя отменить.')) {
+    if (
+      this.goal &&
+      confirm('Вы уверены, что хотите удалить эту цель? Это действие нельзя отменить.')
+    ) {
       this.goalService.deleteGoal(this.goal.id);
       this.router.navigate(['/goals']);
     }
@@ -54,16 +57,16 @@ export class GoalDetailComponent implements OnInit {
 
   getDirectionInRussian(direction: string): string {
     const translations: { [key: string]: string } = {
-      'receiving': 'Получение',
-      'giving': 'Отдача',
-      'spiritual': 'Духовное',
-      'material': 'Материальное',
-      'personal': 'Личное',
-      'social': 'Социальное',
-      'relationships': 'Отношения',
-      'health': 'Здоровье',
-      'money': 'Деньги',
-      'career': 'Карьера'
+      receiving: 'Получение',
+      giving: 'Отдача',
+      spiritual: 'Духовное',
+      material: 'Материальное',
+      personal: 'Личное',
+      social: 'Социальное',
+      relationships: 'Отношения',
+      health: 'Здоровье',
+      money: 'Деньги',
+      career: 'Карьера',
     };
     return translations[direction.toLowerCase()] || direction;
   }

@@ -161,7 +161,7 @@ export async function* fourStagesPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -169,16 +169,18 @@ export async function* fourStagesPractice(context: PracticeContext) {
 export const fourStagesPracticeConfig: PracticeConfig = {
   id: 'four-stages',
   title: '4 стадии прямого света',
-  description: 'Эта практика - основа каббалистической медитации. Она позволяет пройти четыре стадии взаимодействия с высшим светом, от получения до полной отдачи.',
-  
+  description:
+    'Эта практика - основа каббалистической медитации. Она позволяет пройти четыре стадии взаимодействия с высшим светом, от получения до полной отдачи.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: '4 стадии прямого света',
-    description: 'Эта практика - основа каббалистической медитации. Она позволяет пройти четыре стадии взаимодействия с высшим светом, от получения до полной отдачи.',
+    description:
+      'Эта практика - основа каббалистической медитации. Она позволяет пройти четыре стадии взаимодействия с высшим светом, от получения до полной отдачи.',
     duration: '30 мин',
-    level: 'Средний'
+    level: 'Средний',
   },
-  
+
   practiceFunction: fourStagesPractice,
 
   onFinish: async (context, result) => {
@@ -197,10 +199,9 @@ export const fourStagesPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
-
     console.log('Practice completed with result:', result);
-  }
+  },
 };

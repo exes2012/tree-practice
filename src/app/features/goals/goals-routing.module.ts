@@ -12,41 +12,41 @@ import { GoalIdentificationPracticeComponent } from './components/practices/goal
 const routes: Routes = [
   {
     path: '',
-    component: GoalsPageComponent
+    component: GoalsPageComponent,
   },
   {
     path: 'new',
-    component: GoalFormComponent
+    component: GoalFormComponent,
   },
   {
     path: ':id',
-    component: GoalDetailComponent
+    component: GoalDetailComponent,
   },
   {
     path: ':id/edit',
-    component: GoalFormComponent
+    component: GoalFormComponent,
   },
   {
     path: ':id/add-practice',
-    component: SelectPracticeTypeComponent
+    component: SelectPracticeTypeComponent,
   },
 
   {
     path: ':id/practice/man-with-goal',
-    component: GoalManPracticeComponent
+    component: GoalManPracticeComponent,
   },
   {
     path: ':id/practice/alignment',
-    component: GoalAlignmentPracticeComponent
+    component: GoalAlignmentPracticeComponent,
   },
   {
     path: ':id/practice/identification',
-    component: GoalIdentificationPracticeComponent
-  }
+    component: GoalIdentificationPracticeComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GoalsRoutingModule { }
+export class GoalsRoutingModule {}

@@ -66,7 +66,7 @@ export async function* gratitudeYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -74,16 +74,18 @@ export async function* gratitudeYichudPractice(context: PracticeContext) {
 export const gratitudeYichudPracticeConfig: PracticeConfig = {
   id: 'gratitude-yichud',
   title: 'Благодарность',
-  description: 'Утренняя молитва благодарности за возвращение души. Мы изучим смысл слов "Модэ ани" и их глубокое духовное значение. Эта практика помогает начать день с правильного настроя благодарности и смирения перед Творцом.',
-  
+  description:
+    'Утренняя молитва благодарности за возвращение души. Мы изучим смысл слов "Модэ ани" и их глубокое духовное значение. Эта практика помогает начать день с правильного настроя благодарности и смирения перед Творцом.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Благодарность',
-    description: 'Утренняя молитва благодарности за возвращение души. Мы изучим смысл слов "Модэ ани" и их глубокое духовное значение. Эта практика помогает начать день с правильного настроя благодарности и смирения перед Творцом.',
+    description:
+      'Утренняя молитва благодарности за возвращение души. Мы изучим смысл слов "Модэ ани" и их глубокое духовное значение. Эта практика помогает начать день с правильного настроя благодарности и смирения перед Творцом.',
     duration: '18 мин',
-    level: 'Начальный'
+    level: 'Начальный',
   },
-  
+
   practiceFunction: gratitudeYichudPractice,
 
   onFinish: async (context, result) => {
@@ -102,9 +104,9 @@ export const gratitudeYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

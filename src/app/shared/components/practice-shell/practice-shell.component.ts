@@ -2,14 +2,18 @@ import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef } fro
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PracticeStep, PracticeConfig, PracticeNavigation } from '../../interfaces/practice.interface';
+import {
+  PracticeStep,
+  PracticeConfig,
+  PracticeNavigation,
+} from '../../interfaces/practice.interface';
 
 @Component({
   selector: 'app-practice-shell',
   templateUrl: './practice-shell.component.html',
   styleUrls: ['./practice-shell.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
 })
 export class PracticeShellComponent {
   // Configuration
@@ -18,12 +22,12 @@ export class PracticeShellComponent {
   @Input() currentStepIndex: number = 0;
   @Input() totalSteps: number = 0;
   @Input() navigation!: PracticeNavigation;
-  
+
   // State
   @Input() isVoiceEnabled: boolean = true;
   @Input() isRepetitionActive: boolean = false;
   @Input() userRating: number = 5;
-  
+
   // Data
   @Input() inputData: any = {};
   @Input() processedInstruction: string = '';
@@ -36,7 +40,7 @@ export class PracticeShellComponent {
   @Output() repetitionToggled = new EventEmitter<boolean>();
   @Output() practiceFinished = new EventEmitter<number>();
   @Output() ratingChanged = new EventEmitter<number>();
-  @Output() inputChanged = new EventEmitter<{field: string, value: any}>();
+  @Output() inputChanged = new EventEmitter<{ field: string; value: any }>();
 
   // Content projection
   @ContentChild('stepContent') stepContent!: TemplateRef<any>;
@@ -77,15 +81,15 @@ export class PracticeShellComponent {
   getRatingIcon(): string {
     const icons = [
       'sentiment_very_dissatisfied', // 1 - очень плохо
-      'sentiment_dissatisfied',      // 2 - плохо
-      'sentiment_dissatisfied',      // 3 - плохо
-      'sentiment_neutral',           // 4 - нейтрально
-      'sentiment_neutral',           // 5 - нейтрально
-      'sentiment_satisfied',         // 6 - хорошо
-      'sentiment_satisfied',         // 7 - хорошо
-      'sentiment_very_satisfied',    // 8 - очень хорошо
-      'sentiment_very_satisfied',    // 9 - очень хорошо
-      'sentiment_very_satisfied'     // 10 - отлично
+      'sentiment_dissatisfied', // 2 - плохо
+      'sentiment_dissatisfied', // 3 - плохо
+      'sentiment_neutral', // 4 - нейтрально
+      'sentiment_neutral', // 5 - нейтрально
+      'sentiment_satisfied', // 6 - хорошо
+      'sentiment_satisfied', // 7 - хорошо
+      'sentiment_very_satisfied', // 8 - очень хорошо
+      'sentiment_very_satisfied', // 9 - очень хорошо
+      'sentiment_very_satisfied', // 10 - отлично
     ];
     return icons[this.userRating - 1] || 'sentiment_neutral';
   }
@@ -110,20 +114,20 @@ export class PracticeShellComponent {
   }
 
   getInputPlaceholder(fieldName: string): string {
-    const placeholders: {[key: string]: string} = {
-      'practiceFormulation': 'Что вы хотите получить от этой практики?',
-      'rephrasedGoal': 'Переформулируйте цель в соответствии с волей Творца',
-      'installationFormulation': 'Если у меня будет [цель], то ...',
-      'finalInstallationFormulation': 'Опишите ваше новое понимание...',
-      'feelingLocation': 'Опишите ощущения в теле',
-      'participantsVision': 'Опишите участников',
-      'selfVision': 'Опишите себя и Творца'
+    const placeholders: { [key: string]: string } = {
+      practiceFormulation: 'Что вы хотите получить от этой практики?',
+      rephrasedGoal: 'Переформулируйте цель в соответствии с волей Творца',
+      installationFormulation: 'Если у меня будет [цель], то ...',
+      finalInstallationFormulation: 'Опишите ваше новое понимание...',
+      feelingLocation: 'Опишите ощущения в теле',
+      participantsVision: 'Опишите участников',
+      selfVision: 'Опишите себя и Творца',
     };
     return placeholders[fieldName] || 'Введите значение...';
   }
 
   onInputChange(fieldName: string, event: any): void {
     const value = event.target.value;
-    this.inputChanged.emit({field: fieldName, value: value});
+    this.inputChanged.emit({ field: fieldName, value: value });
   }
 }

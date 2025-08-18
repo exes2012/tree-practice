@@ -66,7 +66,7 @@ export async function* divineSpaceYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -74,16 +74,18 @@ export async function* divineSpaceYichudPractice(context: PracticeContext) {
 export const divineSpaceYichudPracticeConfig: PracticeConfig = {
   id: 'divine-space-yichud',
   title: 'Божественное пространство',
-  description: 'Мы построим вокруг нас духовное святилище, осознавая шесть направлений пространства и соответствующие им виды сознания. Каждое направление соответствует определенному виду непрерывного сознания, как предписано соответствующей постоянной заповедью Торы.',
-  
+  description:
+    'Мы построим вокруг нас духовное святилище, осознавая шесть направлений пространства и соответствующие им виды сознания. Каждое направление соответствует определенному виду непрерывного сознания, как предписано соответствующей постоянной заповедью Торы.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Божественное пространство',
-    description: 'Мы построим вокруг нас духовное святилище, осознавая шесть направлений пространства и соответствующие им виды сознания. Каждое направление соответствует определенному виду непрерывного сознания, как предписано соответствующей постоянной заповедью Торы.',
+    description:
+      'Мы построим вокруг нас духовное святилище, осознавая шесть направлений пространства и соответствующие им виды сознания. Каждое направление соответствует определенному виду непрерывного сознания, как предписано соответствующей постоянной заповедью Торы.',
     duration: '25 мин',
-    level: 'Продвинутый'
+    level: 'Продвинутый',
   },
-  
+
   practiceFunction: divineSpaceYichudPractice,
 
   onFinish: async (context, result) => {
@@ -102,9 +104,9 @@ export const divineSpaceYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

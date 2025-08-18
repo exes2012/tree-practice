@@ -1,16 +1,29 @@
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div *ngFor="let practice of practices"
-       (click)="onPracticeClick(practice)"
-       class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative"
-       [ngClass]="practice.disabled ? 'opacity-50 cursor-not-allowed' : ''">
-    <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" [style.background-color]="getIconBackgroundColor(practice)">
-      <i class="material-icons text-xl" [style.color]="getIconColor(practice)">{{ practice.icon }}</i>
-    </div>
-    <div class="flex-1">
-      <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">{{ practice.title }}</h3>
-      <div *ngIf="practice.author" class="mt-1">
-        <span class="inline-block rounded-md px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400">{{ practice.author }}</span>
+<div class="@container">
+  <div class="grid grid-cols-1 gap-4 @md:grid-cols-2">
+    <div
+      *ngFor="let practice of practices"
+      (click)="onPracticeClick(practice)"
+      class="practice-card relative flex min-h-touch cursor-pointer items-center rounded-xl bg-white p-md shadow-sm transition-all duration-200 @container hover:shadow-md dark:bg-gray-800"
+      [ngClass]="practice.disabled ? 'cursor-not-allowed opacity-50' : ''"
+    >
+      <div
+        class="mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+        [style.background-color]="getIconBackgroundColor(practice)"
+      >
+        <i class="material-icons text-xl" [style.color]="getIconColor(practice)">{{
+          practice.icon
+        }}</i>
+      </div>
+      <div class="flex-1">
+        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">
+          {{ practice.title }}
+        </h3>
+        <div *ngIf="practice.author" class="mt-1">
+          <span
+            class="inline-block rounded-md px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400"
+            >{{ practice.author }}</span
+          >
+        </div>
       </div>
     </div>
   </div>

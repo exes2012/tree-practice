@@ -2,7 +2,12 @@ import { PracticeContext, PracticeConfig } from '../models/practice-engine.types
 import { intentionStep } from './practice-blocks';
 
 // Общая функция для сохранения в журнал
-async function saveIntentionExercise(practiceId: string, title: string, context: PracticeContext, result: any) {
+async function saveIntentionExercise(
+  practiceId: string,
+  title: string,
+  context: PracticeContext,
+  result: any
+) {
   const { JournalService } = await import('../services/journal.service');
   const { dateToLocalDateKey } = await import('../services/db.service');
 
@@ -16,7 +21,7 @@ async function saveIntentionExercise(practiceId: string, title: string, context:
     route: `/practices/runner/${practiceId}`,
     completedAt,
     dateKey,
-    duration: result.duration as number | undefined
+    duration: result.duration as number | undefined,
   });
 }
 
@@ -25,12 +30,12 @@ function handleIntentionFinish(title: string, description: string, practiceId: s
   return async (context: PracticeContext, result: any) => {
     const action = context.get('intention-exercise');
     console.log('Intention exercise onFinish:', { action, title, practiceId });
-    
+
     if (action === 'set_as_challenge') {
       // Устанавливаем как намерение дня
       const challenge = {
         title,
-        description
+        description,
       };
       localStorage.setItem('dailyChallenge', JSON.stringify(challenge));
       console.log('Set as daily challenge:', challenge);
@@ -47,7 +52,7 @@ export async function* eternalContactPractice(context: PracticeContext) {
     'Вечный контакт',
     'В течении дня во время любой работы или размышления представляй, будто это твоё последнее и вечное состояние. Вызови в себе сильнейшую страсть навечно остаться в этом контакте с Творцом.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -60,7 +65,7 @@ export const eternalContactPracticeConfig: PracticeConfig = {
     'Вечный контакт',
     'В течении дня во время любой работы или размышления представляй, будто это твоё последнее и вечное состояние. Вызови в себе сильнейшую страсть навечно остаться в этом контакте с Творцом.',
     'eternal-contact'
-  )
+  ),
 };
 
 // 2. Отмена страха
@@ -70,7 +75,7 @@ export async function* cancelFearPractice(context: PracticeContext) {
     'Отмена страха',
     'В течении дня любой возникающий физический страх, тревогу, беспокойство переноси на страх перед Небом. Страх оторваться от Творца. Почувствуй его отчётливо внутри себя.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -83,7 +88,7 @@ export const cancelFearPracticeConfig: PracticeConfig = {
     'Отмена страха',
     'В течении дня любой возникающий физический страх, тревогу, беспокойство переноси на страх перед Небом. Страх оторваться от Творца. Почувствуй его отчётливо внутри себя.',
     'cancel-fear'
-  )
+  ),
 };
 
 // 3. Преобразование любви
@@ -93,7 +98,7 @@ export async function* transformLovePractice(context: PracticeContext) {
     'Преобразование любви',
     'В течении дня любую любовь к материальному переноси на любовь к Всевышнему. Представляй ярко и детально.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -106,7 +111,7 @@ export const transformLovePracticeConfig: PracticeConfig = {
     'Преобразование любви',
     'В течении дня любую любовь к материальному переноси на любовь к Всевышнему. Представляй ярко и детально.',
     'transform-love'
-  )
+  ),
 };
 
 // 4. Совершенство
@@ -116,7 +121,7 @@ export async function* perfectionPractice(context: PracticeContext) {
     'Совершенство',
     'В течении дня останавливайся и представляй себя совершенно совершенным и уверенным в связи с Творцом.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -129,7 +134,7 @@ export const perfectionPracticeConfig: PracticeConfig = {
     'Совершенство',
     'В течении дня останавливайся и представляй себя совершенно совершенным и уверенным в связи с Творцом.',
     'perfection'
-  )
+  ),
 };
 
 // 5. Настрой в изучении Торы
@@ -139,7 +144,7 @@ export async function* torahStudyPractice(context: PracticeContext) {
     'Настрой в изучении Торы',
     'В течении дня представляй, что Всевышний страстно желает раскрыть тебе тайны Торы. Почувствуй сильное желание постичь тайны Торы, визуализируя, как ты соединяешься с Творцом через них.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -152,7 +157,7 @@ export const torahStudyPracticeConfig: PracticeConfig = {
     'Настрой в изучении Торы',
     'В течении дня представляй, что Всевышний страстно желает раскрыть тебе тайны Торы. Почувствуй сильное желание постичь тайны Торы, визуализируя, как ты соединяешься с Творцом через них.',
     'torah-study'
-  )
+  ),
 };
 
 // 6. Собака пастуха
@@ -162,7 +167,7 @@ export async function* shepherdDogPractice(context: PracticeContext) {
     'Собака пастуха',
     'В течении дня заметив тягу к физическим удовольствиям, осознай её как «собаку». Переориентируй эту страсть на получение духовного Света. Визуализируй духовное наслаждение, чтобы удержать себя от соблазнов материального.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -175,7 +180,7 @@ export const shepherdDogPracticeConfig: PracticeConfig = {
     'Собака пастуха',
     'В течении дня заметив тягу к физическим удовольствиям, осознай её как «собаку». Переориентируй эту страсть на получение духовного Света. Визуализируй духовное наслаждение, чтобы удержать себя от соблазнов материального.',
     'shepherd-dog'
-  )
+  ),
 };
 
 // 7. Быть перед Творцом
@@ -185,7 +190,7 @@ export async function* beforeCreatorPractice(context: PracticeContext) {
     'Быть перед Творцом',
     'В течении дня приучись представлять, что стоишь перед Творцом. Представляй, что каждое твоё действие является поручением от Творца.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -198,7 +203,7 @@ export const beforeCreatorPracticeConfig: PracticeConfig = {
     'Быть перед Творцом',
     'В течении дня приучись представлять, что стоишь перед Творцом. Представляй, что каждое твоё действие является поручением от Творца.',
     'before-creator'
-  )
+  ),
 };
 
 // 8. Буквы имени АВАЯ
@@ -208,7 +213,7 @@ export async function* avayaLettersPractice(context: PracticeContext) {
     'Буквы имени АВАЯ',
     'В течении дня визуализируй ярко, как буквы Его имени АВАЯ пылают перед тобой.<br>Делай это при отвлечении на материальные мысли, чтобы удержать себя в святости.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -221,7 +226,7 @@ export const avayaLettersPracticeConfig: PracticeConfig = {
     'Буквы имени АВАЯ',
     'В течении дня визуализируй ярко, как буквы Его имени АВАЯ пылают перед тобой.\nДелай это при отвлечении на материальные мысли, чтобы удержать себя в святости.',
     'avaya-letters'
-  )
+  ),
 };
 
 // 9. Величие праведников
@@ -231,7 +236,7 @@ export async function* righteousGreatnessaPractice(context: PracticeContext) {
     'Величие праведников',
     'В течении дня сознательно визуализируй величие праведников, передавших тебе Тору.<br>Почувствуй, как это увеличивает твой сосуд желания постичь тайны Торы.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -244,7 +249,7 @@ export const righteousGreatnessaPracticeConfig: PracticeConfig = {
     'Величие праведников',
     'В течении дня сознательно визуализируй величие праведников, передавших тебе Тору.\nПочувствуй, как это увеличивает твой сосуд желания постичь тайны Торы.',
     'righteous-greatness'
-  )
+  ),
 };
 
 // 10. Ощущение опустошения
@@ -254,7 +259,7 @@ export async function* emptinessFeelPractice(context: PracticeContext) {
     'Ощущение опустошения',
     'В течении дня в моменты опустошения не беги от него, а сразу страстно пожелай наполнить пустоту Светом Творца.<br>Укрепляйся стремлением вне себя при первых признаках «вечера» (спада).'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -267,7 +272,7 @@ export const emptinessFeelPracticeConfig: PracticeConfig = {
     'Ощущение опустошения',
     'В течении дня в моменты опустошения не беги от него, а сразу страстно пожелай наполнить пустоту Светом Творца.\nУкрепляйся стремлением вне себя при первых признаках «вечера» (спада).',
     'emptiness-feel'
-  )
+  ),
 };
 
 // 11. Нет никого кроме Него
@@ -277,7 +282,7 @@ export async function* noneButHimPractice(context: PracticeContext) {
     'Нет никого кроме Него',
     'В течении дня представляй, что все, что тебя окружает - это Творец. Добейся ощущения единства всего. Отталкивай от себя мысли, говорящие об отсутствии единства.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -290,7 +295,7 @@ export const noneButHimPracticeConfig: PracticeConfig = {
     'Нет никого кроме Него',
     'В течении дня представляй, что все, что тебя окружает - это Творец. Добейся ощущения единства всего. Отталкивай от себя мысли, говорящие об отсутствии единства.',
     'none-but-him'
-  )
+  ),
 };
 
 // 12. Стол перед Всевышним
@@ -300,7 +305,7 @@ export async function* tableBeforeGodPractice(context: PracticeContext) {
     'Стол перед Всевышним',
     'В течении дня На каждой трапезе представь, что сидишь за столом перед Царём.<br>Ешь, сохраняя трепет и благодарность за пищу как за подарок от Него.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -313,7 +318,7 @@ export const tableBeforeGodPracticeConfig: PracticeConfig = {
     'Стол перед Всевышним',
     'В течении дня На каждой трапезе представь, что сидишь за столом перед Царём.\nЕшь, сохраняя трепет и благодарность за пищу как за подарок от Него.',
     'table-before-god'
-  )
+  ),
 };
 
 // 13. Управление мыслью
@@ -323,7 +328,7 @@ export async function* thoughtControlPractice(context: PracticeContext) {
     'Управление мыслью',
     'В течени дня научи себя удерживать чистую мысль о Всевышнем (начни с часа в день). Наказывай себя за отвлечения, приучи тело бояться ненужных мыслей.'
   );
-  
+
   return { action: context.get('intention-exercise') };
 }
 
@@ -336,5 +341,5 @@ export const thoughtControlPracticeConfig: PracticeConfig = {
     'Управление мыслью',
     'В течени дня научи себя удерживать чистую мысль о Всевышнем (начни с часа в день). Наказывай себя за отвлечения, приучи тело бояться ненужных мыслей.',
     'thought-control'
-  )
+  ),
 };

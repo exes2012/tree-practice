@@ -6,7 +6,7 @@ import { Location, CommonModule } from '@angular/common';
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class PageHeaderComponent {
   @Input() title: string = '';
@@ -14,7 +14,7 @@ export class PageHeaderComponent {
   @Output() editClicked = new EventEmitter<void>();
   @Output() backClicked = new EventEmitter<void>();
 
-  constructor(private location: Location) { }
+  constructor(private location: Location) {}
 
   goBack(): void {
     if (this.backClicked.observed) {

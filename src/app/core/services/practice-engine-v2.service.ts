@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { 
-  PracticeFunction, 
-  PracticeStep, 
-  PracticeContext, 
+import {
+  PracticeFunction,
+  PracticeStep,
+  PracticeContext,
   PracticeContextImpl,
   StepResult,
-  PracticeResult
+  PracticeResult,
 } from '../models/practice-engine.types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class PracticeEngineV2Service {
   // Текущее состояние
   private currentIterator: AsyncIterableIterator<PracticeStep> | null = null;
@@ -24,21 +23,21 @@ export class PracticeEngineV2Service {
   private currentStepIndex: number = -1;
   private stepSnapshots: Array<{
     step: PracticeStep;
-    contextSnapshot: { [key: string]: any }
+    contextSnapshot: { [key: string]: any };
   }> = [];
 
   // Reactive state
   private currentStep$ = new BehaviorSubject<PracticeStep | null>(null);
   private isRunning$ = new BehaviorSubject<boolean>(false);
   private isFinished$ = new BehaviorSubject<boolean>(false);
-  
+
   // Public observables
   currentStep = this.currentStep$.asObservable();
   isRunning = this.isRunning$.asObservable();
   isFinished = this.isFinished$.asObservable();
-  
+
   constructor() {}
-  
+
   /**
    * Запуск практики
    */
@@ -52,10 +51,10 @@ export class PracticeEngineV2Service {
     this.currentStepIndex = -1;
     this.stepSnapshots = [];
     this.allSteps = [];
-    
+
     // Предварительно собираем ВСЕ шаги практики
     await this.collectAllSteps(practiceFunction);
-    
+
     this.isRunning$.next(true);
     this.isFinished$.next(false);
 
@@ -73,17 +72,17 @@ export class PracticeEngineV2Service {
   private async collectAllSteps(practiceFunction: PracticeFunction): Promise<void> {
     const tempContext = new PracticeContextImpl(this.context.userInputs);
     const iterator = practiceFunction(tempContext);
-    
+
     while (true) {
       const result = await iterator.next();
       if (result.done) break;
-      
+
       this.allSteps.push(result.value);
     }
-    
+
     console.log(`Collected ${this.allSteps.length} steps for practice`);
   }
-  
+
   /**
    * Переход к следующему шагу (стандартная навигация)
    */
@@ -101,7 +100,7 @@ export class PracticeEngineV2Service {
 
     // Переходим к следующему шагу в массиве
     const nextIndex = this.currentStepIndex + 1;
-    
+
     if (nextIndex >= this.allSteps.length) {
       // Практика завершена
       await this.finishPractice(userInput);
@@ -111,11 +110,11 @@ export class PracticeEngineV2Service {
     // Показываем следующий шаг
     this.currentStepIndex = nextIndex;
     const nextStep = this.processStep(this.allSteps[nextIndex]);
-    
+
     // Сохраняем снимок
     this.stepSnapshots[this.currentStepIndex] = {
       step: nextStep,
-      contextSnapshot: { ...this.context.userInputs }
+      contextSnapshot: { ...this.context.userInputs },
     };
 
     this.currentStep$.next(nextStep);
@@ -140,8 +139,8 @@ export class PracticeEngineV2Service {
     this.context.set('lastChoice', userInput);
 
     // Ищем нужный шаг в заранее собранном массиве
-    const targetIndex = this.allSteps.findIndex(step => step.id === targetStepId);
-    
+    const targetIndex = this.allSteps.findIndex((step) => step.id === targetStepId);
+
     if (targetIndex === -1) {
       console.error(`Step with ID "${targetStepId}" not found`);
       return;
@@ -150,68 +149,68 @@ export class PracticeEngineV2Service {
     // Просто переключаемся на нужный шаг
     this.currentStepIndex = targetIndex;
     const targetStep = this.processStep(this.allSteps[targetIndex]);
-    
+
     // Сохраняем снимок
     this.stepSnapshots[this.currentStepIndex] = {
       step: targetStep,
-      contextSnapshot: { ...this.context.userInputs }
+      contextSnapshot: { ...this.context.userInputs },
     };
 
     // Показываем шаг
     this.currentStep$.next(targetStep);
   }
-  
+
   /**
    * Завершение практики
    */
   async finishPractice(finalResult?: any): Promise<PracticeResult> {
     const currentStep = this.currentStep$.getValue();
-    
+
     // Если передан финальный рейтинг и текущий шаг имеет правильное поле, сохраняем его
     if (finalResult !== undefined && currentStep?.inputConfig?.field === 'practice-final-rating') {
       this.context.set('practice-final-rating', finalResult);
     }
-    
+
     // Ищем стандартный финальный рейтинг практики
     const rating = this.context.get('practice-final-rating');
-    
+
     const result: PracticeResult = {
       practiceId: 'current', // TODO: получать из конфигурации
       context: this.context,
       steps: this.stepHistory,
       finalResult: finalResult || this.context.userInputs,
       rating,
-      completedAt: new Date()
+      completedAt: new Date(),
     };
-    
+
     this.isRunning$.next(false);
     this.isFinished$.next(true);
     this.currentStep$.next(null);
-    
+
     return result;
   }
-  
+
   /**
    * Получение текущего контекста
    */
   getContext(): PracticeContextImpl {
     return this.context;
   }
-  
+
   /**
    * Получение текущего шага
    */
   getCurrentStep(): PracticeStep | null {
     return this.currentStep$.value;
   }
-  
+
   /**
    * Проверка, может ли пользователь вернуться назад
    */
   canGoBack(): boolean {
     return this.currentStepIndex > 0;
   }
-  
+
   /**
    * Полная очистка состояния движка
    */
@@ -227,7 +226,7 @@ export class PracticeEngineV2Service {
     this.isRunning$.next(false);
     this.isFinished$.next(false);
   }
-  
+
   /**
    * Возврат к предыдущему шагу
    */
@@ -255,8 +254,7 @@ export class PracticeEngineV2Service {
       this.stepHistory.pop();
     }
   }
-  
-  
+
   /**
    * Обработка шага - замена плейсхолдеров
    */
@@ -264,12 +262,12 @@ export class PracticeEngineV2Service {
     return {
       ...step,
       instruction: this.context.processText(step.instruction),
-      repeatablePhrase: step.repeatablePhrase 
-        ? this.context.processText(step.repeatablePhrase) 
-        : undefined
+      repeatablePhrase: step.repeatablePhrase
+        ? this.context.processText(step.repeatablePhrase)
+        : undefined,
     };
   }
-  
+
   /**
    * Сохранение результата шага
    */
@@ -277,7 +275,7 @@ export class PracticeEngineV2Service {
     this.stepHistory.push({
       stepId: step.id,
       userInput,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 }

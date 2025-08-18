@@ -7,24 +7,20 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
 const routes: Routes = [
   {
     path: '',
-    component: NotesPageComponent
+    component: NotesPageComponent,
   },
   {
     path: 'new',
-    component: NoteEditorComponent
+    component: NoteEditorComponent,
   },
   {
     path: ':id',
-    component: NoteEditorComponent
-  }
+    component: NoteEditorComponent,
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-    NotesPageComponent,
-    NoteEditorComponent
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes), NotesPageComponent, NoteEditorComponent],
+  exports: [RouterModule],
 })
-export class NotesModule { }
+export class NotesModule {}

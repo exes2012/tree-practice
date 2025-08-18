@@ -59,7 +59,7 @@ export async function* keterTuningPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -67,16 +67,18 @@ export async function* keterTuningPractice(context: PracticeContext) {
 export const keterTuningPracticeConfig: PracticeConfig = {
   id: 'keter-tuning',
   title: 'Настройка на свет',
-  description: 'Цель практики: Ощутить «Высший свет», который определяется как наслаждение от свойства отдачи. Стадия Кетер — это корень, первоначальная настройка, без которой остальные стадии невозможны.',
-  
+  description:
+    'Цель практики: Ощутить «Высший свет», который определяется как наслаждение от свойства отдачи. Стадия Кетер — это корень, первоначальная настройка, без которой остальные стадии невозможны.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Настройка на свет',
-    description: 'Цель практики: Ощутить «Высший свет», который определяется как наслаждение от свойства отдачи. Стадия Кетер — это корень, первоначальная настройка, без которой остальные стадии невозможны. Это чистое, бесконечное стремление вовне, не ради получения чего-либо взамен, а ради самого акта отдачи.',
+    description:
+      'Цель практики: Ощутить «Высший свет», который определяется как наслаждение от свойства отдачи. Стадия Кетер — это корень, первоначальная настройка, без которой остальные стадии невозможны. Это чистое, бесконечное стремление вовне, не ради получения чего-либо взамен, а ради самого акта отдачи.',
     duration: '15 мин',
-    level: 'Начальный'
+    level: 'Начальный',
   },
-  
+
   practiceFunction: keterTuningPractice,
 
   onFinish: async (context, result) => {
@@ -95,10 +97,9 @@ export const keterTuningPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
-
     console.log('Practice completed with result:', result);
-  }
+  },
 };

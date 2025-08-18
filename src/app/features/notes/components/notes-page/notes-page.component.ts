@@ -13,7 +13,7 @@ import { BottomNavigationComponent } from '../../../../shared/components/bottom-
   selector: 'app-notes-page',
   imports: [CommonModule, FormsModule, NoteCardComponent, BottomNavigationComponent],
   templateUrl: './notes-page.component.html',
-  styleUrls: ['./notes-page.component.scss']
+  styleUrls: ['./notes-page.component.scss'],
 })
 export class NotesPageComponent implements OnInit, OnDestroy {
   notes: Note[] = [];
@@ -36,23 +36,17 @@ export class NotesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Subscribe to notes changes
-    this.notesService.notes$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(notes => {
-        this.notes = notes;
-        this.isLoading = false;
-        this.updateFilteredNotes();
-        this.loadTags();
-      });
+    this.notesService.notes$.pipe(takeUntil(this.destroy$)).subscribe((notes) => {
+      this.notes = notes;
+      this.isLoading = false;
+      this.updateFilteredNotes();
+      this.loadTags();
+    });
 
     // Setup search debouncing
     this.searchSubject
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(query => {
+      .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
+      .subscribe((query) => {
         this.searchQuery = query;
         this.updateFilteredNotes();
       });
@@ -128,12 +122,12 @@ export class NotesPageComponent implements OnInit, OnDestroy {
 
     // Apply tag filter
     if (this.selectedTag) {
-      filtered = filtered.filter(note => note.tags.includes(this.selectedTag));
+      filtered = filtered.filter((note) => note.tags.includes(this.selectedTag));
     }
 
     // Apply favorites filter
     if (this.showFavoritesOnly) {
-      filtered = filtered.filter(note => note.isFavorite);
+      filtered = filtered.filter((note) => note.isFavorite);
     }
 
     // Apply sorting

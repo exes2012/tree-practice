@@ -7,7 +7,6 @@ import { Location } from '@angular/common';
   standalone: true,
 })
 export class CreatorJustificationPracticeComponent {
-
   constructor(private location: Location) {}
 
   goBack() {

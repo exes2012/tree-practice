@@ -1,17 +1,13 @@
-
 <app-practice-layout
   [practiceTitle]="practiceTitle"
   [practiceDescription]="description"
   [steps]="practiceSteps"
   (practiceFinished)="onPracticeFinished($event)"
   [showTimer]="showTimer"
-  [mainPracticeStepIndex]="mainPracticeStepIndex">
-
-
-
+  [mainPracticeStepIndex]="mainPracticeStepIndex"
+>
   <ng-template #stepContent let-step let-i="index">
-    <h2 class="text-xl font-semibold mb-2" style="color: #3B4A5C;">{{ step.title }}</h2>
-    <p class="text-gray-500 dark:text-gray-400 mb-6" [innerHTML]="getInstruction(step, 30, 5)"></p>
+    <h2 class="text-chart mb-2 text-xl font-semibold">{{ step.title }}</h2>
+    <p class="mb-6 text-gray-500 dark:text-gray-400" [innerHTML]="getInstruction(step, 30, 5)"></p>
   </ng-template>
-
 </app-practice-layout>

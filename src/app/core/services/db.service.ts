@@ -55,18 +55,18 @@ export class AppDB extends Dexie {
     this.version(1).stores({
       practice_runs: 'id, practiceId, completedAt',
       journal_entries: 'id, dateKey, type, practiceRunId',
-      settings: 'key'
+      settings: 'key',
     });
     this.version(2).stores({
       practice_runs: 'id, practiceId, dateKey, completedAt',
       journal_entries: 'id, dateKey, type, practiceRunId',
-      settings: 'key'
+      settings: 'key',
     });
     this.version(3).stores({
       practice_runs: 'id, practiceId, dateKey, completedAt',
       journal_entries: 'id, dateKey, type, practiceRunId',
       settings: 'key',
-      notes: 'id, dateKey, title, updatedAt, isFavorite, *tags'
+      notes: 'id, dateKey, title, updatedAt, isFavorite, *tags',
     });
   }
 }
@@ -82,17 +82,25 @@ export function dateToLocalDateKey(d: Date = new Date()): string {
   return `${year}-${month}-${day}`;
 }
 
-export async function addPracticeRun(run: Omit<PracticeRun, 'id' | 'dateKey'> & { id?: string; dateKey?: string }): Promise<string> {
-  const id = run.id ?? (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`);
+export async function addPracticeRun(
+  run: Omit<PracticeRun, 'id' | 'dateKey'> & { id?: string; dateKey?: string }
+): Promise<string> {
+  const id = run.id ?? globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
   const completedAt = run.completedAt ?? new Date().toISOString();
   const localKey = run.dateKey ?? dateToLocalDateKey(new Date(completedAt));
   await db.practice_runs.add({ ...run, id, completedAt, dateKey: localKey });
   return id;
 }
 
-export async function addJournalEntry(entry: Omit<JournalEntry, 'id' | 'createdAt' | 'dateKey'> & { id?: string; createdAt?: string; dateKey?: string }): Promise<string> {
+export async function addJournalEntry(
+  entry: Omit<JournalEntry, 'id' | 'createdAt' | 'dateKey'> & {
+    id?: string;
+    createdAt?: string;
+    dateKey?: string;
+  }
+): Promise<string> {
   const now = new Date();
-  const id = entry.id ?? (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`);
+  const id = entry.id ?? globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
   const createdAt = entry.createdAt ?? now.toISOString();
   const dateKey = entry.dateKey ?? dateToLocalDateKey(now);
   await db.journal_entries.add({ ...entry, id, createdAt, dateKey });
@@ -138,4 +146,3 @@ export async function getData<T>(key: string): Promise<T | null> {
 export async function deleteData(key: string): Promise<void> {
   await db.settings.delete(key);
 }
-

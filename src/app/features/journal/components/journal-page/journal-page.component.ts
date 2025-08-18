@@ -29,7 +29,7 @@ export class JournalPageComponent {
     const ykey = `${yesterday.getFullYear()}-${`${yesterday.getMonth() + 1}`.padStart(2, '0')}-${`${yesterday.getDate()}`.padStart(2, '0')}`;
     const a = await this.journal.listByDate(key);
     const b = await this.journal.listByDate(ykey);
-    this.notes = [...a, ...b].filter(e => e.type === 'note');
+    this.notes = [...a, ...b].filter((e) => e.type === 'note');
   }
 
   async addNote() {

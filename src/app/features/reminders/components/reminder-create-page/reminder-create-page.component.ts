@@ -8,43 +8,43 @@ import {
   WeekDay,
   ReminderCategory,
   REMINDER_CATEGORIES,
-  WEEK_DAYS
+  WEEK_DAYS,
 } from '@app/core/models/reminder.models';
 import { CustomTimePickerComponent } from '../../../../shared/components/custom-time-picker/custom-time-picker.component';
-import { CustomSelectComponent, SelectOption } from '../../../../shared/components/custom-select/custom-select.component';
-
+import {
+  CustomSelectComponent,
+  SelectOption,
+} from '../../../../shared/components/custom-select/custom-select.component';
 
 @Component({
   selector: 'app-reminder-create-page',
   imports: [CommonModule, FormsModule, CustomTimePickerComponent, CustomSelectComponent],
   templateUrl: './reminder-create-page.component.html',
-  styleUrls: ['./reminder-create-page.component.scss']
+  styleUrls: ['./reminder-create-page.component.scss'],
 })
 export class ReminderCreatePageComponent implements OnInit {
   isEditing = false;
   reminderId: string | null = null;
-  
+
   // Form data
   title = '';
   message = '';
   time = '09:00';
   selectedDays: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
   category: ReminderCategory = 'practice';
-  
+
   // Form state
   isSubmitting = false;
   errors: { [key: string]: string } = {};
-  
+
   readonly categories = REMINDER_CATEGORIES;
   readonly weekDays = WEEK_DAYS;
 
   // Options for custom select
-  categoryOptions: SelectOption[] = REMINDER_CATEGORIES.map(cat => ({
+  categoryOptions: SelectOption[] = REMINDER_CATEGORIES.map((cat) => ({
     value: cat.id,
-    label: cat.name
+    label: cat.name,
   }));
-
-
 
   constructor(
     private router: Router,
@@ -55,7 +55,7 @@ export class ReminderCreatePageComponent implements OnInit {
   ngOnInit(): void {
     this.reminderId = this.route.snapshot.paramMap.get('id');
     this.isEditing = !!this.reminderId;
-    
+
     if (this.isEditing && this.reminderId) {
       this.loadReminder();
     }
@@ -63,9 +63,9 @@ export class ReminderCreatePageComponent implements OnInit {
 
   private async loadReminder(): Promise<void> {
     if (!this.reminderId) return;
-    
-    this.reminderService.reminders$.subscribe(reminders => {
-      const reminder = reminders.find(r => r.id === this.reminderId);
+
+    this.reminderService.reminders$.subscribe((reminders) => {
+      const reminder = reminders.find((r) => r.id === this.reminderId);
       if (reminder) {
         this.title = reminder.title;
         this.message = reminder.message;
@@ -90,7 +90,7 @@ export class ReminderCreatePageComponent implements OnInit {
   }
 
   selectAllDays(): void {
-    this.selectedDays = [...this.weekDays.map(d => d.id)];
+    this.selectedDays = [...this.weekDays.map((d) => d.id)];
   }
 
   selectWeekdays(): void {
@@ -107,23 +107,23 @@ export class ReminderCreatePageComponent implements OnInit {
 
   private validateForm(): boolean {
     this.errors = {};
-    
+
     if (!this.title.trim()) {
       this.errors['title'] = 'Название обязательно';
     }
-    
+
     if (!this.message.trim()) {
       this.errors['message'] = 'Текст напоминания обязателен';
     }
-    
+
     if (this.selectedDays.length === 0) {
       this.errors['days'] = 'Выберите хотя бы один день';
     }
-    
+
     if (!this.time) {
       this.errors['time'] = 'Время обязательно';
     }
-    
+
     return Object.keys(this.errors).length === 0;
   }
 
@@ -131,9 +131,9 @@ export class ReminderCreatePageComponent implements OnInit {
     if (!this.validateForm()) {
       return;
     }
-    
+
     this.isSubmitting = true;
-    
+
     try {
       if (this.isEditing && this.reminderId) {
         // Update existing reminder
@@ -142,7 +142,7 @@ export class ReminderCreatePageComponent implements OnInit {
           message: this.message.trim(),
           time: this.time,
           days: this.selectedDays,
-          category: this.category
+          category: this.category,
         });
       } else {
         // Create new reminder
@@ -151,10 +151,10 @@ export class ReminderCreatePageComponent implements OnInit {
           message: this.message.trim(),
           time: this.time,
           days: this.selectedDays,
-          category: this.category
+          category: this.category,
         });
       }
-      
+
       this.router.navigate(['/reminders']);
     } catch (error) {
       console.error('Error saving reminder:', error);
@@ -169,7 +169,7 @@ export class ReminderCreatePageComponent implements OnInit {
   }
 
   getCategoryName(categoryId: ReminderCategory): string {
-    const category = this.categories.find(c => c.id === categoryId);
+    const category = this.categories.find((c) => c.id === categoryId);
     return category?.name || categoryId;
   }
 
@@ -177,24 +177,30 @@ export class ReminderCreatePageComponent implements OnInit {
     if (this.selectedDays.length === 0) {
       return 'Дни не выбраны';
     }
-    
+
     if (this.selectedDays.length === 7) {
       return 'Каждый день';
     }
-    
+
     const weekdays: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
     const weekends: WeekDay[] = ['saturday', 'sunday'];
-    
-    if (this.selectedDays.length === 5 && weekdays.every(day => this.selectedDays.includes(day))) {
+
+    if (
+      this.selectedDays.length === 5 &&
+      weekdays.every((day) => this.selectedDays.includes(day))
+    ) {
       return 'Будни';
     }
-    
-    if (this.selectedDays.length === 2 && weekends.every(day => this.selectedDays.includes(day))) {
+
+    if (
+      this.selectedDays.length === 2 &&
+      weekends.every((day) => this.selectedDays.includes(day))
+    ) {
       return 'Выходные';
     }
-    
+
     return this.selectedDays
-      .map(day => this.weekDays.find(d => d.id === day)?.short || day)
+      .map((day) => this.weekDays.find((d) => d.id === day)?.short || day)
       .join(', ');
   }
 }

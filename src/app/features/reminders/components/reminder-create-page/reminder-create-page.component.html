@@ -1,9 +1,12 @@
-<div class="flex flex-col h-full">
+<div class="flex h-full flex-col">
   <!-- Header -->
-  <div class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 px-4 py-3 flex items-center shadow-sm">
+  <div
+    class="flex items-center border-b border-gray-100 bg-white px-4 py-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+  >
     <button
       (click)="goBack()"
-      class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors mr-3">
+      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+    >
       <i class="material-icons text-gray-500">arrow_back</i>
     </button>
     <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200">
@@ -15,14 +18,17 @@
   <div class="flex-1 overflow-y-auto">
     <div class="p-4 pb-24">
       <!-- General Error -->
-      <div *ngIf="errors['general']" class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+      <div
+        *ngIf="errors['general']"
+        class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20"
+      >
         <p class="text-sm text-red-600 dark:text-red-400">{{ errors['general'] }}</p>
       </div>
 
       <form (ngSubmit)="onSubmit()" class="space-y-4">
         <!-- Title -->
         <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
             Название *
           </label>
           <input
@@ -30,14 +36,17 @@
             [(ngModel)]="title"
             name="title"
             placeholder="Например: Утренняя медитация"
-            class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-            [class.border-red-500]="errors['title']">
-          <p *ngIf="errors['title']" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors['title'] }}</p>
+            class="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            [class.border-red-500]="errors['title']"
+          />
+          <p *ngIf="errors['title']" class="mt-1 text-sm text-red-600 dark:text-red-400">
+            {{ errors['title'] }}
+          </p>
         </div>
 
         <!-- Message -->
         <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
             Текст напоминания *
           </label>
           <textarea
@@ -45,73 +54,80 @@
             name="message"
             rows="3"
             placeholder="Текст, который будет показан в уведомлении"
-            class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-500 focus:border-transparent resize-none"
-            [class.border-red-500]="errors['message']">
+            class="w-full resize-none rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            [class.border-red-500]="errors['message']"
+          >
           </textarea>
-          <p *ngIf="errors['message']" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors['message'] }}</p>
+          <p *ngIf="errors['message']" class="mt-1 text-sm text-red-600 dark:text-red-400">
+            {{ errors['message'] }}
+          </p>
         </div>
 
         <!-- Category -->
         <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
             Категория
           </label>
           <app-custom-select
             [(ngModel)]="category"
             name="category"
             [options]="categoryOptions"
-            placeholder="Выберите категорию">
+            placeholder="Выберите категорию"
+          >
           </app-custom-select>
         </div>
 
         <!-- Time -->
         <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
             Время *
           </label>
-          <app-custom-time-picker
-            [(ngModel)]="time"
-            name="time">
-          </app-custom-time-picker>
-          <p *ngIf="errors['time']" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors['time'] }}</p>
+          <app-custom-time-picker [(ngModel)]="time" name="time"> </app-custom-time-picker>
+          <p *ngIf="errors['time']" class="mt-1 text-sm text-red-600 dark:text-red-400">
+            {{ errors['time'] }}
+          </p>
         </div>
 
         <!-- Days -->
         <div>
-          <label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
             Дни недели *
           </label>
-          
+
           <!-- Quick Select Buttons -->
-          <div class="flex flex-wrap gap-2 mb-3">
+          <div class="mb-3 flex flex-wrap gap-2">
             <button
               type="button"
               (click)="selectAllDays()"
-              class="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors">
+              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+            >
               Все дни
             </button>
             <button
               type="button"
               (click)="selectWeekdays()"
-              class="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors">
+              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+            >
               Будни
             </button>
             <button
               type="button"
               (click)="selectWeekends()"
-              class="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors">
+              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+            >
               Выходные
             </button>
             <button
               type="button"
               (click)="clearDays()"
-              class="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 transition-colors">
+              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+            >
               Очистить
             </button>
           </div>
 
           <!-- Day Selection Circles -->
-          <div class="grid grid-cols-7 gap-2 mb-2">
+          <div class="mb-2 grid grid-cols-7 gap-2">
             <button
               *ngFor="let day of weekDays"
               type="button"
@@ -122,15 +138,18 @@
               [class.bg-white]="!isDaySelected(day.id)"
               [class.text-gray-700]="!isDaySelected(day.id)"
               [class.border-gray-300]="!isDaySelected(day.id)"
-              class="w-10 h-10 border rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 flex items-center justify-center">
+              class="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            >
               {{ day.short }}
             </button>
           </div>
-          
+
           <p class="text-sm text-gray-600 dark:text-gray-400">
             Выбрано: {{ getSelectedDaysText() }}
           </p>
-          <p *ngIf="errors['days']" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors['days'] }}</p>
+          <p *ngIf="errors['days']" class="mt-1 text-sm text-red-600 dark:text-red-400">
+            {{ errors['days'] }}
+          </p>
         </div>
 
         <!-- Submit Button -->
@@ -138,8 +157,12 @@
           <button
             type="submit"
             [disabled]="isSubmitting"
-            class="w-full btn-primary py-3 px-4 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-            <span *ngIf="isSubmitting" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
+            class="btn-primary flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-medium disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <span
+              *ngIf="isSubmitting"
+              class="h-4 w-4 animate-spin rounded-full border-b-2 border-white"
+            ></span>
             {{ isEditing ? 'Сохранить изменения' : 'Создать напоминание' }}
           </button>
         </div>

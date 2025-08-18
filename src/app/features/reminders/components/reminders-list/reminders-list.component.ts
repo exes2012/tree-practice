@@ -9,7 +9,7 @@ import { Reminder, REMINDER_CATEGORIES, getCategoryInfo } from '@app/core/models
   selector: 'app-reminders-list',
   imports: [CommonModule],
   templateUrl: './reminders-list.component.html',
-  styleUrls: ['./reminders-list.component.scss']
+  styleUrls: ['./reminders-list.component.scss'],
 })
 export class RemindersListComponent implements OnInit, OnDestroy {
   reminders: Reminder[] = [];
@@ -33,12 +33,10 @@ export class RemindersListComponent implements OnInit, OnDestroy {
   }
 
   private loadReminders(): void {
-    this.reminderService.reminders$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(reminders => {
-        this.reminders = reminders;
-        this.isLoading = false;
-      });
+    this.reminderService.reminders$.pipe(takeUntil(this.destroy$)).subscribe((reminders) => {
+      this.reminders = reminders;
+      this.isLoading = false;
+    });
   }
 
   private async checkNotificationPermission(): Promise<void> {
@@ -86,16 +84,16 @@ export class RemindersListComponent implements OnInit, OnDestroy {
     }
 
     const dayNames: { [key: string]: string } = {
-      'monday': 'Пн',
-      'tuesday': 'Вт',
-      'wednesday': 'Ср',
-      'thursday': 'Чт',
-      'friday': 'Пт',
-      'saturday': 'Сб',
-      'sunday': 'Вс'
+      monday: 'Пн',
+      tuesday: 'Вт',
+      wednesday: 'Ср',
+      thursday: 'Чт',
+      friday: 'Пт',
+      saturday: 'Сб',
+      sunday: 'Вс',
     };
 
-    return days.map(day => dayNames[day] || day).join(', ');
+    return days.map((day) => dayNames[day] || day).join(', ');
   }
 
   trackByReminderId(index: number, reminder: Reminder): string {

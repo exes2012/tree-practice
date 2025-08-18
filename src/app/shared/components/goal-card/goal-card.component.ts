@@ -7,7 +7,7 @@ import { Goal } from '@app/core/services/goal.service';
   templateUrl: './goal-card.component.html',
   styleUrls: ['./goal-card.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class GoalCardComponent {
   @Input() goal!: Goal;

@@ -13,7 +13,7 @@ interface IntentionPractice {
   templateUrl: './intention-exercise-page.component.html',
   styleUrls: ['./intention-exercise-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent]
+  imports: [CommonModule, PageHeaderComponent],
 })
 export class IntentionExercisePageComponent implements OnInit {
   practice: IntentionPractice | undefined;

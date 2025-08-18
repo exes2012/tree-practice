@@ -16,7 +16,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'textarea',
     'Введите вашу цель...'
   );
-  
+
   // Шаг 2: Убираем сопротивление
   yield repeat(
     'remove-resistance',
@@ -24,7 +24,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'Проговаривай до состояния принятия:',
     'Можно мне было не хотеть "{{practiceFormulation}}". Мне так было можно и мне это было для чего-то нужно. Я сам не хотел(а) "{{practiceFormulation}}". Можно мне было не хотеть. У меня была на то причина. У меня была причина не хотеть "{{practiceFormulation}}". Мне так было можно.'
   );
-  
+
   // Шаг 3: Смотрим образ
   yield input(
     'vision-analysis',
@@ -34,7 +34,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'textarea',
     'Опишите образ достигнутой цели...'
   );
-  
+
   // Шаг 4: Находим причину
   yield input(
     'find-concern',
@@ -44,7 +44,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'textarea',
     'Опишите, что вас смущает...'
   );
-  
+
   // Шаг 5: Вопросы чтобы вам помочь
   yield input(
     'helping-questions',
@@ -54,7 +54,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'textarea',
     'Ответьте на вопросы...'
   );
-  
+
   // Шаг 6: Формируем установку
   yield input(
     'formulate-belief',
@@ -64,7 +64,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'textarea',
     'Если у меня будет "{{practiceFormulation}}", то...'
   );
-  
+
   // Шаг 7: Проработка установки
   yield repeat(
     'work-with-belief',
@@ -72,7 +72,7 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'Проговаривай до состояния принятия и освобождения:',
     'Можно мне было думать, что {{installationFormulation}}. Но только я так думал(а). Это была только моя установка, только моя. Мне можно было пользоваться этой установкой, но она была только моя.'
   );
-  
+
   // Финальная оценка ПРАКТИКИ
   yield practiceRating();
 }
@@ -81,18 +81,20 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
 export const goalIdentificationPracticeConfig: PracticeConfig = {
   id: 'goal-identification',
   title: 'Выявление установки',
-  description: 'Практика выявления и проработки установок относительно цели через работу с внутренними образами и убеждениями.',
-  
+  description:
+    'Практика выявления и проработки установок относительно цели через работу с внутренними образами и убеждениями.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Выявление установки',
-    description: 'Практика поможет выявить скрытые установки и страхи, связанные с достижением цели, и проработать их.',
+    description:
+      'Практика поможет выявить скрытые установки и страхи, связанные с достижением цели, и проработать их.',
     duration: '20-25 мин',
-    level: 'Средний'
+    level: 'Средний',
   },
-  
+
   practiceFunction: goalIdentificationPractice,
-  
+
   onFinish: async (context, result) => {
     // Save practice run to IndexedDB
     const { JournalService } = await import('../services/journal.service');
@@ -109,9 +111,9 @@ export const goalIdentificationPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

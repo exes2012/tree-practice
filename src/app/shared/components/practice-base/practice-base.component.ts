@@ -1,11 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpeechService } from '../../services/speech.service';
-import { PracticeStep, PracticeConfig, PracticeNavigation, PracticeResult } from '../../interfaces/practice.interface';
+import {
+  PracticeStep,
+  PracticeConfig,
+  PracticeNavigation,
+  PracticeResult,
+} from '../../interfaces/practice.interface';
 
 @Component({
   template: '', // Abstract component
-  standalone: true
+  standalone: true,
 })
 export abstract class PracticeBaseComponent implements OnInit, OnDestroy {
   // State
@@ -49,7 +54,7 @@ export abstract class PracticeBaseComponent implements OnInit, OnDestroy {
       canGoNext: this.currentStepIndex < this.steps.length - 1,
       canGoPrevious: this.currentStepIndex > 0,
       isLastStep: this.currentStepIndex === this.steps.length - 1,
-      isFirstStep: this.currentStepIndex === 0
+      isFirstStep: this.currentStepIndex === 0,
     };
   }
 
@@ -91,7 +96,7 @@ export abstract class PracticeBaseComponent implements OnInit, OnDestroy {
 
   onRepetitionToggle(active: boolean): void {
     this.isRepetitionActive = active;
-    
+
     if (this.isRepetitionActive && this.currentStep?.repeatablePhrase && this.isVoiceEnabled) {
       const phrase = this.getProcessedRepeatablePhrase(this.currentStep);
       this.speechService.startRepetition(phrase);

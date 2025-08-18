@@ -1,6 +1,6 @@
-<div class="p-4 pb-24 space-y-4">
+<div class="space-y-4 p-4 pb-24">
   <!-- Header -->
-  <div class="flex justify-between items-center">
+  <div class="flex items-center justify-between">
     <div>
       <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Мои напоминания</h2>
       <p class="text-sm text-gray-600 dark:text-gray-400">{{ reminders.length }} напоминаний</p>
@@ -9,19 +9,21 @@
 
   <!-- Loading State -->
   <div *ngIf="isLoading" class="flex justify-center py-8">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
+    <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-gray-600"></div>
   </div>
 
   <!-- Empty State -->
-  <div *ngIf="!isLoading && reminders.length === 0" class="text-center py-12">
-    <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+  <div *ngIf="!isLoading && reminders.length === 0" class="py-12 text-center">
+    <div
+      class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
+    >
       <i class="material-icons text-2xl text-gray-400">notifications_off</i>
     </div>
-    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Нет напоминаний</h3>
-    <p class="text-gray-600 dark:text-gray-400 mb-4">Создайте первое напоминание для своих практик</p>
-    <button
-      (click)="openAddModal()"
-      class="btn-primary px-6 py-2 rounded-lg font-medium">
+    <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-gray-100">Нет напоминаний</h3>
+    <p class="mb-4 text-gray-600 dark:text-gray-400">
+      Создайте первое напоминание для своих практик
+    </p>
+    <button (click)="openAddModal()" class="btn-primary rounded-lg px-6 py-2 font-medium">
       Создать напоминание
     </button>
   </div>
@@ -30,33 +32,39 @@
   <div *ngIf="!isLoading && reminders.length > 0" class="space-y-3">
     <div
       *ngFor="let reminder of reminders; trackBy: trackByReminderId"
-      class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 transition-all duration-200 hover:shadow-md">
-      
+      class="rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+    >
       <!-- Header -->
-      <div class="flex items-start justify-between mb-3">
+      <div class="mb-3 flex items-start justify-between">
         <div class="flex-1">
-          <div class="flex items-center gap-2 mb-1">
-            <span [class]="getCategoryInfo(reminder).color" class="px-2 py-1 rounded-full text-xs font-medium">
-              <i class="material-icons text-xs mr-1">{{ getCategoryInfo(reminder).icon }}</i>
+          <div class="mb-1 flex items-center gap-2">
+            <span
+              [class]="getCategoryInfo(reminder).color"
+              class="rounded-full px-2 py-1 text-xs font-medium"
+            >
+              <i class="material-icons mr-1 text-xs">{{ getCategoryInfo(reminder).icon }}</i>
               {{ getCategoryInfo(reminder).name }}
             </span>
           </div>
           <h3 class="font-semibold text-gray-900 dark:text-gray-100">{{ reminder.title }}</h3>
         </div>
-        
+
         <!-- Toggle Switch -->
-        <label class="relative inline-flex items-center cursor-pointer">
+        <label class="relative inline-flex cursor-pointer items-center">
           <input
             type="checkbox"
             [checked]="reminder.isEnabled"
             (change)="toggleReminder(reminder)"
-            class="sr-only peer">
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-600 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-600"></div>
+            class="peer sr-only"
+          />
+          <div
+            class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-gray-600"
+          ></div>
         </label>
       </div>
 
       <!-- Message -->
-      <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm">{{ reminder.message }}</p>
+      <p class="mb-3 text-sm text-gray-700 dark:text-gray-300">{{ reminder.message }}</p>
 
       <!-- Time and Days -->
       <div class="flex items-center justify-between text-sm">
@@ -75,12 +83,14 @@
         <div class="flex items-center gap-2">
           <button
             (click)="editReminder(reminder)"
-            class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+            class="p-1 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+          >
             <i class="material-icons text-sm">edit</i>
           </button>
           <button
             (click)="deleteReminder(reminder)"
-            class="p-1 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+            class="p-1 text-gray-400 transition-colors hover:text-red-600 dark:hover:text-red-400"
+          >
             <i class="material-icons text-sm">delete</i>
           </button>
         </div>
@@ -93,6 +103,7 @@
 <button
   *ngIf="!isLoading"
   (click)="openAddModal()"
-  class="md:hidden fixed bottom-24 right-4 w-14 h-14 btn-primary rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
+  class="btn-primary fixed bottom-24 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-200 hover:shadow-xl md:hidden"
+>
   <i class="material-icons text-2xl">add</i>
 </button>

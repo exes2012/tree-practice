@@ -1,4 +1,9 @@
-<app-page-header title="Цель" [showEditButton]="true" (editClicked)="editGoal()" (backClicked)="goBackToGoals()">
+<app-page-header
+  title="Цель"
+  [showEditButton]="true"
+  (editClicked)="editGoal()"
+  (backClicked)="goBackToGoals()"
+>
   <button class="delete-button" (click)="deleteGoal()">
     <i class="material-icons">delete</i>
   </button>
@@ -31,8 +36,6 @@
   </div>
 
   <div class="add-practice-button-container">
-    <button class="add-practice-button" (click)="addPractice()">
-      Добавить проработку
-    </button>
+    <button class="add-practice-button" (click)="addPractice()">Добавить проработку</button>
   </div>
 </div>

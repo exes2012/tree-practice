@@ -35,7 +35,7 @@ import { v4 as uuidv4 } from 'uuid';
   `,
   styleUrls: ['./goal-alignment-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, PracticeShellComponent]
+  imports: [CommonModule, FormsModule, PracticeShellComponent],
 })
 export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implements OnInit {
   goal: Goal | undefined;
@@ -52,45 +52,47 @@ export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implem
       visionAfterAchievingGoal: this.visionAfterAchievingGoal,
       alignmentRating: this.alignmentRating,
       rephrasedGoal: this.rephrasedGoal,
-      shouldUpdateGoal: this.shouldUpdateGoal
+      shouldUpdateGoal: this.shouldUpdateGoal,
     };
   }
 
   config: PracticeConfig = {
     title: 'Сонастройка цели с Творцом',
-    description: 'Практика сонастройки цели с волей Творца'
+    description: 'Практика сонастройки цели с волей Творца',
   };
 
   baseSteps: PracticeStep[] = [
     {
       title: 'Шаг 1: Ощущение',
       instruction: 'Почувствуй пространство, себя, свое тело.',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 2: Определение цели',
       instruction: 'Какую цель ты бы хотел проработать?',
       inputField: 'practiceFormulation',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 3: Видение достигнутой цели',
       instruction: 'Представьте, что цель "{{goal.title}}" уже достигнута, что вы при этом видите?',
       inputField: 'visionAfterAchievingGoal',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 4: Настройка на отдачу',
-      instruction: 'Настройтесь на наслаждение от свойства отдачи. Выполните поочередно стадии Кетер, Хохма и Бина. Найдите за наслаждением от свойства отдачи Творца и его отношение к Вам.',
-      buttonText: 'Далее'
+      instruction:
+        'Настройтесь на наслаждение от свойства отдачи. Выполните поочередно стадии Кетер, Хохма и Бина. Найдите за наслаждением от свойства отдачи Творца и его отношение к Вам.',
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 5: Сравнение ощущений',
-      instruction: 'Сравните ваше ощущение от уже достигнутой цели с ощущением благодарности и желания насладить Творца.',
+      instruction:
+        'Сравните ваше ощущение от уже достигнутой цели с ощущением благодарности и желания насладить Творца.',
       inputField: 'alignmentRating',
       inputType: 'number',
-      buttonText: 'Далее'
-    }
+      buttonText: 'Далее',
+    },
   ];
 
   steps: PracticeStep[] = [];
@@ -129,7 +131,7 @@ export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implem
         id: uuidv4(),
         type: 'Сонастройка цели с Творцом',
         formulation: this.rephrasedGoal || this.practiceFormulation,
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
       };
       this.goalService.addPracticeToGoal(this.goalId, newPractice);
       this.router.navigate(['/goals', this.goalId]);
@@ -155,17 +157,17 @@ export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implem
 
   getProcessedRepeatablePhrase(step: PracticeStep): string {
     let phrase = step.repeatablePhrase || '';
-    
+
     // Replace goal.title placeholder
     if (this.goal) {
       phrase = phrase.replace(/\{\{goal\.title\}\}/g, this.goal.title);
     }
-    
+
     return phrase;
   }
 
-  onInputChanged(event: {field: string, value: any}): void {
-    switch(event.field) {
+  onInputChanged(event: { field: string; value: any }): void {
+    switch (event.field) {
       case 'practiceFormulation':
         this.practiceFormulation = event.value;
         break;
@@ -226,30 +228,33 @@ export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implem
     // Add refinement steps
     this.steps.push({
       title: 'Шаг 6: Переформулировка цели',
-      instruction: 'Как бы вы могли переформулировать цель, чтобы Творец притягивал от вас на 10 из 10?',
+      instruction:
+        'Как бы вы могли переформулировать цель, чтобы Творец притягивал от вас на 10 из 10?',
       inputField: 'rephrasedGoal',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     });
 
     this.steps.push({
       title: 'Шаг 7: Новое видение',
-      instruction: 'Представьте, что цель в ее новой формулировке уже достигнута, что вы при этом видите?',
+      instruction:
+        'Представьте, что цель в ее новой формулировке уже достигнута, что вы при этом видите?',
       inputField: 'visionAfterAchievingGoal',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     });
   }
 
   private addGoalUpdateStep(): void {
     this.steps.push({
       title: 'Обновление цели',
-      instruction: 'Желаете ли вы перезаписать первоначальную формулировку цели на текущую сформулированную?',
+      instruction:
+        'Желаете ли вы перезаписать первоначальную формулировку цели на текущую сформулированную?',
       inputField: 'shouldUpdateGoal',
       inputType: 'radio',
       options: [
         { value: 'true', label: 'Да, обновить цель' },
-        { value: 'false', label: 'Нет, оставить как есть' }
+        { value: 'false', label: 'Нет, оставить как есть' },
       ],
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     });
   }
 
@@ -258,7 +263,7 @@ export class GoalAlignmentPracticeComponent extends PracticeBaseComponent implem
       title: 'Оценка проработки',
       instruction: 'Оцените проработку от 1 до 10.',
       buttonText: 'Завершить',
-      showRating: true
+      showRating: true,
     });
   }
 

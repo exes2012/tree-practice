@@ -8,23 +8,20 @@ import { intentionStep } from './practice-blocks';
 export async function* intentionPractice(context: PracticeContext) {
   // Получаем данные упражнения из контекста
   const exerciseTitle = context.get<string>('exerciseTitle') || 'Упражнение намерения';
-  const exerciseDescription = context.get<string>('exerciseDescription') || 'Описание упражнения не указано';
+  const exerciseDescription =
+    context.get<string>('exerciseDescription') || 'Описание упражнения не указано';
 
   // console.log('Intention practice context:', exerciseTitle, exerciseDescription);
 
   // Единственный шаг с упражнением - используем полученные оригинальные данные
-  yield intentionStep(
-    'intention-exercise',
-    exerciseTitle,
-    exerciseDescription
-  );
+  yield intentionStep('intention-exercise', exerciseTitle, exerciseDescription);
 
   // Возвращаем результат с действием из контекста
   const action = context.get('intention-exercise');
   console.log('Practice returning result with action:', action);
-  
+
   return {
-    action: action // 'set_as_challenge' или 'go_home'
+    action: action, // 'set_as_challenge' или 'go_home'
   };
 }
 
@@ -33,23 +30,23 @@ export const intentionPracticeConfig: PracticeConfig = {
   id: 'intention-practice',
   title: 'Упражнения намерения',
   description: 'Упражнения для развития правильного намерения в духовной работе',
-  
+
   hasStartScreen: false, // НЕ показываем стартовую страницу
-  
+
   practiceFunction: intentionPractice,
 
   onFinish: async (context, result) => {
     const action = context.get('intention-exercise'); // Получаем действие из контекста
     const exerciseTitle = context.get<string>('exerciseTitle');
     const exerciseDescription = context.get<string>('exerciseDescription');
-    
+
     console.log('Intention practice onFinish:', { action, exerciseTitle, exerciseDescription });
-    
+
     if (action === 'set_as_challenge' && exerciseTitle && exerciseDescription) {
       // Устанавливаем как намерение дня
       const challenge = {
         title: exerciseTitle,
-        description: exerciseDescription.replace(/<br>/g, '\n') // Возвращаем обратно переносы строк
+        description: exerciseDescription.replace(/<br>/g, '\n'), // Возвращаем обратно переносы строк
       };
       localStorage.setItem('dailyChallenge', JSON.stringify(challenge));
       console.log('Set as daily challenge:', challenge);
@@ -70,9 +67,9 @@ export const intentionPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       // НЕ сохраняем rating для упражнений намерения
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Intention practice completed with result:', result);
-  }
+  },
 };

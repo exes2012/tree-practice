@@ -38,62 +38,68 @@ import {
   emptinessFeelPracticeConfig,
   noneButHimPracticeConfig,
   tableBeforeGodPracticeConfig,
-  thoughtControlPracticeConfig
+  thoughtControlPracticeConfig,
 } from '../../../../core/practices/intention-exercises';
-import { creatorSpacePracticeConfig, zeirAnpinSpacePracticeConfig, netzHodLinePracticeConfig, hesedGevurahLinePracticeConfig } from '../../../../core/practices/small-state-practices';
+import {
+  creatorSpacePracticeConfig,
+  zeirAnpinSpacePracticeConfig,
+  netzHodLinePracticeConfig,
+  hesedGevurahLinePracticeConfig,
+} from '../../../../core/practices/small-state-practices';
 import { GoalService } from '../../../../core/services/goal.service';
 import { PracticeService } from '../../../../core/services/practice.service';
 
 @Component({
   selector: 'app-practice-runner-demo',
   template: `
-    <app-practice-runner 
+    <app-practice-runner
       *ngIf="practiceConfig"
       [config]="practiceConfig"
       [initialContext]="initialContext"
       (practiceFinished)="onPracticeFinished($event)"
-      (practiceStarted)="onPracticeStarted()">
+      (practiceStarted)="onPracticeStarted()"
+    >
     </app-practice-runner>
-    
+
     <div *ngIf="!practiceConfig" class="container mx-auto px-4 pt-8 text-center">
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
         <p class="text-gray-700 dark:text-gray-300">Практика не найдена</p>
-        <button (click)="goHome()" class="mt-4 px-4 py-2 bg-primary-500 text-white rounded">
+        <button (click)="goHome()" class="bg-primary-500 mt-4 rounded px-4 py-2 text-white">
           На главную
         </button>
       </div>
     </div>
   `,
   standalone: true,
-  imports: [CommonModule, PracticeRunnerComponent]
+  imports: [CommonModule, PracticeRunnerComponent],
 })
 export class PracticeRunnerDemoComponent implements OnInit {
   practiceConfig: PracticeConfig | null = null;
   initialContext: any = {};
-  
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private goalService: GoalService,
     private practiceService: PracticeService
   ) {}
-  
+
   ngOnInit(): void {
     this.setupPractice();
   }
-  
+
   private setupPractice(): void {
     const practiceId = this.route.snapshot.params['practiceId'];
     const goalId = this.route.snapshot.params['goalId'];
-    
+
     // Загружаем цель, если нужна
     if (goalId) {
       const goal = this.goalService.getGoalById(goalId);
       this.initialContext = { goalId, goal };
     }
-    
+
     // Убрали старую логику query params - теперь каждое упражнение имеет свою практику
-    
+
     // Выбираем конфигурацию практики
     switch (practiceId) {
       case 'specific-request':
@@ -185,51 +191,51 @@ export class PracticeRunnerDemoComponent implements OnInit {
       case 'eternal-contact':
         this.practiceConfig = eternalContactPracticeConfig;
         break;
-      
+
       case 'cancel-fear':
         this.practiceConfig = cancelFearPracticeConfig;
         break;
-      
+
       case 'transform-love':
         this.practiceConfig = transformLovePracticeConfig;
         break;
-      
+
       case 'perfection':
         this.practiceConfig = perfectionPracticeConfig;
         break;
-      
+
       case 'torah-study':
         this.practiceConfig = torahStudyPracticeConfig;
         break;
-      
+
       case 'shepherd-dog':
         this.practiceConfig = shepherdDogPracticeConfig;
         break;
-      
+
       case 'before-creator':
         this.practiceConfig = beforeCreatorPracticeConfig;
         break;
-      
+
       case 'avaya-letters':
         this.practiceConfig = avayaLettersPracticeConfig;
         break;
-      
+
       case 'righteous-greatness':
         this.practiceConfig = righteousGreatnessaPracticeConfig;
         break;
-      
+
       case 'emptiness-feel':
         this.practiceConfig = emptinessFeelPracticeConfig;
         break;
-      
+
       case 'none-but-him':
         this.practiceConfig = noneButHimPracticeConfig;
         break;
-      
+
       case 'table-before-god':
         this.practiceConfig = tableBeforeGodPracticeConfig;
         break;
-      
+
       case 'thought-control':
         this.practiceConfig = thoughtControlPracticeConfig;
         break;
@@ -256,16 +262,16 @@ export class PracticeRunnerDemoComponent implements OnInit {
         break;
     }
   }
-  
+
   onPracticeStarted(): void {
     console.log('Practice started');
   }
-  
+
   onPracticeFinished(result: PracticeResult): void {
     console.log('Practice finished with result:', result);
-    
+
     const practiceId = this.route.snapshot.params['practiceId'];
-    
+
     // Записываем практику в счетчик и дневник
     const practiceTitles: { [key: string]: string } = {
       'specific-request': 'Специфический запрос',
@@ -292,7 +298,7 @@ export class PracticeRunnerDemoComponent implements OnInit {
       'eternal-contact': 'Вечный контакт',
       'cancel-fear': 'Отменить страх',
       'transform-love': 'Преобразовать любовь',
-      'perfection': 'Совершенство',
+      perfection: 'Совершенство',
       'torah-study': 'Изучение Торы',
       'shepherd-dog': 'Пастушья собака',
       'before-creator': 'Перед Творцом',
@@ -305,28 +311,43 @@ export class PracticeRunnerDemoComponent implements OnInit {
       'small-state-creator-space': 'Пространство с Творцом',
       'small-state-zeir-anpin-space': 'Пространство Зеир Анпина',
       'small-state-netz-hod-line': 'Средняя линия Нецах/Ход',
-      'small-state-hesed-gevurah-line': 'Средняя линия Хесед/Гвура'
+      'small-state-hesed-gevurah-line': 'Средняя линия Хесед/Гвура',
     };
-    
+
     const practiceTitle = practiceTitles[practiceId] || practiceId;
-    this.practiceService.saveLastPractice({ 
-      name: practiceTitle, 
-      route: `/practices/runner/${practiceId}` 
+    this.practiceService.saveLastPractice({
+      name: practiceTitle,
+      route: `/practices/runner/${practiceId}`,
     });
     this.practiceService.recordPracticeCompletion();
-    
+
     // Особая логика для упражнений намерения (включая все отдельные упражнения)
     const intentionPractices = [
-      'intention-practice', 'eternal-contact', 'cancel-fear', 'transform-love', 
-      'perfection', 'torah-study', 'shepherd-dog', 'before-creator', 
-      'avaya-letters', 'righteous-greatness', 'emptiness-feel', 
-      'none-but-him', 'table-before-god', 'thought-control'
+      'intention-practice',
+      'eternal-contact',
+      'cancel-fear',
+      'transform-love',
+      'perfection',
+      'torah-study',
+      'shepherd-dog',
+      'before-creator',
+      'avaya-letters',
+      'righteous-greatness',
+      'emptiness-feel',
+      'none-but-him',
+      'table-before-god',
+      'thought-control',
     ];
-    
+
     if (intentionPractices.includes(practiceId)) {
       const action = result.finalResult?.action;
-      console.log('Navigation: received action from intention practice:', action, 'practiceId:', practiceId);
-      
+      console.log(
+        'Navigation: received action from intention practice:',
+        action,
+        'practiceId:',
+        practiceId
+      );
+
       if (action === 'set_as_challenge') {
         // Если установили как намерение дня, идем на главную
         console.log('Navigating to home after setting daily challenge');
@@ -344,7 +365,7 @@ export class PracticeRunnerDemoComponent implements OnInit {
         return;
       }
     }
-    
+
     // Обычная навигация после завершения для других практик
     const goalId = this.route.snapshot.params['goalId'];
     if (goalId) {
@@ -353,7 +374,7 @@ export class PracticeRunnerDemoComponent implements OnInit {
       this.router.navigate(['/practices']);
     }
   }
-  
+
   goHome(): void {
     this.router.navigate(['/']);
   }

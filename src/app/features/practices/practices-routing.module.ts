@@ -21,96 +21,96 @@ import { PracticeRunnerDemoComponent } from './components/practice-runner-demo/p
 const routes: Routes = [
   {
     path: 'intention',
-    component: IntentionPracticeComponent
+    component: IntentionPracticeComponent,
   },
   {
     path: 'intention/exercise',
-    component: IntentionExercisePageComponent
+    component: IntentionExercisePageComponent,
   },
   {
     path: 'basic',
-    component: BasicExercisesComponent
+    component: BasicExercisesComponent,
   },
   {
     path: 'basic/four-stages',
-    component: FourStagesPracticeComponent
+    component: FourStagesPracticeComponent,
   },
   {
     path: 'basic/keter-tuning',
-    component: KeterTuningPracticeComponent
+    component: KeterTuningPracticeComponent,
   },
   {
     path: 'small-state',
-    component: SmallStatePracticeComponent
+    component: SmallStatePracticeComponent,
   },
   {
     path: 'small-state/creator-space',
-    redirectTo: 'runner/small-state-creator-space'
+    redirectTo: 'runner/small-state-creator-space',
   },
   {
     path: 'small-state/zeir-anpin-space',
-    redirectTo: 'runner/small-state-zeir-anpin-space'
+    redirectTo: 'runner/small-state-zeir-anpin-space',
   },
   {
     path: 'small-state/netz-hod-line',
-    redirectTo: 'runner/small-state-netz-hod-line'
+    redirectTo: 'runner/small-state-netz-hod-line',
   },
   {
     path: 'small-state/hesed-gevurah-line',
-    redirectTo: 'runner/small-state-hesed-gevurah-line'
+    redirectTo: 'runner/small-state-hesed-gevurah-line',
   },
   {
     path: 'man',
-    component: ManPracticeComponent
+    component: ManPracticeComponent,
   },
 
   {
     path: 'man/space-clarification',
-    component: SpaceClarificationPracticeComponent
+    component: SpaceClarificationPracticeComponent,
   },
 
   {
     path: 'man/creator-justification',
-    component: CreatorJustificationPracticeComponent
+    component: CreatorJustificationPracticeComponent,
   },
   {
     path: 'goals',
-    component: GoalsPracticeComponent
+    component: GoalsPracticeComponent,
   },
   {
     path: 'fall-recovery',
-    component: FallRecoveryComponent
+    component: FallRecoveryComponent,
   },
   // Новая архитектура - тестовые роуты
   {
     path: 'runner/:practiceId',
-    component: PracticeRunnerDemoComponent
+    component: PracticeRunnerDemoComponent,
   },
   {
     path: 'runner/:practiceId/:goalId',
-    component: PracticeRunnerDemoComponent
+    component: PracticeRunnerDemoComponent,
   },
   // Small State Practices на новом движке
   {
     path: 'small-state-v2/creator-space',
-    redirectTo: 'runner/small-state-creator-space'
+    redirectTo: 'runner/small-state-creator-space',
   },
   {
     path: 'small-state-v2/zeir-anpin-space',
-    redirectTo: 'runner/small-state-zeir-anpin-space'
+    redirectTo: 'runner/small-state-zeir-anpin-space',
   },
   {
     path: 'small-state-v2/netz-hod-line',
-    redirectTo: 'runner/small-state-netz-hod-line'
+    redirectTo: 'runner/small-state-netz-hod-line',
   },
   {
     path: 'small-state-v2/hesed-gevurah-line',
-    redirectTo: 'runner/small-state-hesed-gevurah-line'
-  }
+    redirectTo: 'runner/small-state-hesed-gevurah-line',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PracticesRoutingModule { }
+export class PracticesRoutingModule {}

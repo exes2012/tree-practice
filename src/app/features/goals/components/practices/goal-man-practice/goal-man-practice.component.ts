@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './goal-man-practice.component.html',
   styleUrls: ['./goal-man-practice.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, PracticeShellComponent]
+  imports: [CommonModule, FormsModule, PracticeShellComponent],
 })
 export class GoalManPracticeComponent extends PracticeBaseComponent implements OnInit {
   goal: Goal | undefined;
@@ -29,84 +29,97 @@ export class GoalManPracticeComponent extends PracticeBaseComponent implements O
       practiceFormulation: this.practiceFormulation,
       feelingLocation: this.feelingLocation,
       participantsVision: this.participantsVision,
-      selfVision: this.selfVision
+      selfVision: this.selfVision,
     };
   }
 
   config: PracticeConfig = {
     title: 'Подъем МАН с целью',
-    description: 'Практика подъема МАН через работу с целью'
+    description: 'Практика подъема МАН через работу с целью',
   };
 
   steps: PracticeStep[] = [
     {
       title: 'Шаг 1: Ощущение',
       instruction: 'Почувствуй пространство, себя, свое тело.',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 2: Определение цели',
       instruction: 'Какую цель ты бы хотел проработать?',
       inputField: 'practiceFormulation',
       initialValue: '',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 3: Локализация чувств',
-      instruction: 'Представьте, что вы достигли цели. Найди, включается ли что-то в ощущениях помимо радости. Найди, где это чувство ощущается. Его размер, форму. Найди, они внутри или снаружи тебя. Покажи рукой в это место.',
-      buttonText: 'Далее'
+      instruction:
+        'Представьте, что вы достигли цели. Найди, включается ли что-то в ощущениях помимо радости. Найди, где это чувство ощущается. Его размер, форму. Найди, они внутри или снаружи тебя. Покажи рукой в это место.',
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 4: Самоотмена',
-      instruction: 'Положи руку туда, где находится это чувство. Одновременно с этим поставь руку на грудную точку, и проговаривай до состояния уменьшения важности и самоотмены: <br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Мне не важно, будет ли достигнута "{{goal.title}}". Мне нужна только связь с Творцом. И я здесь только для того, чтобы с Ним соединиться через эту цель.',
+      instruction:
+        'Положи руку туда, где находится это чувство. Одновременно с этим поставь руку на грудную точку, и проговаривай до состояния уменьшения важности и самоотмены: <br><br><strong>{{repeatablePhrase}}</strong>',
+      repeatablePhrase:
+        'Мне не важно, будет ли достигнута "{{goal.title}}". Мне нужна только связь с Творцом. И я здесь только для того, чтобы с Ним соединиться через эту цель.',
       buttonText: 'Далее',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 5: Найдите других',
-      instruction: 'Попытайся почувствовать все души в общей системе, которые страдают от не достижения этой цели. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Все души, которые страдают от недостижения этой цели, отпечатаны во мне. Мы связаны в одну общую систему. Их страдание — это выражение их желания, пока ещё с эгоистическим расчётом.',
+      instruction:
+        'Попытайся почувствовать все души в общей системе, которые страдают от не достижения этой цели. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
+      repeatablePhrase:
+        'Все души, которые страдают от недостижения этой цели, отпечатаны во мне. Мы связаны в одну общую систему. Их страдание — это выражение их желания, пока ещё с эгоистическим расчётом.',
       buttonText: 'Далее',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 6: Проводник света',
-      instruction: 'Работай как проводник. Проси об исправлении намерения в их желаниях и притягивай в исправленные сосуды благо и наслаждение.<br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Творец, исправь их намерение из получения ради себя в получение ради отдачи, ради тебя, приблизь их к себе и наполни их нехватки благом и наслаждением.',
+      instruction:
+        'Работай как проводник. Проси об исправлении намерения в их желаниях и притягивай в исправленные сосуды благо и наслаждение.<br><br><strong>{{repeatablePhrase}}</strong>',
+      repeatablePhrase:
+        'Творец, исправь их намерение из получения ради себя в получение ради отдачи, ради тебя, приблизь их к себе и наполни их нехватки благом и наслаждением.',
       buttonText: 'Далее',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 7: Видение участников',
       instruction: 'Попроси Творца показать, какие еще участники вовлечены в "{{goal.title}}".',
-      buttonText: 'Далее'
+      buttonText: 'Далее',
     },
     {
       title: 'Шаг 8: Свет вместо тьмы',
-      instruction: 'Отметь, какими ты видишь участников, связанных с "{{goal.title}}". Проси Творца исправить намерение внутри желаний всех участников, связанных с этой целью. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
+      instruction:
+        'Отметь, какими ты видишь участников, связанных с "{{goal.title}}". Проси Творца исправить намерение внутри желаний всех участников, связанных с этой целью. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
       buttonText: 'Далее',
-      repeatablePhrase: 'Творец, исправь намерения внутри желаний всех участников, связанных с "{{goal.title}}" из получения ради себя в получение ради отдачи, ради тебя, приблизь их к себе и наполни их нехватки благом и наслаждением.',
+      repeatablePhrase:
+        'Творец, исправь намерения внутри желаний всех участников, связанных с "{{goal.title}}" из получения ради себя в получение ради отдачи, ради тебя, приблизь их к себе и наполни их нехватки благом и наслаждением.',
     },
-        {
+    {
       title: 'Шаг 9: Соединение',
-      instruction: 'Отметь, каким ты видишь себя в отношении "{{goal.title}}". Проси Творца: <br><br><strong>{{repeatablePhrase}}</strong>',
+      instruction:
+        'Отметь, каким ты видишь себя в отношении "{{goal.title}}". Проси Творца: <br><br><strong>{{repeatablePhrase}}</strong>',
       buttonText: 'Далее',
-      repeatablePhrase: 'Творец, исправь мое намерение, связанное с  "{{goal.title}}" и другими душами. Чтобы оно было ради связи, ради отдачи, ради Тебя.',
+      repeatablePhrase:
+        'Творец, исправь мое намерение, связанное с  "{{goal.title}}" и другими душами. Чтобы оно было ради связи, ради отдачи, ради Тебя.',
     },
     {
       title: 'Шаг 10: Соединение',
-      instruction: 'Почувствуй ещё раз всех участников, связанных "{{goal.title}}", и саму эту цель. Собери все это воедино. Подними ощущение этих души и эту цель туда, где ощущается Творец, и удерживай эти ощущения там. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
-      repeatablePhrase: 'Все, что существует внутри этой системы, включая саму эту цель, включая мое желание - и есть Творец.',
+      instruction:
+        'Почувствуй ещё раз всех участников, связанных "{{goal.title}}", и саму эту цель. Собери все это воедино. Подними ощущение этих души и эту цель туда, где ощущается Творец, и удерживай эти ощущения там. Скажи: <br><br><strong>{{repeatablePhrase}}</strong>',
+      repeatablePhrase:
+        'Все, что существует внутри этой системы, включая саму эту цель, включая мое желание - и есть Творец.',
       buttonText: 'Закончить',
-      showToggleRepetition: true
+      showToggleRepetition: true,
     },
     {
       title: 'Шаг 11: Оценка',
       instruction: 'Оцените проработку от 1 до 10.',
       buttonText: 'Завершить',
-      showRating: true
-    }
+      showRating: true,
+    },
   ];
 
   constructor(
@@ -135,7 +148,7 @@ export class GoalManPracticeComponent extends PracticeBaseComponent implements O
         id: uuidv4(),
         type: 'Подъем МАН с целью',
         formulation: this.practiceFormulation,
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
       };
       this.goalService.addPracticeToGoal(this.goalId, newPractice);
       this.router.navigate(['/goals', this.goalId]);
@@ -188,8 +201,8 @@ export class GoalManPracticeComponent extends PracticeBaseComponent implements O
     return phrase;
   }
 
-  onInputChanged(event: {field: string, value: any}): void {
-    switch(event.field) {
+  onInputChanged(event: { field: string; value: any }): void {
+    switch (event.field) {
       case 'practiceFormulation':
         this.practiceFormulation = event.value;
         break;

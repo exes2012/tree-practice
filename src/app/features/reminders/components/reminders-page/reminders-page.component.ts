@@ -10,7 +10,7 @@ type TabType = 'reminders' | 'intention';
   selector: 'app-reminders-page',
   imports: [CommonModule, RemindersListComponent, DailyIntentionComponent],
   templateUrl: './reminders-page.component.html',
-  styleUrl: './reminders-page.component.scss'
+  styleUrl: './reminders-page.component.scss',
 })
 export class RemindersPageComponent implements OnInit {
   activeTab: TabType = 'reminders';

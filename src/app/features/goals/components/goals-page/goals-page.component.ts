@@ -10,12 +10,15 @@ import { PageHeaderComponent } from '@app/shared/components/page-header/page-hea
   templateUrl: './goals-page.component.html',
   styleUrls: ['./goals-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, GoalCardComponent, PageHeaderComponent]
+  imports: [CommonModule, GoalCardComponent, PageHeaderComponent],
 })
 export class GoalsPageComponent implements OnInit {
   goals: Goal[] = [];
 
-  constructor(private goalService: GoalService, private router: Router) { }
+  constructor(
+    private goalService: GoalService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.goals = this.goalService.getAllGoals().sort((a, b) => {

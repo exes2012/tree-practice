@@ -2,88 +2,125 @@
 <app-home-header></app-home-header>
 
 <!-- Fixed Top Section -->
-<div #fixedSection class="fixed-section fixed top-0 left-0 right-0 z-40 bg-gray-50 dark:bg-gray-900">
-  <div class="container mx-auto px-4 pt-4 pb-4 space-y-4">
+<div
+  #fixedSection
+  class="fixed-section fixed left-0 right-0 top-0 z-40 bg-gray-50 dark:bg-gray-900"
+>
+  <div class="container mx-auto space-y-4 px-4 pb-4 pt-4">
     <!-- Statistics -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm px-1 py-2">
+    <div class="rounded-xl bg-white px-1 py-2 shadow-sm dark:bg-gray-800">
       <div class="grid grid-cols-4 gap-0.5">
         <!-- Streak -->
         <div class="flex flex-col items-center">
-          <div class="flex items-center mb-0.5">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center mr-1" style="background-color: rgba(180, 83, 9, 0.1);">
-              <i class="material-icons text-xs" style="color: #B45309;">local_fire_department</i>
+          <div class="mb-0.5 flex items-center">
+            <div class="bg-fire-10 mr-1 flex h-6 w-6 items-center justify-center rounded-full">
+              <i class="material-icons text-fire text-xs">local_fire_department</i>
             </div>
             <div class="text-sm font-bold text-gray-800 dark:text-gray-200">{{ stats.streak }}</div>
           </div>
-          <div class="text-xs text-gray-500 text-center">дней подряд</div>
+          <div class="text-center text-xs text-gray-500">дней подряд</div>
         </div>
-        
+
         <!-- Total Practices -->
         <div class="flex flex-col items-center">
-          <div class="flex items-center mb-0.5">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center mr-1" style="background-color: rgba(59, 74, 92, 0.1);">
-              <i class="material-icons text-xs" style="color: #3B4A5C;">bar_chart</i>
+          <div class="mb-0.5 flex items-center">
+            <div class="bg-chart-10 mr-1 flex h-6 w-6 items-center justify-center rounded-full">
+              <i class="material-icons text-chart text-xs">bar_chart</i>
             </div>
-            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">{{ stats.totalPractices }}</div>
+            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">
+              {{ stats.totalPractices }}
+            </div>
           </div>
-          <div class="text-xs text-gray-500 text-center">практик</div>
+          <div class="text-center text-xs text-gray-500">практик</div>
         </div>
-        
+
         <!-- Total Practice Days -->
         <div class="flex flex-col items-center">
-          <div class="flex items-center mb-0.5">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center mr-1" style="background-color: rgba(16, 185, 129, 0.1);">
-              <i class="material-icons text-xs" style="color: #10B981;">calendar_today</i>
+          <div class="mb-0.5 flex items-center">
+            <div class="bg-calendar-10 mr-1 flex h-6 w-6 items-center justify-center rounded-full">
+              <i class="material-icons text-calendar text-xs">calendar_today</i>
             </div>
-            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">{{ totalPracticeDays }}</div>
+            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">
+              {{ totalPracticeDays }}
+            </div>
           </div>
-          <div class="text-xs text-gray-500 text-center">дней всего</div>
+          <div class="text-center text-xs text-gray-500">дней всего</div>
         </div>
-        
+
         <!-- Total Practice Time -->
         <div class="flex flex-col items-center">
-          <div class="flex items-center mb-0.5">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center mr-1" style="background-color: rgba(99, 102, 241, 0.1);">
-              <i class="material-icons text-xs" style="color: #6366F1;">schedule</i>
+          <div class="mb-0.5 flex items-center">
+            <div class="bg-schedule-10 mr-1 flex h-6 w-6 items-center justify-center rounded-full">
+              <i class="material-icons text-schedule text-xs">schedule</i>
             </div>
-            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">{{ formatDuration(totalPracticeTime) }}</div>
+            <div class="text-sm font-bold text-gray-800 dark:text-gray-200">
+              {{ formatDuration(totalPracticeTime) }}
+            </div>
           </div>
-          <div class="text-xs text-gray-500 text-center">{{ formatDurationLabel(totalPracticeTime) }}</div>
+          <div class="text-center text-xs text-gray-500">
+            {{ formatDurationLabel(totalPracticeTime) }}
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Daily Challenge -->
-    <div *ngIf="dailyChallenge" class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4">
-      <div (click)="toggleChallenge()" class="flex items-center justify-between cursor-pointer">
+    <div *ngIf="dailyChallenge" class="rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800">
+      <div (click)="toggleChallenge()" class="flex cursor-pointer items-center justify-between">
         <div class="flex items-center">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: rgba(217, 119, 6, 0.1);">
-            <i class="material-icons text-lg" style="color: #D97706;">psychology</i>
+          <div
+            class="bg-psychology-10 mr-3 flex h-10 w-10 items-center justify-center rounded-full"
+          >
+            <i class="material-icons text-psychology text-lg">psychology</i>
           </div>
-          <h3 class="font-semibold text-sm text-gray-800 dark:text-gray-200">Намерение дня: {{ dailyChallenge.title }}</h3>
+          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+            Намерение дня: {{ dailyChallenge.title }}
+          </h3>
         </div>
-        <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" [class.rotate-180]="isChallengeExpanded" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        <svg
+          class="h-5 w-5 text-gray-500 transition-transform duration-300"
+          [class.rotate-180]="isChallengeExpanded"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          ></path>
         </svg>
       </div>
-      <div *ngIf="isChallengeExpanded" class="mt-3 pl-13">
-        <p class="text-xs text-gray-500 dark:text-gray-400 whitespace-pre-line">{{ dailyChallenge.description }}</p>
-        <button (click)="clearChallenge()" class="text-xs text-red-500 hover:underline mt-2">Удалить намерение</button>
+      <div *ngIf="isChallengeExpanded" class="pl-13 mt-3">
+        <p class="whitespace-pre-line text-xs text-gray-500 dark:text-gray-400">
+          {{ dailyChallenge.description }}
+        </p>
+        <button (click)="clearChallenge()" class="mt-2 text-xs text-red-500 hover:underline">
+          Удалить намерение
+        </button>
       </div>
     </div>
 
     <!-- Repeat Last Practice -->
-    <div *ngIf="lastPractice" class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center justify-between">
+    <div
+      *ngIf="lastPractice"
+      class="flex items-center justify-between rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800"
+    >
       <div class="flex items-center">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: rgba(8, 145, 178, 0.1);">
-          <i class="material-icons text-lg" style="color: #0891B2;">history</i>
+        <div class="bg-history-10 mr-3 flex h-10 w-10 items-center justify-center rounded-full">
+          <i class="material-icons text-history text-lg">history</i>
         </div>
         <div>
-          <h3 class="font-semibold text-sm text-gray-800 dark:text-gray-200">Последняя практика</h3>
+          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Последняя практика</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400">{{ lastPractice.name }}</p>
         </div>
       </div>
-      <button (click)="repeatLastPractice()" [disabled]="!lastPractice" class="btn-primary font-medium py-2 px-4 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+      <button
+        (click)="repeatLastPractice()"
+        [disabled]="!lastPractice"
+        class="btn-primary rounded-lg px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50"
+      >
         Повторить
       </button>
     </div>
@@ -91,95 +128,172 @@
 </div>
 
 <!-- Scrollable Practices Section -->
-<div class="scrollable-section pb-24 bg-gray-50 dark:bg-gray-900" [style.padding-top.px]="practicesTopPadding">
+<div
+  class="scrollable-section bg-gray-50 pb-24 dark:bg-gray-900"
+  [style.padding-top.px]="practicesTopPadding"
+>
   <div class="container mx-auto px-4">
-
     <!-- Tabs -->
-    <div class="flex bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-4">
+    <div class="mb-4 flex rounded-xl bg-gray-100 p-1 dark:bg-gray-800">
       <button
         (click)="switchTab('right')"
-        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'right' ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-800 dark:text-gray-200' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')">
+        [class]="
+          'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ' +
+          (activeTab === 'right'
+            ? 'bg-white text-gray-800 shadow-sm dark:bg-gray-700 dark:text-gray-200'
+            : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')
+        "
+      >
         Правая линия
       </button>
       <button
         (click)="switchTab('left')"
-        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'left' ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-800 dark:text-gray-200' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')">
+        [class]="
+          'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ' +
+          (activeTab === 'left'
+            ? 'bg-white text-gray-800 shadow-sm dark:bg-gray-700 dark:text-gray-200'
+            : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')
+        "
+      >
         Левая линия
       </button>
     </div>
 
     <!-- Right Line Practices -->
-    <div *ngIf="activeTab === 'right'" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div (click)="navigateToPractice('basic')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(180, 83, 9, 0.1);">Уровень 1</span>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(180, 83, 9, 0.1);">
-          <i class="material-icons text-xl" style="color: #B45309;">wb_sunny</i>
+    <div *ngIf="activeTab === 'right'" class="@container">
+      <div class="grid grid-cols-1 gap-4 @md:grid-cols-2">
+        <div
+          (click)="navigateToPractice('basic')"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <span
+            class="bg-sunny-10 absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >Уровень 1</span
+          >
+          <div class="bg-sunny-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full">
+            <i class="material-icons text-sunny text-xl">wb_sunny</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">
+              Базовые упражнения
+            </h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Настройка на свет, 4 стадии прямого света
+            </p>
+          </div>
         </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Базовые упражнения</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Настройка на свет, 4 стадии прямого света</p>
+        <div
+          (click)="navigateToPractice('small-state')"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <span
+            class="bg-self-improvement-10 absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >Уровень 2</span
+          >
+          <div
+            class="bg-self-improvement-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+          >
+            <i class="material-icons text-self-improvement text-xl">self_improvement</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">
+              Малое состояние
+            </h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Умаление своего Эго перед Творцом
+            </p>
+          </div>
         </div>
-      </div>
-      <div (click)="navigateToPractice('small-state')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(34, 197, 94, 0.1);">Уровень 2</span>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(34, 197, 94, 0.1);">
-          <i class="material-icons text-xl" style="color: #16A34A;">self_improvement</i>
+        <div
+          (click)="navigateToPractice('yichudim')"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <span
+            class="bg-auto-awesome-10 absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >Уровень 3</span
+          >
+          <div
+            class="bg-auto-awesome-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+          >
+            <i class="material-icons text-auto-awesome text-xl">auto_awesome</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">Ихудим</h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Практики слияния с Творцом</p>
+          </div>
         </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Малое состояние</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Умаление своего Эго перед Творцом</p>
-        </div>
-      </div>
-      <div (click)="navigateToPractice('yichudim')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(139, 92, 246, 0.1);">Уровень 3</span>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(139, 92, 246, 0.1);">
-          <i class="material-icons text-xl" style="color: #7C3AED;">auto_awesome</i>
-        </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Ихудим</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Практики слияния с Творцом</p>
-        </div>
-      </div>
-      <div (click)="navigateToPractice('intention')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(99, 102, 241, 0.1);">Уровень 4</span>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(99, 102, 241, 0.1);">
-          <i class="material-icons text-xl" style="color: #4F46E5;">track_changes</i>
-        </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Каванот</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Работа в намерении по Бааль Суламу</p>
+        <div
+          (click)="navigateToPractice('intention')"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <span
+            class="bg-track-changes-10 absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >Уровень 4</span
+          >
+          <div
+            class="bg-track-changes-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+          >
+            <i class="material-icons text-track-changes text-xl">track_changes</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">Каванот</h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Работа в намерении по Бааль Суламу
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Left Line Practices -->
-    <div *ngIf="activeTab === 'left'" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div (click)="navigateToPractice('man')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(244, 63, 94, 0.1);">Уровень 2</span>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(244, 63, 94, 0.1);">
-          <i class="material-icons text-xl" style="color: #DC2626;">man</i>
+    <div *ngIf="activeTab === 'left'" class="@container">
+      <div class="grid grid-cols-1 gap-4 @md:grid-cols-2">
+        <div
+          (click)="navigateToPractice('man')"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <span
+            class="bg-man-10 absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >Уровень 2</span
+          >
+          <div class="bg-man-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full">
+            <i class="material-icons text-man text-xl">man</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">Подъем МАН</h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Работа с получающими сосудами, подъем МАН
+            </p>
+          </div>
         </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Подъем МАН</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Работа с получающими сосудами, подъем МАН</p>
+        <div
+          (click)="navigateToGoals()"
+          class="practice-card relative flex cursor-pointer items-center rounded-xl bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:bg-gray-800"
+        >
+          <div
+            class="bg-my-location-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+          >
+            <i class="material-icons text-my-location text-xl">my_location</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">Цели с Творцом</h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Достижение целей вместе с Творцом
+            </p>
+          </div>
         </div>
-      </div>
-      <div (click)="navigateToGoals()" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(236, 72, 153, 0.1);">
-          <i class="material-icons text-xl" style="color: #DB2777;">my_location</i>
-        </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Цели с Творцом</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Достижение целей вместе с Творцом</p>
-        </div>
-      </div>
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center opacity-50 cursor-not-allowed">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(249, 115, 22, 0.1);">
-          <i class="material-icons text-xl" style="color: #EA580C;">trending_up</i>
-        </div>
-        <div class="flex-1">
-          <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">Выход из падения</h3>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Скоро...</p>
+        <div
+          class="flex cursor-not-allowed items-center rounded-xl bg-white p-4 opacity-50 shadow-sm dark:bg-gray-800"
+        >
+          <div class="bg-trending-10 mr-4 flex h-12 w-12 items-center justify-center rounded-full">
+            <i class="material-icons text-trending text-xl">trending_up</i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">
+              Выход из падения
+            </h3>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Скоро...</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,40 +1,63 @@
-<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg z-50">
-  <div class="flex justify-around max-w-md mx-auto">
-    <a routerLink="/home" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+<nav
+  class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+>
+  <div class="mx-auto flex max-w-md justify-around">
+    <a
+      routerLink="/home"
+      routerLinkActive="nav-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">home</i>
       </div>
-      <span class="text-sm font-medium mt-1">Главная</span>
+      <span class="mt-1 text-sm font-medium">Главная</span>
     </a>
-    <a routerLink="/notes" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+    <a
+      routerLink="/notes"
+      routerLinkActive="nav-active"
+      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">edit_note</i>
       </div>
-      <span class="text-sm font-medium mt-1">Заметки</span>
+      <span class="mt-1 text-sm font-medium">Заметки</span>
     </a>
-    <div class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center opacity-40 cursor-not-allowed">
+    <div
+      class="nav-item flex flex-1 cursor-not-allowed flex-col items-center justify-center rounded-xl px-3 py-3 text-center opacity-40 transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">menu_book</i>
       </div>
-      <span class="text-sm font-medium mt-1">Обучение</span>
+      <span class="mt-1 text-sm font-medium">Обучение</span>
     </div>
-    <a routerLink="/reminders" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+    <a
+      routerLink="/reminders"
+      routerLinkActive="nav-active"
+      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">notifications</i>
       </div>
-      <span class="text-sm font-medium mt-1">Напоминания</span>
+      <span class="mt-1 text-sm font-medium">Напоминания</span>
     </a>
-    <a routerLink="/diary" routerLinkActive="nav-active" class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center">
+    <a
+      routerLink="/diary"
+      routerLinkActive="nav-active"
+      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">event_note</i>
       </div>
-      <span class="text-sm font-medium mt-1">Дневник</span>
+      <span class="mt-1 text-sm font-medium">Дневник</span>
     </a>
-    <div class="nav-item flex flex-col items-center justify-center py-3 px-3 rounded-xl transition-all duration-200 flex-1 text-center opacity-40 cursor-not-allowed">
+    <div
+      class="nav-item flex flex-1 cursor-not-allowed flex-col items-center justify-center rounded-xl px-3 py-3 text-center opacity-40 transition-all duration-200"
+    >
       <div class="nav-icon-container">
         <i class="material-icons text-3xl">person</i>
       </div>
-      <span class="text-sm font-medium mt-1">Профиль</span>
+      <span class="mt-1 text-sm font-medium">Профиль</span>
     </div>
   </div>
 </nav>

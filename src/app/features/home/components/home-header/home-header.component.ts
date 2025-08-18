@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home-header.component.html',
   styleUrls: ['./home-header.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class HomeHeaderComponent {
   // Component simplified - no side menu logic needed

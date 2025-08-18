@@ -31,9 +31,22 @@ export interface ReminderNotification {
   deliveredAt?: Date;
 }
 
-export type WeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+export type WeekDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
 
-export type ReminderCategory = 'practice' | 'yichudim' | 'gratitude' | 'study' | 'intention' | 'custom';
+export type ReminderCategory =
+  | 'practice'
+  | 'yichudim'
+  | 'gratitude'
+  | 'study'
+  | 'intention'
+  | 'custom';
 
 export interface ReminderCategoryInfo {
   id: ReminderCategory;
@@ -77,7 +90,7 @@ export const INTENTION_MESSAGES = [
   'Соедини свои действия с намерением',
   'Помни о духовной работе',
   'Направь сердце к отдаче',
-  'Проверь чистоту своих мыслей'
+  'Проверь чистоту своих мыслей',
 ];
 
 // Predefined reminder categories
@@ -86,38 +99,38 @@ export const REMINDER_CATEGORIES: ReminderCategoryInfo[] = [
     id: 'practice',
     name: 'Практики',
     icon: 'self_improvement',
-    color: 'bg-purple-100 text-purple-800'
+    color: 'bg-purple-100 text-purple-800',
   },
   {
     id: 'yichudim',
     name: 'Ихудим',
     icon: 'spa',
-    color: 'bg-blue-100 text-blue-800'
+    color: 'bg-blue-100 text-blue-800',
   },
   {
     id: 'gratitude',
     name: 'Благодарность',
     icon: 'favorite',
-    color: 'bg-pink-100 text-pink-800'
+    color: 'bg-pink-100 text-pink-800',
   },
   {
     id: 'study',
     name: 'Изучение',
     icon: 'menu_book',
-    color: 'bg-green-100 text-green-800'
+    color: 'bg-green-100 text-green-800',
   },
   {
     id: 'intention',
     name: 'Намерение',
     icon: 'track_changes',
-    color: 'bg-indigo-100 text-indigo-800'
+    color: 'bg-indigo-100 text-indigo-800',
   },
   {
     id: 'custom',
     name: 'Другое',
     icon: 'notifications',
-    color: 'bg-gray-100 text-gray-800'
-  }
+    color: 'bg-gray-100 text-gray-800',
+  },
 ];
 
 // Week days configuration
@@ -128,20 +141,23 @@ export const WEEK_DAYS: { id: WeekDay; short: string; full: string }[] = [
   { id: 'thursday', short: 'ЧТ', full: 'Четверг' },
   { id: 'friday', short: 'ПТ', full: 'Пятница' },
   { id: 'saturday', short: 'СБ', full: 'Суббота' },
-  { id: 'sunday', short: 'ВС', full: 'Воскресенье' }
+  { id: 'sunday', short: 'ВС', full: 'Воскресенье' },
 ];
 
 // Helper functions
 export function getWeekDayName(day: WeekDay): string {
-  return WEEK_DAYS.find(d => d.id === day)?.full || day;
+  return WEEK_DAYS.find((d) => d.id === day)?.full || day;
 }
 
 export function getWeekDayShort(day: WeekDay): string {
-  return WEEK_DAYS.find(d => d.id === day)?.short || day;
+  return WEEK_DAYS.find((d) => d.id === day)?.short || day;
 }
 
 export function getCategoryInfo(category: ReminderCategory): ReminderCategoryInfo {
-  return REMINDER_CATEGORIES.find(c => c.id === category) || REMINDER_CATEGORIES[REMINDER_CATEGORIES.length - 1];
+  return (
+    REMINDER_CATEGORIES.find((c) => c.id === category) ||
+    REMINDER_CATEGORIES[REMINDER_CATEGORIES.length - 1]
+  );
 }
 
 export function getRandomIntentionMessage(): string {

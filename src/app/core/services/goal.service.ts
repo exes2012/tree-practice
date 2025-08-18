@@ -18,12 +18,12 @@ export interface GoalPractice {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GoalService {
   private readonly GOALS_KEY = 'goals';
 
-  constructor() { }
+  constructor() {}
 
   private getGoals(): Goal[] {
     const goalsJson = localStorage.getItem(this.GOALS_KEY);
@@ -39,14 +39,14 @@ export class GoalService {
   }
 
   getGoalById(id: string): Goal | undefined {
-    return this.getGoals().find(goal => goal.id === id);
+    return this.getGoals().find((goal) => goal.id === id);
   }
 
   addGoal(goal: Goal): void {
     const goals = this.getGoals();
     if (goal.isMainGoal) {
       // Ensure only one main goal
-      goals.forEach(g => g.isMainGoal = false);
+      goals.forEach((g) => (g.isMainGoal = false));
     }
     goals.push(goal);
     this.saveGoals(goals);
@@ -56,21 +56,21 @@ export class GoalService {
     let goals = this.getGoals();
     if (updatedGoal.isMainGoal) {
       // Ensure only one main goal
-      goals.forEach(g => g.isMainGoal = false);
+      goals.forEach((g) => (g.isMainGoal = false));
     }
-    goals = goals.map(goal => goal.id === updatedGoal.id ? updatedGoal : goal);
+    goals = goals.map((goal) => (goal.id === updatedGoal.id ? updatedGoal : goal));
     this.saveGoals(goals);
   }
 
   deleteGoal(id: string): void {
     let goals = this.getGoals();
-    goals = goals.filter(goal => goal.id !== id);
+    goals = goals.filter((goal) => goal.id !== id);
     this.saveGoals(goals);
   }
 
   addPracticeToGoal(goalId: string, practice: GoalPractice): void {
     const goals = this.getGoals();
-    const goal = goals.find(g => g.id === goalId);
+    const goal = goals.find((g) => g.id === goalId);
     if (goal) {
       goal.practices.push(practice);
       this.saveGoals(goals);

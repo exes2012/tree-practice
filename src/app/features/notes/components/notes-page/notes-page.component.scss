@@ -1,53 +1,53 @@
 .notes-page {
   height: 100%;
-  
+
   .search-input {
     transition: all 0.2s ease-in-out;
-    
+
     &:focus {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
   }
-  
+
   .filter-tag {
     transition: all 0.2s ease-in-out;
-    
+
     &:hover {
       transform: translateY(-1px);
     }
-    
+
     &.active {
       transform: scale(1.05);
     }
   }
-  
+
   .notes-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    
+
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
     }
   }
-  
+
   .fab {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &:hover {
       transform: scale(1.1);
     }
-    
+
     &:active {
       transform: scale(0.95);
     }
   }
-  
+
   .loading-spinner {
     animation: spin 1s linear infinite;
   }
-  
+
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -56,11 +56,11 @@
       transform: rotate(360deg);
     }
   }
-  
+
   .empty-state {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -71,18 +71,18 @@
       transform: translateY(0);
     }
   }
-  
+
   .filter-chip {
     transition: all 0.2s ease-in-out;
-    
+
     &:hover {
       transform: translateY(-1px);
     }
   }
-  
+
   .sort-button {
     position: relative;
-    
+
     &.active::after {
       content: '';
       position: absolute;

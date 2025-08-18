@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseService {
-
-  constructor() { }
+  constructor() {}
 
   // TODO: Initialize Firebase when ready
   initializeFirebase() {

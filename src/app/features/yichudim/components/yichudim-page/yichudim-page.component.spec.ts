@@ -8,9 +8,8 @@ describe('YichudimPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [YichudimPageComponent]
-    })
-    .compileComponents();
+      imports: [YichudimPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(YichudimPageComponent);
     component = fixture.componentInstance;

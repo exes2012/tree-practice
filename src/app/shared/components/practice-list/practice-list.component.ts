@@ -1,4 +1,3 @@
-
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,7 +17,7 @@ export interface PracticeCard {
   templateUrl: './practice-list.component.html',
   styleUrls: ['./practice-list.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class PracticeListComponent {
   @Input() practices: PracticeCard[] = [];

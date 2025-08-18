@@ -7,8 +7,8 @@
   --primary-200: #e2e8f0;
   --primary-300: #cbd5e1;
   --primary-400: #94a3b8;
-  --primary-500: #3B4A5C; // Основной цвет приложения
-  --primary-600: #2F3A47; // Hover состояние
+  --primary-500: #3b4a5c; // Основной цвет приложения
+  --primary-600: #2f3a47; // Hover состояние
   --primary-700: #1e293b;
   --primary-800: #0f172a;
   --primary-900: #020617;
@@ -24,40 +24,40 @@
   height: 8px;
   border-radius: 4px;
   outline: none;
-  
+
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #3B4A5C;
+    background: #3b4a5c;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    
+
     &:hover {
-      background: #2F3A47;
+      background: #2f3a47;
     }
   }
-  
+
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #3B4A5C;
+    background: #3b4a5c;
     cursor: pointer;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    
+
     &:hover {
-      background: #2F3A47;
+      background: #2f3a47;
     }
   }
 }
 
 .rating-container {
   .range-slider {
-    background: linear-gradient(to right, #EF4444 0%, #F59E0B 25%, #10B981 75%, #22C55E 100%);
+    background: linear-gradient(to right, #ef4444 0%, #f59e0b 25%, #10b981 75%, #22c55e 100%);
   }
 }
 
@@ -87,60 +87,72 @@
 // Стили для отображения повторяемой фразы
 .repeatable-phrase {
   strong {
-    color: #3B4A5C;
+    color: #3b4a5c;
   }
 }
 
 // Улучшенные кнопки
 button {
+  background-color: rgb(var(--primary-500));
+  color: white;
+  border: none;
   transition: all 0.2s ease-in-out;
-  
+
   &:focus {
-    outline: 2px solid var(--primary-500);
+    outline: 2px solid rgb(var(--primary-500));
     outline-offset: 2px;
   }
-  
+
+  &:hover {
+    background-color: rgb(var(--primary-600));
+  }
+
+  &:active {
+    background-color: rgb(var(--primary-700));
+  }
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
+
   // Primary кнопки
   &.bg-primary-500 {
-    background-color: var(--primary-500);
+    background-color: rgb(var(--primary-500));
     color: white;
-    
+
     &:hover {
-      background-color: var(--primary-600);
+      background-color: rgb(var(--primary-600));
     }
-    
+
     &:active {
-      background-color: var(--primary-700);
+      background-color: rgb(var(--primary-700));
     }
   }
-  
+
   &.hover\\:bg-primary-600:hover {
-    background-color: var(--primary-600) !important;
+    background-color: rgb(var(--primary-600)) !important;
   }
 }
 
 // Стили для input полей
-textarea, input[type="text"] {
+textarea,
+input[type='text'] {
   transition: border-color 0.2s ease-in-out;
-  
+
   &:focus {
-    border-color: #3B4A5C;
+    border-color: #3b4a5c;
     box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
   }
 }
 
 // Стили для радио кнопок
-input[type="radio"] {
+input[type='radio'] {
   &:checked {
-    background-color: #3B4A5C;
-    border-color: #3B4A5C;
+    background-color: #3b4a5c;
+    border-color: #3b4a5c;
   }
-  
+
   &:focus {
     box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
   }
@@ -152,21 +164,21 @@ input[type="radio"] {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   .practice-header {
     h1 {
       font-size: 1rem;
     }
   }
-  
+
   .step-content {
     padding: 1rem;
   }
-  
+
   .navigation-buttons {
     flex-direction: column-reverse;
     gap: 0.5rem;
-    
+
     button {
       width: 100%;
     }

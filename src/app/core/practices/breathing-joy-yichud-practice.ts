@@ -46,7 +46,7 @@ export async function* breathingJoyYichudPractice(context: PracticeContext) {
     'Практика дыхания хедва (חדוה)',
     'Дышите в ритме слова "радость" на иврите. Робот будет вас направлять через каждую фазу дыхания: ח (Хет) — вдох 8 сек, ד (Далет) — задержка 4 сек, ו (Вав) — выдох 6 сек, ה (Хей) — пауза 5 сек.',
     8, // вдох
-    4, // задержка  
+    4, // задержка
     6, // выдох
     5, // пауза
     10 // количество циклов
@@ -64,7 +64,7 @@ export async function* breathingJoyYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -72,16 +72,18 @@ export async function* breathingJoyYichudPractice(context: PracticeContext) {
 export const breathingJoyYichudPracticeConfig: PracticeConfig = {
   id: 'breathing-joy-yichud',
   title: 'Дышать радостью',
-  description: '«Каждое дыхание, воздай хвалу Богу». Мы будем дышать радостью, используя ивритское слово חדוה (хедва) для ритма дыхания. Четыре буквы слова "радость" соответствуют четырем этапам дыхательного цикла: вдох (8), удерживание (4), выдох (6), отдых (5).',
-  
+  description:
+    '«Каждое дыхание, воздай хвалу Богу». Мы будем дышать радостью, используя ивритское слово חדוה (хедва) для ритма дыхания. Четыре буквы слова "радость" соответствуют четырем этапам дыхательного цикла: вдох (8), удерживание (4), выдох (6), отдых (5).',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Дышать радостью',
-    description: '«Каждое дыхание, воздай хвалу Богу». Мы будем дышать радостью, используя ивритское слово חדוה (хедва) для ритма дыхания. Четыре буквы слова "радость" соответствуют четырем этапам дыхательного цикла: вдох (8), удерживание (4), выдох (6), отдых (5).',
+    description:
+      '«Каждое дыхание, воздай хвалу Богу». Мы будем дышать радостью, используя ивритское слово חדוה (хедва) для ритма дыхания. Четыре буквы слова "радость" соответствуют четырем этапам дыхательного цикла: вдох (8), удерживание (4), выдох (6), отдых (5).',
     duration: '20 мин',
-    level: 'Начальный'
+    level: 'Начальный',
   },
-  
+
   practiceFunction: breathingJoyYichudPractice,
 
   onFinish: async (context, result) => {
@@ -100,9 +102,9 @@ export const breathingJoyYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

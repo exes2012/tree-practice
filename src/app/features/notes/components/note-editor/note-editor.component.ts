@@ -11,7 +11,7 @@ import { NotesService, Note } from '../../../../core/services/notes.service';
   selector: 'app-note-editor',
   imports: [CommonModule, FormsModule],
   templateUrl: './note-editor.component.html',
-  styleUrls: ['./note-editor.component.scss']
+  styleUrls: ['./note-editor.component.scss'],
 })
 export class NoteEditorComponent implements OnInit, OnDestroy {
   note: Note | null = null;
@@ -37,7 +37,7 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const noteId = this.route.snapshot.paramMap.get('id');
-    
+
     if (noteId === 'new' || !noteId) {
       this.createNewNote();
     } else {
@@ -69,7 +69,8 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.hasUnsavedChanges) {
-      $event.returnValue = 'У вас есть несохраненные изменения. Вы уверены, что хотите покинуть страницу?';
+      $event.returnValue =
+        'У вас есть несохраненные изменения. Вы уверены, что хотите покинуть страницу?';
     }
   }
 
@@ -105,7 +106,7 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
       this.router.navigate(['/notes']);
       return;
     }
-    
+
     this.isLoading = false;
     this.initialLoad = false;
     this.focusEditor();
@@ -125,7 +126,7 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
     if (this.isSaving) return;
 
     this.isSaving = true;
-    
+
     try {
       if (this.isNewNote) {
         const noteId = await this.notesService.createNote(this.title, this.content);
@@ -137,12 +138,12 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
       } else if (this.note) {
         await this.notesService.updateNote(this.note.id, {
           title: this.title,
-          content: this.content
+          content: this.content,
         });
         const updatedNote = await this.notesService.getNote(this.note.id);
         if (updatedNote) this.note = updatedNote;
       }
-      
+
       this.hasUnsavedChanges = false;
     } catch (error) {
       console.error('Error saving note:', error);
@@ -169,7 +170,7 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
 
     try {
       await this.notesService.updateNote(this.note.id, {
-        isFavorite: !this.note.isFavorite
+        isFavorite: !this.note.isFavorite,
       });
       const updatedNote = await this.notesService.getNote(this.note.id);
       if (updatedNote) this.note = updatedNote;
@@ -187,9 +188,6 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
       this.router.navigate(['/notes']);
     }
   }
-
-
-
 
   insertList() {
     const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
@@ -329,12 +327,12 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = this.content.substring(start, end);
-    
+
     let textToInsert = selectedText || 'тег';
     const newText = '#' + textToInsert;
-    
+
     this.content = this.content.substring(0, start) + newText + this.content.substring(end);
-    
+
     // Position cursor after the hashtag
     setTimeout(() => {
       if (selectedText) {
@@ -380,10 +378,10 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
 
     const listPattern = /^(\s*)([-*+])\s(.*)$/;
     const numberedListPattern = /^(\s*)(\d+)\.\s(.*)$/;
-    
+
     let match = currentLine.match(listPattern);
     let isNumberedList = false;
-    
+
     if (!match) {
       match = currentLine.match(numberedListPattern);
       isNumberedList = true;
@@ -392,14 +390,14 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
     if (match) {
       event.preventDefault();
       const [, indent, marker, content] = match;
-      
+
       if (content.trim() === '') {
         // Empty list item - remove it and exit list mode
         const beforeLine = this.content.substring(0, start - currentLine.length);
         const afterCursor = this.content.substring(start);
         this.content = beforeLine + indent + afterCursor;
         this.onContentChange();
-        
+
         setTimeout(() => {
           const newPos = start - currentLine.length + indent.length;
           textarea.setSelectionRange(newPos, newPos);
@@ -411,13 +409,13 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
           const num = parseInt(marker) + 1;
           newMarker = num.toString();
         }
-        
+
         const newListItem = indent + newMarker + (isNumberedList ? '.' : '') + ' ';
         const afterCursor = this.content.substring(start);
-        
+
         this.content = beforeCursor + '\n' + newListItem + afterCursor;
         this.onContentChange();
-        
+
         setTimeout(() => {
           const newPos = start + 1 + newListItem.length;
           textarea.setSelectionRange(newPos, newPos);
@@ -429,8 +427,6 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
   toggleFormattingToolbar() {
     this.showFormatting = !this.showFormatting;
   }
-
-
 
   private focusEditor() {
     setTimeout(() => {
@@ -446,7 +442,10 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
   }
 
   getWordCount(): number {
-    return this.content.trim().split(/\s+/).filter(word => word.length > 0).length;
+    return this.content
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
   }
 
   getCharCount(): number {
@@ -457,6 +456,6 @@ export class NoteEditorComponent implements OnInit, OnDestroy {
     const tagRegex = /#([а-яё\w]+)/gi;
     const matches = this.content.match(tagRegex);
     if (!matches) return [];
-    return [...new Set(matches.map(match => match.substring(1).toLowerCase()))];
+    return [...new Set(matches.map((match) => match.substring(1).toLowerCase()))];
   }
 }

@@ -8,7 +8,7 @@
 .goal-title-header {
   font-size: 1.25rem; /* Reduced from 1.5rem */
   font-weight: 600; /* Reduced from 700 */
-  color: #3B4A5C;
+  color: #3b4a5c;
   margin-bottom: 20px;
   margin-top: 36px; /* Increased from 24px */
   line-height: 1.3;
@@ -41,7 +41,7 @@
 
     .summary-value {
       font-weight: 500;
-      color: #3B4A5C;
+      color: #3b4a5c;
       font-size: 1rem;
     }
   }
@@ -52,7 +52,7 @@
     margin-bottom: 16px;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #3B4A5C;
+    color: #3b4a5c;
     border-bottom: 2px solid #f3f4f6;
     padding-bottom: 8px;
   }
@@ -83,7 +83,7 @@
     .practice-title {
       font-weight: 600;
       margin-bottom: 8px;
-      color: #3B4A5C;
+      color: #3b4a5c;
       font-size: 1rem;
       line-height: 1.4;
     }
@@ -112,7 +112,7 @@
 }
 
 .add-practice-button {
-  background-color: #3B4A5C;
+  background-color: #3b4a5c;
   border: none;
   color: white;
   padding: 12px 24px;
@@ -129,7 +129,7 @@
   max-width: 300px;
 
   &:hover {
-    background-color: #2F3A47;
+    background-color: #2f3a47;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
   }
@@ -161,5 +161,3 @@
     font-size: 20px;
   }
 }
-
-

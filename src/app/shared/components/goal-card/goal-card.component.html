@@ -1,9 +1,14 @@
-<div class="goal-card" (click)="onCardClick()">
+<div class="goal-card @container" (click)="onCardClick()">
   <div class="goal-image-container">
-    <img *ngIf="goal.imageUrl; else noImage" [src]="goal.imageUrl" alt="Goal Image" class="goal-image">
+    <img
+      *ngIf="goal.imageUrl; else noImage"
+      [src]="goal.imageUrl"
+      alt="Goal Image"
+      class="goal-image"
+    />
     <ng-template #noImage>
       <div class="no-image-placeholder">
-        <img src="/assets/icons/no-image.svg" alt="No Image" class="no-image-icon">
+        <img src="/assets/icons/no-image.svg" alt="No Image" class="no-image-icon" />
       </div>
     </ng-template>
   </div>

@@ -1,49 +1,76 @@
 <!-- Practice Header -->
-<div class="practice-header bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+<div
+  class="practice-header sticky top-0 z-10 border-b border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+>
   <div class="container mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
       <!-- Home Button -->
-      <button (click)="onHomeClick()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+      <button
+        (click)="onHomeClick()"
+        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+      >
         <i class="material-icons text-gray-700 dark:text-gray-300">home</i>
       </button>
-      
+
       <!-- Practice Title -->
-      <h1 *ngIf="config?.title" class="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center flex-1 mx-4">{{ config.title }}</h1>
-      
+      <h1
+        *ngIf="config?.title"
+        class="mx-4 flex-1 text-center text-lg font-semibold text-gray-900 dark:text-gray-100"
+      >
+        {{ config.title }}
+      </h1>
+
       <!-- Voice Toggle Button -->
-      <button (click)="onVoiceToggle()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-        <i class="material-icons text-gray-700 dark:text-gray-300">{{ isVoiceEnabled ? 'volume_up' : 'volume_off' }}</i>
+      <button
+        (click)="onVoiceToggle()"
+        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+      >
+        <i class="material-icons text-gray-700 dark:text-gray-300">{{
+          isVoiceEnabled ? 'volume_up' : 'volume_off'
+        }}</i>
       </button>
     </div>
   </div>
 </div>
 
 <!-- Start Screen -->
-<div *ngIf="showStartScreen && config.startScreenContent" class="container mx-auto px-4 pt-4 pb-24">
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+<div *ngIf="showStartScreen && config.startScreenContent" class="container mx-auto px-4 pb-24 pt-4">
+  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
     <!-- Simple Header -->
-    <div class="text-center mb-6">
-      <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ config.startScreenContent.title }}</h1>
-      
+    <div class="mb-6 text-center">
+      <h1 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+        {{ config.startScreenContent.title }}
+      </h1>
+
       <!-- Duration and Level info in simple format -->
-      <div class="flex justify-center gap-4 text-sm text-gray-600 dark:text-gray-400" *ngIf="config.startScreenContent.duration || config.startScreenContent.level">
+      <div
+        class="flex justify-center gap-4 text-sm text-gray-600 dark:text-gray-400"
+        *ngIf="config.startScreenContent.duration || config.startScreenContent.level"
+      >
         <span *ngIf="config.startScreenContent.duration" class="flex items-center">
-          <i class="material-icons text-sm mr-1">schedule</i>{{ config.startScreenContent.duration }}
+          <i class="material-icons mr-1 text-sm">schedule</i
+          >{{ config.startScreenContent.duration }}
         </span>
         <span *ngIf="config.startScreenContent.level" class="flex items-center">
-          <i class="material-icons text-sm mr-1">trending_up</i>{{ config.startScreenContent.level }}
+          <i class="material-icons mr-1 text-sm">trending_up</i
+          >{{ config.startScreenContent.level }}
         </span>
       </div>
     </div>
-    
+
     <!-- Description -->
     <div class="mb-6">
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-center">{{ config.startScreenContent.description }}</p>
+      <p class="text-center leading-relaxed text-gray-700 dark:text-gray-300">
+        {{ config.startScreenContent.description }}
+      </p>
     </div>
-    
+
     <!-- Start Button -->
     <div class="text-center">
-      <button (click)="startPractice()" class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
+      <button
+        (click)="startPractice()"
+        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+      >
         Начать практику
       </button>
     </div>
@@ -51,26 +78,33 @@
 </div>
 
 <!-- Practice Content -->
-<div *ngIf="!showStartScreen && currentStep" class="container mx-auto px-4 pt-4 pb-24">
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-
+<div *ngIf="!showStartScreen && currentStep" class="container mx-auto px-4 pb-24 pt-4">
+  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
     <!-- Step Content -->
-    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ currentStep.title }}</h2>
+    <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+      {{ currentStep.title }}
+    </h2>
 
-    <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="currentStep.instruction"></p>
+    <p class="mb-6 text-gray-700 dark:text-gray-300" [innerHTML]="currentStep.instruction"></p>
 
     <!-- Auto Timer Display -->
-    <div *ngIf="currentStep.autoTimer && currentStep.autoTimer?.showCountdown !== false" class="text-center my-4 text-4xl font-bold" style="color: #3B4A5C;">
+    <div
+      *ngIf="currentStep.autoTimer && currentStep.autoTimer?.showCountdown !== false"
+      class="text-chart my-4 text-center text-4xl font-bold"
+    >
       <span *ngIf="isAutoTimerActive">{{ getAutoTimerDisplay() }}</span>
       <span *ngIf="!isAutoTimerActive">0:00</span>
     </div>
 
     <!-- Hebrew Display -->
-    <div *ngIf="currentStep.hebrewDisplay" class="hebrew-display text-center mb-6">
+    <div *ngIf="currentStep.hebrewDisplay" class="hebrew-display mb-6 text-center">
       <div class="hebrew-text mb-4" [ngClass]="getHebrewTextClasses()">
         {{ currentStep.hebrewDisplay.text }}
       </div>
-      <div *ngIf="currentStep.hebrewDisplay.transliteration" class="transliteration text-lg text-gray-600 dark:text-gray-400">
+      <div
+        *ngIf="currentStep.hebrewDisplay.transliteration"
+        class="transliteration text-lg text-gray-600 dark:text-gray-400"
+      >
         ({{ currentStep.hebrewDisplay.transliteration }})
       </div>
     </div>
@@ -81,37 +115,39 @@
         <button
           *ngFor="let button of currentStep.customButtons"
           (click)="onCustomButtonClick(button)"
-          class="w-full font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center text-white"
-          style="background-color: #3B4A5C;"
-          onmouseover="this.style.backgroundColor='#2F3A47'"
-          onmouseout="this.style.backgroundColor='#3B4A5C'">
-          <i *ngIf="getCustomButtonIcon(button)" class="material-icons mr-3">{{ getCustomButtonIcon(button) }}</i>
+          class="bg-chart flex w-full items-center justify-center rounded-lg px-5 py-3 font-semibold text-white transition-colors hover:bg-gray-700"
+        >
+          <i *ngIf="getCustomButtonIcon(button)" class="material-icons mr-3">{{
+            getCustomButtonIcon(button)
+          }}</i>
           {{ button.text }}
         </button>
       </div>
-
     </div>
 
     <!-- Legacy Choice buttons for backward compatibility -->
     <div *ngIf="currentStep.type === 'choice' && !currentStep.customButtons?.length" class="mb-6">
-      <div class="flex gap-4 justify-center">
+      <div class="flex justify-center gap-4">
         <button
           (click)="onChoiceSelected('yes')"
-          class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors">
+          class="rounded-lg bg-green-600 px-6 py-3 font-medium text-white transition-colors hover:bg-green-700"
+        >
           Да
         </button>
         <button
           (click)="onChoiceSelected('no')"
-          class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors">
+          class="rounded-lg bg-red-600 px-6 py-3 font-medium text-white transition-colors hover:bg-red-700"
+        >
           Нет
         </button>
       </div>
 
       <!-- Кнопка "На главную" для choice, если нельзя вернуться назад -->
-      <div *ngIf="!canGoBack" class="flex justify-center mt-4">
+      <div *ngIf="!canGoBack" class="mt-4 flex justify-center">
         <button
           (click)="onHomeClick()"
-          class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-lg transition-colors">
+          class="rounded-lg bg-gray-300 px-4 py-2 font-medium text-gray-800 transition-colors hover:bg-gray-400"
+        >
           На главную
         </button>
       </div>
@@ -120,7 +156,10 @@
     <!-- Input Field -->
     <div *ngIf="currentStep.type === 'input'" class="mb-6">
       <!-- Radio buttons -->
-      <div *ngIf="currentStep.inputConfig?.type === 'radio' && currentStep.inputConfig?.options" class="space-y-3">
+      <div
+        *ngIf="currentStep.inputConfig?.type === 'radio' && currentStep.inputConfig?.options"
+        class="space-y-3"
+      >
         <div *ngFor="let option of currentStep.inputConfig!.options" class="flex items-center">
           <input
             type="radio"
@@ -129,8 +168,12 @@
             [value]="option.value"
             [checked]="userInput === option.value"
             (change)="userInput = option.value"
-            class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label [for]="currentStep.inputConfig!.field + '_' + option.value" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            class="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
+          />
+          <label
+            [for]="currentStep.inputConfig!.field + '_' + option.value"
+            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
             {{ option.label }}
           </label>
         </div>
@@ -143,27 +186,33 @@
           [min]="currentStep.inputConfig!.min || 1"
           [max]="currentStep.inputConfig!.max || 10"
           [(ngModel)]="userInput"
-          class="range-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-        <div class="text-center mt-2">
-          <span class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ userInput }} / {{ currentStep.inputConfig!.max || 10 }}</span>
+          class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+        />
+        <div class="mt-2 text-center">
+          <span class="text-lg font-semibold text-gray-700 dark:text-gray-300"
+            >{{ userInput }} / {{ currentStep.inputConfig!.max || 10 }}</span
+          >
         </div>
       </div>
 
       <!-- Text/Textarea inputs -->
       <textarea
-        *ngIf="currentStep.inputConfig?.type !== 'radio' && currentStep.inputConfig?.type !== 'number'"
+        *ngIf="
+          currentStep.inputConfig?.type !== 'radio' && currentStep.inputConfig?.type !== 'number'
+        "
         [(ngModel)]="userInput"
         [placeholder]="getInputPlaceholder()"
-        class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-vertical min-h-[120px]">
+        class="focus:ring-primary-500 resize-vertical min-h-input w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+      >
       </textarea>
     </div>
 
     <!-- Rating -->
     <div *ngIf="currentStep.type === 'rating'" class="mt-6">
-      <div class="text-center mb-6">
+      <div class="mb-6 text-center">
         <!-- Rating icon display -->
         <div class="mb-4">
-          <i class="material-icons" style="font-size: 5rem; color: #3B4A5C;">{{ getRatingIcon() }}</i>
+          <i class="material-icons text-chart text-5xl">{{ getRatingIcon() }}</i>
         </div>
 
         <!-- Rating slider -->
@@ -173,7 +222,8 @@
             [min]="currentStep.ratingConfig?.min || 1"
             [max]="currentStep.ratingConfig?.max || 10"
             [(ngModel)]="userRating"
-            class="range-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+          />
         </div>
 
         <!-- Rating value display -->
@@ -186,101 +236,126 @@
     <!-- Breathing Exercise -->
     <div *ngIf="currentStep.type === 'breathing'" class="mt-6">
       <div class="breathing-exercise text-center">
-        
         <!-- Breathing Display -->
         <div class="mb-6">
           <div class="breathing-phase-display mb-4">
             <!-- Большая еврейская буква в центре -->
-            <div class="text-8xl font-bold mb-2 leading-none" [ngClass]="getBreathingPhaseColor()">
+            <div class="mb-2 text-8xl font-bold leading-none" [ngClass]="getBreathingPhaseColor()">
               {{ getBreathingHebrewLetter() }}
             </div>
             <!-- Русское слово меньшим шрифтом -->
-            <div class="text-2xl font-medium mb-1" [ngClass]="getBreathingPhaseColor()">
+            <div class="mb-1 text-2xl font-medium" [ngClass]="getBreathingPhaseColor()">
               {{ getBreathingRussianWord() }}
             </div>
             <div class="text-sm text-gray-600 dark:text-gray-400">
               {{ getBreathingPhaseInstruction() }}
             </div>
           </div>
-          
+
           <!-- Timer Display -->
           <div class="timer-display mb-4" *ngIf="currentStep.breathingConfig?.showTimer">
-            <div class="text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            <div class="mb-2 text-6xl font-bold text-blue-600 dark:text-blue-400">
               {{ breathingPhaseTimer }}
             </div>
             <div class="text-sm text-gray-500 dark:text-gray-500">
-              Цикл {{ breathingCycles }} {{ currentStep.breathingConfig?.cycles ? '/ ' + currentStep.breathingConfig?.cycles : '' }}
+              Цикл {{ breathingCycles }}
+              {{
+                currentStep.breathingConfig?.cycles
+                  ? '/ ' + currentStep.breathingConfig?.cycles
+                  : ''
+              }}
             </div>
           </div>
-          
+
           <!-- Progress Bar -->
           <div class="progress-bar mb-4" *ngIf="currentStep.breathingConfig?.cycles">
-            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-              <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-1000" 
-                   [style.width.%]="getBreathingProgress()"></div>
+            <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+              <div
+                class="h-2.5 rounded-full bg-blue-600 transition-all duration-1000"
+                [style.width.%]="getBreathingProgress()"
+              ></div>
             </div>
           </div>
         </div>
-        
+
         <!-- Control Buttons - Компактные -->
         <div class="flex justify-center gap-3">
-          <button 
-            *ngIf="!isBreathingActive" 
-            (click)="startBreathing()" 
-            class="flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
-            <i class="material-icons text-lg mr-1">play_arrow</i>
+          <button
+            *ngIf="!isBreathingActive"
+            (click)="startBreathing()"
+            class="flex items-center rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700"
+          >
+            <i class="material-icons mr-1 text-lg">play_arrow</i>
             <span>Начать</span>
           </button>
-          
-          <button 
-            *ngIf="isBreathingActive" 
-            (click)="pauseBreathing()" 
-            class="flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors">
-            <i class="material-icons text-lg mr-1">pause</i>
+
+          <button
+            *ngIf="isBreathingActive"
+            (click)="pauseBreathing()"
+            class="flex items-center rounded-lg bg-yellow-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-yellow-700"
+          >
+            <i class="material-icons mr-1 text-lg">pause</i>
             <span>Пауза</span>
           </button>
-          
-          <button 
-            *ngIf="isBreathingActive" 
-            (click)="stopBreathing()" 
-            class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-            <i class="material-icons text-lg mr-1">stop</i>
+
+          <button
+            *ngIf="isBreathingActive"
+            (click)="stopBreathing()"
+            class="flex items-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+          >
+            <i class="material-icons mr-1 text-lg">stop</i>
             <span>Стоп</span>
           </button>
         </div>
-        
       </div>
     </div>
 
     <!-- Repetition Section -->
     <div *ngIf="currentStep.repeatablePhrase && currentStep.showToggleRepetition" class="mt-6">
       <!-- Repeatable phrase display - ПЕРЕД кнопкой -->
-      <div class="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border border-blue-200 dark:border-blue-700 mb-4">
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed font-bold" [innerHTML]="currentStep.repeatablePhrase"></p>
+      <div
+        class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-700 dark:bg-blue-900"
+      >
+        <p
+          class="font-bold leading-relaxed text-gray-700 dark:text-gray-300"
+          [innerHTML]="currentStep.repeatablePhrase"
+        ></p>
       </div>
-      
+
       <!-- Control button -->
       <div class="text-center">
-        <button (click)="onRepetitionToggle()" class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-800 hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors mx-auto">
-          <i class="material-icons text-blue-700 dark:text-blue-300">{{ isRepetitionActive ? 'volume_off' : 'volume_up' }}</i>
+        <button
+          (click)="onRepetitionToggle()"
+          class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 transition-colors hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-700"
+        >
+          <i class="material-icons text-blue-700 dark:text-blue-300">{{
+            isRepetitionActive ? 'volume_off' : 'volume_up'
+          }}</i>
         </button>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">{{ isRepetitionActive ? 'Остановить повтор' : 'Включить повтор' }}</p>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          {{ isRepetitionActive ? 'Остановить повтор' : 'Включить повтор' }}
+        </p>
       </div>
     </div>
 
     <!-- Navigation Buttons (скрываем если есть кастомные кнопки или choice) -->
-    <div *ngIf="currentStep.type !== 'choice' && !currentStep.customButtons?.length" class="flex justify-between mt-8">
+    <div
+      *ngIf="currentStep.type !== 'choice' && !currentStep.customButtons?.length"
+      class="mt-8 flex justify-between"
+    >
       <!-- Back Button -->
       <button
         *ngIf="canGoBack"
         (click)="onBackClick()"
-        class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg transition-colors">
+        class="rounded-lg bg-primary-300 px-6 py-2 font-semibold text-gray-800 transition-colors hover:bg-primary-400"
+      >
         Назад
       </button>
       <button
         *ngIf="!canGoBack"
         (click)="onHomeClick()"
-        class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg transition-colors">
+        class="rounded-lg bg-primary-300 px-6 py-2 font-semibold text-gray-800 transition-colors hover:bg-primary-400"
+      >
         На главную
       </button>
 
@@ -288,14 +363,16 @@
       <button
         *ngIf="canGoNext"
         (click)="onNextClick()"
-        class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
+        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+      >
         {{ currentStep.buttonText || 'Далее' }}
       </button>
 
       <button
         *ngIf="showFinishButton"
         (click)="onFinishClick()"
-        class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
+        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+      >
         {{ currentStep.buttonText || 'Завершить' }}
       </button>
     </div>
@@ -303,17 +380,23 @@
 </div>
 
 <!-- Loading/Finished States -->
-<div *ngIf="!showStartScreen && !currentStep && !isFinished" class="container mx-auto px-4 pt-8 text-center">
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+<div
+  *ngIf="!showStartScreen && !currentStep && !isFinished"
+  class="container mx-auto px-4 pt-8 text-center"
+>
+  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
     <p class="text-gray-700 dark:text-gray-300">Загрузка практики...</p>
   </div>
 </div>
 
 <div *ngIf="isFinished && !showStartScreen" class="container mx-auto px-4 pt-8 text-center">
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Практика завершена!</h2>
-    <p class="text-gray-700 dark:text-gray-300 mb-6">Спасибо за выполнение практики.</p>
-    <button (click)="onHomeClick()" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg">
+  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
+    <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">Практика завершена!</h2>
+    <p class="mb-6 text-gray-700 dark:text-gray-300">Спасибо за выполнение практики.</p>
+    <button
+      (click)="onHomeClick()"
+      class="bg-primary-500 hover:bg-primary-600 rounded-lg px-6 py-2 font-semibold text-white"
+    >
       На главную
     </button>
   </div>

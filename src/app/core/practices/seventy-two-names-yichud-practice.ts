@@ -14,7 +14,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Вав-Хэй-Вав'
+      transliteration: 'Вав-Хэй-Вав',
     }
   );
 
@@ -27,7 +27,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йюд-Ламед-Йюд'
+      transliteration: 'Йюд-Ламед-Йюд',
     }
   );
 
@@ -40,7 +40,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Самэх-Йуд-Тет'
+      transliteration: 'Самэх-Йуд-Тет',
     }
   );
 
@@ -53,7 +53,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Аин-Ламед-Мэм'
+      transliteration: 'Аин-Ламед-Мэм',
     }
   );
 
@@ -66,7 +66,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Хэй-Шин'
+      transliteration: 'Мэм-Хэй-Шин',
     }
   );
 
@@ -79,7 +79,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Ламед-Хэй'
+      transliteration: 'Ламед-Ламед-Хэй',
     }
   );
 
@@ -92,7 +92,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Алеф-Хаф-Алеф'
+      transliteration: 'Алеф-Хаф-Алеф',
     }
   );
 
@@ -105,7 +105,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Каф-Хэй-Тав'
+      transliteration: 'Каф-Хэй-Тав',
     }
   );
 
@@ -118,7 +118,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Заин-Йюд'
+      transliteration: 'Хэй-Заин-Йюд',
     }
   );
 
@@ -131,7 +131,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Алеф-Ламед-Далет'
+      transliteration: 'Алеф-Ламед-Далет',
     }
   );
 
@@ -144,7 +144,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Алеф-Вав'
+      transliteration: 'Ламед-Алеф-Вав',
     }
   );
 
@@ -157,7 +157,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Хэй-Аин'
+      transliteration: 'Хэй-Хэй-Аин',
     }
   );
 
@@ -170,7 +170,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йюд-Заин-Ламед'
+      transliteration: 'Йюд-Заин-Ламед',
     }
   );
 
@@ -183,7 +183,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Бэт-Хэй'
+      transliteration: 'Мэм-Бэт-Хэй',
     }
   );
 
@@ -196,7 +196,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Рэйш-Йюд'
+      transliteration: 'Хэй-Рэйш-Йюд',
     }
   );
 
@@ -209,7 +209,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Куф-Мэм'
+      transliteration: 'Хэй-Куф-Мэм',
     }
   );
 
@@ -222,7 +222,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Алеф-Вав'
+      transliteration: 'Ламед-Алеф-Вав',
     }
   );
 
@@ -235,7 +235,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Каф-Ламед-Йюд'
+      transliteration: 'Каф-Ламед-Йюд',
     }
   );
 
@@ -248,7 +248,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Вав-Вав'
+      transliteration: 'Ламед-Вав-Вав',
     }
   );
 
@@ -261,7 +261,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Пэй-Хэй-Ламед'
+      transliteration: 'Пэй-Хэй-Ламед',
     }
   );
 
@@ -274,7 +274,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Нун-Ламед-Хаф'
+      transliteration: 'Нун-Ламед-Хаф',
     }
   );
 
@@ -287,7 +287,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йюд-Йюд-Йюд'
+      transliteration: 'Йюд-Йюд-Йюд',
     }
   );
 
@@ -300,7 +300,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Ламед-Хэй'
+      transliteration: 'Мэм-Ламед-Хэй',
     }
   );
 
@@ -313,7 +313,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэт-Хэй-Вав'
+      transliteration: 'Хэт-Хэй-Вав',
     }
   );
 
@@ -326,7 +326,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Нун-Тав-Хэй'
+      transliteration: 'Нун-Тав-Хэй',
     }
   );
 
@@ -339,7 +339,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Алеф-Алеф'
+      transliteration: 'Хэй-Алеф-Алеф',
     }
   );
 
@@ -352,7 +352,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йюд-Рэйш-Тав'
+      transliteration: 'Йюд-Рэйш-Тав',
     }
   );
 
@@ -365,7 +365,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Шин-Алеф-Хэй'
+      transliteration: 'Шин-Алеф-Хэй',
     }
   );
 
@@ -378,7 +378,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Рэйш-Йюд-Йюд'
+      transliteration: 'Рэйш-Йюд-Йюд',
     }
   );
 
@@ -391,7 +391,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Алеф-Вав-Мэм'
+      transliteration: 'Алеф-Вав-Мэм',
     }
   );
 
@@ -404,7 +404,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Каф-Бэт'
+      transliteration: 'Ламед-Каф-Бэт',
     }
   );
 
@@ -417,7 +417,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Вав-Шин-Рэйш'
+      transliteration: 'Вав-Шин-Рэйш',
     }
   );
 
@@ -430,7 +430,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йюд-Хэт-Вав'
+      transliteration: 'Йюд-Хэт-Вав',
     }
   );
 
@@ -443,7 +443,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Ламед-Хэй-Хет'
+      transliteration: 'Ламед-Хэй-Хет',
     }
   );
 
@@ -456,7 +456,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Каф-Вав-Куф'
+      transliteration: 'Каф-Вав-Куф',
     }
   );
 
@@ -469,7 +469,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Вав-Вав-Ламед'
+      transliteration: 'Вав-Вав-Ламед',
     }
   );
 
@@ -482,7 +482,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йуд-Ламед-Хэй'
+      transliteration: 'Йуд-Ламед-Хэй',
     }
   );
 
@@ -495,7 +495,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Самэх-Алеф-Ламед'
+      transliteration: 'Самэх-Алеф-Ламед',
     }
   );
 
@@ -508,7 +508,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Айн-Рейш-Йюд'
+      transliteration: 'Айн-Рейш-Йюд',
     }
   );
 
@@ -521,7 +521,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Айн-Шин-Ламед'
+      transliteration: 'Айн-Шин-Ламед',
     }
   );
 
@@ -534,7 +534,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Йуд-Хэй'
+      transliteration: 'Мэм-Йуд-Хэй',
     }
   );
 
@@ -547,7 +547,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Вав-Хэй-Вав'
+      transliteration: 'Вав-Хэй-Вав',
     }
   );
 
@@ -560,7 +560,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Далед-Нун-Йюд'
+      transliteration: 'Далед-Нун-Йюд',
     }
   );
 
@@ -573,7 +573,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Хет-Шин'
+      transliteration: 'Хэй-Хет-Шин',
     }
   );
 
@@ -586,7 +586,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Айн-Мэм-Мэм'
+      transliteration: 'Айн-Мэм-Мэм',
     }
   );
 
@@ -599,7 +599,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Нун-Нун-Алеф'
+      transliteration: 'Нун-Нун-Алеф',
     }
   );
 
@@ -612,7 +612,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Нун-Йуд-Тав'
+      transliteration: 'Нун-Йуд-Тав',
     }
   );
 
@@ -625,7 +625,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Бэт-Хэй'
+      transliteration: 'Мэм-Бэт-Хэй',
     }
   );
 
@@ -638,7 +638,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Пей-Вав-Йуд'
+      transliteration: 'Пей-Вав-Йуд',
     }
   );
 
@@ -651,7 +651,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Нун-Мэм-Мэм'
+      transliteration: 'Нун-Мэм-Мэм',
     }
   );
 
@@ -664,7 +664,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йуд-Йуд-Ламед'
+      transliteration: 'Йуд-Йуд-Ламед',
     }
   );
 
@@ -677,7 +677,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Рейш-Хет'
+      transliteration: 'Хэй-Рейш-Хет',
     }
   );
 
@@ -690,7 +690,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Цадик-Рейш'
+      transliteration: 'Мэм-Цадик-Рейш',
     }
   );
 
@@ -703,7 +703,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Вав-Мэм-Бет'
+      transliteration: 'Вав-Мэм-Бет',
     }
   );
 
@@ -716,7 +716,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йуд-Хэй-Хэй'
+      transliteration: 'Йуд-Хэй-Хэй',
     }
   );
 
@@ -729,7 +729,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Айн-Нун-Вав'
+      transliteration: 'Айн-Нун-Вав',
     }
   );
 
@@ -742,7 +742,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Хет-Йуд'
+      transliteration: 'Мэм-Хет-Йуд',
     }
   );
 
@@ -755,7 +755,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Далет-Мэм-Бет'
+      transliteration: 'Далет-Мэм-Бет',
     }
   );
 
@@ -768,7 +768,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Нун-Куф'
+      transliteration: 'Мэм-Нун-Куф',
     }
   );
 
@@ -781,7 +781,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Алеф-Йуд-Айн'
+      transliteration: 'Алеф-Йуд-Айн',
     }
   );
 
@@ -794,7 +794,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хет-Бет-Вав'
+      transliteration: 'Хет-Бет-Вав',
     }
   );
 
@@ -807,7 +807,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Рейш-Алеф-Хэй'
+      transliteration: 'Рейш-Алеф-Хэй',
     }
   );
 
@@ -820,7 +820,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йуд-Бет-Мэм'
+      transliteration: 'Йуд-Бет-Мэм',
     }
   );
 
@@ -833,7 +833,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Нун-Далет'
+      transliteration: 'Мэм-Нун-Далет',
     }
   );
 
@@ -846,7 +846,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Алеф-Нун-Йуд'
+      transliteration: 'Алеф-Нун-Йуд',
     }
   );
 
@@ -859,7 +859,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хет-Айн-Мэм'
+      transliteration: 'Хет-Айн-Мэм',
     }
   );
 
@@ -872,7 +872,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Рейш-Хэй-Айн'
+      transliteration: 'Рейш-Хэй-Айн',
     }
   );
 
@@ -885,7 +885,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Йуд-Йуд-Зайн'
+      transliteration: 'Йуд-Йуд-Зайн',
     }
   );
 
@@ -898,7 +898,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Хэй-Хэй'
+      transliteration: 'Хэй-Хэй-Хэй',
     }
   );
 
@@ -911,7 +911,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Йуд-Каф'
+      transliteration: 'Мэм-Йуд-Каф',
     }
   );
 
@@ -924,7 +924,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Хэй-Йуд-Йуд'
+      transliteration: 'Хэй-Йуд-Йуд',
     }
   );
 
@@ -937,7 +937,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'Мэм-Вав-Мэм'
+      transliteration: 'Мэм-Вав-Мэм',
     }
   );
 
@@ -953,7 +953,7 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -961,16 +961,18 @@ export async function* seventyTwoNamesYichudPractice(context: PracticeContext) {
 export const seventyTwoNamesYichudPracticeConfig: PracticeConfig = {
   id: 'seventy-two-names-yichud',
   title: '72 Имени Творца',
-  description: 'Ихудим на 72 Имени Творца. Техника заключается в созерцании и медитации на сочетания букв, являющиеся проявлениями качеств Творца. Каждая буква представляет собой канал для нисхождения божественной энергии.',
-  
+  description:
+    'Ихудим на 72 Имени Творца. Техника заключается в созерцании и медитации на сочетания букв, являющиеся проявлениями качеств Творца. Каждая буква представляет собой канал для нисхождения божественной энергии.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: '72 Имени Творца',
-    description: 'Ихудим на 72 Имени Творца. Техника заключается в созерцании и медитации на сочетания букв, являющиеся проявлениями качеств Творца. Каждая буква представляет собой канал для нисхождения божественной энергии. Путём мыслительной концентрации на этих буквах, и намерениях, описанных для каждого имени, медитирующий стремится соединить своё сознание с теми силами и сфирот, которые они символизируют.',
+    description:
+      'Ихудим на 72 Имени Творца. Техника заключается в созерцании и медитации на сочетания букв, являющиеся проявлениями качеств Творца. Каждая буква представляет собой канал для нисхождения божественной энергии. Путём мыслительной концентрации на этих буквах, и намерениях, описанных для каждого имени, медитирующий стремится соединить своё сознание с теми силами и сфирот, которые они символизируют.',
     duration: '90 мин',
-    level: 'Продвинутый'
+    level: 'Продвинутый',
   },
-  
+
   practiceFunction: seventyTwoNamesYichudPractice,
 
   onFinish: async (context, result) => {
@@ -989,9 +991,9 @@ export const seventyTwoNamesYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

@@ -5,12 +5,12 @@ import { JournalPageComponent } from './components/journal-page/journal-page.com
 const routes: Routes = [
   {
     path: '',
-    component: JournalPageComponent
-  }
+    component: JournalPageComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class JournalRoutingModule { }
+export class JournalRoutingModule {}

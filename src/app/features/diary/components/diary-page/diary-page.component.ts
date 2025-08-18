@@ -18,7 +18,7 @@ function toDateKey(d = new Date()): string {
   standalone: true,
   imports: [CommonModule, FormsModule, BottomNavigationComponent],
   templateUrl: './diary-page.component.html',
-  styleUrl: './diary-page.component.scss'
+  styleUrl: './diary-page.component.scss',
 })
 export class DiaryPageComponent implements OnInit {
   date = new Date();
@@ -31,7 +31,7 @@ export class DiaryPageComponent implements OnInit {
   groupedEvents: { label: string; items: any[] }[] = [];
   newNote = '';
   mood: number | null = null;
-  
+
   // Общая продолжительность практик за день
   totalDuration = 0;
 
@@ -41,11 +41,11 @@ export class DiaryPageComponent implements OnInit {
     { value: 2, emoji: '😔', color: '#FFA726', label: 'Плохо' },
     { value: 3, emoji: '😐', color: '#FFCC02', label: 'Нормально' },
     { value: 4, emoji: '😊', color: '#66BB6A', label: 'Хорошо' },
-    { value: 5, emoji: '😍', color: '#42A5F5', label: 'Отлично' }
+    { value: 5, emoji: '😍', color: '#42A5F5', label: 'Отлично' },
   ];
 
   // Mood icon values (4 distinct moods)
-  moodIconOptions: number[] = [2,5,7,9];
+  moodIconOptions: number[] = [2, 5, 7, 9];
 
   constructor(
     private journal: JournalService,
@@ -68,61 +68,66 @@ export class DiaryPageComponent implements OnInit {
     this.runs = await this.journal.listRunsByDate(this.dateKey);
     this.entries = await this.journal.listByDate(this.dateKey);
     this.notes = await this.notesService.getNotesByDate(this.dateKey);
-    const moodEntry = this.entries.find(e => e.type === 'mood');
+    const moodEntry = this.entries.find((e) => e.type === 'mood');
     if (moodEntry?.moodRating) this.mood = moodEntry.moodRating;
 
     // Вычисляем общую продолжительность практик за день
     this.totalDuration = (this.runs || [])
-      .filter(r => r.duration && r.duration > 0)
+      .filter((r) => r.duration && r.duration > 0)
       .reduce((total, r) => total + (r.duration || 0), 0);
 
     // Build unified timeline events: mood, runs, notes
-    const moodEvents = moodEntry ? [{
-      type: 'mood',
-      icon: this.getRatingIconFromValue(moodEntry.moodRating),
-      title: 'Настроение',
-      time: new Date(moodEntry.createdAt),
-      data: { value: moodEntry.moodRating }
-    }] : [];
+    const moodEvents = moodEntry
+      ? [
+          {
+            type: 'mood',
+            icon: this.getRatingIconFromValue(moodEntry.moodRating),
+            title: 'Настроение',
+            time: new Date(moodEntry.createdAt),
+            data: { value: moodEntry.moodRating },
+          },
+        ]
+      : [];
 
-    const runEvents = (this.runs || []).map(r => {
+    const runEvents = (this.runs || []).map((r) => {
       return {
         type: 'run',
         icon: r.rating ? this.getRatingIconFromValue(r.rating) : 'sentiment_neutral',
         title: r.title,
         time: new Date(r.completedAt),
-        data: r
+        data: r,
       };
     });
 
-    const noteEvents = (this.notes || []).map(n => ({
+    const noteEvents = (this.notes || []).map((n) => ({
       type: 'note',
       icon: 'edit_note',
       title: n.title || 'Без заголовка',
       time: new Date(n.updatedAt || n.dateKey),
-      data: n
+      data: n,
     }));
 
-    this.events = [...moodEvents, ...runEvents, ...noteEvents]
-      .sort((a, b) => b.time.getTime() - a.time.getTime());
+    this.events = [...moodEvents, ...runEvents, ...noteEvents].sort(
+      (a, b) => b.time.getTime() - a.time.getTime()
+    );
 
     // Group into time periods (ordered from latest to earliest)
     const groups = [
-      { key: 'night',   label: 'Ночь',  start: 0, end: 5 },     // 00:00 - 04:59
-      { key: 'evening', label: 'Вечер', start: 18, end: 24 },  // 18:00 - 23:59
-      { key: 'day',     label: 'День',  start: 11, end: 18 },  // 11:00 - 17:59
-      { key: 'morning', label: 'Утро', start: 5, end: 11 }    // 05:00 - 10:59
+      { key: 'night', label: 'Ночь', start: 0, end: 5 }, // 00:00 - 04:59
+      { key: 'evening', label: 'Вечер', start: 18, end: 24 }, // 18:00 - 23:59
+      { key: 'day', label: 'День', start: 11, end: 18 }, // 11:00 - 17:59
+      { key: 'morning', label: 'Утро', start: 5, end: 11 }, // 05:00 - 10:59
     ];
 
     const buckets: Record<string, any[]> = { morning: [], day: [], evening: [], night: [] };
     for (const ev of this.events) {
       const h = ev.time.getHours();
-      const group = groups.find(g => (h >= g.start && h < g.end)) || groups[0]; // night as default
+      const group = groups.find((g) => h >= g.start && h < g.end) || groups[0]; // night as default
       buckets[group.key].push(ev);
     }
     this.groupedEvents = groups
-      .map(g => ({ label: g.label, items: buckets[g.key] }))
-      .filter(g => g.items.length > 0);
+      .map((g) => ({ label: g.label, items: buckets[g.key] }))
+      .filter((g) => g.items.length > 0);
   }
 
   async prevDay() {
@@ -152,7 +157,7 @@ export class DiaryPageComponent implements OnInit {
   }
 
   getMoodLabel(moodValue: number): string {
-    const moodOption = this.moodOptions.find(option => option.value === moodValue);
+    const moodOption = this.moodOptions.find((option) => option.value === moodValue);
     return moodOption ? moodOption.label : '';
   }
 
@@ -160,15 +165,15 @@ export class DiaryPageComponent implements OnInit {
   getRatingIconFromValue(rating: number): string {
     const icons = [
       'sentiment_very_dissatisfied', // 1 - очень плохо
-      'sentiment_dissatisfied',      // 2 - плохо
-      'sentiment_dissatisfied',      // 3 - плохо
-      'sentiment_neutral',           // 4 - нейтрально
-      'sentiment_neutral',           // 5 - нейтрально
-      'sentiment_satisfied',         // 6 - хорошо
-      'sentiment_satisfied',         // 7 - хорошо
-      'sentiment_very_satisfied',    // 8 - очень хорошо
-      'sentiment_very_satisfied',    // 9 - очень хорошо
-      'sentiment_very_satisfied'     // 10 - отлично (убираем mood, оставляем очень довольный смайл)
+      'sentiment_dissatisfied', // 2 - плохо
+      'sentiment_dissatisfied', // 3 - плохо
+      'sentiment_neutral', // 4 - нейтрально
+      'sentiment_neutral', // 5 - нейтрально
+      'sentiment_satisfied', // 6 - хорошо
+      'sentiment_satisfied', // 7 - хорошо
+      'sentiment_very_satisfied', // 8 - очень хорошо
+      'sentiment_very_satisfied', // 9 - очень хорошо
+      'sentiment_very_satisfied', // 10 - отлично (убираем mood, оставляем очень довольный смайл)
     ];
     const idx = Math.max(1, Math.min(10, Math.floor(rating))) - 1;
     return icons[idx] || 'sentiment_neutral';
@@ -188,23 +193,23 @@ export class DiaryPageComponent implements OnInit {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    
+
     if (dateKey === toDateKey(today)) {
       return 'Сегодня';
     } else if (dateKey === toDateKey(yesterday)) {
       return 'Вчера';
     } else {
-      return date.toLocaleDateString('ru-RU', { 
-        day: 'numeric', 
-        month: 'long' 
+      return date.toLocaleDateString('ru-RU', {
+        day: 'numeric',
+        month: 'long',
       });
     }
   }
 
   formatDay(dateKey: string): string {
     const date = new Date(dateKey);
-    return date.toLocaleDateString('ru-RU', { 
-      weekday: 'long' 
+    return date.toLocaleDateString('ru-RU', {
+      weekday: 'long',
     });
   }
 
@@ -242,18 +247,14 @@ export class DiaryPageComponent implements OnInit {
 
   getPreviewText(content: string): string {
     if (!content) return '';
-    const cleanText = content
-      .replace(/#\w+/g, '')
-      .replace(/\n+/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    const cleanText = content.replace(/#\w+/g, '').replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
     return cleanText.length > 100 ? cleanText.substring(0, 97) + '...' : cleanText;
   }
 
   formatDuration(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    
+
     if (minutes > 0) {
       return `${minutes} мин ${remainingSeconds} сек`;
     } else {

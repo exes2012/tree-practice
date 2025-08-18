@@ -10,12 +10,12 @@
 
 .practice-card {
   transition: all 0.2s ease-in-out;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -25,21 +25,21 @@
   height: calc(100vh - 3rem);
   overflow-y: auto;
   scroll-behavior: smooth;
-  
+
   /* Custom scrollbar */
   &::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: rgba(156, 163, 175, 0.5);
     border-radius: 2px;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: rgba(156, 163, 175, 0.7);
   }

@@ -8,13 +8,11 @@ import { hesedGevurahLinePracticeConfig } from '@app/core/practices/small-state-
 @Component({
   selector: 'app-hesed-gevurah-line-runner',
   template: `
-    <app-practice-runner 
-      [config]="practiceConfig"
-      (practiceFinished)="onPracticeFinished($event)">
+    <app-practice-runner [config]="practiceConfig" (practiceFinished)="onPracticeFinished($event)">
     </app-practice-runner>
   `,
   standalone: true,
-  imports: [CommonModule, PracticeRunnerComponent]
+  imports: [CommonModule, PracticeRunnerComponent],
 })
 export class HesedGevurahLineRunnerComponent {
   practiceConfig = hesedGevurahLinePracticeConfig;
@@ -27,9 +25,9 @@ export class HesedGevurahLineRunnerComponent {
 
   onPracticeFinished(result: any): void {
     console.log('Practice finished with result:', result);
-    this.practiceService.saveLastPractice({ 
-      name: 'Средняя линия Хесед/Гвура', 
-      route: '/practices/small-state/hesed-gevurah-line-runner' 
+    this.practiceService.saveLastPractice({
+      name: 'Средняя линия Хесед/Гвура',
+      route: '/practices/small-state/hesed-gevurah-line-runner',
     });
     this.practiceService.recordPracticeCompletion();
     this.router.navigate(['/practices']);

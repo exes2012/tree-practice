@@ -28,7 +28,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'extra-large',
-      transliteration: 'йуд - хей - вав - хей'
+      transliteration: 'йуд - хей - вав - хей',
     }
   );
 
@@ -41,7 +41,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-blue-600 dark:text-blue-400',
       size: 'extra-large',
-      transliteration: 'Йуд - всеприсутствие'
+      transliteration: 'Йуд - всеприсутствие',
     }
   );
 
@@ -54,7 +54,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-green-600 dark:text-green-400',
       size: 'extra-large',
-      transliteration: 'Хей - творение'
+      transliteration: 'Хей - творение',
     }
   );
 
@@ -67,7 +67,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-yellow-600 dark:text-yellow-400',
       size: 'extra-large',
-      transliteration: 'Вав - единство'
+      transliteration: 'Вав - единство',
     }
   );
 
@@ -80,7 +80,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-red-600 dark:text-red-400',
       size: 'extra-large',
-      transliteration: 'Хей - индивидуальность'
+      transliteration: 'Хей - индивидуальность',
     }
   );
 
@@ -93,7 +93,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-indigo-600 dark:text-indigo-400',
       size: 'large',
-      transliteration: 'Единство четырех уровней'
+      transliteration: 'Единство четырех уровней',
     }
   );
 
@@ -106,7 +106,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
     {
       color: 'text-purple-600 dark:text-purple-400',
       size: 'large',
-      transliteration: 'Шма Исраэль'
+      transliteration: 'Шма Исраэль',
     }
   );
 
@@ -115,7 +115,7 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
 
   // Возвращаем результат
   return {
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -123,16 +123,18 @@ export async function* tetragrammatonYichudPractice(context: PracticeContext) {
 export const tetragrammatonYichudPracticeConfig: PracticeConfig = {
   id: 'tetragrammaton-yichud',
   title: 'Четырехбуквенное имя',
-  description: 'Медитация над четырьмя буквами священного Имени י-ה-ו-ה, каждая из которых соответствует определенному уровню сознания. Практика ведет через четыре уровня осознания единства.',
-  
+  description:
+    'Медитация над четырьмя буквами священного Имени י-ה-ו-ה, каждая из которых соответствует определенному уровню сознания. Практика ведет через четыре уровня осознания единства.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Четырехбуквенное имя',
-    description: 'Медитация над четырьмя буквами священного Имени י-ה-ו-ה, каждая из которых соответствует определенному уровню сознания. Практика ведет через четыре уровня осознания единства.',
+    description:
+      'Медитация над четырьмя буквами священного Имени י-ה-ו-ה, каждая из которых соответствует определенному уровню сознания. Практика ведет через четыре уровня осознания единства.',
     duration: '30 мин',
-    level: 'Продвинутый'
+    level: 'Продвинутый',
   },
-  
+
   practiceFunction: tetragrammatonYichudPractice,
 
   onFinish: async (context, result) => {
@@ -151,9 +153,9 @@ export const tetragrammatonYichudPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

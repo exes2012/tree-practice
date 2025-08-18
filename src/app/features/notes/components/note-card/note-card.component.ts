@@ -6,7 +6,7 @@ import { Note } from '../../../../core/services/notes.service';
   selector: 'app-note-card',
   imports: [CommonModule],
   templateUrl: './note-card.component.html',
-  styleUrls: ['./note-card.component.scss']
+  styleUrls: ['./note-card.component.scss'],
 })
 export class NoteCardComponent {
   @Input() note!: Note;
@@ -25,14 +25,14 @@ export class NoteCardComponent {
 
   getPreviewText(): string {
     if (!this.note.content) return '';
-    
+
     // Remove hashtags and clean up text for preview
     const cleanText = this.note.content
       .replace(/#\w+/g, '') // Remove hashtags
       .replace(/\n+/g, ' ') // Replace line breaks with spaces
       .replace(/\s+/g, ' ') // Replace multiple spaces with single space
       .trim();
-    
+
     return cleanText.length > 120 ? cleanText.substring(0, 117) + '...' : cleanText;
   }
 
@@ -60,7 +60,7 @@ export class NoteCardComponent {
     return date.toLocaleDateString('ru-RU', {
       day: '2-digit',
       month: '2-digit',
-      year: 'numeric'
+      year: 'numeric',
     });
   }
 }

@@ -1,4 +1,3 @@
-
 export type StepType = 'instruction' | 'input' | 'rating' | 'custom';
 
 export interface PracticeStep {

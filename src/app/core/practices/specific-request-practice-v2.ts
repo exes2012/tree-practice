@@ -12,44 +12,44 @@ import { Router } from '@angular/router';
 export async function* specificRequestPracticeV2(context: PracticeContext) {
   // Начинаем с базовых блоков
   yield* manBlocks.feeling();
-  
+
   // Определяем проблему
   yield* manBlocks.defineProblem();
-  
+
   // Локализуем проблему
   yield* manBlocks.localizeProblem();
-  
+
   // Самоотмена
   yield* manBlocks.selfCancellation('userProblem');
-  
+
   // Находим других с такой же проблемой
   yield* manBlocks.findOthers();
-  
+
   // Проводник света
   yield* manBlocks.conductLight();
-  
+
   // Видение участников
   yield* manBlocks.seeParticipants();
-  
+
   // Свет вместо тьмы (всегда включаем в поток)
   yield* manBlocks.lightInsteadOfDarkness();
-  
+
   // Соединение с собой
   yield* manBlocks.connectWithSelf();
-  
+
   // Соединение всех участников
   yield* manBlocks.uniteAll();
-  
+
   // Благодарность
   yield* manBlocks.gratitude();
 
   // Финальная оценка ПРАКТИКИ
   yield practiceRating();
-  
+
   // Возвращаем результат
   return {
     userProblem: context.get('userProblem'),
-    rating: context.get('practice-final-rating')
+    rating: context.get('practice-final-rating'),
   };
 }
 
@@ -57,16 +57,18 @@ export async function* specificRequestPracticeV2(context: PracticeContext) {
 export const specificRequestPracticeV2Config: PracticeConfig = {
   id: 'specific-request',
   title: 'Подъем МАН с конкретным запросом',
-  description: 'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний.',
-  
+  description:
+    'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Подъем МАН с конкретным запросом',
-    description: 'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний. Цель - получить ясное видение ситуации и найти пути ее разрешения.',
+    description:
+      'Это упражнение направлено на проработку конкретного запроса или проблемы через призму каббалистических знаний. Цель - получить ясное видение ситуации и найти пути ее разрешения.',
     duration: '25 мин',
-    level: 'Продвинутый'
+    level: 'Продвинутый',
   },
-  
+
   practiceFunction: specificRequestPracticeV2,
 
   onFinish: async (context, result) => {
@@ -85,9 +87,9 @@ export const specificRequestPracticeV2Config: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

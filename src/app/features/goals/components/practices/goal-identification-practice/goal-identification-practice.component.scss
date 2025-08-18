@@ -12,12 +12,12 @@
     font-size: 1em;
     line-height: 1.5;
     transition: all 0.2s ease-in-out;
-    
+
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
     }
-    
+
     &::placeholder {
       color: #9ca3af;
     }

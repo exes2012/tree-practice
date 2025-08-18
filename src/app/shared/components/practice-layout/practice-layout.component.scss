@@ -20,27 +20,28 @@
 }
 
 .bg-primary-500 {
-  background-color: var(--primary-color);
+  background-color: rgb(var(--primary-color));
 }
 
-.hover\:bg-primary-600:hover, .bg-primary-600 {
-  background-color: var(--primary-color-dark);
+.hover\:bg-primary-600:hover,
+.bg-primary-600 {
+  background-color: rgb(var(--primary-color-dark));
 }
 
 .bg-primary-200 {
-  background-color: var(--primary-color-light);
+  background-color: rgb(var(--primary-color-light));
 }
 
 .hover\:bg-primary-300:hover {
-  background-color: var(--primary-color);
+  background-color: rgb(var(--primary-color));
 }
 
 .text-primary-800 {
-  color: var(--primary-color-dark);
+  color: rgb(var(--primary-color-dark));
 }
 
 .text-primary-500 {
-  color: var(--primary-color);
+  color: rgb(var(--primary-color));
 }
 
 /* Custom Range Slider Styles */
@@ -49,7 +50,7 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  background: var(--primary-color);
+  background: rgb(var(--primary-color));
   border-radius: 50%;
   cursor: pointer;
   margin-top: -6px; /* Centers the thumb on the track */
@@ -58,7 +59,7 @@
 .range-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  background: var(--primary-color);
+  background: rgb(var(--primary-color));
   border-radius: 50%;
   cursor: pointer;
 }
@@ -66,7 +67,7 @@
 .range-slider::-ms-thumb {
   width: 20px;
   height: 20px;
-  background: var(--primary-color);
+  background: rgb(var(--primary-color));
   border-radius: 50%;
   cursor: pointer;
 }

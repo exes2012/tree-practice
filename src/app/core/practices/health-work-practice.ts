@@ -1,19 +1,23 @@
 // Практика "Работа со здоровьем"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating, choice, stepWithButtons, practiceRating } from './practice-blocks';
+import {
+  step,
+  input,
+  repeat,
+  rating,
+  choice,
+  stepWithButtons,
+  practiceRating,
+} from './practice-blocks';
 
 /**
  * Практика "Работа со здоровьем"
  */
 export async function* healthWorkPractice(context: PracticeContext) {
   // Шаг 1: Ощущение
-  yield step(
-    'feeling',
-    'Шаг 1: Ощущение',
-    'Почувствуй пространство, себя и свое тело.'
-  );
-  
+  yield step('feeling', 'Шаг 1: Ощущение', 'Почувствуй пространство, себя и свое тело.');
+
   // Шаг 2: Определение недуга
   yield input(
     'health-problem',
@@ -23,7 +27,7 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'textarea',
     'Опишите ваш физический недуг...'
   );
-  
+
   // Шаг 3: Внутренняя реакция
   yield input(
     'internal-reaction',
@@ -33,14 +37,14 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'textarea',
     'Опишите, что включается в вас...'
   );
-  
+
   // Шаг 4: Поиск нехватки
   yield step(
     'find-lack',
     'Шаг 4: Поиск желания',
     'Удерживая свою реакцию, найди это желание и почувствуй в нем не исправленное намерение.'
   );
-  
+
   // Шаг 5: Исправление намерения
   yield repeat(
     'correct-intention',
@@ -48,7 +52,7 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'Проси Творца исправить это намерение в желании всей системы, всех людей, кто страдает от такой же проблемы.',
     'Творец, исправь намерения внутри нашего общего желания из получения ради себя в получение ради отдачи, ради тебя, приблизь нас к себе и наполни эту нехватку благом и наслаждением.'
   );
-  
+
   // Шаг 6: Проверка сопротивления с простыми кнопками
   yield stepWithButtons(
     'resistance-check',
@@ -59,14 +63,14 @@ export async function* healthWorkPractice(context: PracticeContext) {
         text: 'Да',
         value: 'yes',
         targetStepId: 'mercy',
-        saveValue: true
+        saveValue: true,
       },
       {
         text: 'Нет',
         value: 'no',
         targetStepId: 'unite-all',
-        saveValue: true
-      }
+        saveValue: true,
+      },
     ]
   );
 
@@ -84,7 +88,7 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'Проси Творца:',
     'Творец, исправь намерения внутри наших желаний и нехваток из получения ради себя в получение ради отдачи, ради тебя, приблизь нас к себе и наполни наши нехватки благом и наслаждением.'
   );
-  
+
   // Шаг 9: Соединение всех участников
   yield repeat(
     'unite-all',
@@ -92,14 +96,14 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'Почувствуй еще раз всех участников, включенных в проблему, все их сосуды. Проговаривай:',
     'Все, что существует внутри этой системы, включая эту проблему - и есть Творец.'
   );
-  
+
   // Шаг 10: Благодарность
   yield step(
     'gratitude',
     'Шаг 10: Благодарность',
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
-  
+
   // Финальная оценка ПРАКТИКИ
   yield practiceRating();
 }
@@ -108,18 +112,20 @@ export async function* healthWorkPractice(context: PracticeContext) {
 export const healthWorkPracticeConfig: PracticeConfig = {
   id: 'health-work',
   title: 'Работа со здоровьем',
-  description: 'Практика для работы с физическими недугами через исправление внутренних намерений и включение в общую систему.',
-  
+  description:
+    'Практика для работы с физическими недугами через исправление внутренних намерений и включение в общую систему.',
+
   hasStartScreen: true,
   startScreenContent: {
     title: 'Работа со здоровьем',
-    description: 'Практика для работы с физическими недугами через исправление внутренних намерений и включение в общую систему.',
+    description:
+      'Практика для работы с физическими недугами через исправление внутренних намерений и включение в общую систему.',
     duration: '20 мин',
-    level: 'Средний'
+    level: 'Средний',
   },
-  
+
   practiceFunction: healthWorkPractice,
-  
+
   onFinish: async (context, result) => {
     // Save practice run to IndexedDB
     const { JournalService } = await import('../services/journal.service');
@@ -136,9 +142,9 @@ export const healthWorkPracticeConfig: PracticeConfig = {
       completedAt,
       dateKey,
       rating: context.get('practice-final-rating') as number | undefined,
-      duration: result.duration as number | undefined
+      duration: result.duration as number | undefined,
     });
 
     console.log('Practice completed with result:', result);
-  }
+  },
 };

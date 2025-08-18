@@ -1,7 +1,19 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Practice, PracticeService, PracticeStats } from '../../../../core/services/practice.service';
+import {
+  Practice,
+  PracticeService,
+  PracticeStats,
+} from '../../../../core/services/practice.service';
 import { JournalService } from '../../../../core/services/journal.service';
 import { HomeHeaderComponent } from '../home-header/home-header.component';
 
@@ -15,7 +27,7 @@ interface IntentionPractice {
   standalone: true,
   imports: [CommonModule, HomeHeaderComponent],
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('fixedSection') fixedSection!: ElementRef;
@@ -28,13 +40,13 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isChallengeExpanded = false;
   activeTab: 'right' | 'left' = 'right';
-  
+
   // Расширенная статистика
   totalPracticeDays = 0;
   totalPracticeTime = 0; // в секундах
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private practiceService: PracticeService,
     private journalService: JournalService
   ) {}
@@ -111,16 +123,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       // Получаем все записи практик из базы данных
       const db = (await import('../../../../core/services/db.service')).db;
       const practiceRuns = await db.practice_runs.toArray();
-      
+
       // Вычисляем общее количество дней практики
-      const practiceDates = new Set(practiceRuns.map(run => run.dateKey));
+      const practiceDates = new Set(practiceRuns.map((run) => run.dateKey));
       this.totalPracticeDays = practiceDates.size;
-      
+
       // Вычисляем общее время практики
       this.totalPracticeTime = practiceRuns
-        .filter(run => run.duration && run.duration > 0)
+        .filter((run) => run.duration && run.duration > 0)
         .reduce((total, run) => total + (run.duration || 0), 0);
-      
     } catch (error) {
       console.error('Error loading extended stats:', error);
     }
@@ -130,7 +141,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const totalMinutes = Math.floor(seconds / 60);
-    
+
     if (hours > 0) {
       return `${hours}`;
     } else if (totalMinutes > 0) {
@@ -143,7 +154,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   formatDurationLabel(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
     const totalMinutes = Math.floor(seconds / 60);
-    
+
     if (hours > 0) {
       return 'час всего';
     } else if (totalMinutes >= 60) {

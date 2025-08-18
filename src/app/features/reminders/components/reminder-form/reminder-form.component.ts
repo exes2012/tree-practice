@@ -2,19 +2,19 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReminderService } from '@app/core/services/reminder.service';
-import { 
-  Reminder, 
-  WeekDay, 
-  ReminderCategory, 
-  REMINDER_CATEGORIES, 
-  WEEK_DAYS 
+import {
+  Reminder,
+  WeekDay,
+  ReminderCategory,
+  REMINDER_CATEGORIES,
+  WEEK_DAYS,
 } from '@app/core/models/reminder.models';
 
 @Component({
   selector: 'app-reminder-form',
   imports: [CommonModule, FormsModule],
   templateUrl: './reminder-form.component.html',
-  styleUrls: ['./reminder-form.component.scss']
+  styleUrls: ['./reminder-form.component.scss'],
 })
 export class ReminderFormComponent implements OnInit {
   @Input() reminder: Reminder | null = null;
@@ -27,11 +27,11 @@ export class ReminderFormComponent implements OnInit {
   time = '09:00';
   selectedDays: WeekDay[] = [];
   category: ReminderCategory = 'practice';
-  
+
   // Form state
   isSubmitting = false;
   errors: { [key: string]: string } = {};
-  
+
   readonly categories = REMINDER_CATEGORIES;
   readonly weekDays = WEEK_DAYS;
 
@@ -64,7 +64,7 @@ export class ReminderFormComponent implements OnInit {
   }
 
   selectAllDays(): void {
-    this.selectedDays = [...this.weekDays.map(d => d.id)];
+    this.selectedDays = [...this.weekDays.map((d) => d.id)];
   }
 
   selectWeekdays(): void {
@@ -81,23 +81,23 @@ export class ReminderFormComponent implements OnInit {
 
   private validateForm(): boolean {
     this.errors = {};
-    
+
     if (!this.title.trim()) {
       this.errors['title'] = 'Название обязательно';
     }
-    
+
     if (!this.message.trim()) {
       this.errors['message'] = 'Текст напоминания обязателен';
     }
-    
+
     if (this.selectedDays.length === 0) {
       this.errors['days'] = 'Выберите хотя бы один день';
     }
-    
+
     if (!this.time) {
       this.errors['time'] = 'Время обязательно';
     }
-    
+
     return Object.keys(this.errors).length === 0;
   }
 
@@ -105,9 +105,9 @@ export class ReminderFormComponent implements OnInit {
     if (!this.validateForm()) {
       return;
     }
-    
+
     this.isSubmitting = true;
-    
+
     try {
       if (this.reminder) {
         // Update existing reminder
@@ -116,7 +116,7 @@ export class ReminderFormComponent implements OnInit {
           message: this.message.trim(),
           time: this.time,
           days: this.selectedDays,
-          category: this.category
+          category: this.category,
         });
       } else {
         // Create new reminder
@@ -125,10 +125,10 @@ export class ReminderFormComponent implements OnInit {
           message: this.message.trim(),
           time: this.time,
           days: this.selectedDays,
-          category: this.category
+          category: this.category,
         });
       }
-      
+
       this.save.emit();
     } catch (error) {
       console.error('Error saving reminder:', error);
@@ -143,12 +143,12 @@ export class ReminderFormComponent implements OnInit {
   }
 
   getCategoryIcon(categoryId: ReminderCategory): string {
-    const category = this.categories.find(c => c.id === categoryId);
+    const category = this.categories.find((c) => c.id === categoryId);
     return category?.icon || 'notifications';
   }
 
   getCategoryName(categoryId: ReminderCategory): string {
-    const category = this.categories.find(c => c.id === categoryId);
+    const category = this.categories.find((c) => c.id === categoryId);
     return category?.name || categoryId;
   }
 
@@ -156,24 +156,30 @@ export class ReminderFormComponent implements OnInit {
     if (this.selectedDays.length === 0) {
       return 'Дни не выбраны';
     }
-    
+
     if (this.selectedDays.length === 7) {
       return 'Каждый день';
     }
-    
+
     const weekdays: WeekDay[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
     const weekends: WeekDay[] = ['saturday', 'sunday'];
 
-    if (this.selectedDays.length === 5 && weekdays.every(day => this.selectedDays.includes(day))) {
+    if (
+      this.selectedDays.length === 5 &&
+      weekdays.every((day) => this.selectedDays.includes(day))
+    ) {
       return 'Будни';
     }
 
-    if (this.selectedDays.length === 2 && weekends.every(day => this.selectedDays.includes(day))) {
+    if (
+      this.selectedDays.length === 2 &&
+      weekends.every((day) => this.selectedDays.includes(day))
+    ) {
       return 'Выходные';
     }
-    
+
     return this.selectedDays
-      .map(day => this.weekDays.find(d => d.id === day)?.short || day)
+      .map((day) => this.weekDays.find((d) => d.id === day)?.short || day)
       .join(', ');
   }
 }

@@ -29,7 +29,9 @@ export function step(
     type,
     ...(options?.autoTimer ? { autoTimer: options.autoTimer } : {}),
     ...(options?.repeatablePhrase ? { repeatablePhrase: options.repeatablePhrase } : {}),
-    ...(options?.showToggleRepetition ? { showToggleRepetition: options.showToggleRepetition } : {})
+    ...(options?.showToggleRepetition
+      ? { showToggleRepetition: options.showToggleRepetition }
+      : {}),
   };
 }
 
@@ -53,9 +55,9 @@ export function input(
       field,
       type,
       placeholder,
-      initialValue
+      initialValue,
     },
-    ...(isFinalStep ? { isFinalStep: true } : {})
+    ...(isFinalStep ? { isFinalStep: true } : {}),
   };
 }
 
@@ -75,8 +77,8 @@ export function radio(
     inputConfig: {
       field,
       type: 'radio',
-      options
-    }
+      options,
+    },
   };
 }
 
@@ -93,7 +95,7 @@ export function repeat(
     instruction,
     type: 'repeat',
     repeatablePhrase: phrase,
-    showToggleRepetition: true
+    showToggleRepetition: true,
   };
 }
 
@@ -116,13 +118,13 @@ export function rating(
     ratingConfig: {
       min,
       max,
-      isFinal
+      isFinal,
     },
     inputConfig: {
       field: id, // Используем id шага как имя поля в контексте
-      type: 'number' // Используем 'number' вместо 'rating'
+      type: 'number', // Используем 'number' вместо 'rating'
     },
-    isFinalStep: isFinal
+    isFinalStep: isFinal,
   };
 }
 
@@ -136,14 +138,14 @@ export function practiceRating(): PracticeStep {
     ratingConfig: {
       min: 1,
       max: 10,
-      isFinal: true
+      isFinal: true,
     },
     inputConfig: {
       field: 'practice-final-rating', // ЕДИНОЕ стандартное поле для всех практик
       type: 'number', // Используем 'number' вместо 'rating'
-      initialValue: 6 // Значение по умолчанию 6 из 10
+      initialValue: 6, // Значение по умолчанию 6 из 10
     },
-    isFinalStep: true
+    isFinalStep: true,
   };
 }
 
@@ -170,8 +172,8 @@ export function breathing(
       exhale,
       pause,
       cycles,
-      showTimer
-    }
+      showTimer,
+    },
   };
 }
 
@@ -196,8 +198,8 @@ export function hebrewStep(
       text: hebrewText,
       color: options?.color || 'text-blue-600 dark:text-blue-400',
       size: options?.size || 'large',
-      transliteration: options?.transliteration
-    }
+      transliteration: options?.transliteration,
+    },
   };
 }
 
@@ -206,16 +208,14 @@ export function hebrewStep(
  */
 export const manBlocks = {
   // Базовое ощущение пространства
-  async* feeling(): AsyncIterableIterator<PracticeStep> {
-    yield step(
-      'feeling',
-      'Шаг 1: Ощущение',
-      'Почувствуй пространство, себя, свое тело.'
-    );
+  async *feeling(): AsyncIterableIterator<PracticeStep> {
+    yield step('feeling', 'Шаг 1: Ощущение', 'Почувствуй пространство, себя, свое тело.');
   },
 
   // Определение проблемы или цели
-  async* defineProblem(placeholder: string = 'С чем бы ты хотел поработать?'): AsyncIterableIterator<PracticeStep> {
+  async *defineProblem(
+    placeholder: string = 'С чем бы ты хотел поработать?'
+  ): AsyncIterableIterator<PracticeStep> {
     yield input(
       'define-problem',
       'Шаг 2: Определение проблемы',
@@ -227,7 +227,7 @@ export const manBlocks = {
   },
 
   // Локализация проблемы
-  async* localizeProblem(): AsyncIterableIterator<PracticeStep> {
+  async *localizeProblem(): AsyncIterableIterator<PracticeStep> {
     yield step(
       'localize-problem',
       'Шаг 3: Локализация проблемы',
@@ -236,7 +236,9 @@ export const manBlocks = {
   },
 
   // Самоотмена
-  async* selfCancellation(problemField: string = 'userProblem'): AsyncIterableIterator<PracticeStep> {
+  async *selfCancellation(
+    problemField: string = 'userProblem'
+  ): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'self-cancellation',
       'Шаг 4: Самоотмена',
@@ -246,7 +248,7 @@ export const manBlocks = {
   },
 
   // Поиск других с такой же проблемой
-  async* findOthers(): AsyncIterableIterator<PracticeStep> {
+  async *findOthers(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'find-others',
       'Шаг 5: Найдите других',
@@ -256,7 +258,7 @@ export const manBlocks = {
   },
 
   // Проводник света
-  async* conductLight(): AsyncIterableIterator<PracticeStep> {
+  async *conductLight(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'conduct-light',
       'Шаг 6: Проводник света',
@@ -266,7 +268,7 @@ export const manBlocks = {
   },
 
   // Видение участников
-  async* seeParticipants(): AsyncIterableIterator<PracticeStep> {
+  async *seeParticipants(): AsyncIterableIterator<PracticeStep> {
     yield step(
       'see-participants',
       'Шаг 7: Видение участников',
@@ -275,7 +277,7 @@ export const manBlocks = {
   },
 
   // Свет вместо тьмы
-  async* lightInsteadOfDarkness(): AsyncIterableIterator<PracticeStep> {
+  async *lightInsteadOfDarkness(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'light-instead-darkness',
       'Шаг 8: Свет вместо тьмы',
@@ -285,7 +287,7 @@ export const manBlocks = {
   },
 
   // Соединение с собой
-  async* connectWithSelf(): AsyncIterableIterator<PracticeStep> {
+  async *connectWithSelf(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'connect-self',
       'Шаг 9: Соединение',
@@ -295,7 +297,7 @@ export const manBlocks = {
   },
 
   // Соединение всех участников
-  async* uniteAll(): AsyncIterableIterator<PracticeStep> {
+  async *uniteAll(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'unite-all',
       'Шаг 10: Соединение',
@@ -305,7 +307,7 @@ export const manBlocks = {
   },
 
   // Благодарность
-  async* gratitude(): AsyncIterableIterator<PracticeStep> {
+  async *gratitude(): AsyncIterableIterator<PracticeStep> {
     yield step(
       'gratitude',
       'Шаг 11: Благодарность',
@@ -314,14 +316,11 @@ export const manBlocks = {
   },
 
   // Финальная оценка
-  async* finalRating(): AsyncIterableIterator<PracticeStep> {
-    yield rating(
-      'final-rating',
-      'Шаг 12: Оценка',
-      'Во сколько баллов оценишь эту проработку?',
-      { isFinal: true }
-    );
-  }
+  async *finalRating(): AsyncIterableIterator<PracticeStep> {
+    yield rating('final-rating', 'Шаг 12: Оценка', 'Во сколько баллов оценишь эту проработку?', {
+      isFinal: true,
+    });
+  },
 };
 
 /**
@@ -329,7 +328,7 @@ export const manBlocks = {
  */
 export const goalBlocks = {
   // Формулировка цели
-  async* formulateGoal(): AsyncIterableIterator<PracticeStep> {
+  async *formulateGoal(): AsyncIterableIterator<PracticeStep> {
     yield input(
       'formulate-goal',
       'Шаг 2: Определение цели',
@@ -342,7 +341,7 @@ export const goalBlocks = {
   },
 
   // Видение достигнутой цели
-  async* visionAfterGoal(): AsyncIterableIterator<PracticeStep> {
+  async *visionAfterGoal(): AsyncIterableIterator<PracticeStep> {
     yield input(
       'vision-after-goal',
       'Шаг 3: Видение достигнутой цели',
@@ -354,7 +353,7 @@ export const goalBlocks = {
   },
 
   // Самоотмена для цели
-  async* selfCancellationForGoal(): AsyncIterableIterator<PracticeStep> {
+  async *selfCancellationForGoal(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'self-cancellation-goal',
       'Шаг 4: Самоотмена',
@@ -364,20 +363,22 @@ export const goalBlocks = {
   },
 
   // Поиск других душ с той же целью
-  async* findOthersWithGoal(): AsyncIterableIterator<PracticeStep> {
+  async *findOthersWithGoal(): AsyncIterableIterator<PracticeStep> {
     yield repeat(
       'find-others-goal',
       'Шаг 5: Найдите других',
       'Попытайся почувствовать все души в общей системе, которые страдают от не достижения этой цели. Скажи:',
       'Все души, которые страдают от недостижения этой цели, отпечатаны во мне. Мы связаны в одну общую систему. Их страдание — это выражение их желания, пока ещё с эгоистическим расчётом.'
     );
-  }
+  },
 };
 
 /**
  * Функции для создания линейных практик
  */
-export function createLinearPractice(steps: PracticeStep[]): (context: PracticeContext) => AsyncIterableIterator<PracticeStep> {
+export function createLinearPractice(
+  steps: PracticeStep[]
+): (context: PracticeContext) => AsyncIterableIterator<PracticeStep> {
   return async function* (context: PracticeContext): AsyncIterableIterator<PracticeStep> {
     for (const step of steps) {
       yield step;
@@ -411,12 +412,10 @@ export function choice(
     inputConfig: {
       field: id,
       type: 'choice',
-      choices
-    }
+      choices,
+    },
   };
 }
-
-
 
 // Простая функция для шагов с кастомными кнопками
 export function stepWithButtons(
@@ -435,16 +434,12 @@ export function stepWithButtons(
     title,
     instruction,
     type: 'simple',
-    customButtons: buttons
+    customButtons: buttons,
   };
 }
 
 // Шаг для упражнений намерения с двумя кнопками
-export function intentionStep(
-  id: string,
-  title: string,
-  description: string
-): PracticeStep {
+export function intentionStep(id: string, title: string, description: string): PracticeStep {
   return {
     id,
     title,
@@ -453,21 +448,21 @@ export function intentionStep(
     isFinalStep: true,
     inputConfig: {
       field: id, // Поле для сохранения значения
-      type: 'choice'
+      type: 'choice',
     },
     customButtons: [
       {
         text: 'Намерение дня',
         value: 'set_as_challenge',
         targetStepId: id, // Ссылаемся на тот же шаг, завершение произойдет автоматически
-        saveValue: true
+        saveValue: true,
       },
       {
         text: 'На главную',
         value: 'go_home',
         targetStepId: id, // Ссылаемся на тот же шаг, завершение произойдет автоматически
-        saveValue: true
-      }
-    ]
+        saveValue: true,
+      },
+    ],
   };
 }
