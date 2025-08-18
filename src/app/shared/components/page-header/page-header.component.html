@@ -4,13 +4,13 @@
       <button
         (click)="goBack()"
         class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-3">
-        <i class="material-icons text-gray-500">arrow_back</i>
+        <i class="material-icons text-gray-500 dark:text-gray-400">arrow_back</i>
       </button>
-      <h1 class="text-lg font-semibold" style="color: #3B4A5C;">{{ title }}</h1>
+      <h1 class="text-lg font-semibold text-gray-800 dark:text-gray-200">{{ title }}</h1>
     </div>
     <div class="flex items-center">
       <button *ngIf="showEditButton" (click)="onEditClick()" class="edit-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors ml-3">
-        <i class="material-icons text-gray-500">edit</i>
+        <i class="material-icons text-gray-500 dark:text-gray-400">edit</i>
       </button>
       <ng-content></ng-content>
     </div>

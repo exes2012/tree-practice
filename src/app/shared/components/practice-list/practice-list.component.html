@@ -8,9 +8,9 @@
       <i class="material-icons text-xl" [style.color]="getIconColor(practice)">{{ practice.icon }}</i>
     </div>
     <div class="flex-1">
-      <h3 class="font-semibold text-base" style="color: #3B4A5C;">{{ practice.title }}</h3>
+      <h3 class="font-semibold text-base text-gray-800 dark:text-gray-200">{{ practice.title }}</h3>
       <div *ngIf="practice.author" class="mt-1">
-        <span class="inline-block rounded-md px-2 py-0.5 text-xs font-medium text-gray-500">{{ practice.author }}</span>
+        <span class="inline-block rounded-md px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400">{{ practice.author }}</span>
       </div>
     </div>
   </div>

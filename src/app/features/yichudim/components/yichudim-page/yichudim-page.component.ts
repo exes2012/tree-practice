@@ -13,6 +13,7 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
 })
 export class YichudimPageComponent {
   practices: PracticeCard[] = [
+    { title: '72 Имени Творца', route: '/practices/runner/seventy-two-names-yichud', icon: 'auto_awesome', colorClass: 'bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800', tagColorClass: 'bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200', author: 'РАДАФ' },
     { title: 'Дышать радостью', route: '/practices/runner/breathing-joy-yichud', icon: 'auto_awesome', colorClass: 'bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800', tagColorClass: 'bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200', author: 'р. Ицхак Гинзбург' },
     { title: 'Пламя свечи', route: '/practices/runner/candle-flame-yichud', icon: 'auto_awesome', colorClass: 'bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800', tagColorClass: 'bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200', author: 'р. Ицхак Гинзбург' },
     { title: 'Божественное пространство', route: '/practices/runner/divine-space-yichud', icon: 'auto_awesome', colorClass: 'bg-purple-100 dark:bg-purple-900 hover:bg-purple-200 dark:hover:bg-purple-800', tagColorClass: 'bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200', author: 'р. Ицхак Гинзбург' },

@@ -23,6 +23,7 @@ import { shabbatYichudPracticeConfig } from '../../../../core/practices/shabbat-
 import { tetragrammatonYichudPracticeConfig } from '../../../../core/practices/tetragrammaton-yichud-practice';
 import { loveYichudPracticeConfig } from '../../../../core/practices/love-yichud-practice';
 import { candleFlameYichudPracticeConfig } from '../../../../core/practices/candle-flame-yichud-practice';
+import { seventyTwoNamesYichudPracticeConfig } from '../../../../core/practices/seventy-two-names-yichud-practice';
 import { intentionPracticeConfig } from '../../../../core/practices/intention-practice';
 import {
   eternalContactPracticeConfig,
@@ -170,6 +171,10 @@ export class PracticeRunnerDemoComponent implements OnInit {
 
       case 'candle-flame-yichud':
         this.practiceConfig = candleFlameYichudPracticeConfig;
+        break;
+
+      case 'seventy-two-names-yichud':
+        this.practiceConfig = seventyTwoNamesYichudPracticeConfig;
         break;
 
       case 'intention-practice':

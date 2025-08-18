@@ -56,24 +56,30 @@
 
 /* Dark mode adjustments */
 .dark .nav-item {
-  color: #64748b;
+  color: #475569; /* More muted gray for inactive tabs */
   
   &:hover:not(.opacity-40) {
-    color: #cbd5e1;
+    color: #cbd5e1; /* Lighter gray on hover */
     background-color: rgba(203, 213, 225, 0.1);
+  }
+  
+  /* Disabled tabs should be even more muted */
+  &.opacity-40 {
+    color: #334155 !important; /* Much darker gray for disabled tabs */
   }
 }
 
 .dark .nav-active {
-  color: #cbd5e1 !important;
+  color: #f8fafc !important; /* Brightest white for active tab - maximum contrast */
   
   .nav-icon-container {
-    background-color: rgba(203, 213, 225, 0.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(248, 250, 252, 0.2); /* More opaque background for better visibility */
+    box-shadow: 0 2px 12px rgba(248, 250, 252, 0.3); /* Brighter glow effect */
   }
   
   &::after {
-    background-color: #cbd5e1;
+    background-color: #f8fafc; /* Brightest white indicator for active tab */
+    box-shadow: 0 1px 3px rgba(248, 250, 252, 0.5); /* Add glow to indicator */
   }
 }
 

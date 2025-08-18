@@ -98,14 +98,12 @@
     <div class="flex bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-4">
       <button
         (click)="switchTab('right')"
-        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'right' ? 'bg-white dark:bg-gray-700 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')"
-        [style.color]="activeTab === 'right' ? '#3B4A5C' : ''">
+        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'right' ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-800 dark:text-gray-200' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')">
         Правая линия
       </button>
       <button
         (click)="switchTab('left')"
-        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'left' ? 'bg-white dark:bg-gray-700 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')"
-        [style.color]="activeTab === 'left' ? '#3B4A5C' : ''">
+        [class]="'flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ' + (activeTab === 'left' ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-800 dark:text-gray-200' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300')">
         Левая линия
       </button>
     </div>
@@ -113,7 +111,7 @@
     <!-- Right Line Practices -->
     <div *ngIf="activeTab === 'right'" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div (click)="navigateToPractice('basic')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-500" style="background-color: rgba(180, 83, 9, 0.1);">Уровень 1</span>
+        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(180, 83, 9, 0.1);">Уровень 1</span>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(180, 83, 9, 0.1);">
           <i class="material-icons text-xl" style="color: #B45309;">wb_sunny</i>
         </div>
@@ -123,7 +121,7 @@
         </div>
       </div>
       <div (click)="navigateToPractice('small-state')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-500" style="background-color: rgba(34, 197, 94, 0.1);">Уровень 2</span>
+        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(34, 197, 94, 0.1);">Уровень 2</span>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(34, 197, 94, 0.1);">
           <i class="material-icons text-xl" style="color: #16A34A;">self_improvement</i>
         </div>
@@ -133,7 +131,7 @@
         </div>
       </div>
       <div (click)="navigateToPractice('yichudim')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-500" style="background-color: rgba(139, 92, 246, 0.1);">Уровень 3</span>
+        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(139, 92, 246, 0.1);">Уровень 3</span>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(139, 92, 246, 0.1);">
           <i class="material-icons text-xl" style="color: #7C3AED;">auto_awesome</i>
         </div>
@@ -143,7 +141,7 @@
         </div>
       </div>
       <div (click)="navigateToPractice('intention')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-500" style="background-color: rgba(99, 102, 241, 0.1);">Уровень 4</span>
+        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(99, 102, 241, 0.1);">Уровень 4</span>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(99, 102, 241, 0.1);">
           <i class="material-icons text-xl" style="color: #4F46E5;">track_changes</i>
         </div>
@@ -157,7 +155,7 @@
     <!-- Left Line Practices -->
     <div *ngIf="activeTab === 'left'" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div (click)="navigateToPractice('man')" class="practice-card bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex items-center cursor-pointer hover:shadow-md transition-all duration-200 relative">
-        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-500" style="background-color: rgba(244, 63, 94, 0.1);">Уровень 2</span>
+        <span class="absolute top-3 right-3 inline-block text-xs font-medium px-2 py-1 rounded-md text-gray-700 dark:text-gray-300" style="background-color: rgba(244, 63, 94, 0.1);">Уровень 2</span>
         <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(244, 63, 94, 0.1);">
           <i class="material-icons text-xl" style="color: #DC2626;">man</i>
         </div>
