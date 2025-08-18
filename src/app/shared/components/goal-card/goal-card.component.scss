@@ -1,18 +1,17 @@
 .goal-card {
   display: flex;
-  border: 1px solid #e5e7eb;
+  border: none;
   border-radius: 12px;
   overflow: hidden;
-  margin: 0 0 16px 0;
+  margin: 16px 16px 0 16px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
   position: relative;
   background-color: #ffffff;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -23,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
+  background-color: #f9fafb;
 }
 
 .goal-image {
@@ -38,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e0e0e0;
+  background-color: #f3f4f6;
 }
 
 .no-image-icon {
@@ -60,7 +59,7 @@
   font-weight: 600;
   margin-bottom: 8px;
   line-height: 1.4;
-  color: #1f2937;
+  color: #3B4A5C;
 }
 
 .goal-practices-count {
@@ -73,7 +72,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  color: #9C27B0; /* Purple color */
+  color: #DB2777; /* Pink color matching goals theme */
 
   .material-icons {
     font-size: 20px;

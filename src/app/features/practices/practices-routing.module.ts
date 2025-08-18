@@ -10,7 +10,6 @@ import { FallRecoveryComponent } from './components/fall-recovery/fall-recovery.
 import { CreatorSpacePracticeComponent } from './components/small-state-practice/creator-space-practice.component';
 import { ZeirAnpinSpacePracticeComponent } from './components/small-state-practice/zeir-anpin-space-practice.component';
 import { NetzHodLinePracticeComponent } from './components/small-state-practice/netz-hod-line-practice.component';
-import { HesedGevurahLinePracticeComponent } from './components/small-state-practice/hesed-gevurah-line-practice.component';
 
 import { SpaceClarificationPracticeComponent } from './components/man-practice/space-clarification-practice.component';
 
@@ -46,19 +45,19 @@ const routes: Routes = [
   },
   {
     path: 'small-state/creator-space',
-    component: CreatorSpacePracticeComponent
+    redirectTo: 'runner/small-state-creator-space'
   },
   {
     path: 'small-state/zeir-anpin-space',
-    component: ZeirAnpinSpacePracticeComponent
+    redirectTo: 'runner/small-state-zeir-anpin-space'
   },
   {
     path: 'small-state/netz-hod-line',
-    component: NetzHodLinePracticeComponent
+    redirectTo: 'runner/small-state-netz-hod-line'
   },
   {
     path: 'small-state/hesed-gevurah-line',
-    component: HesedGevurahLinePracticeComponent
+    redirectTo: 'runner/small-state-hesed-gevurah-line'
   },
   {
     path: 'man',
@@ -90,6 +89,23 @@ const routes: Routes = [
   {
     path: 'runner/:practiceId/:goalId',
     component: PracticeRunnerDemoComponent
+  },
+  // Small State Practices на новом движке
+  {
+    path: 'small-state-v2/creator-space',
+    redirectTo: 'runner/small-state-creator-space'
+  },
+  {
+    path: 'small-state-v2/zeir-anpin-space',
+    redirectTo: 'runner/small-state-zeir-anpin-space'
+  },
+  {
+    path: 'small-state-v2/netz-hod-line',
+    redirectTo: 'runner/small-state-netz-hod-line'
+  },
+  {
+    path: 'small-state-v2/hesed-gevurah-line',
+    redirectTo: 'runner/small-state-hesed-gevurah-line'
   }
 ];
 

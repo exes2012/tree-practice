@@ -4,39 +4,17 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { BottomNavigationComponent } from './shared/components/bottom-navigation/bottom-navigation.component';
-import { SideMenuComponent } from './shared/components/side-menu/side-menu.component';
-import { SideMenuService } from './core/services/side-menu.service';
 import { ReminderService } from './core/services/reminder.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, BottomNavigationComponent, SideMenuComponent],
+  imports: [RouterOutlet, CommonModule, BottomNavigationComponent],
   template: `
-    <div class="flex flex-col h-screen" [ngClass]="!isLoginRoute ? 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100' : 'bg-gray-50'">
+    <div class="flex flex-col h-screen" [ngClass]="!isLoginRoute ? 'bg-gray-50 dark:bg-gray-900' : 'bg-gray-50'">
       <div class="flex flex-1 overflow-hidden">
-        <!-- Side Menu -->
-        <aside *ngIf="!isLoginRoute"
-          class="fixed top-0 left-0 h-full w-64 bg-surface-elevated shadow-lg transform transition-transform duration-300 ease-in-out z-50"
-          [class.translate-x-0]="isSideMenuOpen"
-          [class.-translate-x-full]="!isSideMenuOpen">
-          <app-side-menu></app-side-menu>
-        </aside>
-
-        <!-- Overlay -->
-        <div *ngIf="!isLoginRoute && isSideMenuOpen"
-          (click)="closeSideMenu()"
-          class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden">
-        </div>
-
         <div class="relative flex flex-col flex-1 w-full">
-          <header *ngIf="!isHomePage && !isPracticeRoute && !isLoginRoute" class="absolute top-0 left-0 p-0 z-10 lg:hidden">
-            <button (click)="toggleSideMenu()" class="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-          </header>
-
           <!-- Main Content -->
-          <main class="flex-1 overflow-y-auto" [class.p-4]="!isHomePage && !isPracticeRoute && !isLoginRoute">
+          <main class="flex-1 overflow-y-auto">
             <router-outlet></router-outlet>
           </main>
 
@@ -49,23 +27,16 @@ import { ReminderService } from './core/services/reminder.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'kabbalah-practice';
-  isSideMenuOpen = false;
   isHomePage = false;
   isPracticeRoute = false;
   isGoalsRoute = false;
   isLoginRoute = false;
   private subscription = new Subscription();
 
-  constructor(private sideMenuService: SideMenuService, private router: Router, private reminders: ReminderService) {}
+  constructor(private router: Router, private reminders: ReminderService) {}
 
   async ngOnInit() {
-    this.subscription.add(
-      this.sideMenuService.isOpen$.subscribe(isOpen => {
-        this.isSideMenuOpen = isOpen;
-      })
-    );
-
-    // Track current route to hide burger button on home page and specific pages (notes, diary, practices)
+    // Track current route for navigation logic
     this.subscription.add(
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
@@ -73,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isHomePage = event.url === '/home' || event.url === '/';
         const isNotesRoute = event.url.includes('/notes');
         const isDiaryRoute = event.url.includes('/diary');
+        const isRemindersRoute = event.url.includes('/reminders');
         this.isPracticeRoute = event.url.includes('/practices/') ||
                                event.url.includes('/yichudim/') ||
                                (event.url.includes('/goals/') && (
@@ -100,13 +72,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  toggleSideMenu() {
-    this.sideMenuService.toggle();
-  }
-
-  closeSideMenu() {
-    this.sideMenuService.close();
   }
 }

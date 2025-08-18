@@ -170,6 +170,249 @@ html, body, :host {
   box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
 }
 
+/* Modern Select Styles - Aggressive overrides */
+select,
+.form-select,
+input[type="select"],
+*[role="listbox"],
+*[role="option"] {
+  background-image: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+
+  &::-ms-expand {
+    display: none !important;
+  }
+}
+
+/* Force remove all blue colors from form elements */
+select,
+input[type="time"],
+input[type="date"],
+input[type="datetime-local"] {
+  accent-color: #6b7280 !important;
+  color-scheme: light !important;
+
+  &:focus,
+  &:active {
+    outline: none !important;
+    border-color: #9ca3af !important;
+    box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2) !important;
+    accent-color: #6b7280 !important;
+  }
+}
+
+/* Dark mode accent color */
+.dark select,
+.dark input[type="time"],
+.dark input[type="date"],
+.dark input[type="datetime-local"] {
+  color-scheme: dark !important;
+  accent-color: #9ca3af !important;
+
+  &:focus,
+  &:active {
+    accent-color: #9ca3af !important;
+  }
+}
+
+/* Custom styling for select options - more aggressive */
+select option,
+option {
+  background-color: white !important;
+  color: #374151 !important;
+  padding: 8px 12px !important;
+
+  &:hover,
+  &:focus {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+  }
+
+  &:checked,
+  &[selected] {
+    background-color: #e5e7eb !important;
+    color: #111827 !important;
+  }
+}
+
+/* Dark mode for select options */
+.dark select option,
+.dark option {
+  background-color: #1f2937 !important;
+  color: #e5e7eb !important;
+
+  &:hover,
+  &:focus {
+    background-color: #374151 !important;
+    color: #f9fafb !important;
+  }
+
+  &:checked,
+  &[selected] {
+    background-color: #4b5563 !important;
+    color: #f9fafb !important;
+  }
+}
+
+/* Time input styling - Ultra aggressive */
+input[type="time"],
+input[type="date"],
+input[type="datetime-local"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  accent-color: #6b7280 !important;
+  color-scheme: light !important;
+
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0 !important;
+    position: absolute !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    filter: invert(0.5) !important;
+  }
+
+  &::-webkit-datetime-edit {
+    padding: 0 !important;
+    color: inherit !important;
+    background: transparent !important;
+  }
+
+  &::-webkit-datetime-edit-fields-wrapper {
+    padding: 0 !important;
+    color: inherit !important;
+    background: transparent !important;
+  }
+
+  &::-webkit-datetime-edit-text {
+    color: inherit !important;
+    background: transparent !important;
+  }
+
+  &::-webkit-datetime-edit-month-field,
+  &::-webkit-datetime-edit-day-field,
+  &::-webkit-datetime-edit-year-field,
+  &::-webkit-datetime-edit-hour-field,
+  &::-webkit-datetime-edit-minute-field,
+  &::-webkit-datetime-edit-second-field,
+  &::-webkit-datetime-edit-millisecond-field,
+  &::-webkit-datetime-edit-meridiem-field {
+    color: inherit !important;
+    background: transparent !important;
+
+    &:focus {
+      background-color: rgba(107, 114, 128, 0.2) !important;
+      color: inherit !important;
+      outline: none !important;
+    }
+  }
+
+  /* Remove blue focus outline and accents */
+  &:focus,
+  &:active {
+    outline: none !important;
+    border-color: #9ca3af !important;
+    box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2) !important;
+    accent-color: #6b7280 !important;
+  }
+}
+
+/* Dark mode for time inputs */
+.dark input[type="time"],
+.dark input[type="date"],
+.dark input[type="datetime-local"] {
+  color-scheme: dark !important;
+  accent-color: #9ca3af !important;
+
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) !important;
+  }
+
+  &:focus,
+  &:active {
+    accent-color: #9ca3af !important;
+  }
+}
+
+/* Custom dropdown styling */
+.custom-select {
+  position: relative;
+
+  select {
+    cursor: pointer;
+
+    &:focus {
+      border-color: #9ca3af;
+      box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #9ca3af;
+    pointer-events: none;
+  }
+}
+
+/* Remove default browser styling for form elements */
+input, select, textarea {
+  &:focus {
+    outline: none !important;
+  }
+
+  &::-moz-focus-inner {
+    border: 0 !important;
+  }
+}
+
+/* Global override for all blue accents */
+* {
+  accent-color: #6b7280 !important;
+}
+
+.dark * {
+  accent-color: #9ca3af !important;
+}
+
+/* Force override browser default colors */
+::-webkit-calendar-picker-indicator {
+  filter: invert(0.5) !important;
+}
+
+.dark ::-webkit-calendar-picker-indicator {
+  filter: invert(0.8) !important;
+}
+
+/* Override any remaining blue colors */
+select:focus,
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2) !important;
+}
+
+/* Specific overrides for common form elements */
+.form-control:focus,
+.form-select:focus,
+.form-input:focus {
+  border-color: #9ca3af !important;
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2) !important;
+}
+
 /* Practice Color System */
 :root {
   /* Basic Practices - Warm Amber */

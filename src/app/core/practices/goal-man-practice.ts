@@ -1,7 +1,7 @@
 // Практика "Подъем МАН с целью"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating } from './practice-blocks';
+import { step, input, repeat, rating, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Подъем МАН с целью"
@@ -93,13 +93,8 @@ export async function* goalManPractice(context: PracticeContext) {
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
   
-  // Шаг 12: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 12: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -119,14 +114,24 @@ export const goalManPracticeConfig: PracticeConfig = {
   practiceFunction: goalManPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Подъем МАН с целью',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'goal-man',
+      title: 'Подъем МАН с целью',
       route: '/practices/runner/goal-man',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Goal MAN practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

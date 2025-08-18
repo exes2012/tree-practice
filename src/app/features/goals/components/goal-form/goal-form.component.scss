@@ -1,6 +1,8 @@
 .goal-form-container {
   padding: 16px;
   padding-top: 32px; /* Increased top padding from header */
+  background-color: #f9fafb;
+  min-height: 100vh;
 }
 
 /* Smaller title for edit mode */
@@ -14,33 +16,42 @@
 
   label {
     display: block;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 8px;
+    color: #3B4A5C;
   }
 
   input[type="text"],
   textarea {
     width: 100%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 16px;
     font-family: inherit;
     resize: vertical;
+    background-color: #ffffff;
+    color: #374151;
+
+    &:focus {
+      outline: none;
+      border-color: #3B4A5C;
+      box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
+    }
   }
 
   input[type="range"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     box-sizing: border-box;
   }
 
   .help-text {
     font-size: 0.85em;
-    color: #666;
+    color: #6b7280;
     margin-top: 5px;
   }
 }
@@ -124,7 +135,7 @@
     border-radius: 8px;
     cursor: pointer;
     background-color: white;
-    color: black;
+    color: #374151;
     font-weight: 600;
     font-size: 12px;
     line-height: 1.2;
@@ -141,27 +152,27 @@
     }
 
     &:nth-child(1) { /* Relationships */
-      border-color: #9C27B0; /* Purple */
+      border-color: #DB2777; /* Pink matching goals theme */
       &.selected {
-        background-color: #9C27B0;
+        background-color: #DB2777;
       }
     }
     &:nth-child(2) { /* Health */
-      border-color: #FF9800; /* Orange */
+      border-color: #16A34A; /* Green */
       &.selected {
-        background-color: #FF9800;
+        background-color: #16A34A;
       }
     }
     &:nth-child(3) { /* Money */
-      border-color: #4CAF50; /* Green */
+      border-color: #B45309; /* Amber */
       &.selected {
-        background-color: #4CAF50;
+        background-color: #B45309;
       }
     }
     &:nth-child(4) { /* Destiny */
-      border-color: #2196F3; /* Blue */
+      border-color: #3B4A5C; /* Login color */
       &.selected {
-        background-color: #2196F3;
+        background-color: #3B4A5C;
       }
     }
   }
@@ -184,7 +195,7 @@
 }
 
 .save-button {
-  background-color: #3b82f6;
+  background-color: #3B4A5C;
   border: none;
   color: white;
   padding: 12px 24px;
@@ -202,7 +213,7 @@
   margin: 20px auto 0 auto;
 
   &:hover {
-    background-color: #2563eb;
+    background-color: #2F3A47;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
   }

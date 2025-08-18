@@ -165,12 +165,22 @@ export class PracticeEngineV2Service {
    * Завершение практики
    */
   async finishPractice(finalResult?: any): Promise<PracticeResult> {
+    const currentStep = this.currentStep$.getValue();
+    
+    // Если передан финальный рейтинг и текущий шаг имеет правильное поле, сохраняем его
+    if (finalResult !== undefined && currentStep?.inputConfig?.field === 'practice-final-rating') {
+      this.context.set('practice-final-rating', finalResult);
+    }
+    
+    // Ищем стандартный финальный рейтинг практики
+    const rating = this.context.get('practice-final-rating');
+    
     const result: PracticeResult = {
       practiceId: 'current', // TODO: получать из конфигурации
       context: this.context,
       steps: this.stepHistory,
       finalResult: finalResult || this.context.userInputs,
-      rating: this.context.get('rating'),
+      rating,
       completedAt: new Date()
     };
     

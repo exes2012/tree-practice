@@ -1,7 +1,7 @@
 // Практика "Работа в отраженном свете"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating } from './practice-blocks';
+import { step, input, repeat, rating, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Работа в отраженном свете"
@@ -84,13 +84,8 @@ export async function* reflectedLightPractice(context: PracticeContext) {
     'Продолжай постепенно увеличивать давление светом, чтобы Он в отношении тебя выполнял поочередно все парцуфим и миры, пока Он не дойдет до мира Асия.'
   );
   
-  // Шаг 12: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 12: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -110,14 +105,24 @@ export const reflectedLightPracticeConfig: PracticeConfig = {
   practiceFunction: reflectedLightPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Работа в отраженном свете',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'reflected-light',
+      title: 'Работа в отраженном свете',
       route: '/practices/runner/reflected-light',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Reflected light practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

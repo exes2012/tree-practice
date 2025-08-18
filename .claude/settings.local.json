@@ -6,8 +6,16 @@
       "Bash(npm run build:*)",
       "Bash(npm start)",
       "Bash(ng serve:*)",
-      "Bash(npm start:*)"
+      "Bash(npm start:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)"
     ],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "C:\\c\\Users\\vmnas\\source\\repos\\tree-practice"
+    ]
   }
 }

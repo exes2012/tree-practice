@@ -69,14 +69,24 @@ export const specificRequestPracticeCopyConfig: PracticeConfig = {
   practiceFunction: specificRequestPracticeCopy,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Подъем МАН с конкретным запросом V2',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'specific-request-copy',
+      title: 'Подъем МАН с конкретным запросом V2',
       route: '/practices/runner/specific-request-copy',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Specific request copy practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('repeating-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

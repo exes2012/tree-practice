@@ -146,6 +146,20 @@ export class SpeechService {
     }, intervalMs);
   }
 
+  /**
+   * Остановить повторы и дождаться их завершения
+   */
+  stopRepetitionAndWait(): Promise<void> {
+    return new Promise((resolve) => {
+      this.clearRepetitionOnly();
+      
+      // Ждем немного, чтобы завершить текущий повтор если он активен
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    });
+  }
+
   private clearRepetitionOnly(): void {
     console.log('Clearing repetition interval only');
     this.isRepetitionActive = false;

@@ -1,7 +1,7 @@
 // Практика "Подъем МАН через общее поле Шхины" в новой архитектуре
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, repeat, rating } from './practice-blocks';
+import { step, repeat, rating, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Подъем МАН через общее поле Шхины" в новой архитектуре
@@ -60,13 +60,8 @@ export async function* shekhinahFieldPractice(context: PracticeContext) {
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
   
-  // Шаг 9: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 9: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -86,14 +81,24 @@ export const shekhinahFieldPracticeConfig: PracticeConfig = {
   practiceFunction: shekhinahFieldPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Подъем МАН через общее поле Шхины',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'shekhinah-field',
+      title: 'Подъем МАН через общее поле Шхины',
       route: '/practices/runner/shekhinah-field',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Shekhinah field practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

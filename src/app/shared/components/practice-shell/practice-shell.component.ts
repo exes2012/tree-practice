@@ -76,16 +76,16 @@ export class PracticeShellComponent {
 
   getRatingIcon(): string {
     const icons = [
-      'sentiment_very_dissatisfied', // 1
-      'sentiment_dissatisfied',      // 2
-      'sentiment_dissatisfied',      // 3
-      'sentiment_neutral',           // 4
-      'sentiment_neutral',           // 5
-      'sentiment_satisfied',         // 6
-      'sentiment_satisfied',         // 7
-      'sentiment_very_satisfied',    // 8
-      'sentiment_very_satisfied',    // 9
-      'mood'                         // 10
+      'sentiment_very_dissatisfied', // 1 - очень плохо
+      'sentiment_dissatisfied',      // 2 - плохо
+      'sentiment_dissatisfied',      // 3 - плохо
+      'sentiment_neutral',           // 4 - нейтрально
+      'sentiment_neutral',           // 5 - нейтрально
+      'sentiment_satisfied',         // 6 - хорошо
+      'sentiment_satisfied',         // 7 - хорошо
+      'sentiment_very_satisfied',    // 8 - очень хорошо
+      'sentiment_very_satisfied',    // 9 - очень хорошо
+      'sentiment_very_satisfied'     // 10 - отлично
     ];
     return icons[this.userRating - 1] || 'sentiment_neutral';
   }

@@ -1,7 +1,7 @@
 // Практика "Сонастройка цели с Творцом"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating, choice, stepWithButtons } from './practice-blocks';
+import { step, input, repeat, rating, choice, stepWithButtons, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Сонастройка цели с Творцом"
@@ -41,12 +41,12 @@ export async function* goalAlignmentPractice(context: PracticeContext) {
     'Настройтесь на наслаждение от свойства отдачи. Выполните поочередно стадии Кетер, Хохма и Бина. Найдите за наслаждением от свойства отдачи Творца и его отношение к Вам.'
   );
   
-  // Шаг 5: Сравнение ощущений и оценка
+  // Шаг 5: Сравнение ощущений и оценка сонастройки цели (НЕ рейтинг практики!)
   yield input(
-    'alignment-rating',
+    'goal-alignment-score',
     'Шаг 5: Сравнение ощущений',
     'Сравните ваше ощущение от уже достигнутой цели с ощущением благодарности и желания насладить Творца. Оцените от 1 до 10, насколько они совпадают.',
-    'alignmentRating',
+    'goalAlignmentScore',
     'number',
     undefined,
     5
@@ -72,12 +72,12 @@ export async function* goalAlignmentPractice(context: PracticeContext) {
     'Опишите новое видение...'
   );
   
-  // Шаг 8: Повторная оценка
+  // Шаг 8: Повторная оценка сонастройки цели (НЕ рейтинг практики!)
   yield input(
-    'new-alignment-rating',
+    'new-goal-alignment-score',
     'Шаг 8: Повторная оценка',
     'Сравните ваше новое ощущение от достигнутой цели с ощущением благодарности и желания насладить Творца. Оцените от 1 до 10.',
-    'finalAlignmentRating',
+    'newGoalAlignmentScore',
     'number',
     undefined,
     5
@@ -92,25 +92,20 @@ export async function* goalAlignmentPractice(context: PracticeContext) {
       {
         text: 'Да, обновить цель',
         value: 'true',
-        targetStepId: 'final-rating',
+        targetStepId: 'practice-final-rating',
         saveValue: true
       },
       {
         text: 'Нет, оставить как есть',
         value: 'false',
-        targetStepId: 'final-rating',
+        targetStepId: 'practice-final-rating',
         saveValue: true
       }
     ]
   );
   
-  // Шаг 10: Финальная оценка
-  yield rating(
-    'final-rating',
-    'Шаг 10: Оценка проработки',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Шаг 10: Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -130,14 +125,24 @@ export const goalAlignmentPracticeConfig: PracticeConfig = {
   practiceFunction: goalAlignmentPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Сонастройка цели с Творцом',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'goal-alignment',
+      title: 'Сонастройка цели с Творцом',
       route: '/practices/runner/goal-alignment',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Goal alignment practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

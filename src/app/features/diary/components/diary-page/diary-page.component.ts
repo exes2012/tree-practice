@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JournalService } from '@app/core/services/journal.service';
 import { NotesService, Note } from '@app/core/services/notes.service';
+import { BottomNavigationComponent } from '../../../../shared/components/bottom-navigation/bottom-navigation.component';
 
 function toDateKey(d = new Date()): string {
   const y = d.getFullYear();
@@ -15,7 +16,7 @@ function toDateKey(d = new Date()): string {
 @Component({
   selector: 'app-diary-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BottomNavigationComponent],
   templateUrl: './diary-page.component.html',
   styleUrl: './diary-page.component.scss'
 })
@@ -30,6 +31,9 @@ export class DiaryPageComponent implements OnInit {
   groupedEvents: { label: string; items: any[] }[] = [];
   newNote = '';
   mood: number | null = null;
+  
+  // Общая продолжительность практик за день
+  totalDuration = 0;
 
   // Mood options inspired by Daylio app
   moodOptions = [
@@ -67,6 +71,11 @@ export class DiaryPageComponent implements OnInit {
     const moodEntry = this.entries.find(e => e.type === 'mood');
     if (moodEntry?.moodRating) this.mood = moodEntry.moodRating;
 
+    // Вычисляем общую продолжительность практик за день
+    this.totalDuration = (this.runs || [])
+      .filter(r => r.duration && r.duration > 0)
+      .reduce((total, r) => total + (r.duration || 0), 0);
+
     // Build unified timeline events: mood, runs, notes
     const moodEvents = moodEntry ? [{
       type: 'mood',
@@ -76,13 +85,15 @@ export class DiaryPageComponent implements OnInit {
       data: { value: moodEntry.moodRating }
     }] : [];
 
-    const runEvents = (this.runs || []).map(r => ({
-      type: 'run',
-      icon: r.rating ? this.getRatingIconFromValue(r.rating) : 'sentiment_neutral',
-      title: r.title,
-      time: new Date(r.completedAt),
-      data: r
-    }));
+    const runEvents = (this.runs || []).map(r => {
+      return {
+        type: 'run',
+        icon: r.rating ? this.getRatingIconFromValue(r.rating) : 'sentiment_neutral',
+        title: r.title,
+        time: new Date(r.completedAt),
+        data: r
+      };
+    });
 
     const noteEvents = (this.notes || []).map(n => ({
       type: 'note',
@@ -95,18 +106,18 @@ export class DiaryPageComponent implements OnInit {
     this.events = [...moodEvents, ...runEvents, ...noteEvents]
       .sort((a, b) => b.time.getTime() - a.time.getTime());
 
-    // Group into Morning / Day / Evening
+    // Group into time periods (ordered from latest to earliest)
     const groups = [
-      { key: 'morning', label: 'Утро', start: 5, end: 11 },   // 05:00 - 10:59
-      { key: 'day',     label: 'День',  start: 11, end: 18 },  // 11:00 - 17:59
+      { key: 'night',   label: 'Ночь',  start: 0, end: 5 },     // 00:00 - 04:59
       { key: 'evening', label: 'Вечер', start: 18, end: 24 },  // 18:00 - 23:59
-      { key: 'night',   label: 'Ночь',  start: 0, end: 5 }     // 00:00 - 04:59
+      { key: 'day',     label: 'День',  start: 11, end: 18 },  // 11:00 - 17:59
+      { key: 'morning', label: 'Утро', start: 5, end: 11 }    // 05:00 - 10:59
     ];
 
     const buckets: Record<string, any[]> = { morning: [], day: [], evening: [], night: [] };
     for (const ev of this.events) {
       const h = ev.time.getHours();
-      const group = groups.find(g => (h >= g.start && h < g.end)) || groups[3];
+      const group = groups.find(g => (h >= g.start && h < g.end)) || groups[0]; // night as default
       buckets[group.key].push(ev);
     }
     this.groupedEvents = groups
@@ -148,16 +159,16 @@ export class DiaryPageComponent implements OnInit {
   // Map practice rating (1-10) to material icon name like in practice shell
   getRatingIconFromValue(rating: number): string {
     const icons = [
-      'sentiment_very_dissatisfied', // 1
-      'sentiment_dissatisfied',      // 2
-      'sentiment_dissatisfied',      // 3
-      'sentiment_neutral',           // 4
-      'sentiment_neutral',           // 5
-      'sentiment_satisfied',         // 6
-      'sentiment_satisfied',         // 7
-      'sentiment_very_satisfied',    // 8
-      'sentiment_very_satisfied',    // 9
-      'mood'                         // 10
+      'sentiment_very_dissatisfied', // 1 - очень плохо
+      'sentiment_dissatisfied',      // 2 - плохо
+      'sentiment_dissatisfied',      // 3 - плохо
+      'sentiment_neutral',           // 4 - нейтрально
+      'sentiment_neutral',           // 5 - нейтрально
+      'sentiment_satisfied',         // 6 - хорошо
+      'sentiment_satisfied',         // 7 - хорошо
+      'sentiment_very_satisfied',    // 8 - очень хорошо
+      'sentiment_very_satisfied',    // 9 - очень хорошо
+      'sentiment_very_satisfied'     // 10 - отлично (убираем mood, оставляем очень довольный смайл)
     ];
     const idx = Math.max(1, Math.min(10, Math.floor(rating))) - 1;
     return icons[idx] || 'sentiment_neutral';
@@ -237,5 +248,16 @@ export class DiaryPageComponent implements OnInit {
       .replace(/\s+/g, ' ')
       .trim();
     return cleanText.length > 100 ? cleanText.substring(0, 97) + '...' : cleanText;
+  }
+
+  formatDuration(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    
+    if (minutes > 0) {
+      return `${minutes} мин ${remainingSeconds} сек`;
+    } else {
+      return `${seconds} сек`;
+    }
   }
 }

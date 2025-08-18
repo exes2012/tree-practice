@@ -1,7 +1,7 @@
 // Практика "Работа с привычками"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating, choice, stepWithButtons } from './practice-blocks';
+import { step, input, repeat, rating, choice, stepWithButtons, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Работа с привычками"
@@ -107,13 +107,8 @@ export async function* habitsWorkPractice(context: PracticeContext) {
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
   
-  // Шаг 12: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 12: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -133,14 +128,24 @@ export const habitsWorkPracticeConfig: PracticeConfig = {
   practiceFunction: habitsWorkPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Работа с привычками',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'habits-work',
+      title: 'Работа с привычками',
       route: '/practices/runner/habits-work',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Habits work practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

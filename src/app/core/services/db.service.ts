@@ -14,6 +14,7 @@ export interface PracticeRun {
   completedAt: string; // ISO
   dateKey: string; // YYYY-MM-DD (local)
   rating?: number;
+  duration?: number; // in seconds
 }
 
 export interface JournalEntry {
@@ -117,5 +118,24 @@ export async function setSetting(key: string, value: string): Promise<void> {
 export async function getSetting(key: string): Promise<string | undefined> {
   const s = await db.settings.get(key);
   return s?.value;
+}
+
+// Generic data storage methods for reminders and other features
+export async function setData<T>(key: string, data: T): Promise<void> {
+  await setSetting(key, JSON.stringify(data));
+}
+
+export async function getData<T>(key: string): Promise<T | null> {
+  const value = await getSetting(key);
+  if (!value) return null;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteData(key: string): Promise<void> {
+  await db.settings.delete(key);
 }
 

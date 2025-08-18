@@ -24,6 +24,13 @@
   height: 40px;
   border-radius: 12px;
   transition: all 0.2s ease-in-out;
+  
+  i {
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .nav-active {
@@ -80,13 +87,77 @@
   .nav-item {
     padding: 0.375rem 0.5rem;
   }
-  
+
   .nav-icon-container {
     width: 36px;
     height: 36px;
+    
+    i {
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-  
+
   .nav-item span {
     font-size: 0.625rem;
+  }
+}
+
+/* Адаптация для iPhone SE и подобных маленьких экранов */
+@media (max-width: 375px) {
+  .nav-item {
+    padding: 0.5rem 0.25rem !important;
+
+    i {
+      font-size: 1.25rem !important; /* 20px */
+    }
+
+    span {
+      font-size: 0.5rem !important; /* 8px */
+      margin-top: 0.125rem !important;
+      line-height: 1.2;
+    }
+  }
+
+  .nav-icon-container {
+    width: 32px !important;
+    height: 32px !important;
+    
+    i {
+      line-height: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+  }
+}
+
+/* Дополнительная адаптация для очень маленьких экранов */
+@media (max-width: 320px) {
+  .nav-item {
+    padding: 0.375rem 0.125rem !important;
+
+    i {
+      font-size: 1.125rem !important; /* 18px */
+    }
+
+    span {
+      font-size: 0.4375rem !important; /* 7px */
+      margin-top: 0.0625rem !important;
+    }
+  }
+
+  .nav-icon-container {
+    width: 28px !important;
+    height: 28px !important;
+    
+    i {
+      line-height: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
   }
 }

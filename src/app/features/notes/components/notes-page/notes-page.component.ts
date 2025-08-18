@@ -7,10 +7,11 @@ import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { NotesService, Note, NoteSortBy, SortOrder } from '../../../../core/services/notes.service';
 import { NoteCardComponent } from '../note-card/note-card.component';
+import { BottomNavigationComponent } from '../../../../shared/components/bottom-navigation/bottom-navigation.component';
 
 @Component({
   selector: 'app-notes-page',
-  imports: [CommonModule, FormsModule, NoteCardComponent],
+  imports: [CommonModule, FormsModule, NoteCardComponent, BottomNavigationComponent],
   templateUrl: './notes-page.component.html',
   styleUrls: ['./notes-page.component.scss']
 })

@@ -34,10 +34,7 @@ export const routes: Routes = [
     path: 'reminders',
     loadChildren: () => import('./features/reminders/reminders.module').then(m => m.RemindersModule)
   },
-  {
-    path: 'circle',
-    loadChildren: () => import('./features/circle/circle.module').then(m => m.CircleModule)
-  },
+
   {
     path: 'theory',
     loadChildren: () => import('./features/theory/theory.module').then(m => m.TheoryModule)

@@ -4,7 +4,7 @@
 
 .menu-button {
   transition: all 0.3s ease-in-out;
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(8px); - Removed to maintain consistency */
 
   &:active {
     transform: scale(0.9);

@@ -1,7 +1,7 @@
 // Практика "Выявление установки"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating } from './practice-blocks';
+import { step, input, repeat, rating, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Выявление установки"
@@ -73,13 +73,8 @@ export async function* goalIdentificationPractice(context: PracticeContext) {
     'Можно мне было думать, что {{installationFormulation}}. Но только я так думал(а). Это была только моя установка, только моя. Мне можно было пользоваться этой установкой, но она была только моя.'
   );
   
-  // Шаг 8: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 8: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -99,14 +94,24 @@ export const goalIdentificationPracticeConfig: PracticeConfig = {
   practiceFunction: goalIdentificationPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Выявление установки',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'goal-identification',
+      title: 'Выявление установки',
       route: '/practices/runner/goal-identification',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Goal identification practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

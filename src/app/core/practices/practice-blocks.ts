@@ -7,12 +7,29 @@ import { PracticeStep, PracticeContext } from '../models/practice-engine.types';
  */
 
 // Простой шаг с инструкцией
-export function step(id: string, title: string, instruction: string): PracticeStep {
+export function step(
+  id: string,
+  title: string,
+  instruction: string,
+  type: 'simple' | 'input' | 'rating' | 'repeat' | 'choice' | 'breathing' = 'simple',
+  options?: {
+    autoTimer?: {
+      duration: number;
+      autoAdvance: boolean;
+      showCountdown?: boolean;
+    };
+    repeatablePhrase?: string;
+    showToggleRepetition?: boolean;
+  }
+): PracticeStep {
   return {
     id,
     title,
     instruction,
-    type: 'simple'
+    type,
+    ...(options?.autoTimer ? { autoTimer: options.autoTimer } : {}),
+    ...(options?.repeatablePhrase ? { repeatablePhrase: options.repeatablePhrase } : {}),
+    ...(options?.showToggleRepetition ? { showToggleRepetition: options.showToggleRepetition } : {})
   };
 }
 
@@ -80,15 +97,17 @@ export function repeat(
   };
 }
 
-// Шаг с оценкой
+// Шаг с оценкой (общего назначения)
 export function rating(
   id: string,
   title: string,
   instruction: string,
-  isFinal: boolean = false,
-  min: number = 1,
-  max: number = 10
+  config?: { min?: number; max?: number; isFinal?: boolean }
 ): PracticeStep {
+  const min = config?.min || 1;
+  const max = config?.max || 10;
+  const isFinal = config?.isFinal || false;
+
   return {
     id,
     title,
@@ -99,7 +118,86 @@ export function rating(
       max,
       isFinal
     },
+    inputConfig: {
+      field: id, // Используем id шага как имя поля в контексте
+      type: 'number' // Используем 'number' вместо 'rating'
+    },
     isFinalStep: isFinal
+  };
+}
+
+// СТАНДАРТНЫЙ финальный рейтинг практики (ВСЕГДА одинаковый для всех практик!)
+export function practiceRating(): PracticeStep {
+  return {
+    id: 'practice-final-rating',
+    title: 'Оценка практики',
+    instruction: 'Как прошла практика? Оцените общий результат от 1 до 10.',
+    type: 'rating',
+    ratingConfig: {
+      min: 1,
+      max: 10,
+      isFinal: true
+    },
+    inputConfig: {
+      field: 'practice-final-rating', // ЕДИНОЕ стандартное поле для всех практик
+      type: 'number', // Используем 'number' вместо 'rating'
+      initialValue: 6 // Значение по умолчанию 6 из 10
+    },
+    isFinalStep: true
+  };
+}
+
+// Шаг с дыхательным упражнением
+export function breathing(
+  id: string,
+  title: string,
+  instruction: string,
+  inhale: number,
+  hold: number,
+  exhale: number,
+  pause: number,
+  cycles?: number,
+  showTimer: boolean = true
+): PracticeStep {
+  return {
+    id,
+    title,
+    instruction,
+    type: 'breathing',
+    breathingConfig: {
+      inhale,
+      hold,
+      exhale,
+      pause,
+      cycles,
+      showTimer
+    }
+  };
+}
+
+// Шаг с отображением еврейских букв
+export function hebrewStep(
+  id: string,
+  title: string,
+  instruction: string,
+  hebrewText: string,
+  options?: {
+    color?: string;
+    size?: 'small' | 'medium' | 'large' | 'extra-large';
+    transliteration?: string;
+  }
+): PracticeStep {
+  return {
+    id,
+    title,
+    instruction,
+    type: 'simple',
+    hebrewDisplay: {
+      text: hebrewText,
+      color: options?.color || 'text-blue-600 dark:text-blue-400',
+      size: options?.size || 'large',
+      transliteration: options?.transliteration
+    }
   };
 }
 
@@ -221,7 +319,7 @@ export const manBlocks = {
       'final-rating',
       'Шаг 12: Оценка',
       'Во сколько баллов оценишь эту проработку?',
-      true
+      { isFinal: true }
     );
   }
 };
@@ -318,6 +416,8 @@ export function choice(
   };
 }
 
+
+
 // Простая функция для шагов с кастомными кнопками
 export function stepWithButtons(
   id: string,
@@ -336,5 +436,38 @@ export function stepWithButtons(
     instruction,
     type: 'simple',
     customButtons: buttons
+  };
+}
+
+// Шаг для упражнений намерения с двумя кнопками
+export function intentionStep(
+  id: string,
+  title: string,
+  description: string
+): PracticeStep {
+  return {
+    id,
+    title,
+    instruction: description,
+    type: 'choice', // Изменяем тип на choice для правильной обработки
+    isFinalStep: true,
+    inputConfig: {
+      field: id, // Поле для сохранения значения
+      type: 'choice'
+    },
+    customButtons: [
+      {
+        text: 'Намерение дня',
+        value: 'set_as_challenge',
+        targetStepId: id, // Ссылаемся на тот же шаг, завершение произойдет автоматически
+        saveValue: true
+      },
+      {
+        text: 'На главную',
+        value: 'go_home',
+        targetStepId: id, // Ссылаемся на тот же шаг, завершение произойдет автоматически
+        saveValue: true
+      }
+    ]
   };
 }

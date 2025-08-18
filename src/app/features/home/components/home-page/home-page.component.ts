@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Hos
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Practice, PracticeService, PracticeStats } from '../../../../core/services/practice.service';
+import { JournalService } from '../../../../core/services/journal.service';
 import { HomeHeaderComponent } from '../home-header/home-header.component';
 
 interface IntentionPractice {
@@ -27,16 +28,25 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isChallengeExpanded = false;
   activeTab: 'right' | 'left' = 'right';
+  
+  // Расширенная статистика
+  totalPracticeDays = 0;
+  totalPracticeTime = 0; // в секундах
 
-  constructor(private router: Router, private practiceService: PracticeService) {}
+  constructor(
+    private router: Router, 
+    private practiceService: PracticeService,
+    private journalService: JournalService
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     const challenge = localStorage.getItem('dailyChallenge');
     if (challenge) {
       this.dailyChallenge = JSON.parse(challenge);
     }
     this.lastPractice = this.practiceService.getLastPractice();
     this.stats = this.practiceService.getPracticeStats();
+    await this.loadExtendedStats();
     this.loadActiveTab();
   }
 
@@ -94,6 +104,55 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private saveActiveTab() {
     localStorage.setItem('activeTab', this.activeTab);
+  }
+
+  private async loadExtendedStats() {
+    try {
+      // Получаем все записи практик из базы данных
+      const db = (await import('../../../../core/services/db.service')).db;
+      const practiceRuns = await db.practice_runs.toArray();
+      
+      // Вычисляем общее количество дней практики
+      const practiceDates = new Set(practiceRuns.map(run => run.dateKey));
+      this.totalPracticeDays = practiceDates.size;
+      
+      // Вычисляем общее время практики
+      this.totalPracticeTime = practiceRuns
+        .filter(run => run.duration && run.duration > 0)
+        .reduce((total, run) => total + (run.duration || 0), 0);
+      
+    } catch (error) {
+      console.error('Error loading extended stats:', error);
+    }
+  }
+
+  formatDuration(seconds: number): string {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const totalMinutes = Math.floor(seconds / 60);
+    
+    if (hours > 0) {
+      return `${hours}`;
+    } else if (totalMinutes > 0) {
+      return `${totalMinutes}`;
+    } else {
+      return '0';
+    }
+  }
+
+  formatDurationLabel(seconds: number): string {
+    const hours = Math.floor(seconds / 3600);
+    const totalMinutes = Math.floor(seconds / 60);
+    
+    if (hours > 0) {
+      return 'час всего';
+    } else if (totalMinutes >= 60) {
+      return 'час всего';
+    } else if (totalMinutes > 0) {
+      return 'мин всего';
+    } else {
+      return 'сек всего';
+    }
   }
 
   repeatLastPractice() {

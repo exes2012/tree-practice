@@ -34,22 +34,26 @@ export class IntentionPracticeComponent {
     { title: 'Управление мыслью', description: 'В течени дня научи себя удерживать чистую мысль о Всевышнем (начни с часа в день). Наказывай себя за отвлечения, приучи тело бояться ненужных мыслей.' }
   ];
 
-  practiceCards: PracticeCard[] = this.practices.map(p => ({
-    title: p.title,
-    route: '/practices/intention/exercise',
-    icon: 'track_changes',
-    colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800',
-    author: 'Бааль Сулам',
-    tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200',
-    data: p
-  }));
+  practiceCards: PracticeCard[] = [
+    { title: 'Вечный контакт', route: '/practices/runner/eternal-contact', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Отмена страха', route: '/practices/runner/cancel-fear', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Преобразование любви', route: '/practices/runner/transform-love', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Совершенство', route: '/practices/runner/perfection', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Настрой в изучении Торы', route: '/practices/runner/torah-study', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Собака пастуха', route: '/practices/runner/shepherd-dog', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Быть перед Творцом', route: '/practices/runner/before-creator', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Буквы имени АВАЯ', route: '/practices/runner/avaya-letters', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Величие праведников', route: '/practices/runner/righteous-greatness', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Ощущение опустошения', route: '/practices/runner/emptiness-feel', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Нет никого кроме Него', route: '/practices/runner/none-but-him', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Стол перед Всевышним', route: '/practices/runner/table-before-god', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' },
+    { title: 'Управление мыслью', route: '/practices/runner/thought-control', icon: 'track_changes', colorClass: 'bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800', author: 'Бааль Сулам', tagColorClass: 'bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200' }
+  ];
 
   constructor(private router: Router) {}
 
   onPracticeSelected(practiceCard: PracticeCard) {
-    const navigationExtras: NavigationExtras = {
-      state: { practice: practiceCard.data }
-    };
-    this.router.navigate([practiceCard.route], navigationExtras);
+    // Теперь просто переходим по route - каждое упражнение имеет свою отдельную практику
+    this.router.navigate([practiceCard.route]);
   }
 }

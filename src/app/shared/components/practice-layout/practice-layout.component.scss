@@ -7,8 +7,8 @@
 
 /* Practice Header Styles */
 .practice-header {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); - Removed to fix sticky header issue */
+  /* -webkit-backdrop-filter: blur(10px); - Removed to fix sticky header issue */
 }
 
 .practice-header h1 {

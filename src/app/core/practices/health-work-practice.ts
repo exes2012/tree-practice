@@ -1,7 +1,7 @@
 // Практика "Работа со здоровьем"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating, choice, stepWithButtons } from './practice-blocks';
+import { step, input, repeat, rating, choice, stepWithButtons, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Работа со здоровьем"
@@ -100,13 +100,8 @@ export async function* healthWorkPractice(context: PracticeContext) {
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
   
-  // Шаг 11: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 11: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -126,14 +121,24 @@ export const healthWorkPracticeConfig: PracticeConfig = {
   practiceFunction: healthWorkPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Работа со здоровьем',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'health-work',
+      title: 'Работа со здоровьем',
       route: '/practices/runner/health-work',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Health work practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };

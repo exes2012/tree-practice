@@ -1,21 +1,21 @@
 // Стили для PracticeRunner компонента
 
-// Определяем цвета для primary
+// Определяем цвета для primary - используем основной серый цвет приложения
 :host {
-  --primary-50: #eff6ff;
-  --primary-100: #dbeafe;
-  --primary-200: #bfdbfe;
-  --primary-300: #93c5fd;
-  --primary-400: #60a5fa;
-  --primary-500: #3b82f6;
-  --primary-600: #2563eb;
-  --primary-700: #1d4ed8;
-  --primary-800: #1e40af;
-  --primary-900: #1e3a8a;
+  --primary-50: #f8fafc;
+  --primary-100: #f1f5f9;
+  --primary-200: #e2e8f0;
+  --primary-300: #cbd5e1;
+  --primary-400: #94a3b8;
+  --primary-500: #3B4A5C; // Основной цвет приложения
+  --primary-600: #2F3A47; // Hover состояние
+  --primary-700: #1e293b;
+  --primary-800: #0f172a;
+  --primary-900: #020617;
 }
 
 .practice-header {
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); - Removed to fix sticky header issue */
 }
 
 .range-slider {
@@ -31,12 +31,12 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #3B82F6;
+    background: #3B4A5C;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     
     &:hover {
-      background: #2563EB;
+      background: #2F3A47;
     }
   }
   
@@ -44,13 +44,13 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #3B82F6;
+    background: #3B4A5C;
     cursor: pointer;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     
     &:hover {
-      background: #2563EB;
+      background: #2F3A47;
     }
   }
 }
@@ -87,7 +87,7 @@
 // Стили для отображения повторяемой фразы
 .repeatable-phrase {
   strong {
-    color: #3B82F6;
+    color: #3B4A5C;
   }
 }
 
@@ -129,20 +129,20 @@ textarea, input[type="text"] {
   transition: border-color 0.2s ease-in-out;
   
   &:focus {
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #3B4A5C;
+    box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
   }
 }
 
 // Стили для радио кнопок
 input[type="radio"] {
   &:checked {
-    background-color: #3B82F6;
-    border-color: #3B82F6;
+    background-color: #3B4A5C;
+    border-color: #3B4A5C;
   }
   
   &:focus {
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
   }
 }
 

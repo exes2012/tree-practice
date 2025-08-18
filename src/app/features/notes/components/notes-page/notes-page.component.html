@@ -1,83 +1,83 @@
-<div class="notes-page flex flex-col h-full bg-surface">
+<div class="notes-page flex flex-col h-full bg-gray-50 dark:bg-gray-900">
   <!-- Header with Search and Controls -->
-  <div class="sticky top-0 z-10 bg-surface-elevated border-b border-subtle shadow-sm">
+  <div class="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 shadow-sm">
     <div class="px-4 py-3 space-y-3">
-      <!-- Title -->
+      <!-- Title and Filters -->
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <button
             (click)="goToHome()"
-            class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors mr-3">
-            <i class="material-icons text-secondary">arrow_back</i>
+            class="back-button flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors mr-3">
+            <i class="material-icons text-gray-500">arrow_back</i>
           </button>
-          <h1 class="text-lg font-semibold text-primary">Заметки</h1>
+          <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Заметки</h1>
         </div>
-        <!-- Desktop Create Button -->
-        <button
-          (click)="createNote()"
-          class="hidden md:flex items-center px-4 py-2 btn-primary rounded-lg shadow-sm hover:shadow-md">
-          <i class="material-icons mr-2 text-lg">add</i>
-          <span class="font-medium">Создать</span>
-        </button>
+        
+        <!-- Filters on the right side -->
+        <div class="flex items-center gap-2">
+          <!-- Favorites Filter -->
+          <button
+            (click)="toggleFavoritesFilter()"
+            [class]="showFavoritesOnly ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200' : ''"
+            class="flex items-center px-2.5 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+            <i class="material-icons mr-1 text-sm">{{showFavoritesOnly ? 'star' : 'star_border'}}</i>
+            <span class="hidden sm:inline">Избранное</span>
+          </button>
+
+          <!-- Sort Options -->
+          <div class="flex items-center space-x-1">
+            <button
+              (click)="changeSorting('updatedAt')"
+              [class]="sortBy === 'updatedAt' ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200' : ''"
+              class="flex items-center px-2.5 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              title="Сортировка по времени изменения">
+              <i class="material-icons text-sm">access_time</i>
+              <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
+              <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
+            </button>
+
+            <button
+              (click)="changeSorting('title')"
+              [class]="sortBy === 'title' ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200' : ''"
+              class="flex items-center px-2.5 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              title="Сортировка по алфавиту">
+              <i class="material-icons text-sm">sort_by_alpha</i>
+              <span *ngIf="sortBy === 'title' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
+              <span *ngIf="sortBy === 'title' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
+            </button>
+          </div>
+
+          <!-- Clear Filters -->
+          <button
+            *ngIf="getActiveFiltersCount() > 0"
+            (click)="clearFilters()"
+            class="flex items-center px-2.5 py-1.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+            <i class="material-icons mr-1 text-sm">clear</i>
+            <span class="hidden sm:inline">Сбросить</span>
+            <span class="sm:hidden">({{getActiveFiltersCount()}})</span>
+          </button>
+          
+          <!-- Desktop Create Button -->
+          <button
+            (click)="createNote()"
+            class="hidden md:flex items-center px-4 py-2 btn-primary rounded-lg shadow-sm hover:shadow-md">
+            <i class="material-icons mr-2 text-lg">add</i>
+            <span class="font-medium">Создать</span>
+          </button>
+        </div>
       </div>
 
       <!-- Search Bar -->
       <div class="relative">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <i class="material-icons text-muted text-xl">search</i>
+          <i class="material-icons text-gray-500 text-lg">search</i>
         </div>
         <input
           type="text"
           [value]="searchQuery"
           (input)="onSearchInput($event)"
           placeholder="Поиск заметок..."
-          class="w-full pl-10 pr-4 py-3 border border-subtle rounded-lg input-focus bg-surface-elevated text-primary placeholder-muted">
-      </div>
-
-      <!-- Filters and Sorting -->
-      <div class="flex flex-wrap items-center gap-2">
-        <!-- Favorites Filter -->
-        <button
-          (click)="toggleFavoritesFilter()"
-          [class]="showFavoritesOnly ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200' : ''"
-          class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors">
-          <i class="material-icons mr-1 text-sm">{{showFavoritesOnly ? 'star' : 'star_border'}}</i>
-          <span class="hidden sm:inline">Избранное</span>
-        </button>
-
-        <!-- Sort Options -->
-        <div class="flex items-center space-x-1">
-          <button
-            (click)="changeSorting('updatedAt')"
-            [class]="sortBy === 'updatedAt' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary' : ''"
-            class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors"
-            title="Сортировка по времени изменения">
-            <i class="material-icons text-sm">access_time</i>
-            <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
-            <span *ngIf="sortBy === 'updatedAt' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
-          </button>
-
-          <button
-            (click)="changeSorting('title')"
-            [class]="sortBy === 'title' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary' : ''"
-            class="flex items-center px-3 py-2 text-sm rounded-lg border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors"
-            title="Сортировка по алфавиту">
-            <i class="material-icons text-sm">sort_by_alpha</i>
-            <span *ngIf="sortBy === 'title' && sortOrder === 'desc'" class="ml-1 text-xs">↓</span>
-            <span *ngIf="sortBy === 'title' && sortOrder === 'asc'" class="ml-1 text-xs">↑</span>
-          </button>
-        </div>
-
-        <!-- Clear Filters -->
-        <button
-          *ngIf="getActiveFiltersCount() > 0"
-          (click)="clearFilters()"
-          class="flex items-center px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
-          <i class="material-icons mr-1 text-sm">clear</i>
-          <span class="hidden sm:inline">Сбросить</span>
-          <span class="sm:hidden">({{getActiveFiltersCount()}})</span>
-          <span class="hidden sm:inline">({{getActiveFiltersCount()}})</span>
-        </button>
+          class="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg input-focus bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 placeholder-gray-500">
       </div>
 
       <!-- Tags Filter -->
@@ -86,7 +86,7 @@
           *ngFor="let tag of allTags"
           (click)="filterByTag(tag)"
           [class]="selectedTag === tag ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200' : ''"
-          class="px-2 py-1 text-xs rounded-full border border-subtle bg-surface-elevated text-secondary hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-primary transition-colors">
+          class="px-2 py-1 text-xs rounded-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
           #{{tag}}
         </button>
       </div>
@@ -94,23 +94,23 @@
   </div>
 
   <!-- Notes List -->
-  <div class="flex-1 overflow-y-auto">
+  <div class="flex-1">
     <div class="px-4 pt-2 pb-24">
       <!-- Loading State -->
       <div *ngIf="isLoading" class="flex items-center justify-center h-32">
-        <div class="flex items-center space-x-2 text-muted">
-          <div class="animate-spin rounded-full h-6 w-6 border-b-2" style="border-color: var(--color-primary-500);"></div>
+        <div class="flex items-center space-x-2 text-gray-500">
+          <div class="animate-spin rounded-full h-6 w-6 border-b-2" style="border-color: #3B4A5C;"></div>
           <span>Загрузка заметок...</span>
         </div>
       </div>
 
       <!-- Empty State -->
       <div *ngIf="!isLoading && filteredNotes.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
-        <i class="material-icons text-6xl text-muted mb-4">note_add</i>
-        <h3 class="text-lg font-medium text-primary mb-2">
+        <i class="material-icons text-6xl text-gray-400 mb-4">note_add</i>
+        <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">
           {{searchQuery || selectedTag || showFavoritesOnly ? 'Заметки не найдены' : 'Нет заметок'}}
         </h3>
-        <p class="text-secondary mb-4 max-w-sm">
+        <p class="text-gray-500 mb-4 max-w-sm">
           {{searchQuery || selectedTag || showFavoritesOnly
             ? 'Попробуйте изменить фильтры поиска'
             : 'Создайте свою первую заметку для каббалистических осознаний'}}
@@ -140,6 +140,9 @@
   <!-- Floating Action Button for Mobile -->
   <button
     (click)="createNote()"
-    class="md:hidden fixed bottom-20 right-4 w-14 h-14 btn-primary rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
+    class="md:hidden fixed bottom-24 right-4 w-14 h-14 btn-primary rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-40">
     <i class="material-icons text-2xl">add</i>
   </button>
+
+  <!-- Bottom Navigation -->
+  <app-bottom-navigation></app-bottom-navigation>

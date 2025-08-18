@@ -4,7 +4,7 @@ export interface PracticeStep {
   id: string;
   title: string;
   instruction: string;
-  type: 'simple' | 'input' | 'rating' | 'repeat' | 'choice';
+  type: 'simple' | 'input' | 'rating' | 'repeat' | 'choice' | 'breathing';
   
   // Для повторяемых фраз
   repeatablePhrase?: string;
@@ -36,6 +36,31 @@ export interface PracticeStep {
     isFinal?: boolean;
   };
   
+  // Конфигурация дыхательного упражнения
+  breathingConfig?: {
+    inhale: number;    // Длительность вдоха в секундах
+    hold: number;      // Длительность задержки в секундах
+    exhale: number;    // Длительность выдоха в секундах
+    pause: number;     // Длительность паузы в секундах
+    cycles?: number;   // Количество циклов (если не указано - бесконечно)
+    showTimer?: boolean; // Показывать ли таймер
+  };
+
+  // Конфигурация автоматического таймера
+  autoTimer?: {
+    duration: number;     // Длительность в секундах
+    autoAdvance: boolean; // Автоматически переходить к следующему шагу
+    showCountdown?: boolean; // Показывать обратный отсчет (по умолчанию true)
+  };
+
+  // Конфигурация отображения еврейских букв/слов
+  hebrewDisplay?: {
+    text: string;       // Еврейский текст для отображения
+    color?: string;     // Цвет текста (CSS класс или значение)
+    size?: 'small' | 'medium' | 'large' | 'extra-large'; // Размер
+    transliteration?: string; // Транслитерация (латинскими буквами)
+  };
+  
   // UI настройки
   buttonText?: string;
   isFinalStep?: boolean;
@@ -54,6 +79,7 @@ export interface PracticeContext {
   get<T = any>(key: string): T | undefined;
   set(key: string, value: any): void;
   has(key: string): boolean;
+  getAll(): { [key: string]: any };
 }
 
 // Тип для generator функций практик
@@ -105,7 +131,16 @@ export class PracticeContextImpl implements PracticeContext {
   userInputs: { [key: string]: any } = {};
   
   constructor(initialData: Partial<PracticeContext> = {}) {
-    Object.assign(this, initialData);
+    // Сначала копируем основные поля
+    if (initialData.goalId) this.goalId = initialData.goalId;
+    if (initialData.goal) this.goal = initialData.goal;
+    
+    // Правильно объединяем userInputs
+    if (initialData.userInputs) {
+      this.userInputs = { ...this.userInputs, ...initialData.userInputs };
+    }
+    
+    // console.log('PracticeContextImpl created with userInputs:', this.userInputs);
   }
   
   get<T = any>(key: string): T | undefined {
@@ -118,6 +153,10 @@ export class PracticeContextImpl implements PracticeContext {
   
   has(key: string): boolean {
     return key in this.userInputs;
+  }
+  
+  getAll(): { [key: string]: any } {
+    return { ...this.userInputs };
   }
   
   // Замена плейсхолдеров в тексте

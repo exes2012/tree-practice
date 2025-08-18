@@ -43,7 +43,7 @@
     
     <!-- Start Button -->
     <div class="text-center">
-      <button (click)="startPractice()" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-colors">
+      <button (click)="startPractice()" class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
         Начать практику
       </button>
     </div>
@@ -56,28 +56,40 @@
 
     <!-- Step Content -->
     <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ currentStep.title }}</h2>
+
     <p class="text-gray-700 dark:text-gray-300 mb-6" [innerHTML]="currentStep.instruction"></p>
+
+    <!-- Auto Timer Display -->
+    <div *ngIf="currentStep.autoTimer && currentStep.autoTimer?.showCountdown !== false" class="text-center my-4 text-4xl font-bold" style="color: #3B4A5C;">
+      <span *ngIf="isAutoTimerActive">{{ getAutoTimerDisplay() }}</span>
+      <span *ngIf="!isAutoTimerActive">0:00</span>
+    </div>
+
+    <!-- Hebrew Display -->
+    <div *ngIf="currentStep.hebrewDisplay" class="hebrew-display text-center mb-6">
+      <div class="hebrew-text mb-4" [ngClass]="getHebrewTextClasses()">
+        {{ currentStep.hebrewDisplay.text }}
+      </div>
+      <div *ngIf="currentStep.hebrewDisplay.transliteration" class="transliteration text-lg text-gray-600 dark:text-gray-400">
+        ({{ currentStep.hebrewDisplay.transliteration }})
+      </div>
+    </div>
 
     <!-- Custom Navigation Buttons -->
     <div *ngIf="currentStep.customButtons && currentStep.customButtons.length > 0" class="mb-6">
-      <div class="flex gap-4 justify-center">
+      <div class="grid grid-cols-1 gap-4">
         <button
           *ngFor="let button of currentStep.customButtons"
           (click)="onCustomButtonClick(button)"
-          [class]="'px-6 py-3 text-white font-medium rounded-lg transition-colors ' + 
-                  (button.value === 'yes' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700')">
+          class="w-full font-semibold py-3 px-5 rounded-lg transition-colors flex items-center justify-center text-white"
+          style="background-color: #3B4A5C;"
+          onmouseover="this.style.backgroundColor='#2F3A47'"
+          onmouseout="this.style.backgroundColor='#3B4A5C'">
+          <i *ngIf="getCustomButtonIcon(button)" class="material-icons mr-3">{{ getCustomButtonIcon(button) }}</i>
           {{ button.text }}
         </button>
       </div>
 
-      <!-- Кнопка "На главную" если нельзя вернуться назад -->
-      <div *ngIf="!canGoBack" class="flex justify-center mt-4">
-        <button
-          (click)="onHomeClick()"
-          class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-lg transition-colors">
-          На главную
-        </button>
-      </div>
     </div>
 
     <!-- Legacy Choice buttons for backward compatibility -->
@@ -151,7 +163,7 @@
       <div class="text-center mb-6">
         <!-- Rating icon display -->
         <div class="mb-4">
-          <i class="material-icons" style="font-size: 5rem;" [ngClass]="getRatingIconClass()">{{ getRatingIcon() }}</i>
+          <i class="material-icons" style="font-size: 5rem; color: #3B4A5C;">{{ getRatingIcon() }}</i>
         </div>
 
         <!-- Rating slider -->
@@ -168,6 +180,75 @@
         <div class="text-lg font-semibold text-gray-700 dark:text-gray-300">
           {{ userRating }} / {{ currentStep.ratingConfig?.max || 10 }}
         </div>
+      </div>
+    </div>
+
+    <!-- Breathing Exercise -->
+    <div *ngIf="currentStep.type === 'breathing'" class="mt-6">
+      <div class="breathing-exercise text-center">
+        
+        <!-- Breathing Display -->
+        <div class="mb-6">
+          <div class="breathing-phase-display mb-4">
+            <!-- Большая еврейская буква в центре -->
+            <div class="text-8xl font-bold mb-2 leading-none" [ngClass]="getBreathingPhaseColor()">
+              {{ getBreathingHebrewLetter() }}
+            </div>
+            <!-- Русское слово меньшим шрифтом -->
+            <div class="text-2xl font-medium mb-1" [ngClass]="getBreathingPhaseColor()">
+              {{ getBreathingRussianWord() }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              {{ getBreathingPhaseInstruction() }}
+            </div>
+          </div>
+          
+          <!-- Timer Display -->
+          <div class="timer-display mb-4" *ngIf="currentStep.breathingConfig?.showTimer">
+            <div class="text-6xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+              {{ breathingPhaseTimer }}
+            </div>
+            <div class="text-sm text-gray-500 dark:text-gray-500">
+              Цикл {{ breathingCycles }} {{ currentStep.breathingConfig?.cycles ? '/ ' + currentStep.breathingConfig?.cycles : '' }}
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-bar mb-4" *ngIf="currentStep.breathingConfig?.cycles">
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-1000" 
+                   [style.width.%]="getBreathingProgress()"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Control Buttons - Компактные -->
+        <div class="flex justify-center gap-3">
+          <button 
+            *ngIf="!isBreathingActive" 
+            (click)="startBreathing()" 
+            class="flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+            <i class="material-icons text-lg mr-1">play_arrow</i>
+            <span>Начать</span>
+          </button>
+          
+          <button 
+            *ngIf="isBreathingActive" 
+            (click)="pauseBreathing()" 
+            class="flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors">
+            <i class="material-icons text-lg mr-1">pause</i>
+            <span>Пауза</span>
+          </button>
+          
+          <button 
+            *ngIf="isBreathingActive" 
+            (click)="stopBreathing()" 
+            class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
+            <i class="material-icons text-lg mr-1">stop</i>
+            <span>Стоп</span>
+          </button>
+        </div>
+        
       </div>
     </div>
 
@@ -207,14 +288,14 @@
       <button
         *ngIf="canGoNext"
         (click)="onNextClick()"
-        class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-colors">
+        class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
         {{ currentStep.buttonText || 'Далее' }}
       </button>
 
       <button
         *ngIf="showFinishButton"
         (click)="onFinishClick()"
-        class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-colors">
+        class="px-6 py-2 text-white font-semibold rounded-lg transition-colors" style="background-color: #3B4A5C;" onmouseover="this.style.backgroundColor='#2F3A47'" onmouseout="this.style.backgroundColor='#3B4A5C'">
         {{ currentStep.buttonText || 'Завершить' }}
       </button>
     </div>

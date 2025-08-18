@@ -1,7 +1,7 @@
 // Практика "Интеграция тени"
 
 import { PracticeContext, PracticeConfig } from '../models/practice-engine.types';
-import { step, input, repeat, rating } from './practice-blocks';
+import { step, input, repeat, rating, practiceRating } from './practice-blocks';
 
 /**
  * Практика "Интеграция тени"
@@ -86,13 +86,8 @@ export async function* shadowIntegrationPractice(context: PracticeContext) {
     'Вырази благодарность Творцу в меру получения облегчения и изменения. "Благодарю за это общение".'
   );
   
-  // Шаг 12: Оценка
-  yield rating(
-    'final-rating',
-    'Шаг 12: Оценка',
-    'Во сколько баллов оценишь эту проработку?',
-    true // финальный шаг
-  );
+  // Финальная оценка ПРАКТИКИ
+  yield practiceRating();
 }
 
 // Конфигурация практики
@@ -112,14 +107,24 @@ export const shadowIntegrationPracticeConfig: PracticeConfig = {
   practiceFunction: shadowIntegrationPractice,
   
   onFinish: async (context, result) => {
-    const practiceRecord = {
-      name: 'Интеграция тени',
+    // Save practice run to IndexedDB
+    const { JournalService } = await import('../services/journal.service');
+    const { dateToLocalDateKey } = await import('../services/db.service');
+
+    const completedAt = new Date().toISOString();
+    const dateKey = dateToLocalDateKey(new Date());
+
+    const journal = new JournalService();
+    await journal.savePracticeRun({
+      practiceId: 'shadow-integration',
+      title: 'Интеграция тени',
       route: '/practices/runner/shadow-integration',
-      completedAt: new Date().toISOString(),
-      result
-    };
-    
-    localStorage.setItem('lastPractice', JSON.stringify(practiceRecord));
-    console.log('Shadow integration practice completed with result:', result);
+      completedAt,
+      dateKey,
+      rating: context.get('practice-final-rating') as number | undefined,
+      duration: result.duration as number | undefined
+    });
+
+    console.log('Practice completed with result:', result);
   }
 };
