@@ -98,7 +98,7 @@
             [attr.aria-valuemin]="1"
             [attr.aria-valuemax]="10"
             [attr.aria-valuenow]="getInputValue(currentStep.inputField)"
-            class="range-slider h-2 min-h-touch w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-neutral-700"
+            class="range-slider min-h-touch focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
           <div class="mt-2 text-center">
             <span class="text-primary text-lg font-semibold"
@@ -138,7 +138,7 @@
               min="1"
               max="10"
               [(ngModel)]="userRating"
-              class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 dark:bg-neutral-700"
+              class="range-slider"
               (input)="onRatingChange($event)"
             />
           </div>

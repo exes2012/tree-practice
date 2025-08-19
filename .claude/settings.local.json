@@ -23,7 +23,13 @@
       "Bash(npx unimported:*)",
       "Bash(npx madge:*)",
       "Bash(npx depcruise:*)",
-      "Bash(npx ts-unused-exports:*)"
+      "Bash(npx ts-unused-exports:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx ngx-unused:*)",
+      "Bash(npx ts-prune:*)",
+      "Bash(npx jscpd:*)",
+      "Bash(npx ng version:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": [

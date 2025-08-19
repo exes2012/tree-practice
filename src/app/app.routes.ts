@@ -17,7 +17,8 @@ export const routes: Routes = [
   },
   {
     path: 'yichudim',
-    loadChildren: () => import('./features/yichudim/yichudim.module').then((m) => m.YichudimModule),
+    redirectTo: '/practices/yichudim',
+    pathMatch: 'full',
   },
   {
     path: 'journal',

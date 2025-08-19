@@ -5,7 +5,7 @@ import { IntentionExercisePageComponent } from './components/intention-practice/
 import { BasicExercisesComponent } from './components/basic-exercises/basic-exercises.component';
 import { SmallStatePracticeComponent } from './components/small-state-practice/small-state-practice.component';
 import { ManPracticeComponent } from './components/man-practice/man-practice.component';
-import { GoalsPracticeComponent } from './components/goals-practice/goals-practice.component';
+
 import { FallRecoveryComponent } from './components/fall-recovery/fall-recovery.component';
 
 import { SpaceClarificationPracticeComponent } from './components/man-practice/space-clarification-practice.component';
@@ -14,6 +14,10 @@ import { CreatorJustificationPracticeComponent } from './components/man-practice
 import { FourStagesPracticeComponent } from './components/basic-exercises/four-stages-practice/four-stages-practice.component';
 import { KeterTuningPracticeComponent } from './components/basic-exercises/keter-tuning-practice/keter-tuning-practice.component';
 import { PracticeRunnerDemoComponent } from './components/practice-runner-demo/practice-runner-demo.component';
+import { YichudimPageComponent } from './components/yichudim/yichudim-page/yichudim-page.component';
+import { GoalManPracticeComponent } from './components/goals/goal-man-practice/goal-man-practice.component';
+import { GoalAlignmentPracticeComponent } from './components/goals/goal-alignment-practice/goal-alignment-practice.component';
+import { GoalIdentificationPracticeComponent } from './components/goals/goal-identification-practice/goal-identification-practice.component';
 
 const routes: Routes = [
   {
@@ -70,13 +74,28 @@ const routes: Routes = [
     path: 'man/creator-justification',
     component: CreatorJustificationPracticeComponent,
   },
-  {
-    path: 'goals',
-    component: GoalsPracticeComponent,
-  },
+
   {
     path: 'fall-recovery',
     component: FallRecoveryComponent,
+  },
+  // Yichudim navigation
+  {
+    path: 'yichudim',
+    component: YichudimPageComponent,
+  },
+  // Goals practices
+  {
+    path: 'goals/man-with-goal/:goalId',
+    component: GoalManPracticeComponent,
+  },
+  {
+    path: 'goals/alignment/:goalId',
+    component: GoalAlignmentPracticeComponent,
+  },
+  {
+    path: 'goals/identification/:goalId',
+    component: GoalIdentificationPracticeComponent,
   },
   // Новая архитектура - тестовые роуты
   {

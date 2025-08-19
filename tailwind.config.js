@@ -40,22 +40,27 @@ module.exports = {
         'practice-small': colors.emerald,
         'practice-yichudim': colors.violet,
         'practice-intention': colors.indigo,
-        // custom icon colors
+        // semantic icon colors
         custom: {
-          fire: '#b45309',
-          chart: '#3b4a5c',
-          calendar: '#10b981',
-          schedule: '#6366f1',
-          psychology: '#d97706',
-          history: '#0891b2',
-          man: '#f43f5e',
-          'my-location': '#ec4899',
-          trending: '#f97316',
-          sunny: '#b45309',
-          'self-improvement': '#16a34a',
-          'auto-awesome': '#7c3aed',
-          'track-changes': '#4f46e5',
+          fire: '#b45309',        // streak, energy
+          calendar: '#10b981',    // dates, scheduling
+          psychology: '#d97706',  // mental practices
+          history: '#0891b2',     // past records
+          man: '#f43f5e',         // MAN practices
+          'my-location': '#ec4899', // goals, targeting
+          trending: '#f97316',    // progress, growth
+          'self-improvement': '#16a34a', // development
+          'auto-awesome': '#7c3aed',     // yichudim, special
+          'track-changes': '#4f46e5',    // monitoring
         },
+      },
+      boxShadow: {
+        'nav-active': '0 2px 8px rgba(59, 74, 92, 0.15)',
+        'nav-active-dark': '0 2px 12px rgba(248, 250, 252, 0.3)',
+        'nav-indicator': '0 1px 3px rgba(248, 250, 252, 0.5)',
+      },
+      minHeight: {
+        'touch': '44px', // iOS touch target minimum
       },
     },
   },

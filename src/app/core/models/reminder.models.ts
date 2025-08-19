@@ -145,13 +145,6 @@ export const WEEK_DAYS: { id: WeekDay; short: string; full: string }[] = [
 ];
 
 // Helper functions
-export function getWeekDayName(day: WeekDay): string {
-  return WEEK_DAYS.find((d) => d.id === day)?.full || day;
-}
-
-export function getWeekDayShort(day: WeekDay): string {
-  return WEEK_DAYS.find((d) => d.id === day)?.short || day;
-}
 
 export function getCategoryInfo(category: ReminderCategory): ReminderCategoryInfo {
   return (

@@ -22,7 +22,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-practice-layout',
   templateUrl: './practice-layout.component.html',
-  styleUrls: ['./practice-layout.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule],
 })

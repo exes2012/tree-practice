@@ -5,9 +5,7 @@ import { GoalFormComponent } from './components/goal-form/goal-form.component';
 import { GoalDetailComponent } from './components/goal-detail/goal-detail.component';
 import { SelectPracticeTypeComponent } from './components/select-practice-type/select-practice-type.component';
 
-import { GoalManPracticeComponent } from './components/practices/goal-man-practice/goal-man-practice.component';
-import { GoalAlignmentPracticeComponent } from './components/practices/goal-alignment-practice/goal-alignment-practice.component';
-import { GoalIdentificationPracticeComponent } from './components/practices/goal-identification-practice/goal-identification-practice.component';
+
 
 const routes: Routes = [
   {
@@ -33,15 +31,15 @@ const routes: Routes = [
 
   {
     path: ':id/practice/man-with-goal',
-    component: GoalManPracticeComponent,
+    redirectTo: (route) => `/practices/goals/man-with-goal/${route.params['id']}`,
   },
   {
     path: ':id/practice/alignment',
-    component: GoalAlignmentPracticeComponent,
+    redirectTo: (route) => `/practices/goals/alignment/${route.params['id']}`,
   },
   {
     path: ':id/practice/identification',
-    component: GoalIdentificationPracticeComponent,
+    redirectTo: (route) => `/practices/goals/identification/${route.params['id']}`,
   },
 ];
 

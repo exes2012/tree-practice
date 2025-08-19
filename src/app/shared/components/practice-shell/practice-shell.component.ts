@@ -11,7 +11,6 @@ import {
 @Component({
   selector: 'app-practice-shell',
   templateUrl: './practice-shell.component.html',
-  styleUrls: ['./practice-shell.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule],
 })

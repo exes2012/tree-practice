@@ -151,4 +151,52 @@ body,
   .header-container {
     @apply fixed left-0 right-0 top-0 z-50 border-b border-subtle bg-white/80 backdrop-blur-md dark:bg-neutral-900/80;
   }
+
+  /* Navigation components */
+  .nav-item-active {
+    @apply bg-primary-500/10 shadow-nav-active dark:bg-slate-50/20 dark:shadow-nav-active-dark;
+  }
+
+  .nav-item-indicator-active {
+    @apply bg-primary-500 shadow-nav-indicator dark:bg-slate-50;
+  }
+
+  /* Icon button components */
+  .icon-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-full transition-colors;
+  }
+
+  .icon-btn-primary {
+    @apply icon-btn bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700;
+  }
+
+  .icon-btn-nav {
+    @apply icon-btn;
+  }
+
+  /* Card components enhanced */
+  .card-interactive {
+    @apply surface-elevated relative cursor-pointer overflow-hidden rounded-xl shadow-sm transition-all duration-200 hover:shadow-lg;
+  }
+
+  .card-practice {
+    @apply card-interactive flex min-h-touch items-center p-4;
+  }
+
+  .card-goal {
+    @apply card-interactive mx-4 mt-4 flex;
+  }
+
+  /* Range slider component */
+  .range-slider {
+    @apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 outline-none dark:bg-neutral-700;
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    @apply h-5 w-5 cursor-pointer appearance-none rounded-full bg-primary-500 dark:bg-primary-400;
+  }
+
+  .range-slider::-moz-range-thumb {
+    @apply h-5 w-5 cursor-pointer rounded-full border-0 bg-primary-500 dark:bg-primary-400;
+  }
 }
