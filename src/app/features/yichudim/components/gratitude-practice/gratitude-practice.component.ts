@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-gratitude-practice',
   templateUrl: './gratitude-practice.component.html',
-  styleUrls: ['./gratitude-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

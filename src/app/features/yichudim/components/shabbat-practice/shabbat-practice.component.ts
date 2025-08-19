@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-shabbat-practice',
   templateUrl: './shabbat-practice.component.html',
-  styleUrls: ['./shabbat-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

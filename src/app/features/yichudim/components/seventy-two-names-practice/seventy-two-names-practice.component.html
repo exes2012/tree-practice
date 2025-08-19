@@ -7,7 +7,7 @@
 >
   <ng-template #stepContent let-step>
     <div class="space-y-4 text-center">
-      <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">{{ step.title }}</h2>
+      <h2 class="text-primary mb-2 text-xl font-semibold">{{ step.title }}</h2>
 
       <div
         *ngIf="step.hebrewLetters"
@@ -16,12 +16,12 @@
         {{ step.hebrewLetters }}
       </div>
 
-      <div *ngIf="step.pronunciation" class="mb-6 text-lg text-gray-600 dark:text-gray-400">
+      <div *ngIf="step.pronunciation" class="text-secondary mb-6 text-lg">
         {{ step.pronunciation }}
       </div>
 
       <p
-        class="leading-relaxed text-gray-700 dark:text-gray-300"
+        class="text-primary leading-relaxed"
         [innerHTML]="step.instruction"
       ></p>
     </div>

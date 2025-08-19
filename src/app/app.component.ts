@@ -12,7 +12,7 @@ import { ReminderService } from './core/services/reminder.service';
   template: `
     <div
       class="flex h-screen flex-col"
-      [ngClass]="!isLoginRoute ? 'bg-gray-50 dark:bg-gray-900' : 'bg-gray-50'"
+      [ngClass]="!isLoginRoute ? 'surface' : 'bg-gray-50'"
     >
       <div class="flex flex-1 overflow-hidden">
         <div class="relative flex w-full flex-1 flex-col">

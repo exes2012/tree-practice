@@ -11,7 +11,7 @@ import { NotesService, Note } from '../../../../core/services/notes.service';
   selector: 'app-note-editor',
   imports: [CommonModule, FormsModule],
   templateUrl: './note-editor.component.html',
-  styleUrls: ['./note-editor.component.scss'],
+  
 })
 export class NoteEditorComponent implements OnInit, OnDestroy {
   note: Note | null = null;

@@ -19,7 +19,7 @@ interface IntentionPractice {
   selector: 'app-daily-intention',
   imports: [CommonModule, FormsModule, CustomSelectComponent, CustomTimePickerComponent],
   templateUrl: './daily-intention.component.html',
-  styleUrls: ['./daily-intention.component.scss'],
+  
 })
 export class DailyIntentionComponent implements OnInit, OnDestroy {
   intention: DailyIntention | null = null;

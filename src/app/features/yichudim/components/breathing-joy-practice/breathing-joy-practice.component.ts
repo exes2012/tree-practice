@@ -7,7 +7,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-breathing-joy-practice',
   templateUrl: './breathing-joy-practice.component.html',
-  styleUrls: ['./breathing-joy-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, FormsModule, PracticeLayoutComponent],
 })

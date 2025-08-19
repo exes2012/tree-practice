@@ -8,7 +8,7 @@ import { PageHeaderComponent } from '@app/shared/components/page-header/page-hea
 @Component({
   selector: 'app-goals-page',
   templateUrl: './goals-page.component.html',
-  styleUrls: ['./goals-page.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, GoalCardComponent, PageHeaderComponent],
 })

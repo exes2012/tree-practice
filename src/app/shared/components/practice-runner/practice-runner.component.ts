@@ -18,7 +18,7 @@ import {
 @Component({
   selector: 'app-practice-runner',
   templateUrl: './practice-runner.component.html',
-  styleUrls: ['./practice-runner.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, FormsModule],
 })

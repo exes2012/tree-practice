@@ -1,24 +1,25 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ThemeService, Theme } from '../../../../core/services/theme.service';
+import { BottomNavigationComponent } from '../../../../shared/components/bottom-navigation/bottom-navigation.component';
 
 @Component({
   selector: 'app-settings-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BottomNavigationComponent],
   templateUrl: './settings-page.component.html',
-  styleUrl: './settings-page.component.scss',
+  
 })
 export class SettingsPageComponent {
   fontSize = signal<'small' | 'medium' | 'large'>('medium');
-  soundsEnabled = signal(true);
-  privacyMode = signal(false);
+  activeTab = signal<'settings' | 'about'>('settings');
 
   // Theme options for display
   themeOptions = [
-    { value: 'light' as Theme, label: 'Светлая', icon: '☀️' },
-    { value: 'dark' as Theme, label: 'Тёмная', icon: '🌙' },
-    { value: 'system' as Theme, label: 'Системная', icon: '⚙️' },
+    { value: 'light' as Theme, label: 'Светлая', icon: 'light_mode' },
+    { value: 'dark' as Theme, label: 'Тёмная', icon: 'dark_mode' },
+    { value: 'system' as Theme, label: 'Системная', icon: 'computer' },
   ];
 
   // Font size options
@@ -28,7 +29,18 @@ export class SettingsPageComponent {
     { value: 'large' as const, label: 'Большой', class: 'text-lg' },
   ];
 
-  constructor(public themeService: ThemeService) {}
+  constructor(
+    public themeService: ThemeService,
+    private router: Router
+  ) {}
+
+  goBackToHome(): void {
+    this.router.navigate(['/home']);
+  }
+
+  switchTab(tab: 'settings' | 'about'): void {
+    this.activeTab.set(tab);
+  }
 
   onThemeChange(theme: Theme): void {
     this.themeService.setTheme(theme);
@@ -40,24 +52,5 @@ export class SettingsPageComponent {
     const sizeClass = this.fontSizeOptions.find((opt) => opt.value === size)?.class || 'text-base';
     document.documentElement.className =
       document.documentElement.className.replace(/text-(sm|base|lg)/, '') + ` ${sizeClass}`;
-  }
-
-  onSoundsToggle(): void {
-    this.soundsEnabled.update((enabled) => !enabled);
-  }
-
-  onPrivacyToggle(): void {
-    this.privacyMode.update((enabled) => !enabled);
-  }
-
-  clearLocalData(): void {
-    if (
-      confirm('Вы уверены, что хотите очистить все локальные данные? Это действие нельзя отменить.')
-    ) {
-      localStorage.clear();
-      sessionStorage.clear();
-      // Reload to reset app state
-      window.location.reload();
-    }
   }
 }

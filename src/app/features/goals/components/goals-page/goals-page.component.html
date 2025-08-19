@@ -1,13 +1,13 @@
 <app-page-header title="Цели с Творцом" (backClicked)="goBackToHome()"></app-page-header>
 
-<div class="goals-list-container pt-16">
+<div class="pb-20 pt-16">
   <app-goal-card
     *ngFor="let goal of goals"
     [goal]="goal"
     (goalSelected)="onGoalSelected($event)"
   ></app-goal-card>
 
-  <div class="add-goal-button-container">
-    <button class="add-goal-button" (click)="addNewGoal()">Добавить новую цель</button>
+  <div class="fixed bottom-0 left-0 right-0 z-10 flex justify-center border-t border-subtle surface-elevated p-4">
+    <button class="btn btn-primary w-full max-w-xs" (click)="addNewGoal()">Добавить новую цель</button>
   </div>
 </div>

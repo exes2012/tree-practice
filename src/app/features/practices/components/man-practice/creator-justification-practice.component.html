@@ -2,7 +2,7 @@
   <div class="mb-6 flex items-center">
     <button
       (click)="goBack()"
-      class="mr-4 rounded-lg bg-white p-2 shadow-sm transition-shadow hover:shadow-md dark:bg-gray-800"
+      class="mr-4 rounded-lg surface-elevated p-2 shadow-sm transition-shadow hover:shadow-md"
     >
       <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -13,25 +13,25 @@
         ></path>
       </svg>
     </button>
-    <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+    <h1 class="text-xl font-semibold text-primary">
       В чем я не оправдываю Творца
     </h1>
   </div>
 
-  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
+  <div class="rounded-lg surface-elevated p-6 shadow-md">
     <div class="mb-4 flex items-center">
       <i class="material-icons mr-4 text-4xl text-blue-500 dark:text-blue-400">gavel</i>
       <div>
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <h2 class="text-lg font-semibold text-primary">
           В чем я не оправдываю Творца
         </h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Поиск и исправление</p>
+        <p class="text-sm text-secondary">Поиск и исправление</p>
       </div>
     </div>
 
     <div class="mb-6">
-      <h3 class="mb-2 font-semibold text-gray-900 dark:text-gray-100">Описание</h3>
-      <p class="text-gray-700 dark:text-gray-300">
+      <h3 class="mb-2 font-semibold text-primary">Описание</h3>
+      <p class="text-primary">
         Это упражнение направлено на поиск и исправление внутренних установок, мешающих оправдать
         действия Творца. Цель - прийти к полному принятию и оправданию всего происходящего.
       </p>
@@ -39,18 +39,18 @@
 
     <div class="mb-6 grid grid-cols-2 gap-4 text-center">
       <div>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Время</p>
-        <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">35 мин</p>
+        <p class="text-sm text-secondary">Время</p>
+        <p class="text-lg font-semibold text-primary">35 мин</p>
       </div>
       <div>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Уровень</p>
-        <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">Эксперт</p>
+        <p class="text-sm text-secondary">Уровень</p>
+        <p class="text-lg font-semibold text-primary">Эксперт</p>
       </div>
     </div>
 
     <button
       (click)="startPractice()"
-      class="flex w-full items-center justify-center rounded-lg bg-orange-600 px-6 py-4 text-lg font-semibold text-white transition-colors duration-200 hover:bg-orange-700"
+      class="btn bg-orange-600 text-white text-lg w-full"
     >
       <i class="material-icons mr-3">play_arrow</i>
       <span>Начать</span>

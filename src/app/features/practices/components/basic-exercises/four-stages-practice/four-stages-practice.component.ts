@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-four-stages-practice',
   templateUrl: './four-stages-practice.component.html',
-  styleUrls: ['./four-stages-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

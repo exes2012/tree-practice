@@ -1,122 +1,136 @@
-<div class="space-y-lg p-md pb-24">
-  <div
-    class="rounded-xl border border-neutral-200 bg-white p-lg shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
-  >
-    <h1 class="mb-md text-2xl font-bold text-neutral-900 dark:text-neutral-100">⚙️ Настройки</h1>
-    <p class="mb-lg text-neutral-600 dark:text-neutral-400">Персонализация приложения</p>
+<div class="profile-page surface flex h-full flex-col">
+  <!-- Header -->
+  <div class="sticky top-0 z-10 border-b border-subtle surface-elevated shadow-sm">
+    <div class="space-y-3 px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <button
+            (click)="goBackToHome()"
+            class="icon-btn-primary mr-3"
+          >
+            <i class="material-icons text-muted">arrow_back</i>
+          </button>
+          <h1 class="text-primary text-lg font-semibold">Профиль</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <div class="space-y-md">
-      <!-- Theme Selection -->
-      <div class="rounded-lg bg-neutral-50 p-md dark:bg-neutral-700">
-        <h3 class="mb-sm font-semibold text-neutral-900 dark:text-neutral-100">Внешний вид</h3>
-        <div class="space-y-sm">
-          <div class="flex min-h-touch items-center justify-between">
-            <span class="text-neutral-700 dark:text-neutral-300">Тема</span>
-            <div class="flex gap-xs rounded-lg bg-neutral-100 p-xs dark:bg-neutral-600">
+  <!-- Content -->
+  <div class="flex-1">
+    <div class="space-y-6 p-4 pb-24">
+      <!-- Profile Info Card -->
+      <div class="card-padded">
+        <div class="flex items-center">
+          <div class="mr-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-500/10">
+            <i class="material-icons text-primary-500 text-2xl">person</i>
+          </div>
+          <div>
+            <h2 class="text-primary text-xl font-semibold">Пользователь</h2>
+            <p class="text-secondary text-sm">Духовный практик</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mb-4 flex rounded-xl bg-neutral-100 p-1 dark:bg-neutral-800">
+        <button
+          (click)="switchTab('settings')"
+          [class]="
+            'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ' +
+            (activeTab() === 'settings'
+              ? 'surface-elevated text-primary shadow-sm'
+              : 'text-muted hover:text-neutral-700 dark:hover:text-neutral-300')
+          "
+        >
+          <i class="material-icons mr-2 text-lg">tune</i>
+          Настройки
+        </button>
+        <button
+          (click)="switchTab('about')"
+          [class]="
+            'flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ' +
+            (activeTab() === 'about'
+              ? 'surface-elevated text-primary shadow-sm'
+              : 'text-muted hover:text-neutral-700 dark:hover:text-neutral-300')
+          "
+        >
+          <i class="material-icons mr-2 text-lg">info</i>
+          О приложении
+        </button>
+      </div>
+
+      <!-- Settings Tab -->
+      <div *ngIf="activeTab() === 'settings'">
+        <div class="card-padded">
+          <h3 class="text-primary mb-4 text-lg font-semibold">Внешний вид</h3>
+          
+          <!-- Theme Selection -->
+          <div class="mb-6">
+            <label class="text-primary mb-3 block text-sm font-medium">Тема приложения</label>
+            <div class="grid grid-cols-3 gap-2">
               <button
                 *ngFor="let option of themeOptions"
                 type="button"
                 (click)="onThemeChange(option.value)"
                 [class]="
-                  'flex min-h-touch items-center gap-xs rounded px-sm py-xs text-sm font-medium transition-all duration-200 ' +
+                  'flex flex-col items-center rounded-lg p-3 transition-all duration-200 border-2 ' +
                   (themeService.theme() === option.value
-                    ? 'bg-brand-500 text-white shadow-sm'
-                    : 'text-neutral-600 hover:bg-neutral-200 dark:text-neutral-400 dark:hover:bg-neutral-500')
+                    ? 'border-primary-500 bg-primary-500/5'
+                    : 'border-subtle surface-elevated hover:border-primary-300')
                 "
-                [attr.aria-pressed]="themeService.theme() === option.value"
               >
-                <span>{{ option.icon }}</span>
-                <span>{{ option.label }}</span>
+                <i class="material-icons mb-2 text-2xl text-primary">{{ option.icon }}</i>
+                <span class="text-xs font-medium text-primary">{{ option.label }}</span>
               </button>
             </div>
           </div>
 
-          <div class="flex min-h-touch items-center justify-between">
-            <span class="text-neutral-700 dark:text-neutral-300">Размер шрифта</span>
-            <select
-              [value]="fontSize()"
-              (change)="onFontSizeChange($any($event.target).value)"
-              class="min-h-touch rounded-lg border border-neutral-300 bg-white px-sm py-xs text-sm focus:border-transparent focus:ring-2 focus:ring-brand-500 dark:border-neutral-600 dark:bg-neutral-700"
-            >
-              <option *ngFor="let option of fontSizeOptions" [value]="option.value">
-                {{ option.label }}
-              </option>
-            </select>
+          <!-- Font Size -->
+          <div>
+            <label class="text-primary mb-3 block text-sm font-medium">Размер шрифта</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button
+                *ngFor="let option of fontSizeOptions"
+                type="button"
+                (click)="onFontSizeChange(option.value)"
+                [class]="
+                  'flex flex-col items-center rounded-lg p-3 transition-all duration-200 border-2 ' +
+                  (fontSize() === option.value
+                    ? 'border-primary-500 bg-primary-500/5'
+                    : 'border-subtle surface-elevated hover:border-primary-300')
+                "
+              >
+                <i class="material-icons mb-2 text-xl text-primary">format_size</i>
+                <span [class]="'font-medium text-primary ' + option.class">{{ option.label }}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Sounds and Notifications -->
-      <div class="rounded-lg bg-neutral-50 p-md dark:bg-neutral-700">
-        <h3 class="mb-sm font-semibold text-neutral-900 dark:text-neutral-100">
-          Звуки и уведомления
-        </h3>
-        <div class="space-y-sm">
-          <div class="flex min-h-touch items-center justify-between">
-            <span class="text-neutral-700 dark:text-neutral-300">Звуки</span>
-            <button
-              type="button"
-              (click)="onSoundsToggle()"
-              [class]="
-                'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 ' +
-                (soundsEnabled() ? 'bg-brand-500' : 'bg-neutral-300 dark:bg-neutral-600')
-              "
-              role="switch"
-              [attr.aria-checked]="soundsEnabled()"
-            >
-              <span
-                [class]="
-                  'inline-block h-4 w-4 rounded-full bg-white transition-transform ' +
-                  (soundsEnabled() ? 'translate-x-6' : 'translate-x-1')
-                "
-              >
-              </span>
-              <span class="sr-only">Включить звуки</span>
-            </button>
-          </div>
-
-          <div class="flex min-h-touch items-center justify-between">
-            <span class="text-neutral-700 dark:text-neutral-300">Приватность круга</span>
-            <button
-              type="button"
-              (click)="onPrivacyToggle()"
-              [class]="
-                'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 ' +
-                (privacyMode() ? 'bg-brand-500' : 'bg-neutral-300 dark:bg-neutral-600')
-              "
-              role="switch"
-              [attr.aria-checked]="privacyMode()"
-            >
-              <span
-                [class]="
-                  'inline-block h-4 w-4 rounded-full bg-white transition-transform ' +
-                  (privacyMode() ? 'translate-x-6' : 'translate-x-1')
-                "
-              >
-              </span>
-              <span class="sr-only">Включить приватный режим</span>
-            </button>
+      <!-- About Tab -->
+      <div *ngIf="activeTab() === 'about'">
+        <div class="card-padded">
+          <h3 class="text-primary mb-4 text-lg font-semibold">О приложении</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="text-primary mb-2 font-medium">Гмар Тиккун</h4>
+              <p class="text-secondary text-sm leading-relaxed">
+                Приложение для каббалистических практик и духовного развития. 
+                Помогает в проработке эго и установлении связи с Творцом.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-primary mb-2 font-medium">Версия</h4>
+              <p class="text-secondary text-sm">1.0.0</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Data Management -->
-      <div class="rounded-lg bg-neutral-50 p-md dark:bg-neutral-700">
-        <h3 class="mb-sm font-semibold text-neutral-900 dark:text-neutral-100">Данные</h3>
-        <button
-          type="button"
-          (click)="clearLocalData()"
-          class="min-h-touch rounded px-sm py-xs text-sm font-medium text-error-600 transition-colors hover:bg-error-50 focus:outline-none focus:ring-2 focus:ring-error-500 dark:text-error-400 dark:hover:bg-error-900/20"
-        >
-          🗑️ Очистка локальных данных
-        </button>
-      </div>
-    </div>
-
-    <div class="mt-lg border-t border-neutral-200 pt-lg text-center dark:border-neutral-700">
-      <p class="text-sm text-neutral-500 dark:text-neutral-400">
-        Настройки применяются автоматически и сохраняются в браузере
-      </p>
     </div>
   </div>
+
+  <!-- Bottom Navigation -->
+  <app-bottom-navigation></app-bottom-navigation>
 </div>

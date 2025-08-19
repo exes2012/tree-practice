@@ -3,7 +3,7 @@
     <div
       *ngFor="let practice of practices"
       (click)="onPracticeClick(practice)"
-      class="practice-card relative flex min-h-touch cursor-pointer items-center rounded-xl bg-white p-md shadow-sm transition-all duration-200 @container hover:shadow-md dark:bg-gray-800"
+      class="practice-card relative flex min-h-touch cursor-pointer items-center rounded-xl surface-elevated p-4 shadow-sm transition-all duration-200 @container hover:shadow-md"
       [ngClass]="practice.disabled ? 'cursor-not-allowed opacity-50' : ''"
     >
       <div
@@ -15,12 +15,12 @@
         }}</i>
       </div>
       <div class="flex-1">
-        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-200">
+        <h3 class="text-primary text-base font-semibold">
           {{ practice.title }}
         </h3>
         <div *ngIf="practice.author" class="mt-1">
           <span
-            class="inline-block rounded-md px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400"
+            class="text-secondary inline-block rounded-md px-2 py-0.5 text-xs font-medium"
             >{{ practice.author }}</span
           >
         </div>

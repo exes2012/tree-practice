@@ -1,7 +1,7 @@
-<div class="diary-page flex h-full flex-col bg-gray-50 dark:bg-gray-900">
+<div class="diary-page surface flex h-full flex-col">
   <!-- Sticky Header like Notes -->
   <div
-    class="sticky top-0 z-10 border-b border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+    class="sticky top-0 z-10 border-b border-subtle surface-elevated shadow-sm"
   >
     <div class="space-y-3 px-4 py-3">
       <!-- Title -->
@@ -9,13 +9,13 @@
         <div class="flex items-center">
           <button
             (click)="goToHome()"
-            class="back-button mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+            class="icon-btn-primary mr-3"
           >
-            <i class="material-icons text-gray-500">arrow_back</i>
+            <i class="material-icons text-muted">arrow_back</i>
           </button>
           <div>
-            <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Дневник</h1>
-            <div *ngIf="totalDuration > 0" class="text-xs text-gray-500 dark:text-gray-400">
+            <h1 class="text-primary text-lg font-semibold">Дневник</h1>
+            <div *ngIf="totalDuration > 0" class="text-secondary text-xs">
               Всего практиковал: {{ formatDuration(totalDuration) }}
             </div>
           </div>
@@ -24,23 +24,23 @@
         <div class="flex items-center space-x-2">
           <button
             (click)="prevDay()"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+            class="icon-btn-primary"
           >
-            <i class="material-icons text-gray-600 dark:text-gray-300">chevron_left</i>
+            <i class="material-icons text-primary">chevron_left</i>
           </button>
           <div class="px-2 text-center">
-            <div class="text-sm font-semibold leading-5 text-gray-700 dark:text-gray-200">
+            <div class="text-primary text-sm font-semibold leading-5">
               {{ formatDate(dateKey) }}
             </div>
-            <div class="text-xs leading-4 text-gray-500 dark:text-gray-400">
+            <div class="text-secondary text-xs leading-4">
               {{ formatDay(dateKey) }}
             </div>
           </div>
           <button
             (click)="nextDay()"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+            class="icon-btn-primary"
           >
-            <i class="material-icons text-gray-600 dark:text-gray-300">chevron_right</i>
+            <i class="material-icons text-primary">chevron_right</i>
           </button>
         </div>
       </div>
@@ -51,11 +51,11 @@
   <div class="flex-1">
     <div class="space-y-6 p-4 pb-24">
       <!-- Timeline: mood + events -->
-      <div class="rounded-xl bg-white p-0 shadow-sm dark:bg-gray-800">
-        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+      <div class="surface-elevated rounded-xl p-0 shadow-sm">
+        <div class="divide-y divide-subtle">
           <!-- Mood selector row (only today) -->
           <div class="px-6 py-4" *ngIf="isToday">
-            <h2 class="mb-3 text-lg font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="text-primary mb-3 text-lg font-semibold">
               Как настроение?
             </h2>
             <div class="flex justify-center gap-2">
@@ -64,7 +64,7 @@
                 (click)="setMood(v)"
                 [class.ring-2]="mood === v"
                 [class.ring-blue-300]="mood === v"
-                class="flex h-14 w-14 items-center justify-center rounded-full bg-white transition-all duration-200 hover:scale-105 dark:bg-gray-800"
+                class="surface-elevated flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 hover:scale-105"
               >
                 <i
                   class="material-icons text-5xl leading-none"
@@ -80,13 +80,13 @@
           <ng-container *ngIf="groupedEvents?.length; else emptyDay">
             <div *ngFor="let group of groupedEvents" class="">
               <div
-                class="bg-gray-50 px-6 py-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:bg-gray-700/30"
+                class="bg-neutral-50 px-6 py-2 text-xs font-semibold uppercase tracking-wide text-muted dark:bg-neutral-700/30"
               >
                 {{ group.label }}
               </div>
               <div
                 *ngFor="let ev of group.items"
-                class="flex items-start gap-3 px-6 py-3 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                class="flex items-start gap-3 px-6 py-3 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-700/50"
               >
                 <!-- Иконка: для практик показываем цветной смайлик рейтинга, для остальных - обычную иконку -->
                 <div class="flex flex-col items-center">
@@ -95,33 +95,33 @@
                     [ngClass]="
                       ev.type === 'run' && ev.data?.rating
                         ? getMoodColorClass(ev.data.rating)
-                        : 'text-gray-600 dark:text-gray-400'
+                        : 'text-secondary'
                     "
                   >
                     {{ ev.icon }}
                   </i>
                   <span
                     *ngIf="ev.type === 'run' && ev.data?.rating"
-                    class="mt-1 text-xs leading-none text-gray-500"
+                    class="mt-1 text-xs leading-none text-muted"
                     >{{ ev.data.rating }}</span
                   >
                 </div>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between">
-                    <div class="truncate font-medium text-gray-900 dark:text-gray-100">
+                    <div class="text-primary truncate font-medium">
                       {{ ev.title }}
                     </div>
-                    <div class="text-xs text-gray-500">{{ ev.time | date: 'HH:mm' }}</div>
+                    <div class="text-muted text-xs">{{ ev.time | date: 'HH:mm' }}</div>
                   </div>
                   <div
                     *ngIf="ev.type === 'note'"
-                    class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400"
+                    class="text-secondary line-clamp-2 text-sm"
                   >
                     {{ getPreviewText(ev.data?.content) || 'Нет содержимого' }}
                   </div>
                   <div
                     *ngIf="ev.type === 'run' && ev.data?.duration"
-                    class="mt-0.5 text-xs text-gray-500"
+                    class="text-muted mt-0.5 text-xs"
                   >
                     {{ formatDuration(ev.data.duration) }}
                   </div>
@@ -131,7 +131,7 @@
                   >
                     <span
                       *ngFor="let tag of ev.data.tags | slice: 0 : 3"
-                      class="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400"
+                      class="text-secondary dark:bg-neutral-700 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-xs"
                       >#{{ tag }}</span
                     >
                   </div>
@@ -141,7 +141,7 @@
                   <button
                     *ngIf="ev.type === 'note'"
                     (click)="$event.stopPropagation(); toggleFavoriteNote(ev.data.id)"
-                    class="rounded-full p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="rounded-full p-2 text-muted hover:bg-neutral-100 dark:hover:bg-neutral-700"
                     [title]="ev.data.isFavorite ? 'Убрать из избранного' : 'В избранное'"
                   >
                     <i class="material-icons text-base">{{
@@ -151,7 +151,7 @@
                   <button
                     *ngIf="ev.type === 'note'"
                     (click)="$event.stopPropagation(); openNote(ev.data.id)"
-                    class="rounded-full p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="rounded-full p-2 text-muted hover:bg-neutral-100 dark:hover:bg-neutral-700"
                     title="Редактировать"
                   >
                     <i class="material-icons text-base">edit</i>
@@ -159,7 +159,7 @@
                   <button
                     *ngIf="ev.type === 'note'"
                     (click)="$event.stopPropagation(); deleteNoteById(ev.data.id)"
-                    class="rounded-full p-2 text-gray-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    class="rounded-full p-2 text-muted hover:bg-red-50 dark:hover:bg-red-900/20"
                     title="Удалить"
                   >
                     <i class="material-icons text-base">delete</i>
@@ -167,7 +167,7 @@
                   <button
                     *ngIf="ev.type === 'run'"
                     (click)="$event.stopPropagation(); openPracticeRun(ev.data)"
-                    class="rounded-full p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="rounded-full p-2 text-muted hover:bg-neutral-100 dark:hover:bg-neutral-700"
                     title="Открыть практику"
                   >
                     <i class="material-icons text-base">play_arrow</i>
@@ -177,7 +177,7 @@
             </div>
           </ng-container>
           <ng-template #emptyDay>
-            <div class="px-6 py-10 text-center text-gray-500">Нет событий за этот день</div>
+            <div class="text-muted px-6 py-10 text-center">Нет событий за этот день</div>
           </ng-template>
         </div>
       </div>

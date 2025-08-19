@@ -16,7 +16,7 @@ interface IntentionPractice {
 @Component({
   selector: 'app-intention-practice',
   templateUrl: './intention-practice.component.html',
-  styleUrls: ['./intention-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeListComponent, SharedModule, PracticePageLayoutComponent],
 })

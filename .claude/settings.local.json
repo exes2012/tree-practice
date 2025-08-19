@@ -18,7 +18,12 @@
       "Bash(npm pkg set scripts.format=:*)",
       "Bash(npm run lint)",
       "Bash(npm run format:*)",
-      "Bash(.github/workflows/tailwind-css-checks.yml)"
+      "Bash(.github/workflows/tailwind-css-checks.yml)",
+      "Bash(ng build)",
+      "Bash(npx unimported:*)",
+      "Bash(npx madge:*)",
+      "Bash(npx depcruise:*)",
+      "Bash(npx ts-unused-exports:*)"
     ],
     "defaultMode": "acceptEdits",
     "additionalDirectories": [

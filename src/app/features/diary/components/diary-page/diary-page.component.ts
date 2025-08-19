@@ -18,7 +18,7 @@ function toDateKey(d = new Date()): string {
   standalone: true,
   imports: [CommonModule, FormsModule, BottomNavigationComponent],
   templateUrl: './diary-page.component.html',
-  styleUrl: './diary-page.component.scss',
+  
 })
 export class DiaryPageComponent implements OnInit {
   date = new Date();

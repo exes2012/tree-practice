@@ -1,22 +1,22 @@
 <div class="space-y-4 p-4 pb-24">
   <!-- Loading State -->
   <div *ngIf="isLoading" class="flex justify-center py-8">
-    <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-gray-600"></div>
+    <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-secondary"></div>
   </div>
 
   <!-- Main Content -->
   <div *ngIf="!isLoading" class="space-y-4">
     <!-- Reminders Settings -->
     <div
-      class="rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+      class="rounded-xl border border-subtle surface-elevated p-4 shadow-sm"
     >
-      <h3 class="mb-4 font-semibold text-gray-900 dark:text-gray-100">Напоминания о намерении</h3>
+      <h3 class="text-primary mb-4 font-semibold">Напоминания о намерении</h3>
 
       <!-- Toggle Section -->
       <div class="mb-4 flex items-center justify-between">
         <div>
-          <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Напоминания</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">
+          <p class="text-primary text-sm font-medium">Напоминания</p>
+          <p class="text-secondary text-xs">
             {{ intention?.isEnabled ? 'Включено' : 'Выключено' }}
           </p>
         </div>
@@ -38,7 +38,7 @@
       <div *ngIf="intention?.isEnabled">
         <div class="space-y-4">
           <div>
-            <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+            <label class="text-primary mb-3 block text-sm font-medium">
               Интервал напоминаний
             </label>
             <app-custom-select
@@ -52,7 +52,7 @@
 
           <div class="space-y-4">
             <div>
-              <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+              <label class="text-primary mb-3 block text-sm font-medium">
                 Время начала
               </label>
               <app-custom-time-picker [(ngModel)]="startTime" (ngModelChange)="updateInterval()">
@@ -60,7 +60,7 @@
             </div>
 
             <div>
-              <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+              <label class="text-primary mb-3 block text-sm font-medium">
                 Время окончания
               </label>
               <app-custom-time-picker [(ngModel)]="endTime" (ngModelChange)="updateInterval()">

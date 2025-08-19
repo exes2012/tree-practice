@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-divine-space-practice',
   templateUrl: './divine-space-practice.component.html',
-  styleUrls: ['./divine-space-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

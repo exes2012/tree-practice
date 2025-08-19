@@ -1,63 +1,85 @@
 <nav
-  class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+  class="fixed bottom-0 left-0 right-0 z-50 border-t border-subtle surface-elevated shadow-lg"
 >
   <div class="mx-auto flex max-w-md justify-around">
     <a
       routerLink="/home"
-      routerLinkActive="nav-active"
+      routerLinkActive="text-primary-500 dark:text-slate-50"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+      class="nav-item"
     >
-      <div class="nav-icon-container">
+      <div
+        routerLinkActive="bg-primary-500/10 shadow-[0_2px_8px_rgba(59,74,92,0.15)] dark:bg-slate-50/20 dark:shadow-[0_2px_12px_rgba(248,250,252,0.3)]"
+        class="icon-btn-nav"
+      >
         <i class="material-icons text-3xl">home</i>
       </div>
       <span class="mt-1 text-sm font-medium">Главная</span>
+      <div routerLinkActive="bg-primary-500 dark:bg-slate-50 shadow-[0_1px_3px_rgba(248,250,252,0.5)]" class="nav-indicator"></div>
     </a>
     <a
       routerLink="/notes"
-      routerLinkActive="nav-active"
-      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+      routerLinkActive="text-primary-500 dark:text-slate-50"
+      class="nav-item"
     >
-      <div class="nav-icon-container">
+      <div
+        routerLinkActive="bg-primary-500/10 shadow-[0_2px_8px_rgba(59,74,92,0.15)] dark:bg-slate-50/20 dark:shadow-[0_2px_12px_rgba(248,250,252,0.3)]"
+        class="icon-btn-nav"
+      >
         <i class="material-icons text-3xl">edit_note</i>
       </div>
       <span class="mt-1 text-sm font-medium">Заметки</span>
+      <div routerLinkActive="bg-primary-500 dark:bg-slate-50 shadow-[0_1px_3px_rgba(248,250,252,0.5)]" class="nav-indicator"></div>
     </a>
     <div
-      class="nav-item flex flex-1 cursor-not-allowed flex-col items-center justify-center rounded-xl px-3 py-3 text-center opacity-40 transition-all duration-200"
+      class="nav-item-disabled"
     >
-      <div class="nav-icon-container">
+      <div class="icon-btn-nav">
         <i class="material-icons text-3xl">menu_book</i>
       </div>
       <span class="mt-1 text-sm font-medium">Обучение</span>
     </div>
     <a
       routerLink="/reminders"
-      routerLinkActive="nav-active"
-      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+      routerLinkActive="text-primary-500 dark:text-slate-50"
+      class="nav-item"
     >
-      <div class="nav-icon-container">
+      <div
+        routerLinkActive="bg-primary-500/10 shadow-[0_2px_8px_rgba(59,74,92,0.15)] dark:bg-slate-50/20 dark:shadow-[0_2px_12px_rgba(248,250,252,0.3)]"
+        class="icon-btn-nav"
+      >
         <i class="material-icons text-3xl">notifications</i>
       </div>
       <span class="mt-1 text-sm font-medium">Напоминания</span>
+      <div routerLinkActive="bg-primary-500 dark:bg-slate-50 shadow-[0_1px_3px_rgba(248,250,252,0.5)]" class="nav-indicator"></div>
     </a>
     <a
       routerLink="/diary"
-      routerLinkActive="nav-active"
-      class="nav-item flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center transition-all duration-200"
+      routerLinkActive="text-primary-500 dark:text-slate-50"
+      class="nav-item"
     >
-      <div class="nav-icon-container">
+      <div
+        routerLinkActive="bg-primary-500/10 shadow-[0_2px_8px_rgba(59,74,92,0.15)] dark:bg-slate-50/20 dark:shadow-[0_2px_12px_rgba(248,250,252,0.3)]"
+        class="icon-btn-nav"
+      >
         <i class="material-icons text-3xl">event_note</i>
       </div>
       <span class="mt-1 text-sm font-medium">Дневник</span>
+      <div routerLinkActive="bg-primary-500 dark:bg-slate-50 shadow-[0_1px_3px_rgba(248,250,252,0.5)]" class="nav-indicator"></div>
     </a>
-    <div
-      class="nav-item flex flex-1 cursor-not-allowed flex-col items-center justify-center rounded-xl px-3 py-3 text-center opacity-40 transition-all duration-200"
+    <a
+      routerLink="/settings"
+      routerLinkActive="text-primary-500 dark:text-slate-50"
+      class="nav-item"
     >
-      <div class="nav-icon-container">
+      <div
+        routerLinkActive="bg-primary-500/10 shadow-[0_2px_8px_rgba(59,74,92,0.15)] dark:bg-slate-50/20 dark:shadow-[0_2px_12px_rgba(248,250,252,0.3)]"
+        class="icon-btn-nav"
+      >
         <i class="material-icons text-3xl">person</i>
       </div>
       <span class="mt-1 text-sm font-medium">Профиль</span>
-    </div>
+      <div routerLinkActive="bg-primary-500 dark:bg-slate-50 shadow-[0_1px_3px_rgba(248,250,252,0.5)]" class="nav-indicator"></div>
+    </a>
   </div>
 </nav>

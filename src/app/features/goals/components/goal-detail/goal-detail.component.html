@@ -4,38 +4,38 @@
   (editClicked)="editGoal()"
   (backClicked)="goBackToGoals()"
 >
-  <button class="delete-button" (click)="deleteGoal()">
-    <i class="material-icons">delete</i>
+  <button class="ml-3 flex cursor-pointer items-center justify-center rounded-full border-none bg-red-500 p-2 text-white transition-colors duration-300 hover:bg-red-600" (click)="deleteGoal()">
+    <i class="material-icons text-xl">delete</i>
   </button>
 </app-page-header>
 
-<div class="goal-detail-container pt-16" *ngIf="goal">
+<div class="surface min-h-screen p-4 pb-20 pt-16" *ngIf="goal">
   <!-- Goal Title -->
-  <h1 class="goal-title-header">{{ goal.title }}</h1>
+  <h1 class="text-primary mb-5 mt-9 text-center text-xl font-semibold leading-tight">{{ goal.title }}</h1>
 
-  <div class="goal-summary">
-    <div class="summary-item">
-      <span class="summary-label">Проработок:</span>
-      <span class="summary-value">{{ goal.practices.length }}</span>
+  <div class="card-padded mb-6">
+    <div class="mb-3 flex items-center justify-between last:mb-0">
+      <span class="text-muted text-base font-semibold">Проработок:</span>
+      <span class="text-primary text-base font-medium">{{ goal.practices.length }}</span>
     </div>
-    <div class="summary-item">
-      <span class="summary-label">Направление:</span>
-      <span class="summary-value">{{ getDirectionInRussian(goal.direction) }}</span>
+    <div class="mb-3 flex items-center justify-between last:mb-0">
+      <span class="text-muted text-base font-semibold">Направление:</span>
+      <span class="text-primary text-base font-medium">{{ getDirectionInRussian(goal.direction) }}</span>
     </div>
   </div>
 
-  <div class="practices-list">
-    <h3 class="practices-title">Проработки</h3>
-    <div *ngIf="goal.practices.length === 0" class="no-practices">
+  <div>
+    <h3 class="text-primary mb-4 border-b-2 border-subtle pb-2 text-xl font-semibold">Проработки</h3>
+    <div *ngIf="goal.practices.length === 0" class="surface-elevated text-muted rounded-lg border border-dashed border-subtle p-5 text-center italic">
       Пока нет проработок для этой цели.
     </div>
-    <div *ngFor="let practice of getReversedPractices()" class="practice-item">
-      <p class="practice-title">{{ practice.formulation }}</p>
-      <p class="practice-details">{{ practice.type }} - {{ practice.date }}</p>
+    <div *ngFor="let practice of getReversedPractices()" class="card-padded mb-3 transition-shadow duration-200 hover:shadow-lg">
+      <p class="text-primary mb-2 text-base font-semibold leading-snug">{{ practice.formulation }}</p>
+      <p class="text-muted flex items-center justify-between text-sm">{{ practice.type }} - {{ practice.date }}</p>
     </div>
   </div>
 
-  <div class="add-practice-button-container">
-    <button class="add-practice-button" (click)="addPractice()">Добавить проработку</button>
+  <div class="fixed bottom-0 left-0 right-0 z-10 flex justify-center border-t border-subtle surface-elevated p-4">
+    <button class="btn btn-primary w-full max-w-xs" (click)="addPractice()">Добавить проработку</button>
   </div>
 </div>

@@ -10,7 +10,7 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
 @Component({
   selector: 'app-goal-form',
   templateUrl: './goal-form.component.html',
-  styleUrls: ['./goal-form.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, FormsModule, PracticePageLayoutComponent],
 })

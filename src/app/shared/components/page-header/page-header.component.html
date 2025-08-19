@@ -1,23 +1,23 @@
 <div
-  class="header-container fixed left-0 right-0 top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80"
+  class="header-container"
 >
   <div class="flex h-14 items-center justify-between px-4 py-3">
     <div class="flex items-center">
       <button
         (click)="goBack()"
-        class="back-button mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+        class="icon-btn-primary mr-3"
       >
-        <i class="material-icons text-gray-500 dark:text-gray-400">arrow_back</i>
+        <i class="material-icons text-secondary">arrow_back</i>
       </button>
-      <h1 class="text-lg font-semibold text-gray-800 dark:text-gray-200">{{ title }}</h1>
+      <h1 class="text-primary text-lg font-semibold">{{ title }}</h1>
     </div>
     <div class="flex items-center">
       <button
         *ngIf="showEditButton"
         (click)="onEditClick()"
-        class="edit-button ml-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+        class="icon-btn-primary ml-3"
       >
-        <i class="material-icons text-gray-500 dark:text-gray-400">edit</i>
+        <i class="material-icons text-secondary">edit</i>
       </button>
       <ng-content></ng-content>
     </div>

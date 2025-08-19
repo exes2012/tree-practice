@@ -1,21 +1,21 @@
 <!-- Practice Header -->
 <div
-  class="practice-header sticky top-0 z-10 border-b border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+  class="practice-header sticky top-0 z-10 border-b border-subtle surface-elevated shadow-sm"
 >
   <div class="container mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
       <!-- Home Button -->
       <button
         (click)="onHomeClick()"
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+        class="icon-btn-primary"
       >
-        <i class="material-icons text-gray-700 dark:text-gray-300">home</i>
+        <i class="material-icons text-primary">home</i>
       </button>
 
       <!-- Practice Title -->
       <h1
         *ngIf="config?.title"
-        class="mx-4 flex-1 text-center text-lg font-semibold text-gray-900 dark:text-gray-100"
+        class="text-primary mx-4 flex-1 text-center text-lg font-semibold"
       >
         {{ config.title }}
       </h1>
@@ -23,9 +23,9 @@
       <!-- Voice Toggle Button -->
       <button
         (click)="onVoiceToggle()"
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+        class="icon-btn-primary"
       >
-        <i class="material-icons text-gray-700 dark:text-gray-300">{{
+        <i class="material-icons text-primary">{{
           isVoiceEnabled ? 'volume_up' : 'volume_off'
         }}</i>
       </button>
@@ -35,16 +35,16 @@
 
 <!-- Start Screen -->
 <div *ngIf="showStartScreen && config.startScreenContent" class="container mx-auto px-4 pb-24 pt-4">
-  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
+  <div class="surface-elevated rounded-lg p-6 shadow-md">
     <!-- Simple Header -->
     <div class="mb-6 text-center">
-      <h1 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <h1 class="text-primary mb-2 text-xl font-semibold">
         {{ config.startScreenContent.title }}
       </h1>
 
       <!-- Duration and Level info in simple format -->
       <div
-        class="flex justify-center gap-4 text-sm text-gray-600 dark:text-gray-400"
+        class="text-secondary flex justify-center gap-4 text-sm"
         *ngIf="config.startScreenContent.duration || config.startScreenContent.level"
       >
         <span *ngIf="config.startScreenContent.duration" class="flex items-center">
@@ -60,7 +60,7 @@
 
     <!-- Description -->
     <div class="mb-6">
-      <p class="text-center leading-relaxed text-gray-700 dark:text-gray-300">
+      <p class="text-primary text-center leading-relaxed">
         {{ config.startScreenContent.description }}
       </p>
     </div>
@@ -69,7 +69,7 @@
     <div class="text-center">
       <button
         (click)="startPractice()"
-        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+        class="btn btn-primary"
       >
         Начать практику
       </button>
@@ -79,18 +79,18 @@
 
 <!-- Practice Content -->
 <div *ngIf="!showStartScreen && currentStep" class="container mx-auto px-4 pb-24 pt-4">
-  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
+  <div class="surface-elevated rounded-lg p-6 shadow-md">
     <!-- Step Content -->
-    <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+    <h2 class="text-primary mb-2 text-xl font-semibold">
       {{ currentStep.title }}
     </h2>
 
-    <p class="mb-6 text-gray-700 dark:text-gray-300" [innerHTML]="currentStep.instruction"></p>
+    <p class="text-primary mb-6" [innerHTML]="currentStep.instruction"></p>
 
     <!-- Auto Timer Display -->
     <div
       *ngIf="currentStep.autoTimer && currentStep.autoTimer?.showCountdown !== false"
-      class="text-chart my-4 text-center text-4xl font-bold"
+      class="text-custom-chart my-4 text-center text-4xl font-bold"
     >
       <span *ngIf="isAutoTimerActive">{{ getAutoTimerDisplay() }}</span>
       <span *ngIf="!isAutoTimerActive">0:00</span>
@@ -103,7 +103,7 @@
       </div>
       <div
         *ngIf="currentStep.hebrewDisplay.transliteration"
-        class="transliteration text-lg text-gray-600 dark:text-gray-400"
+        class="transliteration text-secondary text-lg"
       >
         ({{ currentStep.hebrewDisplay.transliteration }})
       </div>
@@ -115,7 +115,7 @@
         <button
           *ngFor="let button of currentStep.customButtons"
           (click)="onCustomButtonClick(button)"
-          class="bg-chart flex w-full items-center justify-center rounded-lg px-5 py-3 font-semibold text-white transition-colors hover:bg-gray-700"
+          class="btn bg-custom-chart text-white w-full"
         >
           <i *ngIf="getCustomButtonIcon(button)" class="material-icons mr-3">{{
             getCustomButtonIcon(button)
@@ -136,7 +136,7 @@
         </button>
         <button
           (click)="onChoiceSelected('no')"
-          class="rounded-lg bg-red-600 px-6 py-3 font-medium text-white transition-colors hover:bg-red-700"
+          class="btn btn-danger rounded-lg px-6 py-3 font-medium"
         >
           Нет
         </button>
@@ -146,7 +146,7 @@
       <div *ngIf="!canGoBack" class="mt-4 flex justify-center">
         <button
           (click)="onHomeClick()"
-          class="rounded-lg bg-gray-300 px-4 py-2 font-medium text-gray-800 transition-colors hover:bg-gray-400"
+          class="btn bg-neutral-300 text-neutral-800 hover:bg-neutral-400"
         >
           На главную
         </button>
@@ -168,11 +168,11 @@
             [value]="option.value"
             [checked]="userInput === option.value"
             (change)="userInput = option.value"
-            class="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
+            class="h-4 w-4 rounded border-subtle surface-muted text-primary-600 focus:ring-2 focus:ring-primary-500"
           />
           <label
             [for]="currentStep.inputConfig!.field + '_' + option.value"
-            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            class="text-primary ml-2 text-sm font-medium"
           >
             {{ option.label }}
           </label>
@@ -186,10 +186,10 @@
           [min]="currentStep.inputConfig!.min || 1"
           [max]="currentStep.inputConfig!.max || 10"
           [(ngModel)]="userInput"
-          class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+          class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 dark:bg-neutral-700"
         />
         <div class="mt-2 text-center">
-          <span class="text-lg font-semibold text-gray-700 dark:text-gray-300"
+          <span class="text-primary text-lg font-semibold"
             >{{ userInput }} / {{ currentStep.inputConfig!.max || 10 }}</span
           >
         </div>
@@ -202,7 +202,7 @@
         "
         [(ngModel)]="userInput"
         [placeholder]="getInputPlaceholder()"
-        class="focus:ring-primary-500 resize-vertical min-h-input w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+        class="resize-vertical min-h-input w-full rounded-lg border border-subtle surface-elevated p-3 text-primary focus:border-transparent focus:ring-2 focus:ring-primary-500"
       >
       </textarea>
     </div>
@@ -212,7 +212,7 @@
       <div class="mb-6 text-center">
         <!-- Rating icon display -->
         <div class="mb-4">
-          <i class="material-icons text-chart text-5xl">{{ getRatingIcon() }}</i>
+          <i class="material-icons text-custom-chart text-5xl">{{ getRatingIcon() }}</i>
         </div>
 
         <!-- Rating slider -->
@@ -222,12 +222,12 @@
             [min]="currentStep.ratingConfig?.min || 1"
             [max]="currentStep.ratingConfig?.max || 10"
             [(ngModel)]="userRating"
-            class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+            class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 dark:bg-neutral-700"
           />
         </div>
 
         <!-- Rating value display -->
-        <div class="text-lg font-semibold text-gray-700 dark:text-gray-300">
+        <div class="text-primary text-lg font-semibold">
           {{ userRating }} / {{ currentStep.ratingConfig?.max || 10 }}
         </div>
       </div>
@@ -247,7 +247,7 @@
             <div class="mb-1 text-2xl font-medium" [ngClass]="getBreathingPhaseColor()">
               {{ getBreathingRussianWord() }}
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-secondary text-sm">
               {{ getBreathingPhaseInstruction() }}
             </div>
           </div>
@@ -257,7 +257,7 @@
             <div class="mb-2 text-6xl font-bold text-blue-600 dark:text-blue-400">
               {{ breathingPhaseTimer }}
             </div>
-            <div class="text-sm text-gray-500 dark:text-gray-500">
+            <div class="text-muted text-sm">
               Цикл {{ breathingCycles }}
               {{
                 currentStep.breathingConfig?.cycles
@@ -269,7 +269,7 @@
 
           <!-- Progress Bar -->
           <div class="progress-bar mb-4" *ngIf="currentStep.breathingConfig?.cycles">
-            <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+            <div class="h-2.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">
               <div
                 class="h-2.5 rounded-full bg-blue-600 transition-all duration-1000"
                 [style.width.%]="getBreathingProgress()"
@@ -301,7 +301,7 @@
           <button
             *ngIf="isBreathingActive"
             (click)="stopBreathing()"
-            class="flex items-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+            class="btn btn-danger flex items-center rounded-lg px-4 py-2 text-sm font-medium"
           >
             <i class="material-icons mr-1 text-lg">stop</i>
             <span>Стоп</span>
@@ -317,7 +317,7 @@
         class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-700 dark:bg-blue-900"
       >
         <p
-          class="font-bold leading-relaxed text-gray-700 dark:text-gray-300"
+          class="text-primary font-bold leading-relaxed"
           [innerHTML]="currentStep.repeatablePhrase"
         ></p>
       </div>
@@ -332,7 +332,7 @@
             isRepetitionActive ? 'volume_off' : 'volume_up'
           }}</i>
         </button>
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p class="text-secondary mt-2 text-sm">
           {{ isRepetitionActive ? 'Остановить повтор' : 'Включить повтор' }}
         </p>
       </div>
@@ -347,14 +347,14 @@
       <button
         *ngIf="canGoBack"
         (click)="onBackClick()"
-        class="rounded-lg bg-primary-300 px-6 py-2 font-semibold text-gray-800 transition-colors hover:bg-primary-400"
+        class="btn bg-primary-300 text-neutral-800 hover:bg-primary-400"
       >
         Назад
       </button>
       <button
         *ngIf="!canGoBack"
         (click)="onHomeClick()"
-        class="rounded-lg bg-primary-300 px-6 py-2 font-semibold text-gray-800 transition-colors hover:bg-primary-400"
+        class="btn bg-primary-300 text-neutral-800 hover:bg-primary-400"
       >
         На главную
       </button>
@@ -363,7 +363,7 @@
       <button
         *ngIf="canGoNext"
         (click)="onNextClick()"
-        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+        class="btn btn-primary"
       >
         {{ currentStep.buttonText || 'Далее' }}
       </button>
@@ -371,7 +371,7 @@
       <button
         *ngIf="showFinishButton"
         (click)="onFinishClick()"
-        class="bg-primary-500 rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+        class="btn btn-primary"
       >
         {{ currentStep.buttonText || 'Завершить' }}
       </button>
@@ -384,18 +384,18 @@
   *ngIf="!showStartScreen && !currentStep && !isFinished"
   class="container mx-auto px-4 pt-8 text-center"
 >
-  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
-    <p class="text-gray-700 dark:text-gray-300">Загрузка практики...</p>
+  <div class="surface-elevated rounded-lg p-6 shadow-md">
+    <p class="text-primary">Загрузка практики...</p>
   </div>
 </div>
 
 <div *ngIf="isFinished && !showStartScreen" class="container mx-auto px-4 pt-8 text-center">
-  <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
-    <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">Практика завершена!</h2>
-    <p class="mb-6 text-gray-700 dark:text-gray-300">Спасибо за выполнение практики.</p>
+  <div class="surface-elevated rounded-lg p-6 shadow-md">
+    <h2 class="text-primary mb-4 text-2xl font-bold">Практика завершена!</h2>
+    <p class="text-primary mb-6">Спасибо за выполнение практики.</p>
     <button
       (click)="onHomeClick()"
-      class="bg-primary-500 hover:bg-primary-600 rounded-lg px-6 py-2 font-semibold text-white"
+      class="btn btn-primary"
     >
       На главную
     </button>

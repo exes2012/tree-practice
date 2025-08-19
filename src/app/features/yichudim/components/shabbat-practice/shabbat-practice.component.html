@@ -6,7 +6,7 @@
   [showTimer]="showTimer"
 >
   <ng-template #stepContent let-step>
-    <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">{{ step.title }}</h2>
-    <p class="mb-6 text-gray-700 dark:text-gray-300" [innerHTML]="step.instruction"></p>
+    <h2 class="text-primary mb-2 text-xl font-semibold">{{ step.title }}</h2>
+    <p class="text-secondary mb-6" [innerHTML]="step.instruction"></p>
   </ng-template>
 </app-practice-layout>

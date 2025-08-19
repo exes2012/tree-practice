@@ -8,679 +8,147 @@
 html,
 body,
 :host {
-  font-family:
-    'Inter',
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Arial,
-    'Noto Sans',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    sans-serif;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
-/* Design System Colors - Based on Login Page */
-:root {
-  /* Primary - Login Button Color as Main Brand */
-  --color-primary-50: 248 250 252;
-  --color-primary-100: 241 245 249;
-  --color-primary-200: 226 232 240;
-  --color-primary-300: 203 213 225;
-  --color-primary-400: 148 163 184;
-  --color-primary-500: 59 74 92;
-  --color-primary-600: 47 58 71;
-  --color-primary-700: 36 51 67;
-  --color-primary-800: 30 41 59;
-  --color-primary-900: 15 23 42;
-
-  /* Accent - Lighter version for interactive elements */
-  --color-accent-50: 248 250 252;
-  --color-accent-100: 241 245 249;
-  --color-accent-200: 226 232 240;
-  --color-accent-300: 203 213 225;
-  --color-accent-400: 148 163 184;
-  --color-accent-500: 100 116 139;
-  --color-accent-600: 71 85 105;
-  --color-accent-700: 51 65 85;
-  --color-accent-800: 30 41 59;
-  --color-accent-900: 15 23 42;
-
-  /* Success - Soft Green */
-  --color-success-50: 240 253 244;
-  --color-success-100: 220 252 231;
-  --color-success-200: 187 247 208;
-  --color-success-300: 134 239 172;
-  --color-success-400: 74 222 128;
-  --color-success-500: 34 197 94;
-  --color-success-600: 22 163 74;
-  --color-success-700: 21 128 61;
-  --color-success-800: 22 101 52;
-  --color-success-900: 20 83 45;
-
-  /* Warning - Soft Orange */
-  --color-warning-50: 255 251 235;
-  --color-warning-100: 254 243 199;
-  --color-warning-200: 253 230 138;
-  --color-warning-300: 252 211 77;
-  --color-warning-400: 251 191 36;
-  --color-warning-500: 245 158 11;
-  --color-warning-600: 217 119 6;
-  --color-warning-700: 180 83 9;
-  --color-warning-800: 146 64 14;
-  --color-warning-900: 120 53 15;
-
-  /* Error - Soft Red */
-  --color-error-50: 254 242 242;
-  --color-error-100: 254 226 226;
-  --color-error-200: 254 202 202;
-  --color-error-300: 252 165 165;
-  --color-error-400: 248 113 113;
-  --color-error-500: 239 68 68;
-  --color-error-600: 220 38 38;
-  --color-error-700: 185 28 28;
-  --color-error-800: 153 27 27;
-  --color-error-900: 127 29 29;
-
-  /* Neutral - Clean Grays */
-  --color-neutral-50: 250 250 250;
-  --color-neutral-100: 245 245 245;
-  --color-neutral-200: 229 229 229;
-  --color-neutral-300: 212 212 212;
-  --color-neutral-400: 163 163 163;
-  --color-neutral-500: 115 115 115;
-  --color-neutral-600: 82 82 82;
-  --color-neutral-700: 64 64 64;
-  --color-neutral-800: 38 38 38;
-  --color-neutral-900: 23 23 23;
-
-  /* Design System Spacing */
-  --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem; /* 8px */
-  --space-md: 1rem; /* 16px */
-  --space-lg: 1.5rem; /* 24px */
-  --space-xl: 2rem; /* 32px */
-  --space-base: 1rem; /* 16px */
-
-  /* Border Radius */
-  --radius-sm: 0.25rem; /* 4px */
-  --radius-base: 0.5rem; /* 8px */
-  --radius-md: 0.5rem; /* 8px */
-  --radius-lg: 0.75rem; /* 12px */
-
-  /* Typography Scale */
-  --text-xs: 0.75rem; /* 12px */
-  --text-sm: 0.875rem; /* 14px */
-  --text-base: 1rem; /* 16px */
-  --text-lg: 1.125rem; /* 18px */
-  --text-xl: 1.25rem; /* 20px */
-  --text-2xl: 1.5rem; /* 24px */
-
-  /* Minimum heights for accessibility */
-  --min-height-input: 120px;
-  --min-height-touch: 44px;
-
-  /* Container */
-  --max-width-container: 1200px;
-
-  /* Minimum widths */
-  --min-width-menu: 120px;
-}
-
-/* Global Utility Classes */
-.bg-surface {
-  background-color: rgb(var(--color-neutral-50));
-}
-
-.bg-surface-elevated {
-  background-color: white;
-}
-
-.text-primary {
-  color: rgb(var(--color-primary-700));
-}
-
-.text-secondary {
-  color: rgb(var(--color-neutral-600));
-}
-
-.text-muted {
-  color: rgb(var(--color-neutral-500));
-}
-
-.border-subtle {
-  border-color: rgb(var(--color-neutral-200));
-}
-
-/* Dark mode overrides */
-.dark {
-  --color-neutral-50: #171717;
-  --color-neutral-100: #262626;
-  --color-neutral-200: #404040;
-  --color-neutral-300: #525252;
-  --color-neutral-400: #737373;
-  --color-neutral-500: #a3a3a3;
-  --color-neutral-600: #d4d4d4;
-  --color-neutral-700: #e5e5e5;
-  --color-neutral-800: #f5f5f5;
-  --color-neutral-900: #fafafa;
-}
-
-.dark .bg-surface {
-  background-color: rgb(var(--color-neutral-100));
-}
-
-.dark .bg-surface-elevated {
-  background-color: rgb(var(--color-neutral-50));
-}
-
-.dark .text-primary {
-  color: rgb(var(--color-neutral-800));
-}
-
-.dark .text-secondary {
-  color: rgb(var(--color-neutral-600));
-}
-
-.dark .text-muted {
-  color: rgb(var(--color-neutral-500));
-}
-
-.dark .border-subtle {
-  border-color: rgb(var(--color-neutral-200));
-}
-
-/* Legacy navigation class - can be removed later */
-.active-nav-item {
-  color: var(--color-primary-500) !important;
-}
-
-/* Primary Button Styles */
-.btn-primary {
-  background-color: rgb(var(--color-primary-500));
-  color: white;
-  transition: background-color 0.2s ease-in-out;
-  border: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-primary:hover {
-  background-color: rgb(var(--color-primary-600));
-}
-
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Focus styles for inputs */
-.input-focus:focus {
-  outline: none;
-  border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 3px rgba(59, 74, 92, 0.1);
-}
-
-/* Modern Select Styles - Aggressive overrides */
-select,
-.form-select,
-input[type='select'],
-*[role='listbox'],
-*[role='option'] {
-  background-image: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  appearance: none !important;
-
-  &::-ms-expand {
-    display: none !important;
+@layer utilities {
+  /* Semantic colors */
+  .surface {
+    @apply bg-neutral-50 dark:bg-neutral-900;
   }
-}
-
-/* Simplified form element styles */
-select,
-input[type='time'],
-input[type='date'],
-input[type='datetime-local'] {
-  accent-color: #6b7280;
-
-  &:focus,
-  &:active {
-    outline: none;
-    border-color: #9ca3af;
-    box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-    accent-color: #6b7280;
+  .surface-elevated {
+    @apply bg-white dark:bg-neutral-800;
   }
-}
-
-/* Dark mode accent color */
-.dark select,
-.dark input[type='time'],
-.dark input[type='date'],
-.dark input[type='datetime-local'] {
-  color-scheme: dark;
-  accent-color: #9ca3af;
-
-  &:focus,
-  &:active {
-    accent-color: #9ca3af;
+  .text-primary {
+    @apply text-neutral-800 dark:text-neutral-200;
   }
-}
-
-/* Custom styling for select options */
-select option,
-option {
-  background-color: white;
-  color: #374151;
-  padding: 8px 12px;
-
-  &:hover,
-  &:focus {
-    background-color: #f3f4f6;
-    color: #111827;
+  .text-secondary {
+    @apply text-neutral-600 dark:text-neutral-400;
+  }
+  .text-muted {
+    @apply text-neutral-500 dark:text-neutral-500;
+  }
+  .border-subtle {
+    @apply border-neutral-200 dark:border-neutral-700;
   }
 
-  &:checked,
-  &[selected] {
-    background-color: #e5e7eb;
-    color: #111827;
-  }
-}
-
-/* Dark mode for select options */
-.dark select option,
-.dark option {
-  background-color: #1f2937;
-  color: #e5e7eb;
-
-  &:hover,
-  &:focus {
-    background-color: #374151;
-    color: #f9fafb;
+  /* Button component */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
   }
 
-  &:checked,
-  &[selected] {
-    background-color: #4b5563;
-    color: #f9fafb;
-  }
-}
-
-/* Time input styling */
-input[type='time'],
-input[type='date'],
-input[type='datetime-local'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  accent-color: #6b7280;
-  color-scheme: light;
-
-  &::-webkit-calendar-picker-indicator {
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    background: transparent;
-    filter: invert(0.5);
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600;
   }
 
-  &::-webkit-datetime-edit {
-    padding: 0;
-    color: inherit;
-    background: transparent;
+  .btn-secondary {
+    @apply bg-neutral-200 text-neutral-800 hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600;
   }
 
-  &::-webkit-datetime-edit-fields-wrapper {
-    padding: 0;
-    color: inherit;
-    background: transparent;
+  .btn-ghost {
+    @apply hover:bg-neutral-200 dark:hover:bg-neutral-700;
   }
 
-  &::-webkit-datetime-edit-text {
-    color: inherit;
-    background: transparent;
+  .btn-link {
+    @apply text-primary-600 underline-offset-4 hover:underline dark:text-primary-400;
   }
 
-  &::-webkit-datetime-edit-month-field,
-  &::-webkit-datetime-edit-day-field,
-  &::-webkit-datetime-edit-year-field,
-  &::-webkit-datetime-edit-hour-field,
-  &::-webkit-datetime-edit-minute-field,
-  &::-webkit-datetime-edit-second-field,
-  &::-webkit-datetime-edit-millisecond-field,
-  &::-webkit-datetime-edit-meridiem-field {
-    color: inherit;
-    background: transparent;
-
-    &:focus {
-      background-color: rgba(107, 114, 128, 0.2);
-      color: inherit;
-      outline: none;
-    }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600;
   }
 
-  /* Remove blue focus outline and accents */
-  &:focus,
-  &:active {
-    outline: none;
-    border-color: #9ca3af;
-    box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-    accent-color: #6b7280;
-  }
-}
-
-/* Dark mode for time inputs */
-.dark input[type='time'],
-.dark input[type='date'],
-.dark input[type='datetime-local'] {
-  color-scheme: dark;
-  accent-color: #9ca3af;
-
-  &::-webkit-calendar-picker-indicator {
-    filter: invert(0.8);
+  /* Stat card component */
+  .stat-card {
+    @apply flex flex-col items-center;
   }
 
-  &:focus,
-  &:active {
-    accent-color: #9ca3af;
-  }
-}
-
-/* Custom dropdown styling */
-.custom-select {
-  position: relative;
-
-  select {
-    cursor: pointer;
-
-    &:focus {
-      border-color: #9ca3af;
-      box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-    }
+  .stat-icon-wrapper {
+    @apply mb-0.5 flex items-center;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #9ca3af;
-    pointer-events: none;
-  }
-}
-
-/* Remove default browser styling for form elements */
-input,
-select,
-textarea {
-  &:focus {
-    outline: none;
+  .stat-icon {
+    @apply mr-1 flex h-6 w-6 items-center justify-center rounded-full;
   }
 
-  &::-moz-focus-inner {
-    border: 0;
+  .stat-value {
+    @apply text-primary text-sm font-bold;
   }
-}
 
-/* Global override for all blue accents */
-* {
-  accent-color: #6b7280;
-}
+  .stat-label {
+    @apply text-muted text-center text-xs;
+  }
 
-.dark * {
-  accent-color: #9ca3af;
-}
+  /* Practice card component */
+  .practice-card {
+    @apply surface-elevated relative flex cursor-pointer items-center rounded-xl p-4 shadow-sm transition-all duration-200 hover:shadow-md;
+  }
 
-/* Force override browser default colors */
-::-webkit-calendar-picker-indicator {
-  filter: invert(0.5);
-}
+  .practice-icon-wrapper {
+    @apply mr-4 flex h-12 w-12 items-center justify-center rounded-full;
+  }
 
-.dark ::-webkit-calendar-picker-indicator {
-  filter: invert(0.8);
-}
+  .practice-level-badge {
+    @apply absolute right-3 top-3 inline-block rounded-md px-2 py-1 text-xs font-medium text-muted;
+  }
 
-/* Override any remaining blue colors */
-select:focus,
-input:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-}
+  .practice-title {
+    @apply text-primary text-base font-semibold;
+  }
 
-/* Specific overrides for common form elements */
-.form-control:focus,
-.form-select:focus,
-.form-input:focus {
-  border-color: #9ca3af;
-  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
-}
+  .practice-description {
+    @apply text-secondary mt-1 text-xs;
+  }
 
-/* Practice Color System */
-:root {
-  /* Basic Practices - Warm Amber */
-  --practice-basic-50: 255 251 235;
-  --practice-basic-100: 254 243 199;
-  --practice-basic-200: 253 230 138;
-  --practice-basic-300: 252 211 77;
-  --practice-basic-400: 251 191 36;
-  --practice-basic-500: 245 158 11;
-  --practice-basic-600: 217 119 6;
-  --practice-basic-700: 180 83 9;
+  /* Surface variants */
+  .surface-subtle {
+    @apply bg-neutral-100 dark:bg-neutral-800;
+  }
 
-  /* Small State - Emerald Green */
-  --practice-small-50: 236 253 245;
-  --practice-small-100: 209 250 229;
-  --practice-small-200: 167 243 208;
-  --practice-small-300: 110 231 183;
-  --practice-small-400: 52 211 153;
-  --practice-small-500: 16 185 129;
-  --practice-small-600: 5 150 105;
-  --practice-small-700: 4 120 87;
+  .surface-muted {
+    @apply bg-neutral-200 dark:bg-neutral-700;
+  }
 
-  /* Yichudim - Violet */
-  --practice-yichudim-50: 245 243 255;
-  --practice-yichudim-100: 237 233 254;
-  --practice-yichudim-200: 221 214 254;
-  --practice-yichudim-300: 196 181 253;
-  --practice-yichudim-400: 167 139 250;
-  --practice-yichudim-500: 139 92 246;
-  --practice-yichudim-600: 124 58 237;
-  --practice-yichudim-700: 109 40 217;
+  /* Icon button components */
+  .icon-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-full transition-colors;
+  }
 
-  /* Intention - Indigo */
-  --practice-intention-50: 238 242 255;
-  --practice-intention-100: 224 231 255;
-  --practice-intention-200: 199 210 254;
-  --practice-intention-300: 165 180 252;
-  --practice-intention-400: 129 140 248;
-  --practice-intention-500: 99 102 241;
-  --practice-intention-600: 79 70 229;
-  --practice-intention-700: 67 56 202;
+  .icon-btn-primary {
+    @apply icon-btn bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700;
+  }
 
-  /* Custom Colors for Inline Styles */
-  --color-fire: 180 83 9;
-  --color-chart: 59 74 92;
-  --color-calendar: 16 185 129;
-  --color-schedule: 99 102 241;
-  --color-psychology: 217 119 6;
-  --color-history: 8 145 178;
-  --color-man: 244 63 94;
-  --color-my-location: 236 72 153;
-  --color-trending: 249 115 22;
-  --color-sunny: 180 83 9;
-  --color-self-improvement: 22 163 74;
-  --color-auto-awesome: 124 58 237;
-  --color-track-changes: 79 70 229;
-}
+  .icon-btn-nav {
+    @apply flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200;
+  }
 
-/* Color Utility Classes for Inline Styles */
-.bg-fire-10 {
-  background-color: rgba(var(--color-fire), 0.1);
-}
-.text-fire {
-  color: rgb(var(--color-fire));
-}
+  /* Navigation components */
+  .nav-item {
+    @apply relative flex flex-1 flex-col items-center justify-center rounded-xl px-3 py-3 text-center text-slate-400 transition-all duration-200 hover:text-primary-500 hover:bg-primary-500/5 hover:-translate-y-px active:translate-y-0 dark:text-slate-600 dark:hover:text-slate-300 dark:hover:bg-slate-300/10;
+  }
 
-.bg-chart-10 {
-  background-color: rgba(var(--color-chart), 0.1);
-}
-.text-chart {
-  color: rgb(var(--color-chart));
-}
+  .nav-item-disabled {
+    @apply nav-item cursor-not-allowed opacity-40;
+  }
 
-.bg-calendar-10 {
-  background-color: rgba(var(--color-calendar), 0.1);
-}
-.text-calendar {
-  color: rgb(var(--color-calendar));
-}
+  .nav-indicator {
+    @apply absolute -top-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-b-sm;
+  }
 
-.bg-schedule-10 {
-  background-color: rgba(var(--color-schedule), 0.1);
-}
-.text-schedule {
-  color: rgb(var(--color-schedule));
-}
+  /* Card components */
+  .card {
+    @apply surface-elevated rounded-xl shadow-sm;
+  }
 
-.bg-psychology-10 {
-  background-color: rgba(var(--color-psychology), 0.1);
-}
-.text-psychology {
-  color: rgb(var(--color-psychology));
-}
+  .card-padded {
+    @apply card p-4;
+  }
 
-.bg-history-10 {
-  background-color: rgba(var(--color-history), 0.1);
-}
-.text-history {
-  color: rgb(var(--color-history));
-}
+  .card-large {
+    @apply card p-6;
+  }
 
-.bg-man-10 {
-  background-color: rgba(var(--color-man), 0.1);
-}
-.text-man {
-  color: rgb(var(--color-man));
-}
-
-.bg-my-location-10 {
-  background-color: rgba(var(--color-my-location), 0.1);
-}
-.text-my-location {
-  color: rgb(var(--color-my-location));
-}
-
-.bg-trending-10 {
-  background-color: rgba(var(--color-trending), 0.1);
-}
-.text-trending {
-  color: rgb(var(--color-trending));
-}
-
-.bg-sunny-10 {
-  background-color: rgba(var(--color-sunny), 0.1);
-}
-.text-sunny {
-  color: rgb(var(--color-sunny));
-}
-
-.bg-self-improvement-10 {
-  background-color: rgba(var(--color-self-improvement), 0.1);
-}
-.text-self-improvement {
-  color: rgb(var(--color-self-improvement));
-}
-
-.bg-auto-awesome-10 {
-  background-color: rgba(var(--color-auto-awesome), 0.1);
-}
-.text-auto-awesome {
-  color: rgb(var(--color-auto-awesome));
-}
-
-.bg-track-changes-10 {
-  background-color: rgba(var(--color-track-changes), 0.1);
-}
-.text-track-changes {
-  color: rgb(var(--color-track-changes));
-}
-
-/* Dark mode overrides for color utility classes */
-.dark .bg-fire-10 {
-  background-color: rgba(var(--color-fire), 0.1);
-}
-.dark .bg-chart-10 {
-  background-color: rgba(var(--color-chart), 0.1);
-}
-.dark .bg-calendar-10 {
-  background-color: rgba(var(--color-calendar), 0.1);
-}
-.dark .bg-schedule-10 {
-  background-color: rgba(var(--color-schedule), 0.1);
-}
-.dark .bg-psychology-10 {
-  background-color: rgba(var(--color-psychology), 0.1);
-}
-.dark .bg-history-10 {
-  background-color: rgba(var(--color-history), 0.1);
-}
-.dark .bg-man-10 {
-  background-color: rgba(var(--color-man), 0.1);
-}
-.dark .bg-my-location-10 {
-  background-color: rgba(var(--color-my-location), 0.1);
-}
-.dark .bg-trending-10 {
-  background-color: rgba(var(--color-trending), 0.1);
-}
-.dark .bg-sunny-10 {
-  background-color: rgba(var(--color-sunny), 0.1);
-}
-.dark .bg-self-improvement-10 {
-  background-color: rgba(var(--color-self-improvement), 0.1);
-}
-.dark .bg-auto-awesome-10 {
-  background-color: rgba(var(--color-auto-awesome), 0.1);
-}
-.dark .bg-track-changes-10 {
-  background-color: rgba(var(--color-track-changes), 0.1);
-}
-
-/* Practice Utility Classes */
-.practice-basic {
-  --primary-color: var(--practice-basic-500);
-  --primary-color-light: var(--practice-basic-300);
-  --primary-color-dark: var(--practice-basic-600);
-}
-
-.practice-small {
-  --primary-color: var(--practice-small-500);
-  --primary-color-light: var(--practice-small-300);
-  --primary-color-dark: var(--practice-small-600);
-}
-
-.practice-yichudim {
-  --primary-color: var(--practice-yichudim-500);
-  --primary-color-light: var(--practice-yichudim-300);
-  --primary-color-dark: var(--practice-yichudim-600);
-}
-
-.practice-intention {
-  --primary-color: var(--practice-intention-500);
-  --primary-color-light: var(--practice-intention-300);
-  --primary-color-dark: var(--practice-intention-600);
+  /* Header component */
+  .header-container {
+    @apply fixed left-0 right-0 top-0 z-50 border-b border-subtle bg-white/80 backdrop-blur-md dark:bg-neutral-900/80;
+  }
 }

@@ -14,7 +14,7 @@ import {
   selector: 'app-reminder-form',
   imports: [CommonModule, FormsModule],
   templateUrl: './reminder-form.component.html',
-  styleUrls: ['./reminder-form.component.scss'],
+  
 })
 export class ReminderFormComponent implements OnInit {
   @Input() reminder: Reminder | null = null;

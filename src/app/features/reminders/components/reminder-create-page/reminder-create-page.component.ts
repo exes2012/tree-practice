@@ -20,7 +20,7 @@ import {
   selector: 'app-reminder-create-page',
   imports: [CommonModule, FormsModule, CustomTimePickerComponent, CustomSelectComponent],
   templateUrl: './reminder-create-page.component.html',
-  styleUrls: ['./reminder-create-page.component.scss'],
+  
 })
 export class ReminderCreatePageComponent implements OnInit {
   isEditing = false;

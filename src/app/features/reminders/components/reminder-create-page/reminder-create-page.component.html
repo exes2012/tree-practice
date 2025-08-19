@@ -1,15 +1,15 @@
 <div class="flex h-full flex-col">
   <!-- Header -->
   <div
-    class="flex items-center border-b border-gray-100 bg-white px-4 py-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+    class="flex items-center border-b border-subtle surface-elevated px-4 py-3 shadow-sm"
   >
     <button
       (click)="goBack()"
-      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 transition-colors hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600"
     >
-      <i class="material-icons text-gray-500">arrow_back</i>
+      <i class="material-icons text-muted">arrow_back</i>
     </button>
-    <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+    <h1 class="text-primary text-lg font-semibold">
       {{ isEditing ? 'Редактировать напоминание' : 'Новое напоминание' }}
     </h1>
   </div>
@@ -28,7 +28,7 @@
       <form (ngSubmit)="onSubmit()" class="space-y-4">
         <!-- Title -->
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
+          <label class="text-primary mb-2 block text-sm font-medium">
             Название *
           </label>
           <input
@@ -36,7 +36,7 @@
             [(ngModel)]="title"
             name="title"
             placeholder="Например: Утренняя медитация"
-            class="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            class="w-full rounded-lg border border-subtle surface-elevated p-3 text-primary focus:border-transparent focus:ring-2 focus:ring-primary-500"
             [class.border-red-500]="errors['title']"
           />
           <p *ngIf="errors['title']" class="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -46,7 +46,7 @@
 
         <!-- Message -->
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
+          <label class="text-primary mb-2 block text-sm font-medium">
             Текст напоминания *
           </label>
           <textarea
@@ -54,7 +54,7 @@
             name="message"
             rows="3"
             placeholder="Текст, который будет показан в уведомлении"
-            class="w-full resize-none rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            class="w-full resize-none rounded-lg border border-subtle surface-elevated p-3 text-primary focus:border-transparent focus:ring-2 focus:ring-primary-500"
             [class.border-red-500]="errors['message']"
           >
           </textarea>
@@ -65,7 +65,7 @@
 
         <!-- Category -->
         <div>
-          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+          <label class="text-primary mb-3 block text-sm font-medium">
             Категория
           </label>
           <app-custom-select
@@ -79,7 +79,7 @@
 
         <!-- Time -->
         <div>
-          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+          <label class="text-primary mb-3 block text-sm font-medium">
             Время *
           </label>
           <app-custom-time-picker [(ngModel)]="time" name="time"> </app-custom-time-picker>
@@ -90,7 +90,7 @@
 
         <!-- Days -->
         <div>
-          <label class="mb-3 block text-sm font-medium text-gray-900 dark:text-gray-100">
+          <label class="text-primary mb-3 block text-sm font-medium">
             Дни недели *
           </label>
 
@@ -99,28 +99,28 @@
             <button
               type="button"
               (click)="selectAllDays()"
-              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+              class="rounded-full border border-subtle px-3 py-1 text-xs font-medium text-secondary transition-colors hover:bg-neutral-50 dark:text-muted dark:hover:bg-neutral-700"
             >
               Все дни
             </button>
             <button
               type="button"
               (click)="selectWeekdays()"
-              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+              class="rounded-full border border-subtle px-3 py-1 text-xs font-medium text-secondary transition-colors hover:bg-neutral-50 dark:text-muted dark:hover:bg-neutral-700"
             >
               Будни
             </button>
             <button
               type="button"
               (click)="selectWeekends()"
-              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+              class="rounded-full border border-subtle px-3 py-1 text-xs font-medium text-secondary transition-colors hover:bg-neutral-50 dark:text-muted dark:hover:bg-neutral-700"
             >
               Выходные
             </button>
             <button
               type="button"
               (click)="clearDays()"
-              class="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+              class="rounded-full border border-subtle px-3 py-1 text-xs font-medium text-secondary transition-colors hover:bg-neutral-50 dark:text-muted dark:hover:bg-neutral-700"
             >
               Очистить
             </button>
@@ -132,19 +132,19 @@
               *ngFor="let day of weekDays"
               type="button"
               (click)="toggleDay(day.id)"
-              [class.bg-gray-600]="isDaySelected(day.id)"
+              [class.bg-primary-600]="isDaySelected(day.id)"
               [class.text-white]="isDaySelected(day.id)"
-              [class.border-gray-600]="isDaySelected(day.id)"
-              [class.bg-white]="!isDaySelected(day.id)"
-              [class.text-gray-700]="!isDaySelected(day.id)"
-              [class.border-gray-300]="!isDaySelected(day.id)"
-              class="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              [class.border-primary-600]="isDaySelected(day.id)"
+              [class.surface-elevated]="!isDaySelected(day.id)"
+              [class.text-primary]="!isDaySelected(day.id)"
+              [class.border-subtle]="!isDaySelected(day.id)"
+              class="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium transition-all duration-200 hover:scale-105 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100"
             >
               {{ day.short }}
             </button>
           </div>
 
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <p class="text-secondary text-sm">
             Выбрано: {{ getSelectedDaysText() }}
           </p>
           <p *ngIf="errors['days']" class="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -157,7 +157,7 @@
           <button
             type="submit"
             [disabled]="isSubmitting"
-            class="btn-primary flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-medium disabled:cursor-not-allowed disabled:opacity-50"
+            class="btn btn-primary flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-medium disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span
               *ngIf="isSubmitting"

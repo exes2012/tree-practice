@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
   selector: 'app-goals-practice',
   imports: [],
   templateUrl: './goals-practice.component.html',
-  styleUrl: './goals-practice.component.scss',
+  
 })
 export class GoalsPracticeComponent {
   constructor(private location: Location) {}

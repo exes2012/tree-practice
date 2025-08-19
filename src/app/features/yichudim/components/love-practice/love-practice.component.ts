@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-love-practice',
   templateUrl: './love-practice.component.html',
-  styleUrls: ['./love-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

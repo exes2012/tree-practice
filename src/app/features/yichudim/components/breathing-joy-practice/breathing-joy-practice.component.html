@@ -7,8 +7,8 @@
 >
   <ng-template #stepContent let-step let-i="index">
     <div *ngIf="i !== 5">
-      <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">{{ step.title }}</h2>
-      <p class="mb-6 text-gray-700 dark:text-gray-300" [innerHTML]="step.instruction"></p>
+      <h2 class="text-primary mb-2 text-xl font-semibold">{{ step.title }}</h2>
+      <p class="text-secondary mb-6" [innerHTML]="step.instruction"></p>
     </div>
 
     <div *ngIf="i === 5" class="text-center">
@@ -17,7 +17,7 @@
         <div class="font-mono text-3xl font-bold text-purple-600 dark:text-purple-400">
           {{ getFormattedTimer() }}
         </div>
-        <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <div class="text-secondary mt-1 text-sm">
           Циклов: {{ breathingCycles }}
         </div>
       </div>
@@ -38,12 +38,12 @@
             }"
           >
             <div class="text-center">
-              <div class="text-lg font-semibold text-gray-800 dark:text-gray-200 md:text-2xl">
+              <div class="text-primary text-lg font-semibold md:text-2xl">
                 {{ getBreathingStateText() }}
               </div>
               <div
                 *ngIf="breathingState !== 'stopped'"
-                class="mt-1 text-base text-gray-600 dark:text-gray-400 md:mt-2 md:text-lg"
+                class="text-secondary mt-1 text-base md:mt-2 md:text-lg"
               >
                 {{ breathingPhaseTimer }}
               </div>
@@ -53,7 +53,7 @@
       </div>
 
       <!-- Instructions -->
-      <div class="mb-4 text-sm text-gray-700 dark:text-gray-300 md:text-base">
+      <div class="text-secondary mb-4 text-sm md:text-base">
         <p class="mb-2">
           Вдох на счет 8 (хет), удерживание на счет 4 (далет), выдох на счет 6 (вав), отдых на счет
           5 (хей).
@@ -66,7 +66,7 @@
         <button
           *ngIf="!isBreathingActive"
           (click)="startBreathing()"
-          class="flex w-full items-center justify-center rounded-lg bg-green-500 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-green-600 md:w-auto"
+          class="btn bg-green-500 text-white w-full md:w-auto"
         >
           <i class="material-icons mr-2">play_arrow</i>
           Начать дыхание
@@ -75,7 +75,7 @@
         <button
           *ngIf="isBreathingActive"
           (click)="stopBreathing()"
-          class="flex w-full items-center justify-center rounded-lg bg-red-500 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-red-600 md:w-auto"
+          class="btn bg-red-500 text-white w-full md:w-auto"
         >
           <i class="material-icons mr-2">stop</i>
           Остановить

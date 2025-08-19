@@ -27,7 +27,7 @@ interface IntentionPractice {
   standalone: true,
   imports: [CommonModule, HomeHeaderComponent],
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
+  
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('fixedSection') fixedSection!: ElementRef;

@@ -5,7 +5,7 @@ import { Goal } from '@app/core/services/goal.service';
 @Component({
   selector: 'app-goal-card',
   templateUrl: './goal-card.component.html',
-  styleUrls: ['./goal-card.component.scss'],
+  
   standalone: true,
   imports: [CommonModule],
 })

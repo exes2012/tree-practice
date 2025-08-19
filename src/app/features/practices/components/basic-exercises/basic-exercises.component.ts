@@ -10,7 +10,7 @@ import { PracticePageLayoutComponent } from '@app/shared/components/practice-pag
 @Component({
   selector: 'app-basic-exercises',
   templateUrl: './basic-exercises.component.html',
-  styleUrls: ['./basic-exercises.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeListComponent, PracticePageLayoutComponent],
 })

@@ -7,9 +7,6 @@ import { SmallStatePracticeComponent } from './components/small-state-practice/s
 import { ManPracticeComponent } from './components/man-practice/man-practice.component';
 import { GoalsPracticeComponent } from './components/goals-practice/goals-practice.component';
 import { FallRecoveryComponent } from './components/fall-recovery/fall-recovery.component';
-import { CreatorSpacePracticeComponent } from './components/small-state-practice/creator-space-practice.component';
-import { ZeirAnpinSpacePracticeComponent } from './components/small-state-practice/zeir-anpin-space-practice.component';
-import { NetzHodLinePracticeComponent } from './components/small-state-practice/netz-hod-line-practice.component';
 
 import { SpaceClarificationPracticeComponent } from './components/man-practice/space-clarification-practice.component';
 

@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-candle-flame-practice',
   templateUrl: './candle-flame-practice.component.html',
-  styleUrls: ['./candle-flame-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })

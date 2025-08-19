@@ -9,7 +9,7 @@ import { Reminder, REMINDER_CATEGORIES, getCategoryInfo } from '@app/core/models
   selector: 'app-reminders-list',
   imports: [CommonModule],
   templateUrl: './reminders-list.component.html',
-  styleUrls: ['./reminders-list.component.scss'],
+  
 })
 export class RemindersListComponent implements OnInit, OnDestroy {
   reminders: Reminder[] = [];

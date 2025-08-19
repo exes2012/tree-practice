@@ -1,7 +1,7 @@
-<div class="note-editor flex h-full flex-col bg-white dark:bg-gray-900">
+<div class="note-editor surface flex h-full flex-col">
   <!-- Loading State -->
   <div *ngIf="isLoading" class="flex h-full items-center justify-center">
-    <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+    <div class="text-secondary flex items-center space-x-2">
       <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
       <span>Загрузка заметки...</span>
     </div>
@@ -11,16 +11,16 @@
   <div *ngIf="!isLoading" class="flex h-full flex-col">
     <!-- Header -->
     <div
-      class="editor-header sticky top-0 z-10 border-b border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+      class="editor-header sticky top-0 z-10 border-b border-subtle surface-elevated shadow-sm"
     >
       <div class="flex items-center justify-between px-4 py-3">
         <!-- Back Button and Title -->
         <div class="flex min-w-0 flex-1 items-center space-x-3">
           <button
             (click)="goBack()"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 transition-colors hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600"
           >
-            <i class="material-icons text-gray-500">arrow_back</i>
+            <i class="material-icons text-muted">arrow_back</i>
           </button>
 
           <div class="min-w-0 flex-1">
@@ -29,7 +29,7 @@
               [(ngModel)]="title"
               (ngModelChange)="onTitleChange()"
               placeholder="Заголовок заметки..."
-              class="w-full truncate border-none bg-transparent text-lg font-semibold text-gray-700 placeholder-gray-500 outline-none dark:text-gray-200 dark:placeholder-gray-400"
+              class="w-full truncate border-none bg-transparent text-lg font-semibold text-primary placeholder-muted outline-none"
             />
           </div>
         </div>
@@ -45,7 +45,7 @@
               [class.dark:bg-blue-900]="showFormatting"
               [class.text-blue-600]="showFormatting"
               [class.dark:text-blue-400]="showFormatting"
-              class="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              class="rounded-lg p-2 text-muted transition-colors hover:bg-neutral-100 dark:text-secondary dark:hover:bg-neutral-800"
               title="Форматирование"
             >
               <i class="material-icons text-lg">format_bold</i>
@@ -56,8 +56,8 @@
               *ngIf="!isNewNote"
               (click)="toggleFavorite()"
               [class.text-yellow-500]="note?.isFavorite"
-              [class.text-gray-400]="!note?.isFavorite"
-              class="rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              [class.text-muted]="!note?.isFavorite"
+              class="rounded-lg p-2 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
               [title]="note?.isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'"
             >
               <i class="material-icons text-lg">{{ note?.isFavorite ? 'star' : 'star_border' }}</i>
@@ -67,7 +67,7 @@
             <div class="relative md:hidden" *ngIf="!isNewNote">
               <button
                 (click)="showMobileMenu = !showMobileMenu"
-                class="rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                class="rounded-lg p-2 text-muted transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
               >
                 <i class="material-icons text-lg">more_vert</i>
               </button>
@@ -75,11 +75,11 @@
               <!-- Mobile Dropdown Menu -->
               <div
                 *ngIf="showMobileMenu"
-                class="absolute right-0 top-full z-20 mt-1 min-w-menu rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+                class="absolute right-0 top-full z-20 mt-1 min-w-menu rounded-lg border border-subtle surface-elevated shadow-lg"
               >
                 <button
                   (click)="deleteNote(); showMobileMenu = false"
-                  class="flex w-full items-center px-4 py-3 text-left text-red-500 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+                  class="flex w-full items-center px-4 py-3 text-left text-red-500 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-700"
                 >
                   <i class="material-icons mr-2 text-sm">delete</i>
                   Удалить
@@ -91,7 +91,7 @@
             <button
               *ngIf="!isNewNote"
               (click)="deleteNote()"
-              class="hidden rounded-lg p-2 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 md:flex"
+              class="hidden rounded-lg p-2 text-muted transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 md:flex"
               title="Удалить заметку"
             >
               <i class="material-icons text-lg">delete</i>
@@ -123,16 +123,16 @@
       <!-- Formatting Toolbar -->
       <div
         *ngIf="showFormatting"
-        class="formatting-toolbar border-t border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800"
+        class="formatting-toolbar border-t border-subtle bg-neutral-50 p-3 dark:bg-neutral-700"
       >
         <div class="flex flex-wrap items-center gap-2 space-x-2">
           <!-- Lists -->
           <div
-            class="flex items-center space-x-1 border-r border-gray-300 pr-2 dark:border-gray-600"
+            class="flex items-center space-x-1 border-r border-neutral-300 pr-2 dark:border-neutral-600"
           >
             <button
               (click)="insertList()"
-              class="rounded border border-gray-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              class="rounded border border-neutral-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-neutral-50 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600"
               title="Маркированный список"
             >
               <i class="material-icons text-sm">format_list_bulleted</i>
@@ -140,7 +140,7 @@
 
             <button
               (click)="insertNumberedList()"
-              class="rounded border border-gray-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              class="rounded border border-neutral-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-neutral-50 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600"
               title="Нумерованный список"
             >
               <i class="material-icons text-sm">format_list_numbered</i>
@@ -151,7 +151,7 @@
           <div class="flex items-center space-x-1">
             <button
               (click)="insertHashtag()"
-              class="rounded border border-gray-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              class="rounded border border-neutral-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-neutral-50 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600"
               title="Хештег"
             >
               <span class="font-mono">#</span>
@@ -159,7 +159,7 @@
 
             <button
               (click)="insertHeading()"
-              class="rounded border border-gray-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+              class="rounded border border-neutral-300 bg-white px-3 py-1 text-sm transition-colors hover:bg-neutral-50 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600"
               title="Заголовок"
             >
               <i class="material-icons text-sm">title</i>
@@ -168,7 +168,7 @@
         </div>
 
         <!-- Quick Help -->
-        <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <div class="text-secondary mt-2 text-xs">
           <span class="hidden sm:inline">Горячие клавиши: </span>
           <span class="font-mono">Ctrl+L</span> - список, <span class="font-mono">Enter</span> -
           продолжить список, <span class="font-mono">#хештег</span> - теги
@@ -190,7 +190,7 @@
 - Создавайте списки
 - Для структурирования мыслей
 - Нажмите Enter для продолжения списка"
-        class="w-full flex-1 resize-none border-none bg-transparent px-4 py-4 text-base leading-relaxed text-gray-900 outline-none dark:text-gray-100"
+        class="w-full flex-1 resize-none border-none bg-transparent px-4 py-4 text-base leading-relaxed text-primary outline-none"
         spellcheck="false"
       >
       </textarea>
@@ -198,9 +198,9 @@
 
     <!-- Footer -->
     <div
-      class="editor-footer border-t border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800"
+      class="editor-footer border-t border-subtle bg-neutral-50 p-4 dark:bg-neutral-700"
     >
-      <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+      <div class="text-secondary flex items-center justify-between text-sm">
         <!-- Stats -->
         <div class="flex items-center space-x-4">
           <span>{{ getWordCount() }} слов</span>
@@ -220,7 +220,7 @@
             </span>
             <span
               *ngIf="getTags().length > 5"
-              class="rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400"
+              class="text-secondary rounded-full bg-neutral-200 px-2 py-1 text-xs dark:bg-neutral-700"
             >
               +{{ getTags().length - 5 }}
             </span>
@@ -229,7 +229,7 @@
       </div>
 
       <!-- Last Modified -->
-      <div *ngIf="note && !isNewNote" class="mt-2 text-xs text-gray-400 dark:text-gray-500">
+      <div *ngIf="note && !isNewNote" class="text-secondary mt-2 text-xs dark:text-muted">
         <span *ngIf="note.createdAt === note.updatedAt">
           Создано {{ note.createdAt | date: 'dd.MM.yyyy, HH:mm' }}
         </span>

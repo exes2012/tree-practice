@@ -1,28 +1,28 @@
 <!-- Practice Header -->
 <div
-  class="practice-header sticky top-0 z-10 border-b border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+  class="practice-header sticky top-0 z-10 border-b border-subtle surface-elevated shadow-sm"
 >
   <div class="container mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
       <!-- Home Button -->
       <button
         (click)="onHomeClick()"
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+        class="icon-btn-primary"
       >
-        <i class="material-icons text-gray-500">home</i>
+        <i class="material-icons text-muted">home</i>
       </button>
 
       <!-- Practice Title -->
-      <h1 *ngIf="config?.title" class="text-chart mx-4 flex-1 text-center text-lg font-semibold">
+      <h1 *ngIf="config?.title" class="text-custom-chart mx-4 flex-1 text-center text-lg font-semibold">
         {{ config.title }}
       </h1>
 
       <!-- Voice Toggle Button -->
       <button
         (click)="onVoiceToggle()"
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+        class="icon-btn-primary"
       >
-        <i class="material-icons text-gray-500">{{
+        <i class="material-icons text-muted">{{
           isVoiceEnabled ? 'volume_up' : 'volume_off'
         }}</i>
       </button>
@@ -31,16 +31,16 @@
 </div>
 
 <!-- Practice Content -->
-<div class="container mx-auto bg-gray-50 px-4 pb-24 pt-4 dark:bg-gray-900">
-  <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
+<div class="surface container mx-auto px-4 pb-24 pt-4">
+  <div class="card-large">
     <!-- Step Content -->
     <div *ngIf="currentStep">
       <!-- Step content -->
-      <h2 *ngIf="currentStep.title" class="text-chart mb-2 text-xl font-semibold">
+      <h2 *ngIf="currentStep.title" class="text-custom-chart mb-2 text-xl font-semibold">
         {{ currentStep.title }}
       </h2>
       <p
-        class="mb-6 text-gray-500 dark:text-gray-400"
+        class="text-secondary mb-6"
         [innerHTML]="processedInstruction || currentStep.instruction"
       ></p>
 
@@ -56,11 +56,11 @@
               [value]="option.value"
               [checked]="getInputValue(currentStep.inputField) === option.value"
               (change)="onInputChange(currentStep.inputField, $event)"
-              class="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
+              class="h-4 w-4 rounded border-subtle surface-muted text-primary-600 focus:ring-2 focus:ring-primary-500"
             />
             <label
               [for]="currentStep.inputField + '_' + option.value"
-              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              class="text-primary ml-2 text-sm font-medium"
             >
               {{ option.label }}
             </label>
@@ -77,7 +77,7 @@
           [value]="getInputValue(currentStep.inputField)"
           (input)="onInputChange(currentStep.inputField, $event)"
           [placeholder]="getInputPlaceholder(currentStep.inputField)"
-          class="resize-vertical focus:ring-chart min-h-input w-full rounded-lg border border-gray-200 bg-white p-3 text-gray-700 focus:border-transparent focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          class="resize-vertical min-h-input w-full rounded-lg border border-subtle surface-elevated p-3 text-primary focus:border-transparent focus:ring-2 focus:ring-custom-chart"
         >
         </textarea>
 
@@ -98,10 +98,10 @@
             [attr.aria-valuemin]="1"
             [attr.aria-valuemax]="10"
             [attr.aria-valuenow]="getInputValue(currentStep.inputField)"
-            class="range-slider h-2 min-h-touch w-full cursor-pointer appearance-none rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:bg-gray-700"
+            class="range-slider h-2 min-h-touch w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-neutral-700"
           />
           <div class="mt-2 text-center">
-            <span class="text-lg font-semibold text-gray-700 dark:text-gray-300"
+            <span class="text-primary text-lg font-semibold"
               >{{ getInputValue(currentStep.inputField) }} / 10</span
             >
           </div>
@@ -138,13 +138,13 @@
               min="1"
               max="10"
               [(ngModel)]="userRating"
-              class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+              class="range-slider h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 dark:bg-neutral-700"
               (input)="onRatingChange($event)"
             />
           </div>
 
           <!-- Rating value display -->
-          <div class="text-lg font-semibold text-gray-700 dark:text-gray-300">
+          <div class="text-primary text-lg font-semibold">
             {{ userRating }} / 10
           </div>
         </div>
@@ -154,13 +154,13 @@
       <div *ngIf="currentStep?.repeatablePhrase" class="mt-4 text-center">
         <button
           (click)="onRepetitionToggle()"
-          class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+          class="icon-btn-primary mx-auto"
         >
-          <i class="material-icons text-gray-500">{{
+          <i class="material-icons text-muted">{{
             isRepetitionActive ? 'volume_off' : 'volume_up'
           }}</i>
         </button>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <p class="text-secondary mt-2 text-sm">
           {{ isRepetitionActive ? 'Остановить повтор' : 'Повторять фразу' }}
         </p>
       </div>
@@ -169,7 +169,7 @@
       <div class="mt-8 flex justify-between">
         <button
           (click)="navigation.isFirstStep ? onHomeClick() : onPreviousClick()"
-          class="rounded-lg bg-gray-200 px-6 py-2 font-semibold text-gray-700 transition-colors hover:bg-gray-300"
+          class="btn btn-secondary"
         >
           {{ getNavigationButtonText() }}
         </button>
@@ -177,7 +177,7 @@
         <button
           *ngIf="!currentStep.isFinalStep && !currentStep.showRating"
           (click)="onNextClick()"
-          class="bg-chart rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-gray-700"
+          class="btn bg-custom-chart text-white"
         >
           {{ currentStep.buttonText || 'Далее' }}
         </button>
@@ -185,7 +185,7 @@
         <button
           *ngIf="currentStep.isFinalStep || currentStep.showRating"
           (click)="onFinishPractice()"
-          class="bg-chart rounded-lg px-6 py-2 font-semibold text-white transition-colors hover:bg-gray-700"
+          class="btn bg-custom-chart text-white"
         >
           {{ currentStep.buttonText || 'Завершить' }}
         </button>

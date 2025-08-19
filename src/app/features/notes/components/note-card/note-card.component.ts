@@ -6,7 +6,7 @@ import { Note } from '../../../../core/services/notes.service';
   selector: 'app-note-card',
   imports: [CommonModule],
   templateUrl: './note-card.component.html',
-  styleUrls: ['./note-card.component.scss'],
+  
 })
 export class NoteCardComponent {
   @Input() note!: Note;

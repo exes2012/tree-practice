@@ -13,7 +13,7 @@ import { BottomNavigationComponent } from '../../../../shared/components/bottom-
   selector: 'app-notes-page',
   imports: [CommonModule, FormsModule, NoteCardComponent, BottomNavigationComponent],
   templateUrl: './notes-page.component.html',
-  styleUrls: ['./notes-page.component.scss'],
+  
 })
 export class NotesPageComponent implements OnInit, OnDestroy {
   notes: Note[] = [];

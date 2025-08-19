@@ -1,22 +1,22 @@
-<div class="goal-card @container" (click)="onCardClick()">
-  <div class="goal-image-container">
+<div class="@container surface-elevated relative mx-4 mt-4 flex cursor-pointer overflow-hidden rounded-xl shadow-sm transition-all duration-200 hover:shadow-lg" (click)="onCardClick()">
+  <div class="surface-subtle flex w-24 min-h-full flex-shrink-0 items-center justify-center">
     <img
       *ngIf="goal.imageUrl; else noImage"
       [src]="goal.imageUrl"
       alt="Goal Image"
-      class="goal-image"
+      class="h-full w-full object-cover"
     />
     <ng-template #noImage>
-      <div class="no-image-placeholder">
-        <img src="/assets/icons/no-image.svg" alt="No Image" class="no-image-icon" />
+      <div class="surface-muted flex h-full w-full items-center justify-center">
+        <img src="/assets/icons/no-image.svg" alt="No Image" class="h-12 w-12 opacity-50" />
       </div>
     </ng-template>
   </div>
-  <div class="goal-details">
-    <h3 class="goal-title">{{ goal.title }}</h3>
-    <p class="goal-practices-count">Проработок: {{ goal.practices.length }}</p>
+  <div class="flex flex-1 flex-col justify-center p-4">
+    <h3 class="text-primary mb-2 text-base font-semibold leading-snug">{{ goal.title }}</h3>
+    <p class="text-muted text-sm font-medium">Проработок: {{ goal.practices.length }}</p>
   </div>
-  <div *ngIf="goal.isMainGoal" class="main-goal-star">
-    <i class="material-icons">star</i>
+  <div *ngIf="goal.isMainGoal" class="absolute right-2 top-2 text-pink-600">
+    <i class="material-icons text-xl">star</i>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { PracticeService } from '@app/core/services/practice.service';
 @Component({
   selector: 'app-tetragrammaton-practice',
   templateUrl: './tetragrammaton-practice.component.html',
-  styleUrls: ['./tetragrammaton-practice.component.scss'],
+  
   standalone: true,
   imports: [CommonModule, PracticeLayoutComponent],
 })
